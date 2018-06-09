@@ -59,14 +59,11 @@
       <Link>EvoLib\EvoXML.cs</Link>
     </Compile>
     <Compile Include="Lang\EvoLang_FA.cs" />
-    <Compile Include="UIServerToolBar.cs" />
     <Compile Include="Lang\EvoLang_DE.cs" />
     <Compile Include="Lang\EvoLang_HI.cs" />
     <Compile Include="Lang\EvoLang_IT.cs" />
     <Compile Include="Lang\EvoLang_TR.cs" />
-    <Compile Include="Lang\EvolLang_ZH.cs" />
-    <Compile Include="UIServerGrid.cs" />
-    <Compile Include="UIServerJS.cs" />
+    <Compile Include="Lang\EvoLang_ZH.cs" />
     <Compile Include="Lang\EvoLang_CA.cs" />
     <Compile Include="Lang\EvoLang_DA.cs" />
     <Compile Include="Lang\EvoLang_ES.cs" />
@@ -75,10 +72,13 @@
     <Compile Include="Lang\EvoLang_PT.cs" />
     <Compile Include="Lang\EvoLang_RO.cs" />
     <Compile Include="Lang\EvoLang_RU.cs" />
+    <Compile Include="Lang\EvoLang.cs" />
+    <Compile Include="UIServerToolBar.cs" />
     <Compile Include="UIServerForms.cs" />
     <Compile Include="UIServerDB.cs" />
     <Compile Include="UIServerCom.cs" />
-    <Compile Include="Lang\EvoLang.cs" />
+    <Compile Include="UIServerGrid.cs" />
+    <Compile Include="UIServerJS.cs" />
     <Compile Include="UIServer.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIServer.cs" />

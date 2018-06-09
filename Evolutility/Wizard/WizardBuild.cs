@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Collections.Generic;
@@ -31,12 +34,12 @@ namespace Evolutility
 		{
 			StringBuilder myHTML = new StringBuilder();
 
-			myHTML.Append("<table width=\"100%\" class=\"Panel\" cellSpacing=\"1\" cellpadding=\"2\"><tr><td colspan=\"2\">");
-			myHTML.Append(HTMLInputTextRequiredFormated("appname", "", "Application title", 100, "Example: \"Address book\""));
+			myHTML.Append("<table width=\"100%\" class=\"Panel Holder\" cellSpacing=\"1\" cellpadding=\"4\"><tr><td colspan=\"2\">");
+			myHTML.Append(HTMLInputTextRequiredFormatted("appname", "", "Application title", 100, "Example: \"Address book\""));
 			myHTML.Append("</td></tr><tr valign=\"top\"><td width=\"50%\">");
-			myHTML.Append(HTMLInputTextRequiredFormated("entity", String.Empty, "Object name", 50, "Example: \"contact\""));
+			myHTML.Append(HTMLInputTextRequiredFormatted("entity", String.Empty, "Object name", 50, "Example: \"contact\""));
 			myHTML.Append("</td><td width=\"50%\">");
-			myHTML.Append(HTMLInputTextRequiredFormated("entities", String.Empty, "name plural", 50, "Example: \"contacts\""));
+			myHTML.Append(HTMLInputTextRequiredFormatted("entities", String.Empty, "name plural", 50, "Example: \"contacts\""));
 			myHTML.Append("</td></tr><tr><td colspan=\"2\">");
 			myHTML.Append(EvoUI.HTMLInputTextArea("Description", 5));
 			myHTML.Append("</td></tr></table>");
@@ -86,82 +89,90 @@ namespace Evolutility
 			bool YesNo = false;
 
 
-			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,typeid,typepix,type", "EvoDico_xfield", "formID=" + AppID, "ID", 0), _SqlConnection, ref ErrorMsg);
-			// ORDER BY positionlist 
-			DataTable t0 = ds.Tables[0];
+			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,typeid,typepix,type", "EvoDico_xfield", "formID=" + AppID, "ID", 0), _SqlConnectionDico, ref ErrorMsg);
+			if (ds != null)
 			{
-				for (int i = 0; i < t0.Rows.Count; i++)
+
+				// ORDER BY positionlist 
+				DataTable t0 = ds.Tables[0];
 				{
-					myHTML.Append(EvoUI.HTMLInputHidden("f_id" + (i + 1).ToString(), t0.Rows[i]["ID"].ToString()));
+					for (int i = 0; i < t0.Rows.Count; i++)
+					{
+						myHTML.Append(EvoUI.HTMLInputHidden("f_id" + (i + 1).ToString(), t0.Rows[i]["ID"].ToString()));
+					}
+					myHTML.Append(HTMLStepTableHeader(2));
+					for (int i = 0; i < t0.Rows.Count; i++)
+					{
+						buffer3 = ClassEvenOrOdd(YesNo);
+						myHTML.Append(EvoUI.TRcssEvenOrOdd(YesNo));
+						myHTML.Append("<tr").Append(buffer3).Append(" valign=\"top\"><td>");
+						myHTML.Append(EvoUI.HTMLIcon(_PathPix, t0.Rows[i]["typepix"].ToString(), t0.Rows[i]["type"].ToString()));
+						if (t0.Rows[i][xAttribute.label] != null)
+						{
+							myHTML.Append(t0.Rows[i][xAttribute.label].ToString());
+						}
+						myHTML.Append("</td><td>");
+						buffer2 = (i + 1).ToString();
+						int fieldTypeID = Convert.ToInt32(t0.Rows[i]["typeid"]);
+						switch (fieldTypeID)
+						{
+							case 5: //txt 
+								myHTML.Append("Max.Length ");
+								myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 3));
+								break;
+							case 6: //txt multiline 
+								myHTML.Append("Max.Length ");
+								myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 5));
+								myHTML.Append("Height ");
+								myHTML.Append(EvoUI.HTMLInputText("f_h" + buffer2, "3", 2));
+								break;
+							case 4: //lov 
+								myHTML.Append("List of Values (comma separated) <textarea style=\"width:100%;\" class=\"Field\" rows=\"3\" cols=\"52\" name=\"f_op").Append(buffer2);
+								myHTML.Append("\" onKeyUp=\"EvoVal.checkMaxLen(this,1000)\"></textarea>");
+								break;
+							case 2: //date 
+							case 17: //date-time 
+							case 18: //time 
+								myHTML.Append("Format <select ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\">");
+								myHTML.Append(HTMLOptionsDateFormats(fieldTypeID));
+								myHTML.Append("</select>");
+								break;
+							case 9: //decimal
+							case 10: //integer
+								myHTML.Append("Format <input class=\"Field\" ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\" value=\"\" maxlength=\"12\">");
+								break;
+							case 1: //boolean 
+								myHTML.Append("Picture <select ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\">");
+								myHTML.Append("<option value=\"\" selected>- Default -");
+								myHTML.Append(EvoUI.HTMLOption("checkr.gif", "Red checkmark"));
+								myHTML.Append(EvoUI.HTMLOption("checkg.gif", "Green checkmark"));
+								myHTML.Append(EvoUI.HTMLOption(EvoUI.PixCheck, "Black checkmark"));
+								myHTML.Append("</select>");
+								break;
+							default:
+								myHTML.Append(lang_NA);
+								break;
+						}
+						if (fieldTypeID == 1)
+						{
+							// booleans cannot be required
+							myHTML.Append("<td></td></tr>");
+						}
+						else
+						{
+							myHTML.Append("<td><input type=\"checkbox\" name=\"f_rq").Append(buffer2);
+							if (i < 4)
+								myHTML.Append(EvoUI.qChecked);
+							myHTML.Append("\" value=\"1\"></td></tr>");
+						}
+						YesNo = !YesNo;
+					}
+					myHTML.Append("</table></span>");
 				}
-				myHTML.Append(HTMLStepTableHeader(2));
-				for (int i = 0; i < t0.Rows.Count; i++)
-				{
-					buffer3 = ClassEvenOrOdd(YesNo);
-					myHTML.Append(EvoUI.TRcssEvenOrOdd(YesNo));
-					myHTML.Append("<tr").Append(buffer3).Append(" valign=\"top\"><td>");
-					myHTML.Append(EvoUI.HTMLIcon(_PathPix, t0.Rows[i]["typepix"].ToString(), t0.Rows[i]["type"].ToString()));
-					if (t0.Rows[i][xAttribute.label] != null)
-					{
-						myHTML.Append(t0.Rows[i][xAttribute.label].ToString());
-					}
-					myHTML.Append("</td><td>");
-					buffer2 = (i + 1).ToString();
-					int fieldTypeID = Convert.ToInt32(t0.Rows[i]["typeid"]);
-					switch (fieldTypeID)
-					{
-						case 5: //txt 
-							myHTML.Append("Max.Length ");
-							myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 3));
-							break;
-						case 6: //txt multiline 
-							myHTML.Append("Max.Length ");
-							myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 5));
-							myHTML.Append("Height ");
-							myHTML.Append(EvoUI.HTMLInputText("f_h" + buffer2, "3", 2));
-							break;
-						case 4: //lov 
-							myHTML.Append("List of Values (comma separated) <textarea style=\"width:100%;\" class=\"Field\" rows=\"3\" cols=\"52\" name=\"f_op").Append(buffer2);
-							myHTML.Append("\" onKeyUp=\"EvoVal.checkMaxLen(this,1000)\"></textarea>");
-							break;
-						case 2: //date 
-						case 17: //date-time 
-						case 18: //time 
-							myHTML.Append("Format <select ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\">");
-							myHTML.Append(HTMLOptionsDateFormats(fieldTypeID));
-							myHTML.Append("</select>");
-							break;
-						case 9: //decimal
-						case 10: //integer
-							myHTML.Append("Format <input class=\"Field\" ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\" value=\"\" maxlength=\"12\">");
-							break;
-						case 1: //boolean 
-							myHTML.Append("Picture <select ").Append(buffer3).Append(" name=\"f_ft").Append(buffer2).Append("\">");
-							myHTML.Append("<option value=\"\" selected>- Default -");
-							myHTML.Append(EvoUI.HTMLOption("checkr.gif", "Red checkmark"));
-							myHTML.Append(EvoUI.HTMLOption("checkg.gif", "Green checkmark"));
-							myHTML.Append(EvoUI.HTMLOption(EvoUI.PixCheck, "Black checkmark"));
-							myHTML.Append("</select>");
-							break;
-						default:
-							myHTML.Append(lang_NA);
-							break;
-					}
-					if (fieldTypeID == 4 || fieldTypeID == 1)
-					{
-						// no required LOV or booleans (for now)
-						myHTML.Append("<td></td></tr>");
-					}
-					else
-					{
-						myHTML.Append("<td><input type=\"checkbox\" name=\"f_rq").Append(buffer2);
-						if (i < 4)
-							myHTML.Append(EvoUI.qChecked);
-						myHTML.Append("\" value=\"1\"></td></tr>");
-					}
-					YesNo = !YesNo;
-				}
-				myHTML.Append("</table></span>");
+			}
+			else 
+			{
+				myHTML.Append(EvoUI.HTMLMessage("There was an error.", EvoUI.MsgType.Info));
 			}
 			return myHTML.ToString();
 		}
@@ -171,7 +182,7 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 			string buffer, buffer2, buffer3;
 
-			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,typeid,typepix,type,search,searchadv,searchlist", "EvoDico_xField", "formID=" + AppID, "fpos,id", 0), _SqlConnection, ref ErrorMsg);
+			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,typeid,typepix,type,search,searchadv,searchlist", "EvoDico_xField", "formID=" + AppID, "fpos,id", 0), _SqlConnectionDico, ref ErrorMsg);
 			DataTable t0 = ds.Tables[0];
 			int NbRow = t0.Rows.Count;
 			for (int i = 0; i < NbRow; i++)
@@ -238,7 +249,7 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 			string buffer, buffer2, buffer3;
 			bool YesNo = false;
-			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,type,typepix", "EvoDico_xfield", string.Format("formID={0}", AppID), " fpos,id", 0), _SqlConnection, ref ErrorMsg);
+			ds = EvoDB.GetData(EvoDB.BuildSQL("ID,label,type,typepix", "EvoDico_xfield", string.Format("formID={0}", AppID), " fpos,id", 0), _SqlConnectionDico, ref ErrorMsg);
 			DataTable t0 = ds.Tables[0];
 			int ml = t0.Rows.Count;
 			for (int i = 0; i < ml; i++)

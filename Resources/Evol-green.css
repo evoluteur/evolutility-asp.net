@@ -1,5 +1,7 @@
 /* ######### CSS for Evolutility web site & web control ######### */
-/* (c) Olivier Giulieri 2003-2009 */
+/*  www.evolutility.org - (c) Olivier Giulieri 2003-2011  */
+
+/* ######### Evolutility 3.6 ######### */
 
 /* ######### Evolutility.org ######### */
 BODY {
@@ -66,9 +68,8 @@ text-decoration: none;
 }
 #menu{
 position: absolute;
-top:50px;
-right: 20px;
-bottom: 0px;
+top:53px;
+right:10px; 
 min-width:410px;
 } 
 #menu a{ 
@@ -93,9 +94,12 @@ text-decoration: underline;
 } 
 td.LeftPane{
 background-color:#EFF7F1;
-border-right:solid 1 #C9D6E9; 
+border-right:solid 1px #C9D6E9; 
 padding-left:16;
 padding-right:16;
+height:555px;
+width:150px;
+min-width:150px;
 }
 div.links
 {
@@ -111,7 +115,7 @@ div.links div a.sel:active, div.links div a.sel:visited{
 }
 div.links div.sel{ 
 	background-color: #FFFFFF;
-	border: solid 1 #cccccc;
+	border: solid 1px #cccccc;
 }
 
 ul.links2{
@@ -179,6 +183,23 @@ padding-top: 1.0em;
 	top:69px;
 	left:416px;
 }
+.bigTxt{
+font-size:20; 
+}
+.SimpleGrid{  
+	width:100%
+}
+.SimpleGrid, SimpleGrid tr, SimpleGrid tr td { 
+	border:solid 1px #C9D6E9;
+	vertical-align:top;
+}
+
+.dft{ 
+	border: 2px solid #A7C8E2;
+	margin: 6px 3px 12px 3px;
+	border-radius: 10px;
+	padding: 10px; 
+}
 /* ######### Evolutility documentation ######### */
 .code 
 { 
@@ -186,7 +207,7 @@ padding-top: 1.0em;
 	color : #000000;
 	text-decoration: none;
 	font-family:Courier;
-	border: solid 1 #A2A2A2;
+	border: solid 1px #A2A2A2;
     padding-top: 20px;
 	padding-bottom: 20px;
 	padding-left: 5px;
@@ -205,9 +226,13 @@ padding-top: 1.0em;
 }
  
 /* ######### Evolutility control ######### */
-/* ######### CSS for Evolutility web control ######### */
-/* (c) Olivier Giulieri 2009 */
+/* ######### CSS for Evolutility 3.6 ######### */
+/* (c) Olivier Giulieri 2003-2011 */
 
+#EVOL_Title {
+	padding:10px;
+	font-size:larger;
+}
 div.Evo{
 	width:100%;
 	margin:0;
@@ -215,10 +240,23 @@ div.Evo{
 	border-collapse:collapse;
     border:solid 1px #bbbbbb; 
     background-color: #EFF7F1; 
-	}
+}
 div.Evo TR{vertical-align:top}
+.R2L{
+	direction:rtl;
+	font-family:Ezra SIL;
+}
+.clear{
+	clear:both;
+}
 img.Icon{
-	margin-left:4px; margin-right:4px; border:0}
+	margin-left:4px; margin-right:4px; border:0;}
+img.Icon16{
+	margin-left:4px; margin-right:4px; border:0;
+	height:16px;width:16px;}
+img.IconFlag{
+	margin-left:4px; margin-right:4px; border:0;
+	height:11px;width:16px;}
 img.Tool{
 	margin-left:4px;
 	border:0}
@@ -228,6 +266,7 @@ img.Tool{
     background-color:#EFF7F1;
 }
 .PanelComments{ 
+	width:100%;
     border:solid 1px #bbbbbb; 
     background-color:#F3F3F3;
 }
@@ -239,13 +278,19 @@ img.Tool{
 	color:#437E3E;
 }
 .SearchLabel{
-	text-align:left;
+	/*text-align:left;*/
 }
 .SearchLabel .FieldLabel{
 	margin-left:12;
 }
+.hSpace{height:12px;}
 .Header{
-	font-weight:bold
+	background: #E0F8EE url(PixEvo/bg_pnl_lbl-green.gif);
+	color:#437E3E;
+	padding-bottom:0; 
+	position:relative; 
+	font-weight:bold;
+	width:100%;
 }
 .Right{
 	text-align:right
@@ -254,13 +299,14 @@ img.Tool{
 	text-align:center
 }
 .Toolbar{
-	background:#EFF7F1; 
+	background: #E7E7E7 url(PixEvo/bg_toolbr.gif); 
 	height:20px;
 	width:100%;
 	position:relative; 
 	font-size:smaller;
-	padding:1}
-.Toolbar span {color:#808080;} 
+	padding:1;
+	border-bottom:solid 1px #bbbbbb;
+} 
 .Toolbar span, .Toolbar a, .Ico{
 	text-decoration:none;
 	font-family: "trebuchet ms", helvetica, sans-serif; 
@@ -269,11 +315,33 @@ img.Tool{
 	background-color :transparent; 
 	background-image:url(pixevo/evolui.gif);
 	background-repeat:no-repeat; 
-	padding: 1 2 3 24px;}    
-.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{color:#808080;text-decoration:none;}
-.Toolbar a.act, .Toolbar a.act:active, .Toolbar a.act:visited{color:#202020;}
-.Toolbar a.act:hover {text-decoration:none;color:#202020;background-color:#f5f5dc;border:solid 1px #888888}
-span.nav{position:absolute;top:0;right:0px;background-image:none}
+	padding: 1 2 3 24;
+}
+.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{
+	color:#808080;
+	text-decoration:none;
+	padding-left:22px;
+}
+.Toolbar a.act, .Toolbar a.act:active, .Toolbar a.act:visited{
+	color:#202020;
+	padding-left:22px;
+}
+.Toolbar a.act:hover,
+.nav1:hover,.nav2:hover,.nav3:hover, .nav4:hover {
+text-decoration:none;color:#202020;background-color:#f5f5dc;border:solid 1px #888888;
+	-moz-border-radius: 4px 4px;}
+span.nav{
+	position:absolute;
+	top:0;
+	right:0px;
+	background-image:none;
+}
+span.navR2L{
+	position:absolute;
+	top:0;
+	left:-18px;
+	background-image:none;
+}
 a.new{background-position:0 0;}
 a.edit{background-position:0 -21;}
 a.editZ{background-position:0 -42;}
@@ -284,11 +352,12 @@ a.search{background-position:0 -126px;}
 a.searchp{background-position:0 -147px;}
 a.sel{background-position:0 -168px;}
 a.print{background-position:0 -189px;}
-a.help{background-position:-115 -651px;width:0}
+a.help{background-position:-127 -651px;width:0}
 a.all{background-position:0 -210px;}
 a.logout{background-position:0 -231px;}
 a.copy{background-position:0 -246px;}
 a.customize{background-position:0 -757px;}
+a.chart{background-position:0 -803px;}
 
 a.nav1{width:20;background-position:0 -274px;}
 span.nav1{width:20;background-position:0 -358px;}
@@ -301,7 +370,7 @@ span.nav4{width:20;background-position:0 -421px;}
 span.nav0 {background-image:none;width:0;padding:0 0 0 0}
 span.nav9 {background-image:none;padding:0 0 0 105}
 span.nav9ff {background-image:none;padding:0 0 0 105}
-span.navp{position:absolute;top:-2;right:0px;background-image:none}
+span.navp{position:absolute;top:1px;right:0px;background-image:none}
 
 .moveUp,.moveDown,.moveLeft,.moveRight{ 
 	background-color :transparent; 
@@ -368,11 +437,11 @@ table.Msg{
 table.Msg tr td{
     vertical-align:top;
 }
-.msgInfo{height:24;width:8;background-position:0 -651px;} 
-.msgError{height:24;width:8;background-position:-25 -651px;}
-.msgWarn{height:24;width:8;background-position:-55 -651px;} 
-.msgDel{height:24;width:8;background-position:-85 -651px;}
-.msgHelp{height:24;width:8;background-position:-115 -651px;}
+.MsgInfo{height:24;width:8;background-position:0 -651px;} 
+.MsgError{height:24;width:8;background-position:-29 -651px;}
+.MsgWarn{height:24;width:8;background-position:-63 -651px;} 
+.MsgDel{height:24;width:8;background-position:-97 -651px;}
+.MsgHelp{height:24;width:8;background-position:-131 -651px;}
 
 table.MsgInfo,table.MsgWarn,table.MsgDel{
 	background-color:#DDEBF5;border-color:#C4DDEE} 
@@ -435,9 +504,11 @@ a.arrDown:hover{background-position:-18px -601px;}
 } 
 .FormSearch tr td {
 	 padding:5px;
+	 vertical-align:top;
 } 
 .FormExport tr td {
-	 padding:15px;   
+	 padding:15px; 
+	 vertical-align:top;  
 }
 div.ExportOptions {
 	 padding:10px;
@@ -473,7 +544,8 @@ div.ExportOptions {
 	width:100%;
 }
 .Holder tr td{
-	padding: 2px 3px 2px 3px;	
+	padding: 2px 3px 2px 3px;
+	vertical-align:top;
 }
 .Holder2 tr td, div.Holder2{ 
 	padding: 12px 13px 12px 13px;	
@@ -502,15 +574,15 @@ tr.RowInfo td{
 	color:#000000;
 	background-color:#FFFFFF; 
     width:100%;  
-	text-align:left; 
+	/*text-align:left; */
 }
  
 /* .fieldImg 
 {
-	border:solid 6 white
+	border:solid 6px white
 }  */
 .FramedImg{
-	border:solid 6 white
+	border:solid 6px white
 }  
 .Field,.Fieldew{
 	padding-left:2px;
@@ -539,14 +611,16 @@ tr.RowInfo td{
 	width:100;
 }
 .Button,.Button2{
-	border: solid 1 #cccccc;
-	padding:2;
+	border: solid 1px #cccccc;
+	padding:2px 10px 2px 10px;
 	margin:5;
 	height:40px;
 	color:#5E5E5E;
 	cursor:hand;
+	border-radius: 5px 5px;
 } 
 .Button2{
+	font-weight:bolder;
 	background:#E5FABC;
 }
 .Button{
@@ -585,7 +659,7 @@ tr.RowInfo td{
 	display: inline-block}
 .TabHolder{
 	width:100%;
-	border-bottom:solid 1 #bbbbbb; 
+	border-bottom:solid 1px #bbbbbb; 
 }
 .Tab, .TabSelected{
 	color: #000000; 
@@ -596,6 +670,8 @@ tr.RowInfo td{
 	margin-left:3px;
 	margin-top:5;
 	background: #EDEDED url(PixEvo/bg_bttn.gif);
+	border-top-left-radius: 7px 7px;
+	border-top-right-radius: 7px 7px;
 }	
 .Tab{
 	background-color:#EDEDED;
@@ -603,8 +679,8 @@ tr.RowInfo td{
 	border-right: 1px solid #bbbbbb; 
 	cursor: hand;
 }
-.Tab:visited, .Tab:active, .Tab:hover,
-.TabSelected:active, .TabSelected:visited
+.Tab:active, .Tab:visited, .Tab:hover,
+.TabSelected:active, .TabSelected:visited, .TabSelected:hover
 {
 	color:#000000;
 	text-decoration:none;
@@ -630,9 +706,9 @@ tr.RowInfo td{
 }
 .EditGrid, .EvoEditGrid, .EvoEditGrid tr td{ 
 	border-collapse:collapse;
-	border:solid 1 #C9D6E9;
+	border:solid 1px #C9D6E9;
 }
-div.ColorBox{height:20;width:20;border:solid 1 #808080;}  
+div.ColorBox{height:20;width:20;border:solid 1px #808080;}  
 #fadeEvol{
     display: none;
     position: absolute;
@@ -656,29 +732,36 @@ div.ColorBox{height:20;width:20;border:solid 1 #808080;}
 .LB_Sep{
 	width:100%;
 }
-.Paging{  
-	padding:5px;
-	margin:5;
-} 
-.Paging a, span.PagingSel{ 
-	border: solid 1 #cccccc;
-	padding:0 7 0 7;
-	margin:2 8 2 0;
-} 
-.Paging a{
+.Paging{
+	padding:0;
+	margin:0;
+	height:20px;
+}
+.Paging a, .Paging a:hover, span.PagingSel{
 	background: #EDEDED url(PixEvo/bg_bttn.gif);
+	border: solid 1px #cccccc;
+	padding:2px 10px 2px 10px;
+	margin:5;
+	height:20px;
+	color:#5E5E5E;
+	cursor:hand;
+	border-radius: 5px 5px;
+	text-decoration:none;
 }
 span.PagingSel{
 	background: #EDEDED url(PixEvo/bg_pnl_lbl-green.gif);
+	border: solid 1px #cccccc;
+	padding:0px 7px 0px 7px;
+	margin:2px 8px 2px 0px;
 }
 span.ExtWeb
 {
 	background: url(PixEvo/EvolUI.gif);
 	background-repeat:no-repeat; 
 	background-position: -70 -735px; 
-	height:12;
-	width:16;
+	height:12; 
 	padding-top:3px;
+	padding-right:12px;
 }
 
 /* ######### Date Picker #########  Original DatePicker from Julian Robichaux -- http://www.nsftools.com  */

@@ -1,4 +1,4 @@
-/* www.evolutility.org - (c) 2009 Olivier Giulieri */
+/* (c) 2011 Olivier Giulieri - www.evolutility.org */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -11,10 +11,10 @@
 	Evolutility is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
-	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 */
 /*  Metadata for : To do list */
 

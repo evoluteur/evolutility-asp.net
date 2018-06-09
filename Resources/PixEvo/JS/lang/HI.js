@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library HINDI
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation from P.K.Agarwal -  http://www.nrldc.org/
 
 var EvolLang={
@@ -42,7 +42,7 @@ var EvolLang={
 // date picker
 var defaultDateFormat = "dmy";  // valid values are "mdy", "dmy", and "ymd"
 var weekBegin=1,weekEnd=0;
-var todayName = "आज है ";
+var todayIs = "आज है ";
 var thisMonth = "इस मास";
 var dayArrShort = ['र','सो','म','बु','बृ','शु','श'];
 var dayArrMed = ['रवि','सोम','मंग','बुध','बृह','शुक्र','शनि'];

@@ -1,7 +1,7 @@
 /* ######### CSS for Evolutility web site & web control ######### */
-/*  www.evolutility.org - (c) Olivier Giulieri 2009  */
+/*  www.evolutility.org - (c) Olivier Giulieri 2011  */
+/* ######### Evolutility 4.0 ######### */ 
 
-/* ######### Evolutility.org ######### */
 BODY {
 	margin: 0;
 	padding: 0; 
@@ -31,13 +31,13 @@ A:hover{
 position: absolute;
 border:0;
 top:37px;left:36px;
-height:72;width:283;
+height:72px;width:283px;
 z-index:2000
 }
 table.B{
 width:100%;
 border:0; 
-background: #fff url('pix/n2.gif') 0px 1px repeat-x; 
+background-color: #fff; 
 } 
 td.B{
 padding: 20px 26px 26px 26px
@@ -55,14 +55,13 @@ h1,h2,h3,h4,.Title{
 	margin: 5px 0 5px 0;	
 	font-weight:normal;
 }
-h2,h3,h4{margin-top:3;}
+h2,h3,h4{margin-top:3px;}
 #menu2{
 position: absolute; 
-right: 20px;
+left: 450px;
 top:12px
 } 
-#menu2 a{ 
-text-transform: lowercase;
+#menu2 a{
 display: block;
 padding:0 0 0 10; 
 color: white;
@@ -71,38 +70,50 @@ text-decoration: none;
 }
 #menu{
 position: absolute;
-top:53px;
-right: 20px;
-bottom: 0px;
+top:54px;
+left:450px; 
 min-width:410px;
+font-size:8px;
 } 
-#menu a{ 
-text-transform: lowercase;
+#menu a{
 display: block;
-padding: 0.4em 1.0em 0.5em 1.0em;
-background-color: #BFD6E3;
+padding: 0.4em 1.0em .4em 1.0em;
+background-color: #275480;
+color:White;
 border: solid 1px #fff;
-color: #606060;
+color: white;
 font-weight: bold;  
-text-decoration: none;
+text-decoration: none; 
+	border-top-left-radius: 4px 4px;
+	border-top-right-radius: 4px 4px;
 }
 #menu a.active, #menu a.active:hover{
-background: #FFFFFF url('pix/n4.gif') repeat-x;
+background: #FFFFFF;
 color: #184366;
 border: solid 1px #ffffff;
 } 
 #menu a:hover{
-background: #FFF794 url('pix/n5.gif') repeat-x;
+background: #FFF794;
 color:#000000;
 text-decoration: underline;
 } 
+.titleH
+{color: White;
+    font-size: 20px;
+    font-weight: bold;
+    left: 20px;
+    position: absolute;
+    top: 14px;
+}
 td.LeftPane{
-background:#f6f6f6;
-border:solid 0;
-border-right:solid 1 #C9D6E9; 
-padding-left:16;
-padding-right:16;
-height:555
+	background:#f6f6f6;
+	border:solid 0;
+	border-right:solid 1px #C9D6E9; 
+	padding-left:16;
+	padding-right:16;
+	height:555px;
+	width:150px;
+	min-width:150px;
 }
 div.links
 {
@@ -112,13 +123,13 @@ font-size:smaller;
 div.links div{
 padding:3px;
 }
-div.links div a.sel:active, div.links div a.sel:visited{
+div.links div a.sele:active, div.links div a.sele:visited{
  font-weight:bold;
  color:#184366;
 }
-div.links div.sel{ 
+div.links div.sele{ 
 	background-color: #FFFFFF;
-	border: solid 1 #cccccc;
+	border: solid 1px #cccccc;
 }
 .GreyText{
 color:#808080; font-style:italic;
@@ -164,7 +175,7 @@ div.footer{
 text-align: center;
 font-size:smaller;
 color:Gray;
-border-bottom : dotted 1px #E1E1E1;
+border-bottom: dotted 1px #E1E1E1;
 border-top: dotted 1px #E1E1E1;
 margin-top: 1.0em;
 margin-bottom: 1.0em;
@@ -177,13 +188,15 @@ padding-top: 1.0em;
 }
 .TabH{
  position:absolute;
- right:30;
- top:20;
- width:330;
+ right:30px;
+ top:20px;
+ width:330px;
 }
 #TabHelp{
- display:none;
- color:white
+ color:white;
+ position:absolute;
+ top:20px;
+ left:500px;
 }
 .version{
 	color:#ffffff;
@@ -199,7 +212,7 @@ font-size:20;
 	width:100%
 }
 .SimpleGrid, SimpleGrid tr, SimpleGrid tr td { 
-	border:solid 1 #C9D6E9;
+	border:solid 1px #C9D6E9;
 	vertical-align:top;
 }
 
@@ -216,18 +229,42 @@ font-size:20;
 	border-bottom:solid 1px grey;
 	vertical-align:top;
 }
+.dft{ 
+	border: 2px solid #A7C8E2;
+	margin: 6px 3px 12px 3px;
+	border-radius: 10px;
+	padding: 10px; 
+}
 /* ######### Evolutility documentation ######### */
-.code 
-{ 
+img.pixEvoMode{
+	width:350px;
+	border: 0; 
+   -webkit-transition: all .3s ease-out; 
+   -moz-transition: all .3s ease-out; 
+   -o-transition: all .3s ease-out; 
+   transition: all .3s ease-out; 
+}
+img.pixEvoMode2{
+	width:250px;
+	border: 0; 
+   -webkit-transition: all .3s ease-out; 
+   -moz-transition: all .3s ease-out; 
+   -o-transition: all .3s ease-out; 
+   transition: all .3s ease-out; 
+}
+img.pixEvoMode:hover, img.pixEvoMode:hover2{ 
+   -moz-transform: scale(1.5);
+   -webkit-transform: scale(1.5);
+   -o-transform: scale(1.5);
+   transform: scale(1.5);
+   }
+.code{ 
 	background-color:#F5F5F5;
 	color : #000000;
 	text-decoration: none;
 	font-family:Courier;
-	border: solid 1 #A2A2A2;
-    padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: 5px;
-    padding-right: 5px;
+	border: solid 1px #A2A2A2;
+    padding: 20px 5px 20px 5px;
 }
 .xmlElem,.ctrProp{font-weight: bold;color:#990000;}
 .xmlAttr{color: #990000;}
@@ -248,51 +285,107 @@ font-size:20;
 	background-color:#DFF2FD; 
 	display: inline-block
 }
-
-/* ######### Evolutility control ######### */
+.shadow {
+border: 0;
+-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+/* ######### Evolutility.org ######### */
 /* ######### CSS for Evolutility web control ######### */
-/* (c) Olivier Giulieri 2003-2009 */
+/* (c) 2011 Olivier Giulieri */
 
+.R2L{
+    direction:rtl;
+    font-family:Ezra SIL;
+} 
+.clear{
+	clear:both;
+}
 div.Evo{
 	width:100%;
 	margin:0;
 	padding:0;
 	border-collapse:collapse;
-    border:solid 1px #bbbbbb; 
-    background-color: #F5F5F5; 
+    border:solid 2px #dedede;
+border-radius: 5px;   
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;   
 	}
 div.Evo TR{vertical-align:top}
+.EvoContent {
+	padding:5px 10px 5px 5px;
+}
 img.Icon{
 	margin-left:4px; margin-right:4px; border:0}
+img.Icon16{
+	margin-left:4px; margin-right:4px; border:0;
+	height:16px;width:16px;}
+img.IconFlag{
+	margin-left:4px; margin-right:4px; border:0;
+	height:11px;width:16px;}
 img.Tool{
 	margin-left:4px;
 	border:0}
-.Panel{ 
-    filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=white,endColorStr=Gainsboro); 
-    border:solid 1px #bbbbbb; 
-    background-color:#F3F3F3;
+.evoSep{
+	height:5px;
+	border-bottom:solid 2px #dedede;
+	margin:5px 0 5px; 	
 }
-.PanelComments{ 
-    border:solid 1px #bbbbbb; 
-    background-color:#F3F3F3;
+.Panel{  
+	background-color:#F9F9F9;
+	border:solid 2px #e0e0e0; 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding-bottom:7px;
+	margin: 5px;
 }
-.PanelLabel{
-	background: #DEE7F7 url(PixEvo/bg_pnl_lbl.gif);
-	padding-bottom:0; 
-	position:relative; 
+.PanelLabel,.PanelButtons{
+	background: #DEE7F7;
+	border: 2px solid #DEDEDE; 
+}
+.PanelLabel {
+	border: 2px solid #DEDEDE;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px;
 }
 .PanelLabel a { 
 	font-size: x-small; 
 }
+.PanelButtons{
+	margin:10px 0 1px 5px;
+	padding:5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.PanelIn
+{ 
+}	
+.noMargin{
+    margin: 2px 0 2px;
+}
+.hSpace
+{
+	height:12px;
+}
 .SearchLabel{
-	text-align:left;
+	/*text-align:left;*/
 }
 .SearchLabel .FieldLabel{
 	margin-left:12;
 }
+.hSpace{height:12px;}
 
-.Header{
-	font-weight:bold
+.Header{ 
+	padding:4px 4px 4px 10px;  
+	font-weight:bold;
+	width:100%;
+	margin:0 5px 5px 5px;
 }
 .Right{
 	text-align:right
@@ -300,64 +393,128 @@ img.Tool{
 .Center{
 	text-align:center
 }
-.Toolbar{
-	background: #E7E7E7 url(PixEvo/bg_toolbr.gif); 
-	height:20px;
-	width:100%;
-	position:relative; 
-	font-size:smaller;
-	padding:1} 
-.Toolbar span, .Toolbar a, .Ico{
+.Toolbar{ 
+	background: #DEE7F7;
+	border: 2px solid #DEDEDE;
+    margin: 6px 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 3px;
+	height:22px;
+	overflow:hidden;
+} 
+.Toolbar a{
 	text-decoration:none;
 	font-family: "trebuchet ms", helvetica, sans-serif; 
 	font-size:10pt;
 	border:solid 1px transparent;
-	background-color :transparent; 
+	margin: 0 4px 0 0;
+	padding: 0 5px 0 0;
+} 
+.Toolbar div{
+	text-decoration:none;
+	font-family: "trebuchet ms", helvetica, sans-serif; 
+	font-size:10pt;
+	border:solid 1px transparent;
+	margin: 0 ;
+	padding: 0 ;
+} 
+.Toolbar b{
+	float:left;
+} 
+.Toolbar div, .Toolbar a div, .Ico{
 	background-image:url(pixevo/evolui.gif);
-	background-repeat:no-repeat; 
-	padding: 1 2 3 24px;}
-.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{color:#808080;text-decoration:none;}
+	background-repeat:no-repeat;
+	text-decoration:none;    
+	padding: 1px 2px 1px 2px;
+}
+.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{
+	color:#808080;
+	text-decoration:none;
+}
 .Toolbar a.act, .Toolbar a.act:active, .Toolbar a.act:visited{color:#202020;}
+.Toolbar a.act:hover {text-decoration:none;
+	color:#202020;
+	background-color:#f5f5dc;
+	border:solid 1px #888888;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+div.nav{
+	background-image:none;
+}
+span.navtab{ 
+	background-image:none;
+}
+span.navR2L{
+	position:absolute;
+	top:0;
+	left:-18px;
+	background-image:none;
+}
+.tbToggle{
+	text-decoration:none; 
+	border:solid 1px transparent;
+	background:transparent url(pixevo/evolui.gif) no-repeat; 
+	padding: 1px 2px 3px 18px;
+	float:right;
+} 
+div.new,div.edit,div.editZ,div.view,div.del,div.delZ,div.search,div.searchp,div.sel,div.print,div.help,div.all,div.logout,div.copy,div.customize,div.chart,div.export{
+	float:left;
+	width:20px;height:18px;
+}
+a.new,a.edit,a.editZ,a.view,a.del,a.delZ,a.search,a.searchp,a.sel,a.print,a.help,a.all,a.logout,a.copy,a.customize,a.chart,a.export{
+	float:left; 
+}
+div.new{background-position:0 0;}
+div.edit{background-position:0 -21px;}
+div.editZ{background-position:0 -42px;}
+div.view{background-position:0 -63px;}
+div.del{background-position:0 -84px;}
+div.delZ{background-position:0 -105px;}
+div.search{background-position:0 -126px;}
+div.searchp{background-position:0 -147px;}
+div.sel{background-position:0 -168px;}
+div.print{background-position:0 -189px;}
+div.help{background-position:-127 -651px;}
+div.all{background-position:0 -210px;}
+div.logout{background-position:0 -231px;}
+div.copy{background-position:0 -246px;}
+div.customize{background-position:0 -757px;}
+div.chart{background-position:0 -803px;}
+div.export{background-position:0 -823px;}
 
-.Toolbar a.act:hover {text-decoration:none;color:#202020;background-color:#f5f5dc;border:solid 1px #888888}
-span.nav{position:absolute;top:0;right:0px;background-image:none}
-a.new{background-position:0 0;}
-a.edit{background-position:0 -21;}
-a.editZ{background-position:0 -42;}
-a.view{background-position:0 -63;}
-a.del{background-position:0 -84;}
-a.delZ{background-position:0 -105;}
-a.search{background-position:0 -126px;}
-a.searchp{background-position:0 -147px;}
-a.sel{background-position:0 -168px;}
-a.print{background-position:0 -189px;}
-a.help{background-position:-115 -651px;width:0}
-a.all{background-position:0 -210px;}
-a.logout{background-position:0 -231px;}
-a.copy{background-position:0 -246px;}
-a.customize{background-position:0 -757px;}
-
-a.nav1{width:16;background-position:0 -274px;}
-span.nav1{width:16;background-position:0 -358px;}
-a.nav2{width:16;background-position:0 -295px;}
-span.nav2{width:16;background-position:0 -379px;}
-a.nav3{width:16;background-position:0 -316px;}
-span.nav3{width:16;background-position:0 -400px;}
-a.nav4{width:16;background-position:0 -337px;} 
-span.nav4{width:16;background-position:0 -421px;} 
-span.nav0{background-image:none;width:0;padding:0 0 0 0}
-span.nav9{background-image:none;padding:0 0 0 105}
-span.nav9ff{background-image:none;padding:0 0 0 105}
-span.navp{position:absolute;top:-2;right:0px;background-image:none}
+a.nav1,a.nav2,a.nav3, a.nav4{background-image:none;float:left;padding:0;margin:0; }
+a.nav1 div{width:20px;background-position:-1px -274px; }
+div.nav1{width:20px;height:20px;background-position:0 -358px;float:left;}
+a.nav2 div{width:18px;background-position:-2px -295px;}
+div.nav2{width:18px;height:20px;background-position:-2px -379px;float:left;}
+a.nav3 div{width:18px;background-position:-2px -316px;}
+div.nav3{width:18px;height:20px;background-position:-2px -400px;float:left;}
+a.nav4 div{width:20px;background-position:0 -337px;} 
+div.nav4{width:20px;height:20px;background-position:0 -421px;float:left;} 
+div.nav0{background-image:none;width:0;padding:0}
+div.navp{ 
+	background-image:none;
+	float: right;
+} 
+.nav1:hover div,.nav2:hover div,.nav3:hover div, .nav4:hover div{ 
+	color:#202020;
+	background-color:#f5f5dc;
+	border:solid 1px #888888;
+	-moz-border-radius: 4px 4px;
+}
 
 .moveUp,.moveDown,.moveLeft,.moveRight{ 
 	background-color :transparent; 
 	background-image:url(pixevo/evolui.gif);
 	background-repeat:no-repeat;}
-.moveLeft{background-position:-107 -742;}
-.moveRight{background-position:-127 -742;}
-.moveUp{background-position:-148 -742;}
-.moveDown{background-position:-169 -742;}
+.moveLeft{background-position:-107px -742px;}
+.moveRight{background-position:-127px -742px;}
+.moveUp{background-position:-148px -742px;}
+.moveDown{background-position:-169px -742px;}
 
 div.Key{
 	background-color :transparent; 
@@ -365,101 +522,131 @@ div.Key{
 	background-repeat:no-repeat; 
 	background-position:0 -231px;
 	width:24px;height:22px;
-	margin-top:18
+	margin-top:18px;
+	margin-right:10px;
+	float:left; /* test */ 
 }
 
-a.Calendar{height:20;width:20;margin-bottom:6px;background-position:0 -738px;}
+a.Calendar{height:20px;width:20px;margin-bottom:6px;background-position:0 -738px;}
 a.Calendar:hover{background-position:-32px -738px;}
 
-a.PanelOpen{height:20;width:20;background-position:0 -441px;}
-a.PanelClose{height:20;width:20;background-position:0 -462px;}
+a.PanelOpen{height:20px;width:20px;background-position:0 -441px;}
+a.PanelClose{height:20px;width:20px;background-position:0 -462px;}
 a.PanelOpen:hover{background-position:-26px -441px;}
 a.PanelClose:hover{background-position:-26px -462px;}
 
-a.MLbigger,a.MLsmaller{height:4;width:5;padding:0 0 0 14}
-a.MLbigger{background-position:0 -702px;margin-left:5}
+a.MLbigger,a.MLsmaller{height:4px;width:5px;padding:0 0 0 14px}
+a.MLbigger{background-position:0 -702px;margin-left:5px}
 a.MLsmaller{background-position:0 -718px;} 
 a.MLbigger:hover{background-position:-21px -702px;}
 a.MLsmaller:hover{background-position:-21px -718px;}
+ 
+span.Comment{background-position:0 -628px;}
+span.Comments{background-position:-55px -628px;}
+span.CommentAdd{background-position:-25px -624px;}
+span.CommentUser{background-position:-85px -628px;float:left;width:22px;}
 
-span.Comment{height:20;width:20;background-position:0 -628px;}
-span.Comments{height:20;width:20;background-position:-55 -628px;}
-span.CommentAdd{height:20;width:18;background-position:-25 -624px;}
-span.CommentUser{height:20;width:20;background-position:-85 -628px;}
-
+.PanelComments{ 
+    border: 2px solid #DEDEDE;
+    margin: 6px 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 10px;  
+	border: 2px solid #DEDEDE; 
+}
+.PanelCalendar{ 
+    width:230px;
+    border:solid 1px #bbbbbb; 
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+    background-color:#F9F9F9;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);     
+}
+.PanelCalendar tr td{ 
+     width:30px; 
+}
 .AddRow, .DelRow{
 	margin:2px;
 	background: url(pixevo/evolui.gif); 
 	background-repeat:no-repeat; 
 	position:relative;
-	padding:1;
-	padding-left:20}
+	padding:1px;
+	padding-left:20px}
 .AddRow{
-	background-position:-139 -709px;
+	background-position:-139px -709px;
 	}
 .DelRow{ 
-	background-position:-100 -709px;	
+	background-position:-100px -709px;	
 	}
 
 div.close{
 	background-color :transparent; 
 	background-image:url(pixevo/evolui.gif);
 	background-repeat:no-repeat; 
-	height:20;width:28;background-position:-42 -775px;
+	height:20px;width:28px;background-position:-42px -775px;
 	cursor: pointer;
+position:relative;	
+top: -4px;
+right: -4px;
 }
 
-table.Msg{ 
+div.Msg{ 
     border:solid 1px #bbbbbb;  
     background-color:#F3F3F3;
     vertical-align:top;
-	width:100%;
+	width:98%; 
+	margin-bottom:4px;
+    padding:5px;
 }
-table.Msg tr td{
-    vertical-align:top;
-}
-.MsgInfo{height:24;width:8;background-position:0 -651px;} 
-.MsgError{height:24;width:8;background-position:-25 -651px;}
-.MsgWarn{height:24;width:8;background-position:-55 -651px;} 
-.MsgDel{height:24;width:8;background-position:-85 -651px;}
-.MsgHelp{height:24;width:8;background-position:-115 -651px;}
-
+.MsgInfo{height:24px;width:24px;background-position:0 -651px;float:left;} 
+.MsgError{height:24px;width:24px;background-position:-29px -651px;float:left;}
+.MsgWarn{height:24px;width:24px;background-position:-63px -651px;float:left;} 
+.MsgDel{height:24px;width:24px;background-position:-97px -651px;float:left;}
+.MsgHelp{height:24px;width:24px;background-position:-131px -651px;float:left;}
+/* to change
 table.MsgInfo,table.MsgWarn,table.MsgDel{
 	background-color:#DDEBF5;border-color:#C4DDEE} 
 table.MsgHelp{
 	background-color:#FFFFCC;border-color:#FFCC35;} 
 table.MsgError{
 	background-color:#fdd;border-color:#fbb;} 
-
+*/
 span.CheckGreen,span.CheckBlue,span.CheckRed,span.CheckBlack{
-	height:16;width:18;
+	height:16px;width:18px;
 	border-style:none;
 	background-color :transparent; 
 	background-image:url(pixevo/evolui.gif);
 	background-repeat:no-repeat; 
-	margin: 4 6 2 2; 
+	margin: 4px 6px 2px 2px; 
 }
-span.CheckGreen{background-position:-85 -779px;}
-span.CheckBlue{background-position:-107 -779px;}
-span.CheckRed{background-position:-128 -779px;}
-span.CheckBlack{background-position:-151 -779px;}
+span.CheckGreen{background-position:-85px -779px;}
+span.CheckBlue{background-position:-107px -779px;}
+span.CheckRed{background-position:-128px -779px;}
+span.CheckBlack{background-position:-151px -779px;}
 
-a.arrUp,a.arrDown{height:4;width:5;padding:0 0 0 14}
-a.arrUp{background-position:0 -585px;margin-left:5}
+a.arrUp,a.arrDown{height:4px;width:5px;padding:0 0 0 14px}
+a.arrUp{background-position:0 -585px;margin-left:5px}
 a.arrDown{background-position:0 -601px;} 
 a.arrUp:hover{background-position:-18px -585px;}
 a.arrDown:hover{background-position:-18px -601px;} 
 
 .des-frm,.des-pnl,.des-fld,.des-src{
-	height:24;width:24;border:0;
+	height:24px;width:24px;border:0;
 	background:transparent url(pixevo/EvolUI.gif) no-repeat; 
 	padding: 0 0 0 24px;
-	position:relative;top:5px; 
+	text-decoration:none;
+	position:relative;
+	top:1px;
 }  
 .des-frm{background-position:0px -680px;}
 .des-pnl{background-position:-25px -680px;}
 .des-src{background-position:-55px -680px;}
 .des-fld{background-position:-85px -680px;}
+.des-frm:hover,.des-pnl:hover,.des-src:hover,.des-fld:hover{text-decoration:none;}
 	
 .Main{
 	background: #DCDCDC;
@@ -468,11 +655,21 @@ a.arrDown:hover{background-position:-18px -601px;}
 	border-style:solid;
 }
 .FormLogin
-{
-	border-collapse:collapse;
-    border:solid 1px #bbbbbb; 
-    background-color:#F3F3F3;
-    padding:0;
+{ 
+    padding:10px;  
+    background-color:#F9F9F9; 
+    border:solid 2px #e0e0e0; 
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 22px;
+	width:280px;
+}
+.evoLoginFields {
+    margin: 10px 26px;
+    padding: 10px;
+    width: 220px;
+    display:block; 
 }
 .FormSearch ,.FormExport, .FormSelections {
 	border-collapse:collapse;
@@ -480,21 +677,23 @@ a.arrDown:hover{background-position:-18px -601px;}
 	width:100%;
 } 
 .FormLogin tr td{
-	 padding: 5 10 5 10;
+	padding: 10px 10px 5px 10px;
 } 
 .FormSearch tr td {
-	 padding:5px;
+	padding: 4px 16px 4px 10px;
+	vertical-align:top;
 } 
 .FormExport tr td {
-	 padding:15px;   
+	padding:15px; 
+	vertical-align:top; 
 }
 div.ExportOptions {
-	 padding:10px;
-	 padding-left:10px;
-	 height:160px;
+	padding:10px;
+	padding-left:10px;
+	height:160px;
 }
 .RowHeader,.dpDayTD{
-	background: #DEE7F7 url(PixEvo/bg_pnl_lbl.gif);
+	background: #DEE7F7;
 	white-space: nowrap;
 	font-size: smaller;
 }
@@ -521,17 +720,18 @@ div.ExportOptions {
 	width:100%;
 }
 .Holder tr td{
-	padding: 2px 3px 2px 3px;	
+	padding: 2px 10px 6px 6px; 
+	vertical-align:top;
 }
 .Holder2 tr td, div.Holder2{ 
-	padding: 12px 13px 12px 13px;	
+	padding:  4px 13px 5px 13px;
 }
 tr.RowFoot td{ 
-	height:40;
+	height:40px;
 	padding:6px;
 }
 tr.RowInfo td{
-	padding:10 6 10 6;
+	padding:10px 6px 10px 6px;
 } 
 .FieldLabel, .FieldLabelR2L{
 	color:#404040;
@@ -547,12 +747,26 @@ tr.RowInfo td{
 	font-weight:bold;
 	font-size: smaller ;
 }
-.Field, .FieldView, .FieldReadOnly, .FieldComments, .FieldMain{
+.Field, .FieldView, .FieldMain{
 	color:#000000;
 	background-color:#FFFFFF; 
-    width:100%;  
-	text-align:left; 
+    width:100%;
+	border: 1px solid #C0C0C0; 
 }
+.FieldComments{
+	margin-left:27px;
+	color:#000000;
+	padding:5px;
+	background-color:#FFFFFF;  
+	border: 1px solid #f0f0f0; 
+}
+.FieldReadOnly{
+	color:#000000;
+	background-color:#FFFFFF; 
+    width:100%;
+	border: 1px solid #e0e0e0; 
+}
+
 .FieldRJ{ 
 	color:#000000;
 	background-color:#FFFFFF; 
@@ -562,15 +776,17 @@ tr.RowInfo td{
  
 /* .fieldImg 
 {
-	border:solid 6 white
+	border:solid 6px white
 }  */
 .FramedImg{
-	border:solid 6 white
+	border:solid 6px white
 }  
+
 .Field, .Fieldew{
-	padding-left:2px;
-	border-width:2px;
+	padding:2px;
+	border-width:1px;
 	width:100%;
+	margin:0 5px 0 0;
 }
 .Field80{
 	width:80%;
@@ -579,12 +795,7 @@ tr.RowInfo td{
 	color:#000000;
 	background-color:#FFFFFF; 
 	text-align:left;
-}
-.FieldView, .FieldReadOnly
-{ 
-	padding-left:3px;
-	border-style:  none;	 
-}
+} 
 .FieldViewR2L{
     font-family:Ezra SIL;
     direction:rtl;
@@ -601,72 +812,104 @@ tr.RowInfo td{
   font-weight:bolder
 }
 .FieldResize{
-	height:100;width:100; 
+	height:100px;width:100px; 
 }
 .Button,.Button2{
 	background: #EDEDED url(PixEvo/bg_bttn.gif);
-	border: solid 1 #cccccc;
-	padding:2;
-	margin:5;
+	border: solid 1px #cccccc;
+	padding:1px 8px;
+	margin:4px;
 	height:40px;
 	color:#5E5E5E;
 	cursor:hand;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 } 
 .Button{
-	color:#5E5E5E;
 	font-weight:bolder;
 } 
 .bSpace{
 	width:20px
+}
+.vSpace{
+	height:20px
 }
 .Required{
 	margin-left:3px;
 	color:#FF0000;
 	font-weight:bold;
 }
+.ChartHolder{
+	background-color :#FFFFFF;
+	padding: 10px 5px 5px 5px;	
+	margin:10px;
+	float:left;
+    border:solid 2px #e0e0e0; 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+}
 .Calendar{
 	border:0;
-	width:16px;height:16px;
+	width:16px;
+	height:16px;
 }
 .HelpTip{
 	font-size:11px;
 	color:#0000CC;
 	background-color:#FFFFCC;
 	border:solid 1px #FFCC35;
-	padding:0 3 1 3;
+	padding:0 3px 1px 3px;
 	display: inline-block
 } 
 .YellowNote{ 
 	color:#505050;
 	background-color:#FFFFCC;
 	border:solid 1px #FFCC35;
-	padding:7;
+	padding:7px;
 	display: inline-block
 }
-.TabBar{border:0;
-	display: inline-block}
+.TabBar{
+	border:0;
+	height:28px; 
+	width:100%;
+	display: inline-block;
+	padding-bottom:8px;
+}
 .TabHolder{
 	width:100%;
-	border-bottom:solid 1 #bbbbbb; 
+	border-bottom:solid 2px #DEDEDE;
+	height:26px; 
+	margin-top: 8px;
+}
+.TabHolderAll{
+	padding-top:12px;	
 }
 .Tab, .TabSelected{
-	color: #000000; 
-	height:30px;
-	border-left: 1px outset #bbbbbb; 
+	color: #000000;  
+	height:26px;
+	border-left: 2px solid #bbbbbb; 
 	padding: 6px 10px 6px 10px;
 	text-decoration:none;
 	margin-left:3px;
-	margin-top:5;
-	background: #EDEDED url(PixEvo/bg_bttn.gif);
+	margin-top:6px;
+	border-top-left-radius: 7px 7px;
+	-moz-border-top-left-radius: 7px 7px;
+	-webkit-border-top-left-radius: 7px 7px;
+	border-top-right-radius: 7px 7px;
+	-moz-border-top-right-radius: 7px 7px;
+	-webkit-border-top-right-radius: 7px 7px;
 }	
 .Tab{
 	background-color:#EDEDED;
 	border-top: 1px outset #bbbbbb;
 	border-right: 1px solid #bbbbbb; 
 	cursor: hand;
+	text-decoration:none;
 }
 .Tab:visited, .Tab:active, .Tab:hover,
-.TabSelected:active, .TabSelected:visited
+.TabSelected:active, .TabSelected:visited, .TabSelected:hover 
 {
 	color:#000000;
 	text-decoration:none;
@@ -678,7 +921,7 @@ tr.RowInfo td{
 	padding: 8px 10px 8px 10px; 
 	border-top: 1px solid #bbbbbb;
 	border-right: 1px solid #bbbbbb;
-	background:#F3F3F3 url(PixEvo/bg_pnl_lbl.gif); 
+	background:#ffffff; 
 }
 .TabLeft a.Tab, .TabLeft a.TabSelected{
 	width:100%;	
@@ -693,15 +936,18 @@ tr.RowInfo td{
 .EditGrid, .EvoEditGrid, .EvoEditGrid tr td, 
 .FixedHeaderGrid, .FixedHeaderGrid tr td{ 
 	border-collapse:collapse;
-	border:solid 1 #C9D6E9;
+	border:solid 1px #C9D6E9;
 	vertical-align:top;
+	border-radius: 2px 2px;
+	-moz-border-radius: 2px 2px;
+	-webkit-border-radius: 2px 2px;
 }
 
-div.ColorBox{height:20;width:20;border:solid 1 #808080;}  
+div.ColorBox{height:20px;width:20px;border:solid 1px #808080;}  
 #fadeEvol{
     display: none;
     position: absolute;
-    top:0;left:0;width:4000;height:4000;
+    top:0;left:0;width:4000px;height:4000px;
     background-color: gray;
     -moz-opacity: 0.62;
     opacity:.62;  
@@ -711,28 +957,31 @@ div.ColorBox{height:20;width:20;border:solid 1 #808080;}
 #lightEvol{
     display: none;
     position: absolute;
-    top:25%;left:25%;width:50%;
+    top:25%;left:25%;width:400px;
     padding: 16px;
     border: 4px solid #C1D9EB;
     background-color: white;
     overflow: auto;
 	z-index:12010;
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
 }
 .LB_Sep{
-	width:100%;
+	width:100%;	
 }
-.Paging{  
+.Paging{
 	padding:5px;
-	margin:5;
+	margin:5px;
 } 
 .Paging a, span.PagingSel{ 
-	border: solid 1 #cccccc;
-	padding:0 7 0 7;
-	margin:2 8 2 0;
+	border: none;
+	padding:0 7px 0 7px;
+	margin:2px 8px 2px 0; 
 } 
-.Paging a{
-	background: #EDEDED url(PixEvo/bg_bttn.gif);
-}
 span.PagingSel{
 	background: #EDEDED url(PixEvo/bg_pnl_lbl.gif);
 }
@@ -740,11 +989,12 @@ span.ExtWeb
 {
 	background: url(PixEvo/EvolUI.gif);
 	background-repeat:no-repeat; 
-	background-position: -70 -735px; 
-	height:12;
-	width:16;
+	background-position: -70px -735px; 
+	height:12px; 
 	padding-top:3px;
+	padding-right:12px;
 }
+.Hidden{display:none;}
 
 /* ######### Date Picker #########  Original DatePicker from Julian Robichaux -- http://www.nsftools.com  */
 /* a table cell that holds a date number (either blank or 1-31) */

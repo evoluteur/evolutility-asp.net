@@ -1,47 +1,45 @@
-//   EvoDico Library by Evolutility - Last update 03/30/2009 
-//   www.evolutility.org - (c) 2009 Olivier Giulieri 
+//   EvoDico Library by Evolutility - www.evolutility.org
 
-//	Copyright (c) 2003-2009 Olivier Giulieri
+//	Copyright (c) 2003-2011 Olivier Giulieri
 //  email: evoluteur at evolutility dot org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
 //	the Free Software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY; without even the implied 
+//	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 
 
 var EvoDico={
 
-    version:"2.5.3",
+    version:'3.6',
     
     edit:function(to,mU,label){
         var ws=wo=null;
         switch(to){
         case 'fld':
-            ws='HEIGHT=440,WIDTH=480';
+            ws='HEIGHT=500,WIDTH=530';
             wo='Field';
             break;
         case 'pnl':
-            ws='HEIGHT=360,WIDTH=400';
+            ws='HEIGHT=400,WIDTH=460';
             wo="Panel";
             break;
         case 'frm':
-            ws='HEIGHT=440,WIDTH=560';
+            ws='HEIGHT=500,WIDTH=560';
             wo='Form';
             break;
         case 'src':
-            ws='HEIGHT=560,WIDTH=460';
+            ws='HEIGHT=460,WIDTH=460';
             wo='Form searches';
             break;
         }

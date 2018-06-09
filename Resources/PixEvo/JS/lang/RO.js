@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library ROMANIAN
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation by Cosmin Munteanu
 
 var EvolLang={
@@ -43,7 +43,7 @@ var EvolLang={
 var defaultDateFormat = "dmy";
 var weekBegin=1,weekEnd=0;
 var todayIs = "Astăzi este ";
-var thisMonth = "This month"; // no babelfish
+var thisMonth = "În această lună"; // google translate
 var dayArrShort = ['Lu','Ma','Mi','Jo','Vi','Sa','Du'];
 var dayArrMed = ['Lun','Mar','Mie','Joi','Vin','Sam','Dum'];
 //var dayArrLong = ['Luni','Marţi','Miercuri','Joi','Vineri','Sâmbătă','Duminică'];

@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library JAPANESE
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation by Kazue Watanabe
 
 var EvolLang={
@@ -17,7 +17,7 @@ var EvolLang={
 	time:'"{0}" 正しい日付と時間を "月/日/年　　何時:何分　午前/午後" の順番に記入してください。例 "10:30 am".',
 	max:'"{0}" {1}を含む１以下の数字を記入して下さい.',
 	min:'"{0}" {1}を含む１以上の数字を記入して下さい.',
-	reg:'"{0}" must match the regular expression pattern "{1}".',
+	reg:'"{0}" 正規表現パターンに一致する必要があります "{1}".', // google translate
 	
 // msg
 	comments:'私のコメント',
@@ -40,13 +40,13 @@ var EvolLang={
 }
  
 // date picker
-var defaultDateFormat = "dmy";  // valid values are "mdy", "dmy", and "ymd"
+var defaultDateFormat="dmy";  // valid values are "mdy", "dmy", and "ymd"
 var weekBegin=1,weekEnd=0;
-var todayIs = "今日 "; // babelfish
-var thisMonth = "この月"; // babelfish
-var dayArrShort = ['月','火','水','木','金','土','日'];
-var dayArrMed = ['月','火','水','木','金','土','日'];
-//var dayArrLong = ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'];
-//var monthArrShort = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
-var monthArrMed = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
-var monthArrLong = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+var todayIs="今日 "; // babelfish
+var thisMonth="この月"; // babelfish
+var dayArrShort=['月','火','水','木','金','土','日'];
+var dayArrMed=['月','火','水','木','金','土','日'];
+//var dayArrLong=['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'];
+//var monthArrShort=['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+var monthArrMed=['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+var monthArrLong=['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];

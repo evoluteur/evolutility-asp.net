@@ -1,23 +1,24 @@
 ﻿//	FRENCH - Translation from Eddy Boels 
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -56,7 +57,7 @@ namespace Evolutility
 				ExportFields = "Champs à inclure dans l'export";
 				IDkey = "ID (clée primaire)";
 				AllFields = "Tous les champs";
-				ExportFormats = "Séparés par une virgule (CSV, TXT, XLS...)-HTML-SQL script (SQL)-Valeurs séparées par des tabulations (TXT)-XML";
+				ExportFormats = "Séparés par une virgule (CSV, TXT, XLS...)-HTML-SQL script (SQL)-Valeurs séparées par des tabulations (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "Vous n'êtes pas autorisé à ";
@@ -75,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "Aucune mise à jour nécessaire";
 				DeleteOK = "Fiche {0} supprimée à {1:t}."; // {0}=ID {1}=time 
 				Updated = "Fiche {0} mise à jour à {1:t}.";
-				DetailsUpdate = "Détails mis à jour.";
+				DetailsUpdated = "Détails mis à jour.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Merci de vous identifier.";
@@ -113,6 +115,8 @@ namespace Evolutility
 				Selection = "Selection";
 				Export = "Exporter";
 				SearchRes = "Résultats de la recherche";
+				Charts = "Graphs";
+				MassUpdate = "Mise à jour de masse"; 
 				Delete = "Supprimer";
 				ListAll = "Liste complete";
 				Print = "Impression";
@@ -165,6 +169,10 @@ namespace Evolutility
 				Save = "Sauvegarder";
 				SaveAdd = "Sauvegarder et nouvel ajout";
 				Cancel = "Annuler";
+				NoX = "Aucun(e) {0}"; // googletranslate
+				NoChange = "Aucun changement";
+				NoGraph = "Pas de graphiques disponibles.";
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Commentaires ajoutés le {0:t}."; // {0}=time 

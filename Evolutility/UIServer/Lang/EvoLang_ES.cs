@@ -1,22 +1,24 @@
 ﻿//	SPANISH translation from Gilberto Botaro
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -55,7 +57,7 @@ namespace Evolutility
 				ExportFields = "Campos a incluir en la exportación";
 				IDkey = "ID (clave primaria)";
 				AllFields = "Todos los campos"; // babelfish
-				ExportFormats = "Separados por comas (CSV, TXT, XLS...)-HTML- INSERT SQL-Valores separados por tabuladores (TXT)-XML";
+				ExportFormats = "Separados por comas (CSV, TXT, XLS...)-HTML- INSERT SQL-Valores separados por tabuladores (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "No se le permite";
@@ -74,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "No se actualiza la información necesaria";
 				DeleteOK = "Registro # {0} eliminado en {1: t}"; // {0}=ID {1}=tiempo 
 				Updated = "{0} actualizado a {1: t}"; // {0}=entidad {1}=tiempo 
-				DetailsUpdate = "Información actualizada";
+				DetailsUpdated = "Información actualizada";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Por favor, log in";
@@ -110,6 +113,8 @@ namespace Evolutility
 				Selection = "Selección";
 				Export = "Exportar";
 				SearchRes = "Resultados de la búsqueda";
+				Charts = "Gráficos";// googletranslate
+				MassUpdate = "Actualización Masiva"; 
 				Delete = "Borrar";
 				ListAll = "Todos";
 				Print = "Imprimir";
@@ -160,6 +165,10 @@ namespace Evolutility
 				Save = "Guardar";
 				SaveAdd = "Guardar y añadir otro";
 				Cancel = "Cancelar";
+				NoX = "No {0}"; // googletranslate
+				NoChange = "Sin cambio"; //"No Change" googletranslate
+				NoGraph = "No hay gráficos disponibles."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Comentario publicado en {0:t}."; //{0}=tiempo

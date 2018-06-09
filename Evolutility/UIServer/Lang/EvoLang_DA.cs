@@ -1,22 +1,24 @@
 ﻿//	DANISH translation from Henrik Holm 
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -33,7 +35,7 @@ namespace Evolutility
 			{
 				_LocaleCode = "DA";
 				_LocaleEN = "Danish"; // do not translate this line - this is the english name for the language
-				_Locale = "Danish"; // no babelfish
+				_Locale = "Dansk"; 
 
 				Welcome = "Velkommen {0}"; //{0}=login 
 
@@ -54,8 +56,8 @@ namespace Evolutility
 				ExportFormat = "Eksport Format";
 				ExportFields = "Felter der skal medtages i Eksporten";
 				IDkey = "ID (Primær Nøgle)";
-				AllFields = "Alle"; // no babelfish
-				ExportFormats = "komma separeret (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separerede værdier (TXT)-XML";
+				AllFields = "Vis alle områder"; // googletranslate
+				ExportFormats = "komma separeret (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separerede værdier (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "Du har ikke tilladelse at at ";
@@ -74,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "Opdatering ikke nødvendig.";
 				DeleteOK = "Post #{0} slettet kl. {1:t}."; // {0}=ID {1}=time 
 				Updated = "{0} opdateret kl. {1:t}."; // {0}=entity {1}=time 
-				DetailsUpdate = "Detaljer opdateret.";
+				DetailsUpdated = "Detaljer opdateret.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Venligst log ind.";
@@ -116,13 +119,14 @@ namespace Evolutility
 				Selection = "Valg";
 				Export = "Eksport";
 				SearchRes = "Søge Resultat";
+				Charts = "Diagrammer";// googletranslate
+				MassUpdate = "Masse Update"; //"Mass Update" googletranslate
 				Delete = "Slet";
 				ListAll = "List Alle";
 				Print = "Udskriv";
 				DeleteEntity = "Slet denne {0}?"; // {0}=entity 
 				Back2SearchResults = "Tilbage til søge resultat";
-
-
+				
 				// --- navigation --- 
 				pFirst = "Første";
 				pPrev = "Forrige";
@@ -143,8 +147,8 @@ namespace Evolutility
 				sStart = "Starter med";
 				sContain = "Indeholder";
 				sFinish = "Slutter med";
-				sIsNull = "Is empty"; // no babelfish
-				sIsNotNull = "Is not empty"; // no babelfish 
+				sIsNull = "Er tom"; // googletranslate
+				sIsNotNull = "Er ikke tom"; // googletranslate
 				qEquals = " lig med ";
 				qStart = " starter med ";
 				qInList = " i listen ";
@@ -156,8 +160,8 @@ namespace Evolutility
 				lStart = " starter med \"{0}\""; //{0}= FieldValue 
 				lFinish = " slutter med \"{0}\""; //{0}= FieldValue 
 				lContain = " indeholder \"{0}\""; //{0}= FieldValue 
-				lIsNull = "\"{0}\" is empty"; //{0}= FieldValue 
-				lIsNotNull = "\"{0}\" is not empty"; //{0}= FieldValue //no babelfish
+				lIsNull = "\"{0}\" er tom"; //{0}= FieldValue - googletranslate
+				lIsNotNull = "\"{0}\" er ikke tom"; //{0}= FieldValue  - googletranslate
 
 				opAnd = " og ";
 				opOr = " eller "; 
@@ -169,6 +173,10 @@ namespace Evolutility
 				Save = "Gem";
 				SaveAdd = "Gem og Tilføj en ny";
 				Cancel = "Annuller";
+				NoX = "Ingen {0}"; // googletranslate
+				NoChange = "Ingen ændring"; //"No Change" googletranslate
+				NoGraph = "Ingen grafer tilgængelig."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Kommentarer opdateret {0:t}."; //{0}=time 

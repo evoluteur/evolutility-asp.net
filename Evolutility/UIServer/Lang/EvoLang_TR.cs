@@ -1,22 +1,24 @@
 ﻿//	TURKISH translation from Davut Engin
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
-//	it under the terms of the GNU General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	Evolutility is open source software: you can redistribute it and/or modify
+//	it under the terms of the GNU Affero General Public License as published by
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
-//	You should have received a copy of the GNU General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	You should have received a copy of the GNU Affero General Public License
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -55,7 +57,7 @@ namespace Evolutility
 				ExportFields = "Dışa aktarılacak alanlar";
 				IDkey = "ID (Birincil Anahtar)";
 				AllFields = "Tüm alanları göster";
-				ExportFormats = "Virgül ile ayrılmış (CSV, TXT, XLS...)-HTML-SQL Ekleme sorguları olarak (SQL)-Tab ile ayrılmış değerler (TXT)-XML";
+				ExportFormats = "Virgül ile ayrılmış (CSV, TXT, XLS...)-HTML-SQL Ekleme sorguları olarak (SQL)-Tab ile ayrılmış değerler (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "İzniniz yok ";
@@ -74,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "Güncellemeye gerek kalmadı.";
 				DeleteOK = "#{0} isimli kaydın silinme zamanı : {1:t}."; // {0}=ID {1}=time 
 				Updated = "{0}, güncelleme zamanı : {1:t}."; // {0}=entity {1}=time 
-				DetailsUpdate = "Detaylar güncellendi.";
+				DetailsUpdated = "Detaylar güncellendi.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Lütfen oturum açın.";
@@ -116,6 +119,8 @@ namespace Evolutility
 				Selection = "Seçim";
 				Export = "Dışa Aktar(Export)";
 				SearchRes = "Arama Sonucu";
+				Charts = "Grafikler"; // "Charts" googletranslate
+				MassUpdate = "Kitle Güncelleme"; //"Mass Update" googletranslate
 				Delete = "Sil";
 				ListAll = "Hepsini Listele";
 				Print = "Yazdır";
@@ -171,6 +176,10 @@ namespace Evolutility
 				Save = "Kaydet";
 				SaveAdd = "Kaydet ve Bir Başkasını Ekle";
 				Cancel = "İptal";
+				NoChange = "Değişiklik Yok"; //"No Change" googletranslate
+				NoX = "Hayır {0}"; // googletranslate
+				NoGraph = "Yok grafikleri."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Yorumların gönderildiği zaman : {0:t}."; //{0}=time 

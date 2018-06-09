@@ -1,4 +1,4 @@
-/* www.evolutility.org - (c) 2009 Olivier Giulieri */
+/* (c) 2011 Olivier Giulieri - www.evolutility.org */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -11,10 +11,10 @@
 	Evolutility is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+	GNU Affero General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
-	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 */
 /*  Metadata for : Address book */
 
@@ -58,7 +58,7 @@ INSERT INTO EvoDico_Field (FormID, UserID, Label, TypeID, dbcolumn, dbcolumnread
 INSERT INTO EvoDico_Field (FormID, UserID, Label, TypeID, dbcolumn, dbcolumnread, maxlength, [Readonly], required, optional, format, PanelID, PanelIndex, fpos, search, searchadv, searchlist, lookup, cssclass, height, width, help, options, Publish)
   VALUES (@FormID, 1, 'Fax', 5, 'Fax', 'Fax', 20, 0, 0, 0, '', @PanelID, 1, 10, 0, 0, 0, 0, '', 1, 50, '', '', 1);
 INSERT INTO EvoDico_Field (FormID, UserID, Label, TypeID, dbcolumn, dbcolumnread, maxlength, [Readonly], required, optional, format, PanelID, PanelIndex, fpos, search, searchadv, searchlist, lookup, cssclass, height, width, help, options, Publish)
-  VALUES (@FormID, 1, 'URL', 7, 'url', 'url', 255, 0, 0, 0, '', @PanelID, 1, 10, 0, 1, 0, 0, '', 1, 100, 'http://www.evolutility.com', '', 1);
+  VALUES (@FormID, 1, 'URL', 7, 'url', 'url', 255, 0, 0, 0, '', @PanelID, 1, 10, 0, 1, 0, 0, '', 1, 100, 'http://www.evolutility.org', '', 1);
  
 -- panel --   
 INSERT INTO EvoDico_Panel (FormID, UserID, TypeID, [Readonly], Label, Width, pPos)

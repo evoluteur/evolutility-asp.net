@@ -1,22 +1,24 @@
 ﻿//	HINDI - Translation from P.K.Agarwal 
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -55,7 +57,7 @@ namespace Evolutility
                 ExportFields = "फील्ड निर्यात करें";
                 IDkey = "ID (मुख्य कुंजी)";
                 AllFields = "सभी फील्ड दिखायें ";
-                ExportFormats = "अल्पविराम पृथक (CSV, TXT, XLS...)-HTML-इन्सर्ट स्टेटमेंन्ट (SQL)-टैव सैपरेटेड वैल्यू (TXT)-XML";
+				ExportFormats = "अल्पविराम पृथक (CSV, TXT, XLS...)-HTML-इन्सर्ट स्टेटमेंन्ट (SQL)-टैव सैपरेटेड वैल्यू (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
                 err_NoPermission = "तुम्हें करने की अनुमति नहीं है। ";
@@ -74,7 +76,8 @@ namespace Evolutility
                 NoUpdate = "कोई अपडेट आवश्यक नहीं। ";
                 DeleteOK = "अभिलेख #{0}, {1:t}पर मिटाया।"; // {0}=ID {1}=time 
                 Updated = "{0} ,{1:t}अपडेट किया।";
-                DetailsUpdate = "विवरण अपडेट किया।";
+				DetailsUpdated = "विवरण अपडेट किया।";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
                 PleaseLogin = "कृपया लॉग करें।";
@@ -111,7 +114,9 @@ namespace Evolutility
                 Selections = "चयन";
                 Selection = "चयन";
                 Export = "निर्यात";
-                SearchRes = "खोज परिणाम";
+				SearchRes = "खोज परिणाम";
+				Charts = "चार्ट";// googletranslate
+				MassUpdate = "जन अद्यतन"; //"Mass Update" googletranslate
                 Delete = "मिटाना";
                 ListAll = "सूची की सभी";
                 Print = "प्रिंट";
@@ -163,7 +168,11 @@ namespace Evolutility
                 Checked = "जांचा हुआ";
                 Save = "सहेजें";
                 SaveAdd = "सहेजें और एक अन्य जोड़ें";
-                Cancel = "रद्द करें";
+				Cancel = "रद्द करें";
+				NoX = "कोई {0}"; // googletranslate
+				NoChange = "कोई परिवर्तन नहीं"; //"No Change" googletranslate
+				NoGraph = "कोई उपलब्ध रेखांकन नहीं है."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
                 ucPostedOn = "टिप्पणियाँ {0:t} पर पोस्ट की गईं."; //{0}=time 

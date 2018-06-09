@@ -1,22 +1,24 @@
 ﻿//	CHINESE (simplified) translation from Sam Zhou
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -54,7 +56,7 @@ namespace Evolutility
                 ExportFormat = "输出文件格式";//"Export Format";
                 ExportFields = "哪些字段将被导出";//"Fields to include in the export";
                 IDkey = "ID（主键）"; // "ID (Primary Key)";
-                ExportFormats ="逗号分隔(CSV, TXT, XLS...)-HTML-SQL插入语句 (SQL)-Tab 分隔 (TXT)-XML";
+                ExportFormats ="逗号分隔(CSV, TXT, XLS...)-HTML-SQL插入语句 (SQL)-Tab 分隔 (TXT)-XML-JSON";
 				// "Comma separated (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separated values (TXT)-XML";
                 AllFields = "显示所有字段";// "Show all fields";
 
@@ -75,7 +77,8 @@ namespace Evolutility
                 NoUpdate = "不需要更新。"; // "No update necessary.";
                 DeleteOK = "新的{0}记录在{1:t}被删除。"; //"Record #{0} deleted at {1:t}."; // {0}=ID {1}=time 
                 Updated = "新的{0}记录在{1:t}被更新。"; //"{0} updated at {1:t}."; // {0}=entity {1}=time 
-                DetailsUpdate = "从表记录被更新。"; //"Details updated.";
+				DetailsUpdated = "从表记录被更新。"; //"Details updated.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
                 // --- login --- 
                 PleaseLogin = "请登录。"; //"Please log in.";
@@ -114,8 +117,10 @@ namespace Evolutility
                 NewSearch = "新查询"; //"New Search";
                 Selections = "预定义查询";//"Selections";
                 Selection = "预定义查询";//"Selection";
-                Export = "导出"; //"Export";
-                SearchRes = "查询结果"; //"Search Result";
+				Export = "导出"; //"Export";
+				SearchRes = "查询结果"; //"Search Result";
+				Charts = "图表"; // "Charts" - googletranslate
+				MassUpdate = "大规模更新"; // "Mass Update" - googletranslate
                 Delete = "删除"; //"Delete";
                 ListAll = "列出所有"; //"List All";
                 Print = "打印"; //"Print";
@@ -168,7 +173,11 @@ namespace Evolutility
                 Checked = "选中"; //"Checked";
                 Save = "保存"; //"Save";
                 SaveAdd = "保存并继续新增"; //"Save and Add Another";
-                Cancel = "取消"; //"Cancel";
+				Cancel = "取消"; //"Cancel";
+				NoX = "没有{0}"; // googletranslate
+				NoChange = "没有变化"; //"No Change"; // googletranslate
+				NoGraph = "没有可用的图形。"; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
                 // --- user comments --- 
                 ucPostedOn = "批注";// "Comments posted on {0:t}."; //{0}=time 

@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Collections.Generic;
@@ -38,7 +41,7 @@ namespace Evolutility
 				myDOM2.Load(FileNameWithMask(_PathXML + "Wizard_Install.xml"));
 				xmlOK = true;
 			}
-			catch (Exception ex)
+			catch //(Exception ex)
 			{
 				myHTML.Append(EvoUI.HTMLMessage("XML not found or invalid.", EvoUI.MsgType.Error));//.Append(ex.Message);
 			}
@@ -112,7 +115,7 @@ namespace Evolutility
 				{
 					myDOM2.Load(FileNameWithMask(_PathXML + string.Format("Setup\\{0}.xml", XMLDefFile)));
 				}
-				catch (Exception ex)
+				catch //(Exception ex)
 				{
 					errorMsg = "XML not found or invalid";
 					xmlOK = false;
@@ -132,7 +135,7 @@ namespace Evolutility
 							t = aNode.Attributes[xAttribute.dbTable].Value;
 							myHTML.AppendFormat("<p>DB Table: {0}</p>", t);
 						}
-						dicoXML2DB(sql);
+						dicoXML2DB(sql,_SqlConnectionDico);
 						myHTML.Append("<div class=\"indent1\">");
 						if (string.IsNullOrEmpty(errorMsg))
 							myHTML.Append(checkMark).Append("Metadata<br>");

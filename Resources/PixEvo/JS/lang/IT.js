@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library ITALIAN
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation Pier Giuseppe Meo
 
 var EvolLang={
@@ -12,8 +12,8 @@ var EvolLang={
 	email:'"{0}" deve essere un indirizzo di email valido.',
 	integer:'"{0}" deve contenere solo cifre.',
 	decimal:'"{0}" deve essere un numero decimale.',
-	date:'"{0}" deve essere una data nel formato "GG/MM/AAAA" es. "24/12/2009".',
-	datetime:'"{0}" deve essere una data e orario nel formato "GG/MM/AAAA hh:mm am/pm" es. "24/12/2009 10:30 am".',
+	date:'"{0}" deve essere una data nel formato "GG/MM/AAAA" es. "24/12/2010".',
+	datetime:'"{0}" deve essere una data e orario nel formato "GG/MM/AAAA hh:mm am/pm" es. "24/12/2010 10:30 am".',
 	time:'"{0}" deve essere una data e orario nel formato "hh:mm am/pm" es. "10:30 am".',
 	max:'"{0}" deve essere minore uguale di {1}.',
 	min:'"{0}" deve essere maggiore uguale di {1}.',

@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library TURKISH - TÜRKÇE
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation from Davut Engin
 
 var EvolLang={
@@ -42,7 +42,7 @@ var EvolLang={
 // date picker
 var defaultDateFormat = "dmy";
 var weekBegin=0,weekEnd=6;
-var todayName = "Bugün ";
+var todayIs = "Bugün ";
 var thisMonth = "bu ay";
 var dayArrShort = ['Pz','Pt','Sl','Çr','Pr','Cu','Ct'];
 var dayArrMed = ['Pz','Pzt','Sl','Çrş','Prş','Cum','Cmt'];

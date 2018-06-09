@@ -1,5 +1,5 @@
 /* Resources for the Blind  */
-/* www.evolutility.org - (c) 2009 Olivier Giulieri  */
+/* www.evolutility.org - (c) 2011 Olivier Giulieri  */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>

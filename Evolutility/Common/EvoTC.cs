@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Text;
@@ -22,7 +25,7 @@ using System.Web;
 
 namespace Evolutility
 {
-
+	// ==================   Date formats, conversions and VB legacy   ==================   
 	/* 
 	This library is a dependency of : 
 	 * Evolutility.DataServer 
@@ -53,8 +56,7 @@ namespace Evolutility
 
 		static internal void LoadFormats(string LanguageKey)
 		{	
-			// Set default formats depending on locale
-
+			/// <summary>Set default formats depending on locale.</summary> 
 			DateFormatST = "{0:t}";
 			switch (LanguageKey)
 			{ 
@@ -69,6 +71,10 @@ namespace Evolutility
 				//    DateFormatSD = "{0:dd/MM-yyyy}";
 				//    DateFormatSDT = "{0:dd/MM-yyyy} {0:t}";
 					break;
+                case "FA":
+                    DateFormatSD = "{0:yy/MM/dd}";
+                    DateFormatSDT = "{0:yy/MM/dd} {0:t}";
+                    break;
 				default: // All other languages
 					DateFormatSD = "{0:dd/MM/yyyy}";
 					DateFormatSDT = "{0:dd/MM/yyyy} {0:t}";
@@ -78,6 +84,7 @@ namespace Evolutility
 
 		static internal string DefaultDateFormat(string fType)
 		{
+			/// <summary>Returns DefaultDateFormat for fieldtype (date, time, datetime).</summary> 
 			switch (fType)
 			{
 				case "date":

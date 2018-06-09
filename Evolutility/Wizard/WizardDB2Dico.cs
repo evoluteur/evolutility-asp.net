@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +43,8 @@ namespace Evolutility
 				for (int i = 0; i < ml; i++)
 				{
 					DataRow ri = t0.Rows[i];
-					myHTML.Append(EvoUI.HTMLInputCheckBox("table2map", ri["ID"].ToString(), String.Format("{0} ({1} columns)", ri["dbtable"], ri["nbfields"])));
+					string cId = ri["ID"].ToString();
+					myHTML.Append(EvoUI.HTMLInputCheckBox("table2map", cId, String.Format("{0} ({1} columns)", ri["dbtable"], ri["nbfields"]), false, cId));
 					myHTML.Append("</br>");
 				}
 				myHTML.Append("</p>");
@@ -63,8 +67,7 @@ namespace Evolutility
 			DataSet ds = new DataSet(); 
 			string myTable, prevTable; 
 			int myFormID = 0, myPanelID = 0; 
-			StringBuilder sqlsb = new StringBuilder(); 
-			string sqlConnectionDico = SqlConnection; 
+			StringBuilder sqlsb = new StringBuilder();
 			const string coma = ","; 
 			
 			sqlsb.Append("SELECT sc.id,so.name as dbtable,sc.name as dbcolumn,sc.xtype,sc.length,sc.isnullable "); 
@@ -106,21 +109,21 @@ namespace Evolutility
 						sqlsb.AppendFormat("'{0}','{1}','{2}',", EvoTC.ToUpperLowers(myTable.Replace("_", " ")), myTable, pkName); 
 						sqlsb.AppendFormat("'Definition obtained from scan table ''{0}'' with Evolutility wizard on {1}.'", myTable, EvoTC.TextNow()); 
 						sqlsb.Append(",'").Append(PagingSPCall);
-						sqlsb.Append("','EvoDicoSP_Login @login, @password'"); 
+						sqlsb.Append("','EvoSP_Login @login, @password'"); 
 						sql = EvoDB.sqlINSERT("EvoDico_form", "title, dbtable, dbcolumnpk, description, sppaging, splogin", sqlsb.ToString());
 						sql += EvoDB.SQL_IDENTITY;
-						myFormID = EvoTC.String2Int(EvoDB.GetDataScalar(sql, sqlConnectionDico, ref ErrorMessage));
+						myFormID = EvoTC.String2Int(EvoDB.GetDataScalar(sql, _SqlConnectionDico, ref ErrorMessage));
 						if (myFormID > 0) 
 						{ 
 							//######### Panel ######### 
-							myPanelID = EvoTC.String2Int(EvoDB.GetDataScalar("SELECT max(ID) FROM EvoDico_Panel WHERE FormID=" + myFormID.ToString(), sqlConnectionDico, ref ErrorMessage)); 
+							myPanelID = EvoTC.String2Int(EvoDB.GetDataScalar("SELECT max(ID) FROM EvoDico_Panel WHERE FormID=" + myFormID.ToString(), _SqlConnectionDico, ref ErrorMessage)); 
 							if (myPanelID == 0) 
 							{
 								sqlsb = new StringBuilder();
 								sqlsb.Append("INSERT INTO EvoDico_Panel (FormID, label, Width) VALUES(");
 								sqlsb.AppendFormat("{0},'{1}',100)", myFormID, myTable);
 								sqlsb.Append(EvoDB.SQL_IDENTITY);
-								myPanelID = EvoTC.String2Int(EvoDB.GetDataScalar(sqlsb.ToString(), sqlConnectionDico, ref ErrorMessage));
+								myPanelID = EvoTC.String2Int(EvoDB.GetDataScalar(sqlsb.ToString(), _SqlConnectionDico, ref ErrorMessage));
 							}
 						} 
 						else 
@@ -128,8 +131,8 @@ namespace Evolutility
 							ErrorMsg += "BAD SQL<br/>" + sql; 
 						} 
 						html.AppendFormat("<li>{0} : ",myTable);
-						html.Append("&nbsp;<a href=\"evodicoTest.aspx?formID=").Append(myFormID).Append("\" target=\"r\">Run").Append(EvoUI.FlagPopup).Append("</a>");
-						html.Append(" - <a href=\"evodicoForm.aspx?ID=").Append(myFormID).Append("\" target=\"d\">Design").Append(EvoUI.FlagPopup).Append("</a></li>"); 
+						html.Append("&nbsp;<a href=\"evodicoTest.aspx?formID=").Append(myFormID).Append("\" target=\"r\">Run").Append(EvoUI.HTMLFlagPopup).Append("</a>");
+						html.Append(" - <a href=\"evodicoForm.aspx?ID=").Append(myFormID).Append("\" target=\"d\">Design").Append(EvoUI.HTMLFlagPopup).Append("</a></li>"); 
 						prevTable = myTable; 
 						f = 0; 
 					} 
@@ -221,7 +224,7 @@ namespace Evolutility
 						else 
 							sqlsb.Append("0,0"); 
 						sqlsb.Append(",1)");
-						buffer = EvoDB.RunSQL(sqlsb.ToString(), sqlConnectionDico, false); 
+						buffer = EvoDB.RunSQL(sqlsb.ToString(), _SqlConnectionDico, false); 
 						if (buffer != string.Empty)
 							ErrorMsg += string.Format("BAD SQL<br/>{0}<br/>{1}", sqlsb.ToString(), buffer); 
 					} 

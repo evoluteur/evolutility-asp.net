@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 //#define DB_MySQL
 #undef DB_MySQL
@@ -130,7 +133,7 @@ namespace Evolutility
 		private const string Tilda = "~";
 		private const string coma = ",";
 		private const string s0 = "0", s1 = "1", s2 = "2", s3 = "3", s4 = "4";
-		private const string xptCSV = "CSV", xptHTML = "HTML", xptSQL = "SQL", xptTAB = "TAB", xptXML = "XML";//, xptJSON = "JSON";
+		private const string xptCSV = "CSV", xptHTML = "HTML", xptSQL = "SQL", xptTAB = "TAB", xptXML = "XML", xptJSON = "JSON";
 		//lower case b/c used for description 
 		private const string SQL_and = " AND ";
 
@@ -145,6 +148,7 @@ namespace Evolutility
 #region "Properties"
 
 		private bool _DBReadOnly;
+		private bool _DataIsMetadata;
 		private bool _DBAllowDesign = false, _ShowDesigner = false;
 		private bool _DBAllowUpdate = true;
 		private bool _DBAllowInsert = true;
@@ -154,6 +158,8 @@ namespace Evolutility
 		private bool _DBAllowInsertDetails = false;
 		private bool _DBAllowSearch = true;
 		private bool _DBAllowExport = false;
+		private bool _DBAllowCharts = true;
+		private bool _DBAllowMassUpdate = false;
 		private bool _DBAllowSelections = false;
 		private bool _DBAllowHelp = false;
 		private bool _DBAllowPrint = true;
@@ -186,8 +192,9 @@ namespace Evolutility
 		private bool _CollapsiblePanels = true;
 		private Color _BackColorRowMouseOver;
 
-		private const string vNameItemID = "EVOL_ItemID"; 
-		private const string tableBeginTr = "<table class=\"Holder\"><tr valign=\"top\">";
+		private const string vNameItemID = "EVOL_ItemID";
+		private const string tableBeginTr = "<table class=\"Holder\"><tr>";
+		private const string tableBeginTr2 = "<table class=\"Holder2\"><tr>";
 		private const string trTableEnd = "</tr></table>";
 		private const string TdTrTableEnd = "</td></tr></table>";
 		private const string HTMLSpace3 = "&nbsp;&nbsp;&nbsp;";
@@ -207,7 +214,7 @@ namespace Evolutility
 #region "Properties:Behavior"
 
 		[Category("Behavior"),
-		Description("View (type of form) currently displayed (ReadOnly property).")]
+		Description("Form currently displayed (ReadOnly property).")]
 		public virtual EvolDisplayMode DisplayMode
 		{
 			get
@@ -229,7 +236,7 @@ namespace Evolutility
 		}
 
 		[Category("Behavior"), DefaultValue(EvolDisplayMode.List),
-		Description("View (type of form) displayed the fist time the control is presented.")]
+		Description("Default form the control instance.")]
 		public virtual EvolDisplayMode DisplayModeStart
 		{
 			get { return _DisplayModeStart; }
@@ -237,7 +244,7 @@ namespace Evolutility
 		}
 
 		[Category("Behavior"), DefaultValue(true), 
-		Description("Allow sorting in search result lists.")]
+		Description("Allow sorting in List form.")]
 		public bool AllowSorting
 		{
 			get { return _AllowSorting; }
@@ -265,7 +272,7 @@ namespace Evolutility
 #region "Properties:Data" 
 
 		[Category("Data"), DefaultValue(""), 
-		Description("Metadata definition (XML file or ID of form).")]
+		Description("Metadata definition XML file name or form ID (when using EvoDico).")]
 		public string XMLfile
 		{
 			get { return _XMLfile; }
@@ -283,7 +290,12 @@ namespace Evolutility
 		Description("Connection string to the Database containing the data.")]
 		public string SqlConnection
 		{
-			get { return _SqlConnection; }
+			get { 
+				if(_DataIsMetadata)
+					return _SqlConnectionDico; 
+				else
+					return _SqlConnection; 
+			}
 			set { _SqlConnection = value; }
 		}
 
@@ -295,8 +307,17 @@ namespace Evolutility
 			set { _SqlConnectionDico = value; }
 		}
 
+
+		[Category("Data"), DefaultValue(false),
+	   Description("Indicates if the data is the metadata (uses SqlConnectionDico for data).")]
+		public bool DataIsMetadata
+		{
+			get { return _DataIsMetadata; }
+			set { _DataIsMetadata = value; }
+		}
+
 		[Category("Data"), DefaultValue(false), 
-		Description("Allows customizations (only applies for metadata stored in the database).")]
+		Description("Allows customizations (only applies when using EvoDico).")]
 		public bool DBAllowDesign
 		{
 			get { return _DBAllowDesign; }
@@ -304,7 +325,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(false), 
-		Description("Make entity Read-Only, disables functions New, Edit, Save...")]
+		Description("Makes entity Read-Only (disables functions New, Edit, Save, Delete...)")]
 		public bool DBReadOnly
 		{
 			get { return _DBReadOnly; }
@@ -352,7 +373,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(false), 
-		Description("Enables exporting records.")]
+		Description("Enables export.")]
 		public bool DBAllowExport
 		{
 			get { return _DBAllowExport; }
@@ -360,7 +381,23 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(false), 
-		Description("Enables the selections feature for predefined queries.")]
+		Description("Enables charts.")]
+		public bool DBAllowCharts
+		{
+			get { return _DBAllowCharts; }
+			set { _DBAllowCharts = value; }
+		}
+
+		[Category("Data"), DefaultValue(false), 
+		Description("Enables mass update.")]
+		public bool DBAllowMassUpdate
+		{
+			get { return _DBAllowMassUpdate; }
+			set { _DBAllowMassUpdate = value; }
+		}
+
+		[Category("Data"), DefaultValue(false), 
+		Description("Enables selections (predefined queries).")]
 		public bool DBAllowSelections
 		{
 			get { return _DBAllowSelections; }
@@ -368,7 +405,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(false), 
-		Description("Provides help tooltips (in edit view).")]
+		Description("Provides help tooltips (in edit form).")]
 		public bool DBAllowHelp
 		{
 			get { return _DBAllowHelp; }
@@ -376,7 +413,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(true), 
-		Description("Provides Print toolbar icon.")]
+		Description("Shows Print as toolbar icon.")]
 		public bool DBAllowPrint
 		{
 			get { return _DBAllowPrint; }
@@ -384,7 +421,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(true),
-	   Description("Provides Logout toolbar icon (when the user is logged in).")]
+		Description("Shows Logout toolbar icon (when the user is logged in).")]
 		public bool DBAllowLogout
 		{
 			get { return _DBAllowLogout; }
@@ -422,7 +459,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue(""), 
-		Description("Application Key used to share credentials information between application components.")]
+		Description("Application Key used to share credentials between application components.")]
 		public string SecurityKey
 		{
 			get { return _DBApplicationKey; }
@@ -461,7 +498,7 @@ namespace Evolutility
 		}
 
 		[Category("Data"), DefaultValue("EN"),
-		Description("Language: \"EN\" for English, \"FR\" for French,  \"JP\" for Japanese.")]
+		Description("Language: \"EN\" for English, \"FR\" for French,  \"JP\" for Japanese...")]
 		public string Language
 		{
 			get { return _Language; }
@@ -482,7 +519,7 @@ namespace Evolutility
 #region "Properties:Appearance"
 
 		[Category("Appearance"), DefaultValue(""),
-		Description("Introduction text only displayed the first time the control is called.")]
+		Description("Introduction text only displayed the first time the control is displayed.")]
 		public string Text
 		{
 			get { return _Text; }
@@ -530,7 +567,7 @@ namespace Evolutility
 		}
 
 		[Category("Appearance"), DefaultValue(true), 
-		Description("Makes title and view name visible.")]
+		Description("Makes title and form name visible.")]
 		public bool ShowTitle
 		{
 			get { return _ShowTitle; }
@@ -574,7 +611,7 @@ namespace Evolutility
 		}
 
 		[Category("Appearance"), DefaultValue(true), 
-		Description("Shows navigation links to First, Previous, Next, and Last records (in Edit and View modes).")]
+		Description("Shows navigation links to First, Previous, Next, and Last records (in Edit and View forms).")]
 		public bool NavigationLinks
 		{
 			get { return _NavLinks; }
@@ -591,17 +628,15 @@ namespace Evolutility
 		protected override void Render(System.Web.UI.HtmlTextWriter output)
 		{
 			if (GetPageRequest("action") == "getform")
-			{
 				SendFormHTML(GetPageRequest("form"));
-				return;
-			}
-			if (_DisplayMode == 71 | _DisplayMode == 72)
+			else if (_DisplayMode == 71 | _DisplayMode == 72)
 				RenderExport();
 			else
 			{
 				StringBuilder sb = new StringBuilder();
-				sb.Append(EvoUI.CRE).AppendFormat("<div class=\"Evo\" id=\"{0}\">\n", this.ID);
-				sb.Append(HTMLmenu(false));
+				sb.Append(EvoUI.CRE).AppendFormat("<div id=\"{0}\" class=\"Evo {1}\">\n", this.ID, EvoLang.R2L?" R2L":string.Empty);
+				if (_DisplayMode != 50)
+					sb.Append(HTMLmenu(false));
 				sb.Append(EvoUI.HTMLInputHidden(vNameItemID, _ItemID.ToString()));
 				output.Write(sb.ToString());
 				if (string.IsNullOrEmpty(ErrorMsg))
@@ -621,8 +656,6 @@ namespace Evolutility
 				}
 				if (XMLloaded)
 				{
-					//if (_DisplayMode > 0 && _DisplayMode < 5)
-					//    output.Write(EvoUI.JSIncludeScriptDate(_PathPixToolbar));
 					output.Write(String.Format("<span id=\"{0}_Content\">", this.ID));
 					switch (_DisplayMode)
 					{
@@ -645,11 +678,17 @@ namespace Evolutility
 						case 50: // login 
 							output.Write(EvoUI.FormLogin(EvoLang.Login, EvoLang.Password, EvoLang.LoginB, GetPageRequest(EvoUI.fNameLogin)));
 							break;
+						case 60: // selections 
+							output.Write(FormQueries());
+							break;
 						case 70: // export 
 							output.Write(FormExport());
 							break;
-						case 60: // selections 
-							output.Write(FormQueries());
+						case 80: // mass update 
+							output.Write(FormMassUpdate());
+							break;
+						case 90: // charts
+							output.Write(FormCharts());
 							break;
 						default:
 							AddError("Invalid parameters.");
@@ -660,7 +699,7 @@ namespace Evolutility
 				}
 				if (ErrorMsg != string.Empty && !ErrorMsg.Equals("-"))
 					output.Write(EvoUI.HTMLMessage(ErrorMsg, EvoUI.MsgType.Error));
-				if (_ToolbarPosition == EvolToolbarPosition.Top_And_Bottom) 
+				if (_DisplayMode != 50 && _ToolbarPosition == EvolToolbarPosition.Top_And_Bottom)
 					output.Write(HTMLmenu(true));
 				output.Write(EvoUI.Signature());
 				output.Write("</div>");
@@ -673,7 +712,6 @@ namespace Evolutility
 					}
 					else
 						genJS.Append("};");
-					//genJS.Append("FCKConfig.DefaultLanguage='").Append(_Language.ToLower()).Append("';");
 					JSWrite(genJS.ToString());
 				}
 			}
@@ -701,6 +739,9 @@ namespace Evolutility
 				case "sel": // selections
 					response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(60), FormQueries())));
 					break;
+				case "mupdate": // mass update
+					response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(90), FormMassUpdate())));
+					break;
 				//case "new": // new record - MUST HAVE VALIDATION JS TO WORK
 				//    _ItemID = -1;
 				//    response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(1), FormEdit(2))));
@@ -716,24 +757,26 @@ namespace Evolutility
 		private void RenderExport()
 		{
 			// Sends Exports data in requested format
-			string Filename, buffer;
+			string fileName, fileExt, formatName;
 			UTF8Encoding Encoding = new UTF8Encoding();
 			System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
 
 			response.Clear();
-			buffer = Page.Request["evoZOut"];
-			if (string.IsNullOrEmpty(buffer)) 
-				buffer = xptCSV;
-			if(def_Data.entities==EvoLang.entities)
-				Filename = def_Data.dbtable;
+			formatName = GetPageRequest("evoZOut", xptCSV);
+			if (formatName == "JSON")
+				fileExt = "JS.txt"; // easier to open from browser
 			else
-				Filename = def_Data.entities.Replace(" ", "_");
-			response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}.{1}", Filename, buffer));
-			if (buffer.Equals(xptCSV))
+				fileExt = formatName;
+			if(def_Data.entities==EvoLang.entities)
+				fileName = def_Data.dbtable;
+			else
+				fileName = def_Data.entities.Replace(" ", "_");
+			response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}.{1}", fileName, fileExt));
+			if (formatName.Equals(xptCSV))
 				response.ContentType = "application/ms-excel";
 			else
 				response.ContentType = "application/octet-stream";
-			response.BinaryWrite(Encoding.GetBytes(GenerateExport(buffer))); 
+			response.BinaryWrite(Encoding.GetBytes(GenerateExport(formatName))); 
 			response.Charset = string.Empty;
 			if (_DisplayMode == 71)
 				_DisplayMode = 0;
@@ -791,11 +834,8 @@ namespace Evolutility
 								_DisplayMode = Convert.ToInt32(buffer);
 							if (_DisplayMode == 50)
 								_DisplayMode += 1;
-							else
-							{
-								if (_DisplayMode > 0 && _DisplayMode < 5 && !_ShowDesigner)
-									_DisplayMode += 100;
-							}
+							else if (_DisplayMode > 0 && _DisplayMode < 5 && !_ShowDesigner)
+								_DisplayMode += 100;
 						}
 					}
 				}
@@ -890,7 +930,7 @@ namespace Evolutility
 				}
 				if (_UserID > 0 || _SecurityModel.Equals(EvolSecurityModel.Single_User))
 				{
-					//////// processing ////////////////////////////// 
+					//////// processing DB CRUD ////////////////////////////// 
 					//-------- user comments -------- 
 					if (_DisplayMode == 0 && _DBAllowComments == EvolCommentsMode.Logged_Users)
 						PostUserComments();
@@ -901,198 +941,241 @@ namespace Evolutility
 					//check for readonly... 
 					if (_DBReadOnly)
 					{
-						if (_DisplayMode == 1) 
+						if (_DisplayMode == 1)
 							_DisplayMode = 0;
 					}
-					else if (_DBAllowInsert || _DBAllowUpdate)
+					else
 					{
-						//-------- master table -------- 
-						if (ToDo > -1)
+						if (_DBAllowMassUpdate && _DisplayMode == 80 && !string.IsNullOrEmpty(Page.Request["MU"]))
 						{
-							NbFileUploads = 0;
-							//verification + save 
-							if (_DisplayMode == 101)
+							//-------- Mass Update -------- 
+							aNodeList = myDOM.DocumentElement.SelectNodes(xQuery.aggregableFields, nsManager); 
+							int maxLoop = aNodeList.Count;
+							for (i = 0; i < maxLoop; i++)
 							{
-								aNodeList = myDOM.DocumentElement.SelectNodes(xQuery.panelField, nsManager);
-								ValidationMsg = string.Empty;
-								//INSERT 
-								if (_ItemID == 0)
+								XmlNode cn = aNodeList[i];
+								if (cn.Attributes[xAttribute.dbReadOnly] == null)
+									fieldReadOnly = 0;
+								else
+									fieldReadOnly = EvoTC.String2Int(cn.Attributes[xAttribute.dbReadOnly].Value);
+								if (fieldReadOnly == 0)
 								{
-									if (_DBAllowInsert)
+									fieldType = cn.Attributes[xAttribute.type].Value;
+									dbcolumn =  cn.Attributes[xAttribute.dbColumn].Value;
+									string fieldValue = GetPageRequest(UID + dbcolumn);
+									if (!string.IsNullOrEmpty(fieldValue))
 									{
-										//If spInsert = "" Then 
-										int maxLoop = aNodeList.Count;
-										for (i = 0; i < maxLoop; i++)
+										if (fieldType == EvoDB.t_bool)
+											fieldValue = (fieldValue == "Y")?"0":"1"; 
+										sql2.AppendFormat("{0}={1},", dbcolumn, fieldValue);
+									}
+								}
+							}
+							if (sql2.Length > 0)
+							{
+								sql2.Remove(sql2.Length - 1, 1); 
+								sql.AppendFormat("UPDATE {0} SET {1}", def_Data.dbtable, sql2); 
+								buffer = getSQLw();
+								if(!string.IsNullOrEmpty(buffer))
+									sql.Append(EvoDB.SQL_WHERE).Append("ID IN (SELECT ID FROM ").Append(def_Data.dbtable).Append(" T ").Append(EvoDB.SQL_WHERE).Append(buffer).Append(")");
+								sql.Append(EvoDB.SQL_ROWCOUNT);
+								string nbUpdates = EvoDB.GetDataScalar(sql.ToString(), SqlConnection, ref ErrorMsg);
+								HeaderMsg = EvoTC.CondiConcat(HeaderMsg, string.Format(EvoLang.MassUpdated, nbUpdates, def_Data.entities, EvoTC.TextNowTime()), vbCrLf);
+								////DEBUG
+								//HeaderMsg += "<br/><br/>" + sql.ToString();
+							}
+
+						}
+						else if (_DBAllowInsert || _DBAllowUpdate)
+						{
+							//-------- master table -------- 
+							if (ToDo > -1)
+							{
+								NbFileUploads = 0;
+								//verification + save 
+								if (_DisplayMode == 101)
+								{
+									aNodeList = myDOM.DocumentElement.SelectNodes(xQuery.panelField, nsManager);
+									ValidationMsg = string.Empty;
+									//INSERT 
+									if (_ItemID == 0)
+									{
+										if (_DBAllowInsert)
 										{
-											XmlNode cn = aNodeList[i];
-											if (cn.Attributes[xAttribute.dbReadOnly] == null)
-												fieldReadOnly = 0;
-											else
-												fieldReadOnly = EvoTC.String2Int(cn.Attributes[xAttribute.dbReadOnly].Value);
-											if (fieldReadOnly != 1)
+											//If spInsert = "" Then 
+											int maxLoop = aNodeList.Count;
+											for (i = 0; i < maxLoop; i++)
 											{
-												dbcolumn = UID + cn.Attributes[xAttribute.dbColumn].Value;
-												string fieldValue = GetPageRequest(dbcolumn);
-												fieldType = cn.Attributes[xAttribute.type].Value;
-												switch (fieldType)
+												XmlNode cn = aNodeList[i];
+												if (cn.Attributes[xAttribute.dbReadOnly] == null)
+													fieldReadOnly = 0;
+												else
+													fieldReadOnly = EvoTC.String2Int(cn.Attributes[xAttribute.dbReadOnly].Value);
+												if (fieldReadOnly != 1)
 												{
-													case EvoDB.t_date:
-														break;
-													case EvoDB.t_pix:
-													case EvoDB.t_doc:
-														fieldValue = UploadDoc(NbFileUploads, UID + dbcolumn, fieldType==EvoDB.t_pix, false);
-														NbFileUploads += 1;
-														break;
-													default:
-														fieldMaxLength = xAttribute.GetFieldMaxLength(cn);
-														break;
-												}
-												if (string.IsNullOrEmpty(fieldValue))
-												{
-													if (fieldType != EvoDB.t_bool && cn.Attributes[xAttribute.required] != null && cn.Attributes[xAttribute.required].Value == s1) 
-														ValidationMsg += cn.Attributes[xAttribute.label].Value + " required.";
-												}
-												else if (fieldValue != Tilda && fieldValue != string.Empty)
-												{
-													sql2.AppendFormat(EvoDB.SQL_NAME_0c, cn.Attributes[xAttribute.dbColumn].Value);
-													sql.Append(EvoDB.dbFormat(fieldValue, fieldType, fieldMaxLength, _Language)).Append(coma);
-												}
-											}
-										}
-										if (string.IsNullOrEmpty(ValidationMsg))
-										{
-											if (sql.Length > 0)
-											{
-												if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
-												{
-													sql2.Append(def_Data.dbcolumnuserid).Append(coma);
-													sql.Append(_UserID).Append(coma);
-												}
-												aSQL = EvoDB.sqlINSERT(def_Data.dbtable, sql2.ToString().Substring(0, sql2.Length - 1), sql.ToString().Substring(0, sql.Length - 1));
-											}
-											if (!string.IsNullOrEmpty(aSQL))
-											{
-												string cacheName = string.Format("LastInsert{0}", this.UniqueID);
-												if (Page.Cache[cacheName]==null || aSQL != Page.Cache[cacheName].ToString())
-												{
-													_ItemID = EvoTC.String2Int(EvoDB.GetDataScalar(aSQL + EvoDB.SQL_IDENTITY, _SqlConnection, ref ErrorMsg));
-													if (_ItemID>0)
+													dbcolumn = UID + cn.Attributes[xAttribute.dbColumn].Value;
+													string fieldValue = GetPageRequest(dbcolumn);
+													fieldType = cn.Attributes[xAttribute.type].Value;
+													switch (fieldType)
 													{
-														HeaderMsg = EvoTC.CondiConcat(HeaderMsg, string.Format(EvoLang.NewSave, def_Data.entity, EvoTC.TextNowTime()), vbCrLf);
-														Page.Cache[cacheName] = aSQL;
-														MustTriggerInsert = true;
+														case EvoDB.t_date:
+															break;
+														case EvoDB.t_pix:
+														case EvoDB.t_doc:
+															fieldValue = UploadDoc(NbFileUploads, UID + dbcolumn, fieldType == EvoDB.t_pix, false);
+															NbFileUploads += 1;
+															break;
+														default:
+															fieldMaxLength = xAttribute.GetFieldMaxLength(cn);
+															break;
+													}
+													if (string.IsNullOrEmpty(fieldValue))
+													{
+														if (fieldType != EvoDB.t_bool && cn.Attributes[xAttribute.required] != null && cn.Attributes[xAttribute.required].Value == s1)
+															ValidationMsg += cn.Attributes[xAttribute.label].Value + " required.";
+													}
+													else if (fieldValue != Tilda && fieldValue != string.Empty)
+													{
+														sql2.AppendFormat(EvoDB.SQL_NAME_0c, cn.Attributes[xAttribute.dbColumn].Value);
+														sql.Append(EvoDB.dbFormat(fieldValue, fieldType, fieldMaxLength, _Language)).Append(coma);
+													}
+												}
+											}
+											if (string.IsNullOrEmpty(ValidationMsg))
+											{
+												if (sql.Length > 0)
+												{
+													if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Collaboration))
+													{
+														sql2.Append(def_Data.dbcolumnuserid).Append(coma);
+														sql.Append(_UserID).Append(coma);
+													}
+													aSQL = EvoDB.sqlINSERT(def_Data.dbtable, sql2.ToString().Substring(0, sql2.Length - 1), sql.ToString().Substring(0, sql.Length - 1));
+												}
+												if (!string.IsNullOrEmpty(aSQL))
+												{
+													string cacheName = string.Format("LastInsert{0}", this.UniqueID);
+													if (Page.Cache[cacheName] == null || aSQL != Page.Cache[cacheName].ToString())
+													{
+														_ItemID = EvoTC.String2Int(EvoDB.GetDataScalar(aSQL + EvoDB.SQL_IDENTITY, SqlConnection, ref ErrorMsg));
+														if (_ItemID > 0)
+														{
+															HeaderMsg = EvoTC.CondiConcat(HeaderMsg, string.Format(EvoLang.NewSave, def_Data.entity, EvoTC.TextNowTime()), vbCrLf);
+															Page.Cache[cacheName] = aSQL;
+															MustTriggerInsert = true;
+														}
+														else
+														{
+															Page.Cache.Remove(cacheName);
+															ToDo = 25;
+														}
+													}
+												}
+											}
+											else
+												AddError(ValidationMsg);
+											_DisplayMode = (_DBAllowUpdate) ? 1 : 0;
+											if (ErrorMsg == "")
+												nav = 4;
+										}
+										else
+											AddError(EvoLang.err_NoPermission + string.Format(EvoLang.InsertEntity, def_Data.entity));
+									}
+									//UPDATE 
+									else
+									{
+										if (_DBAllowUpdate)
+										{
+											//If spUpdate = "" Then 
+											int maxLoop = aNodeList.Count;
+											for (i = 0; i < maxLoop; i++)
+											{
+												XmlNode cn = aNodeList[i];
+												if (cn.Attributes[xAttribute.dbReadOnly] == null)
+													fieldReadOnly = 0;
+												else
+													fieldReadOnly = EvoTC.String2Int(cn.Attributes[xAttribute.dbReadOnly].Value);
+												//readonly=1, insert no edit =2 
+												if (fieldReadOnly == 0)
+												{
+													dbcolumn = cn.Attributes[xAttribute.dbColumn].Value;
+													fieldType = cn.Attributes[xAttribute.type].Value;
+													if (fieldType == EvoDB.t_pix || fieldType == EvoDB.t_doc)
+													{
+														buffer = UploadDoc(NbFileUploads, UID + dbcolumn, fieldType == EvoDB.t_pix, false);
+														NbFileUploads += 1;
 													}
 													else
-													{ 
-														Page.Cache.Remove(cacheName);
-														ToDo = 25;
+														buffer = GetPageRequest(UID + dbcolumn);
+													if (string.IsNullOrEmpty(buffer))
+													{
+														if (cn.Attributes[xAttribute.required] == null)
+															fieldRequired = false;
+														else
+															fieldRequired = cn.Attributes[xAttribute.required].Value == s1;
+														if (fieldRequired)
+															ValidationMsg += string.Format(EvoLang.MHValidValue, cn.Attributes[xAttribute.label].Value);
+														else
+														{
+															if (fieldType != EvoDB.t_lov && buffer != Page.Server.UrlDecode(GetPageRequest(UID + dbcolumn + "_ov")))
+																sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, EvoDB.dbFormat(buffer, fieldType, 0, _Language));
+														}
 													}
+													else if (!buffer.Equals(Tilda) && buffer != Page.Server.UrlDecode(GetPageRequest(UID + dbcolumn + "_ov")))
+														sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, EvoDB.dbFormat(buffer, fieldType, 0, _Language));
 												}
+											}
+											if (string.IsNullOrEmpty(ValidationMsg))
+											{
+												if (sql.Length > 0)
+												{
+													aSQL = string.Format("UPDATE {0} SET {1}", def_Data.dbtable, sql.ToString().Substring(0, sql.Length - 1));
+													//If _DBRecordAuditing Then aSQL += ",lastupdate=getdate(),lastupdateby=" & _UserID 
+													aSQL += string.Format(" WHERE {0}={1}", def_Data.dbcolumnpk, _ItemID);
+													if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
+														aSQL += string.Format(" AND {0}={1} ", def_Data.dbcolumnuserid, _UserID);
+												}
+												if (aSQL.Length > 1)
+												{
+													buffer = EvoDB.RunSQL(aSQL, SqlConnection, true);
+													AddError(buffer);
+													if (string.IsNullOrEmpty(ErrorMsg))
+													{
+														HeaderMsg = EvoTC.CondiConcat(HeaderMsg, string.Format(EvoLang.Updated, EvoTC.ToUpperLowers(def_Data.entity), EvoTC.TextNowTime()), vbCrLf);
+														OnDBChange(new DatabaseEventArgs(DBAction.UPDATE, _ItemID));
+													}
+													else
+														AddError(string.Format(EvoLang.err_Update, def_Data.entity, _ItemID.ToString()));
+												}
+												else
+													HeaderMsg = EvoTC.CondiConcat(HeaderMsg, EvoLang.NoUpdate, vbCrLf);
 											}
 										}
 										else
-											AddError(ValidationMsg);
-										_DisplayMode = (_DBAllowUpdate) ? 1 : 0;
-										if (ErrorMsg=="")
-											nav = 4;
+											AddError(EvoLang.err_NoPermission + string.Format(EvoLang.ModifyEntity, def_Data.entity));
+										nav = -1;
+										_DisplayMode = 1;
 									}
-									else
-										AddError(EvoLang.err_NoPermission + string.Format(EvoLang.InsertEntity, def_Data.entity));
 								}
-								//UPDATE 
-								else
+								//DELETE 
+								else if (_DisplayMode == 10)
 								{
-									if (_DBAllowUpdate)
-									{
-										//If spUpdate = "" Then 
-										int maxLoop = aNodeList.Count;
-										for (i = 0; i < maxLoop; i++)
-										{
-											XmlNode cn = aNodeList[i];
-											if (cn.Attributes[xAttribute.dbReadOnly] == null)
-												fieldReadOnly = 0;
-											else
-												fieldReadOnly = EvoTC.String2Int(cn.Attributes[xAttribute.dbReadOnly].Value);
-											//readonly=1, insert no edit =2 
-											if (fieldReadOnly == 0)
-											{
-												dbcolumn = cn.Attributes[xAttribute.dbColumn].Value;
-												fieldType = cn.Attributes[xAttribute.type].Value;
-												if (fieldType == EvoDB.t_pix || fieldType == EvoDB.t_doc)
-												{
-													buffer = UploadDoc(NbFileUploads, UID + dbcolumn, fieldType == EvoDB.t_pix, false);
-													NbFileUploads += 1;
-												}
-												else
-													buffer = GetPageRequest(UID + dbcolumn);
-												if (string.IsNullOrEmpty(buffer))
-												{
-													if (cn.Attributes[xAttribute.required] == null)
-														fieldRequired = false;
-													else
-														fieldRequired = cn.Attributes[xAttribute.required].Value == s1;
-													if (fieldRequired)
-														ValidationMsg += string.Format(EvoLang.MHValidValue, cn.Attributes[xAttribute.label].Value);
-													else
-													{
-														if (fieldType != EvoDB.t_lov && buffer != Page.Server.UrlDecode(GetPageRequest(UID + dbcolumn + "_ov")))
-															sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, EvoDB.dbFormat(buffer, fieldType, 0, _Language));
-													}
-												}
-												else if (!buffer.Equals(Tilda) && buffer != Page.Server.UrlDecode(GetPageRequest(UID + dbcolumn + "_ov")))
-													sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, EvoDB.dbFormat(buffer, fieldType, 0, _Language)); 
-											}
-										}
-										if (string.IsNullOrEmpty(ValidationMsg))
-										{
-											if (sql.Length > 0)
-											{
-												aSQL = string.Format("UPDATE {0} SET {1}", def_Data.dbtable, sql.ToString().Substring(0, sql.Length - 1));
-												//If _DBRecordAuditing Then aSQL += ",lastupdate=getdate(),lastupdateby=" & _UserID 
-												aSQL += string.Format(" WHERE {0}={1}", def_Data.dbcolumnpk, _ItemID);
-												if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
-													aSQL += string.Format(" AND {0}={1} ", def_Data.dbcolumnuserid, _UserID);
-											}
-											if (aSQL.Length > 1)
-											{
-												buffer = EvoDB.RunSQL(aSQL, _SqlConnection, true);
-												AddError(buffer);
-												if (string.IsNullOrEmpty(ErrorMsg))
-												{
-													HeaderMsg = EvoTC.CondiConcat(HeaderMsg, string.Format(EvoLang.Updated, EvoTC.ToUpperLowers(def_Data.entity), EvoTC.TextNowTime()), vbCrLf);
-													OnDBChange(new DatabaseEventArgs(DBAction.UPDATE, _ItemID));
-												}
-												else
-													AddError(string.Format(EvoLang.err_Update, def_Data.entity, _ItemID.ToString()));
-											}
-											else
-												HeaderMsg = EvoTC.CondiConcat(HeaderMsg, EvoLang.NoUpdate, vbCrLf);
-										}
-									}
-									else
-										AddError(EvoLang.err_NoPermission + string.Format(EvoLang.ModifyEntity, def_Data.entity));
-									nav = -1;
-									_DisplayMode = 1;
+									if (BuildSQLDeleteItem() < 0)
+										_DisplayMode = 1;
 								}
 							}
-							//DELETE 
-							else if (_DisplayMode == 10)
+							//-------- details table -------- 
+							if (_DisplayMode == 1 && _ItemID > 0 && (_DBAllowUpdateDetails || _DBAllowInsertDetails) && GetPageRequest("evoUDtls") == s1)
 							{
-								if (BuildSQLDeleteItem() < 0)
-									_DisplayMode = 1;
-							}
-						}
-						//-------- details table -------- 
-						if (_DisplayMode == 1 && _ItemID > 0 && (_DBAllowUpdateDetails || _DBAllowInsertDetails) && GetPageRequest("evoUDtls") == s1)
-						{
-							aSQL = BuildSQLDetailsUpsert();
-							if (aSQL != string.Empty)
-							{
-								buffer = EvoDB.RunSQL(aSQL, _SqlConnection, false);
-								if (string.IsNullOrEmpty(buffer))
-									HeaderMsg += EvoUI.tag_BR + EvoLang.DetailsUpdate;
-								else
-									AddError(buffer);
+								aSQL = BuildSQLDetailsUpsert();
+								if (aSQL != string.Empty)
+								{
+									buffer = EvoDB.RunSQL(aSQL, SqlConnection, false);
+									if (string.IsNullOrEmpty(buffer))
+										HeaderMsg += EvoUI.tag_BR + EvoLang.DetailsUpdated;
+									else
+										AddError(buffer);
+								}
 							}
 						}
 					}
@@ -1124,9 +1207,9 @@ namespace Evolutility
 							{
 								PrevItemID = _ItemID;
 #if DB_MySQL
-								ds = EvoDB.GetDataParameters(BuildSQLnav(nav, true), _SqlConnection, new MySqlParameter[] { new MySqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
+								ds = EvoDB.GetDataParameters(BuildSQLnav(nav, true), SqlConnection, new MySqlParameter[] { new MySqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
 #else
-								ds = EvoDB.GetDataParameters(BuildSQLnav(nav, true), _SqlConnection, new SqlParameter[] {new SqlParameter(EvoDB.p_itemid, _ItemID)}, ref ErrorMsg);
+								ds = EvoDB.GetDataParameters(BuildSQLnav(nav, true), SqlConnection, new SqlParameter[] {new SqlParameter(EvoDB.p_itemid, _ItemID)}, ref ErrorMsg);
 #endif
 								try
 								{
@@ -1134,9 +1217,9 @@ namespace Evolutility
 									{
 										if (_ItemID > 0)
 #if DB_MySQL
-											ds = EvoDB.GetDataParameters(BuildSQLnav(nav, false), _SqlConnection, new MySqlParameter[] { new MySqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
+											ds = EvoDB.GetDataParameters(BuildSQLnav(nav, false), SqlConnection, new MySqlParameter[] { new MySqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
 #else
-											ds = EvoDB.GetDataParameters(BuildSQLnav(nav, false), _SqlConnection, new SqlParameter[] { new SqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
+											ds = EvoDB.GetDataParameters(BuildSQLnav(nav, false), SqlConnection, new SqlParameter[] { new SqlParameter(EvoDB.p_itemid, _ItemID) }, ref ErrorMsg);
 #endif
 										else
 											_ItemID = 0;
@@ -1245,9 +1328,12 @@ namespace Evolutility
 						_ItemID = 0; 
 						_DisplayMode = 50; 
 						break; 
-					case 70: 
+					case 70: // export 
 					case 71: 
-					case 72: // export 
+					case 72: 
+					case 80: 
+					case 81: // mass update 
+					case 90: // chart
 						_DisplayMode = aDisplayMode; 
 						break;
 					default: 
@@ -1303,7 +1389,7 @@ namespace Evolutility
 						if (eventArgument.Length > 2) 
 							newOrderBy = eventArgument.Substring(2);
 						if (eventType.Equals("a"))
-							newOrderBy += " ASC ";         
+							newOrderBy += " ASC "; // must keep the space after
 						else 
 							newOrderBy += " DESC"; 
 						PostBackEventUsed = true; 
@@ -1355,10 +1441,10 @@ namespace Evolutility
 
 #if DB_MySQL
 			MySqlDataReader dr = null; 
-			MySqlConnection cn = new MySqlConnection(_SqlConnection); 
+			MySqlConnection cn = new MySqlConnection(SqlConnection); 
 #else
 			SqlDataReader dr = null; 
-			SqlConnection cn = new SqlConnection(_SqlConnection); 
+			SqlConnection cn = new SqlConnection(SqlConnection); 
 #endif
 
 			if (string.IsNullOrEmpty(ErrorMsg)) 
@@ -1484,7 +1570,7 @@ namespace Evolutility
 
 		private string GenerateExport(string outputType) 
 		{ 
-			StringBuilder mySQL = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			string sql, sqlw, sqlob = String.Empty; 
 			int tableIndex = 0; 
 			string separator = coma; 
@@ -1497,7 +1583,7 @@ namespace Evolutility
 			const string cTDcrlf = "</td>\n"; 
 			const string vbCrLf2 = "\n\n"; 
 		    
-			if (GetPageRequest("evoxQSE") == s0) 
+			if (GetPageRequest(selFieldID) == s0) 
 			{ 
 				buffer = GetCacheKey(def_Data.dbtable); 
 				sqlw = Convert.ToString(Page.Cache[String.Format("{0}_W", buffer)]);
@@ -1517,7 +1603,7 @@ namespace Evolutility
 				else
 					sqlob = string.Format("t.{0}", def_Data.dbcolumnpk);
 			}
-			sql = BuildSQLselect(true, 100, _FormID, def_Data.dbtable, string.Empty, sqlw, sqlob, String.Empty, 0, String.Empty); 
+            sql = BuildSQLselect(true, 100, _FormID, def_Data.dbtable, string.Empty, sqlw, sqlob, String.Empty, 100000, String.Empty);
 			//single record, maybe details 
 			if (_DisplayMode == 72) 
 			{ 
@@ -1525,7 +1611,7 @@ namespace Evolutility
 				sql += BuildSQLDetails(false); 
 				//End If 
 			}
-			ds = EvoDB.GetData(sql, _SqlConnection, ref ErrorMsg); 
+			ds = EvoDB.GetData(sql, SqlConnection, ref ErrorMsg); 
 			if (ds != null) 
 			{ 
 				maxRow = ds.Tables[0].Rows.Count - 1; 
@@ -1540,8 +1626,8 @@ namespace Evolutility
 				{ 
 					case xptXML: 
 						ds.DataSetName = def_Data.entities;
-						mySQL.Append(xQuery.XMLHeader);
-						mySQL.AppendFormat("<!-- {0}{1}{2} --> \n", def_Data.dbtable, HTML_Sep, Signature); 
+						sb.Append(xQuery.XMLHeader);
+						sb.AppendFormat("<!-- {0}{1}{2} --> \n", def_Data.dbtable, HTML_Sep, Signature); 
 						for (tableIndex = 0; tableIndex < ds.Tables.Count; tableIndex++) 
 						{ 
 							DataTable t = ds.Tables[tableIndex];
@@ -1572,54 +1658,55 @@ namespace Evolutility
 							if (hideID)
 								t.Columns[0].ColumnMapping = MappingType.Hidden;
 						} 
-						mySQL.Append(ds.GetXml()); 
+						sb.Append(ds.GetXml()); 
 						break; 
 					case xptHTML:
-						mySQL.Append("<html>\n<head><style>table{width:100%}table,table tr td{border-collapse:collapse;border:solid 1 #C9D6E9;vertical-align:top}</style></head>\n");
-						mySQL.Append("<table width=\"100%\" ID=\"Evolutility_Export\">\n"); 
-						mySQL.Append(EvoUI.HTMLtrColor(Page.Request["evoColRCT"])).Append(vbCrLf); 
+						sb.Append("<html>\n<head><style>table{width:100%}table,table tr td{border-collapse:collapse;border:solid 1 #C9D6E9;vertical-align:top}</style></head>\n");
+						sb.Append("<table width=\"100%\" ID=\"Evolutility_Export\">\n"); 
+						sb.Append(EvoUI.HTMLtrColor(Page.Request["evoColRCT"])).Append(vbCrLf); 
 						//header 
 						DataTable t2 = ds.Tables[0];
 						for (int j = minCol; j <= maxCol; j++) 
 						{
-							mySQL.Append(" <th>").Append(t2.Columns[j].ColumnName).Append("</th>\n"); 
+							sb.Append(" <th>").Append(t2.Columns[j].ColumnName).Append("</th>\n"); 
 						}
-						mySQL.Append("</tr>\n"); 
+						sb.Append("</tr>\n"); 
 						//body 
 						buffer1 = EvoUI.HTMLtrColor(Page.Request["evoColRCO"]) + vbCrLf; 
 						buffer2 = EvoUI.HTMLtrColor(Page.Request["evoColRCE"]) + vbCrLf; 
 						for (int i = 0; i <= maxRow; i++) 
 						{ 
 							if (yesNo) 
-								mySQL.Append(buffer1);                        
+								sb.Append(buffer1);                        
 							else 
-								mySQL.Append(buffer2); 
+								sb.Append(buffer2); 
 							DataRow r = t2.Rows[i];
 							for (int j = minCol; j <= maxCol; j++)
 							{ 
-								mySQL.Append(" <td>"); 
+								sb.Append(" <td>"); 
 								try 
 								{ 
-									mySQL.Append(r[j].ToString()); 
+									sb.Append(r[j].ToString()); 
 								} 
 								catch 
 								{ } 
-								mySQL.Append(cTDcrlf); 
+								sb.Append(cTDcrlf); 
 							} 
-							mySQL.Append(cTDcrlf); 
+							sb.Append(cTDcrlf); 
 							yesNo = !yesNo; 
 						} 
-						mySQL.Append("</table>\n").Append(SMALL_tag).Append(Signature).Append(SMALL_tagClose); 
-						mySQL.Append("</html>");
+						sb.Append("</table>\n").Append(SMALL_tag).Append(Signature).Append(SMALL_tagClose); 
+						sb.Append("</html>");
 						break; 
 					case xptSQL:
-						mySQL.Append("\n/*** ").Append(def_Data.dbtable).Append(HTML_Sep).Append(Signature).Append(" ***/\n\n"); 
+						sb.Append("\n/*** ").Append(def_Data.dbtable).Append(HTML_Sep).Append(Signature).Append(" ***/\n\n"); 
 						yesNo = Page.Request["evoxpTRS"] != string.Empty;
 						if (yesNo)
-							mySQL.Append(EvoDB.SQL_BEGIN_TRANS); 
+							sb.Append(EvoDB.SQL_BEGIN_TRANS); 
 						yesNo2 = Page.Request["evoxpTRS2"] != string.Empty;
 						if (yesNo2)
-							mySQL.Append(EvoDB.SQL_ID_INSERT).Append(def_Data.dbtable).Append(" ON;\n\n"); 
+							sb.AppendFormat(EvoDB.SQL_ID_INSERT, def_Data.dbtable, " ON"); 
+						StringBuilder sbBuff;
 						for (tableIndex = 0; tableIndex < ds.Tables.Count; tableIndex++) 
 						{ 
 							DataTable t = ds.Tables[tableIndex];
@@ -1627,26 +1714,28 @@ namespace Evolutility
 							{ 
 								maxCol = t.Columns.Count - 1; 
 								maxRow = t.Rows.Count - 1; 
-							} 
-							buffer = "INSERT INTO "; 
+							}
+							sbBuff = new StringBuilder();
+							sbBuff.Append(EvoDB.SQL_INSERT); 
 							if (tableIndex == 0)
-								buffer += string.Format("{0} (", def_Data.dbtable); 
+								sbBuff.AppendFormat("{0} (", def_Data.dbtable); 
 							else 
 							{
-								buffer += string.Format("{0}Details{1} (", def_Data.dbtable, tableIndex); 
+								sbBuff.AppendFormat("{0}Details{1} (", def_Data.dbtable, tableIndex); 
 								maxCol = t.Columns.Count - 1; 
 								maxRow = t.Rows.Count - 1; 
 							} 
 							for (int i = minCol; i <= maxCol; i++) 
 							{ 
-								buffer += t.Columns[i].ColumnName + ", "; 
+								sbBuff.Append(t.Columns[i].ColumnName).Append( ", "); 
 							}
-							buffer = buffer.Substring(0, buffer.Length - 2);
-							buffer += ")\n VALUES (\n"; 
+							sbBuff.Remove(sbBuff.Length - 2, 2);
+							sbBuff.Append(")\n VALUES (\n");
+							buffer = sbBuff.ToString();
 							for (int i = 0; i <= maxRow; i++)
 							{ 
 								DataRow r = t.Rows[i];
-								mySQL.Append(buffer); 
+								sb.Append(buffer); 
 								for (int j = minCol; j <= maxCol; j++) 
 								{ 
 									try 
@@ -1657,18 +1746,42 @@ namespace Evolutility
 									{ 
 										fieldValue = string.Empty; 
 									} 
-									mySQL.Append(EvoDB.dbformat2(fieldValue, Convert.ToString(t.Columns[j].DataType), _Language)); 
+									sb.Append(EvoDB.dbformat2(fieldValue, Convert.ToString(t.Columns[j].DataType), _Language)); 
 									if (j < maxCol)
-										mySQL.Append(", "); 
+										sb.Append(", "); 
 								}
-								mySQL.Append(");\n"); 
+								sb.Append(");\n"); 
 							} 
 						} 
-						mySQL.Append(vbCrLf2); 
+						sb.Append(vbCrLf2); 
 						if (yesNo2)
-							mySQL.Append(EvoDB.SQL_ID_INSERT).Append(def_Data.dbtable).Append(" OFF;\n\n");
+							sb.AppendFormat(EvoDB.SQL_ID_INSERT, def_Data.dbtable, "OFF");
 						if (yesNo)
-							mySQL.Append(EvoDB.SQL_COMMIT_TRANS); 
+							sb.Append(EvoDB.SQL_COMMIT_TRANS);
+						break;
+					case xptJSON: 
+						sb.Append(def_Data.dbtable).Append("=["); 
+						t2 = ds.Tables[0]; 
+						for (int i = 0; i <= maxRow; i++) 
+						{ 
+							DataRow r = t2.Rows[i];
+							sb.Append("\n{");  
+							for (int j = minCol; j <= maxCol; j++)
+							{ 
+								sb.Append(t2.Columns[j].ColumnName).Append(":'"); 
+								try 
+								{
+									sb.Append(EvoJSON.JSONEncode(r[j].ToString())); 
+								} 
+								catch 
+								{ } 
+								sb.Append("', ");
+							}
+							sb.Remove(sb.Length - 2, 2);
+							sb.Append("},\n");  
+						} 
+						sb.Remove(sb.Length - 2, 2);
+						sb.Append("\n]\n");
 						break; 
 					default: //"CSV", "TAB", "TXT", "XLS" 
 						if (outputType.Equals(xptTAB))
@@ -1709,13 +1822,13 @@ namespace Evolutility
 											fieldValue = string.Empty; 
 										} 
 										if (fieldValue.IndexOf(separator) > -1)
-											mySQL.Append(EvoUI.inQuote(fieldValue)); 
+											sb.Append(EvoUI.inQuote(fieldValue)); 
 										else 
-											mySQL.Append(fieldValue); 
+											sb.Append(fieldValue); 
 										if (j < maxCol) 
-											mySQL.Append(separator); 
+											sb.Append(separator); 
 									} 
-									mySQL.Append(vbCrLf); 
+									sb.Append(vbCrLf); 
 								} 
 								//- body 
 								for (int i = 0; i <= maxRow; i++) 
@@ -1727,29 +1840,29 @@ namespace Evolutility
 										if (!String.IsNullOrEmpty(fieldValue)) 
 										{ 
 											if (fieldValue.IndexOf(separator) > -1) 
-												mySQL.Append(EvoUI.inQuote(fieldValue)); 
+												sb.Append(EvoUI.inQuote(fieldValue)); 
 											else 
 											{ 
 												if (fieldValue.IndexOf(vbCrLf) > -1)
 													fieldValue = fieldValue.Replace(vbCrLf, "|"); 
-												mySQL.Append(fieldValue); 
+												sb.Append(fieldValue); 
 											} 
 										} 
 										if (j < maxCol)
-											mySQL.Append(separator); 
+											sb.Append(separator); 
 									} 
-									mySQL.Append(vbCrLf); 
+									sb.Append(vbCrLf); 
 								} 
 							} 
-							mySQL.Append(vbCrLf); 
+							sb.Append(vbCrLf); 
 						} 
 						break; 
 				} 
-				mySQL.Append(vbCrLf); 
+				sb.Append(vbCrLf); 
 			} 
 			else 
-				mySQL.Append(EvoLang.err_NoData); 
-			return mySQL.ToString(); 
+				sb.Append(EvoLang.err_NoData); 
+			return sb.ToString(); 
 		} 
 
 #endregion 
@@ -1768,7 +1881,7 @@ namespace Evolutility
 			nsManager.AddNamespace("evo", xQuery.evoNameSpace); 
 			if (_FormID > 0) 
 			{
-				XML = EvoDico.dicoDB2XML(_FormID, _UserID, _SqlConnectionDico);
+				XML = EvoDico.dicoDB2XML(_FormID, _UserID, true, SqlConnectionDico);
 				if (XML.Length < 50)
 					XML = string.Empty;
 			} 
@@ -1784,14 +1897,14 @@ namespace Evolutility
 				catch 
 				{ 
 					LoadResult = false; 
-					AddError("Database repository incorrect or unavailable."); 
+					AddError("EvoDico incorrect or unavailable."); 
 				} 
 			} 
 			else
 			{ 
 				if (!string.IsNullOrEmpty(_XMLfile)) 
 				{
-					if (string.IsNullOrEmpty(_SqlConnectionDico))
+					if (string.IsNullOrEmpty(SqlConnectionDico))
 					{ 
 						AddError("No database connection specified."); 
 						LoadResult = false; 
@@ -1971,16 +2084,49 @@ namespace Evolutility
 
 		private void GetSqlConnections()
 		{
-			if (string.IsNullOrEmpty(_SqlConnection))
-				_SqlConnection = EvoUI.GetAppSetting("SQLConnection");
-			if (string.IsNullOrEmpty(_SqlConnectionDico))
+			if (string.IsNullOrEmpty(SqlConnection))
+				SqlConnection = EvoUI.GetAppSetting("SQLConnection");
+			if (string.IsNullOrEmpty(SqlConnectionDico))
 			{
-				_SqlConnectionDico = EvoUI.GetAppSetting("SQLConnectionDico");
-				if (string.IsNullOrEmpty(_SqlConnectionDico))
-					_SqlConnectionDico = _SqlConnection;
+				SqlConnectionDico = EvoUI.GetAppSetting("SQLConnectionDico");
+				if (string.IsNullOrEmpty(SqlConnectionDico))
+					SqlConnectionDico = SqlConnection;
 			}
 		}
 
+		private string getSQLw() 
+		{
+			string sqlw = Convert.ToString(Page.Cache[String.Format("{0}_W", GetCacheKey(def_Data.dbtable))]); 
+			if (string.IsNullOrEmpty(sqlw))
+			{
+				sqlw = def_Data.dbwhere;
+				string buffer = BuildSQLwhereSecurity();
+				if (buffer != string.Empty)
+					sqlw = EvoTC.CondiConcat(sqlw, buffer, SQL_and);
+			}
+			return sqlw;
+		}
+
+		//private bool showLicInfo() 
+		//{
+		//    string ln = EvoUI.GetAppSetting("EvolutilityLicense").Trim();
+		//    if (ln.Length==6)
+		//    {
+		//        try
+		//        {
+		//            int i = EvoTC.String2Int(ln);
+		//            Random r = new Random();
+		//            string ln2 = (i * r.Next(1, 7)).ToString();
+		//            ln2 = ln2 + ln2;
+		//            return ln2.IndexOf(ln)<0;
+		//        }
+		//        catch 
+		//        {
+		//            return true;
+		//        }
+		//    }
+		//    return true;
+		//}
 
 #endregion 
 

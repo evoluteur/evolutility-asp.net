@@ -1,32 +1,51 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
+
+//#define DB_MySQL
+#undef DB_MySQL
 
 using System;
 using System.Text;
-using System.Data;
 using System.Xml;
 using System.Web;
+
+using System.Data;
+
+#if DB_MySQL
+
+//using MySql.Data;
+using MySql.Data.MySqlClient;
+
+#else
+
 using System.Data.SqlClient;
+
+#endif
 
 namespace Evolutility
 {
-	
-	
+	// ==================   SQL and LOVs   ==================   
+	// generate SQL statements
+	// manage LOVs and cache them
+
 	public enum EvolSecurityModel
 	{
 		//coupled w/ ReadOnly 
@@ -42,12 +61,12 @@ namespace Evolutility
 
 	partial class UIServer
 	{
-
+		// set maximum number of items for LOVs
 		const int maxItem = 2000;   // lov dropdown
 		const int maxItem2 = 10000; // lov in multi-select list
 
-//### Master ######################################################################################## 
-#region "Master"
+		//### Master ######################################################################################## 
+		#region "Master"
 
 		private string BuildSQLselect(bool Master, int MyMode, int formid, string Tsql, string SPsql, string Wsql, string OBsql, string XPathMask, int TOPsql, string dbcolumniconDetails)
 		{
@@ -88,11 +107,11 @@ namespace Evolutility
 						break;
 					default:
 						if (cTOPsql < 1)
-							cTOPsql = _RowsPerPage; 
+							cTOPsql = _RowsPerPage;
 						mySQL.Append("");
 						if (Master)
 						{
-							mySQL.AppendFormat("T.{0} as ID",def_Data.dbcolumnpk);
+							mySQL.AppendFormat("T.{0} as ID", def_Data.dbcolumnpk);
 							if (_DBAllowComments != EvolCommentsMode.None)
 								mySQL.Append(",T.").Append(SQLColNbComments);
 							if (dbcolumnicon.Length > 0)
@@ -262,13 +281,13 @@ namespace Evolutility
 							}
 							else if (Master && OBsql.ToUpper() == "ID")
 								OBsql = string.Format("T.{0} DESC", def_Data.dbcolumnpk);
-							buffer = EvoDB.SPcall_Paging(def_Data.sppaging, mySQL.ToString(), Fsql.ToString(), Wsql, OBsql, def_Data.dbcolumnpk, pageID, _RowsPerPage, 0, Tsql);
+							buffer = EvoDB.SPcall_Paging(def_Data.sppaging, mySQL.ToString(), Fsql.ToString(), Wsql, OBsql, def_Data.dbcolumnpk, pageID, _RowsPerPage, _UserID, Tsql);
 							break;
 					}
 				}
 				else
 				{
-					buffer = EvoDB.BuildSQL(mySQL.ToString(), Fsql.ToString(), Wsql, OBsql, cTOPsql); 
+					buffer = EvoDB.BuildSQL(mySQL.ToString(), Fsql.ToString(), Wsql, OBsql, cTOPsql);
 				}
 			}
 			else
@@ -423,7 +442,7 @@ namespace Evolutility
 					if (!(string.IsNullOrEmpty(fieldValue) && string.IsNullOrEmpty(ClauseOperator)))
 					{
 						fieldValue = fieldValue.Replace("'", "''");
-						dbcolumnf = string.Format( EvoDB.SQL_NAME_T0, dbcolumn);
+						dbcolumnf = string.Format(EvoDB.SQL_NAME_T0, dbcolumn);
 						fieldType = cn.Attributes[xAttribute.type].Value;
 						fieldlabel = xAttribute.GetFieldLabel(cn);
 						if (ClauseOperator == EvoDB.soIsNull || ClauseOperator == EvoDB.soIsNotNull)
@@ -655,19 +674,20 @@ namespace Evolutility
 						Wsql = string.Format("T.{0}=@itemid", def_Data.dbcolumnpk);
 						break;
 				}
-				if (String.IsNullOrEmpty(Wsql))
+				// add SQL WHERE clause from last search result 
+				Buffer = GetCacheKey(def_Data.dbtable);
+				if (Page.Cache[Buffer + "_W"] != null)
 				{
-					// back to last search result 
-					Buffer = GetCacheKey(def_Data.dbtable);
-					if (Page.Cache[Buffer + "_W"] != null)
+					Buffer = Page.Cache[Buffer + "_W"].ToString();
+					if (Buffer.Length > 0)
 					{
-						Buffer = Page.Cache[Buffer + "_W"].ToString();
-						if (Buffer.Length > 0)
+						if (String.IsNullOrEmpty(Wsql))
 							Wsql = Buffer;
+						else
+							Wsql = string.Format("{0} AND {1}", Buffer, Wsql);
 					}
 				}
-				Buffer = BuildSQLselect(true, 0, _FormID, def_Data.dbtable, string.Empty, Wsql, OBsql, String.Empty, 1, String.Empty);
-				return Buffer;
+				return BuildSQLselect(true, 0, _FormID, def_Data.dbtable, string.Empty, Wsql, OBsql, String.Empty, 1, String.Empty);
 			}
 			else
 				return EvoDB.SQL_EXEC + def_Data.spget.Replace(EvoDB.p_userid, _UserID.ToString()).Replace("@navid", NavID.ToString());
@@ -686,10 +706,82 @@ namespace Evolutility
 			}
 		}
 
-#endregion
+		private int BuildSQLDeleteItem()
+		{
+			int retVal = 0;
+			string aSQL = null;
 
-//### Details ######################################################################################## 
-#region "Details"
+			if (_DBAllowDelete)
+			{
+#if DB_MySQL
+		MySqlConnection	con = new MySqlConnection(SqlConnection);
+
+				if (string.IsNullOrEmpty(def_Data.spdelete))
+				{
+					if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
+						aSQL = string.Format("{0}={2} AND {1}={3}", def_Data.dbcolumnpk, def_Data.dbcolumnuserid, _ItemID, _UserID);
+					else
+						aSQL = string.Format("{0}={1}", def_Data.dbcolumnpk,_ItemID);
+					aSQL = EvoDB.sqlDELETE(def_Data.dbtable, aSQL);
+				}
+				else
+					aSQL = EvoDB.SQL_EXEC + def_Data.spdelete;
+				MySqlCommand cmd = new MySqlCommand(aSQL, con); 
+ 
+#else
+				SqlConnection con = new SqlConnection(SqlConnection);
+
+				if (string.IsNullOrEmpty(def_Data.spdelete))
+				{
+					if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
+						aSQL = string.Format("{0}=@itemid AND {1}=@userid", def_Data.dbcolumnpk, def_Data.dbcolumnuserid);
+					else
+						aSQL = string.Format("{0}=@itemid", def_Data.dbcolumnpk);
+					aSQL = EvoDB.sqlDELETE(def_Data.dbtable, aSQL);
+				}
+				else
+					aSQL = EvoDB.SQL_EXEC + def_Data.spdelete;
+				SqlCommand cmd = new SqlCommand(aSQL, con);
+				cmd.Parameters.AddWithValue(EvoDB.p_itemid, _ItemID);
+				cmd.Parameters.AddWithValue(EvoDB.p_userid, _UserID);
+
+#endif
+
+				try
+				{
+					con.Open();
+					cmd.ExecuteNonQuery();
+					retVal = _ItemID;
+				}
+				catch //(Exception ex)
+				{
+					retVal = -1;
+					AddError(string.Format(EvoLang.err_Delete, def_Data.entity, _ItemID.ToString()));
+				}
+				finally
+				{
+					con.Close();
+				}
+				if (retVal > 0)
+				{
+					HeaderMsg = string.Format(EvoLang.DeleteOK, _ItemID.ToString(), EvoTC.TextNowTime());
+					OnDBChange(new DatabaseEventArgs(DBAction.DELETE, _ItemID));
+				}
+				//nav = 3 
+				_DisplayMode = 110;
+			}
+			else
+			{
+				AddError(string.Format("{0}{1} {2}.", EvoLang.err_NoPermission, EvoLang.Delete, def_Data.entities));
+				retVal = -1;
+			}
+			return retVal;
+		}
+
+		#endregion
+
+		//### Details ######################################################################################## 
+		#region "Details"
 
 		private string BuildSQLDetails(bool LoadIt)
 		{
@@ -732,7 +824,7 @@ namespace Evolutility
 							dbcolumndetails = cn.Attributes[xAttribute.dbColumnDetails].Value;
 						}
 						if (dbtabledetails != string.Empty)
-						{ 
+						{
 							if (cn.Attributes[xAttribute.dbWhere] == null)
 								sqlw = string.Empty;
 							else
@@ -805,7 +897,7 @@ namespace Evolutility
 			{
 				if (sql.Length > 0 && !detailsLoaded)
 				{
-					ds2 = EvoDB.GetData(sql.ToString(), _SqlConnection, ref ErrorMsg);
+					ds2 = EvoDB.GetData(sql.ToString(), SqlConnection, ref ErrorMsg);
 					detailsLoaded = true;
 				}
 				return null;
@@ -904,7 +996,7 @@ namespace Evolutility
 									else
 									{
 										if (CellValues.Length == 2 && CellValues[1] == "DEL")
-											SQL.Append(EvoDB.sqlDELETE(dbTableDetails, string.Format("ID={0}", id)));
+											SQL.Append(EvoDB.sqlDELETE(dbTableDetails,EvoDB.IDequals(id)));
 										else
 											AddError(string.Format("Invalid format for details ID #{0}", id));
 									}
@@ -919,7 +1011,7 @@ namespace Evolutility
 							{
 								XmlNode cn = aNodeList[j];
 								if (cn.NodeType == XmlNodeType.Element)
-									{ 
+								{
 									if (cn.Attributes[xAttribute.dbReadOnly] == null)
 										fieldIn = true;
 									else
@@ -953,114 +1045,10 @@ namespace Evolutility
 			return SQL.ToString();
 		}
 
-#endregion
+		#endregion
 
-//### Misc ######################################################################################## 
-#region "Misc"
-		
-		private string TXTec(string fLabel, string fType, string fValue, string Operator)
-		{
-			//returns a "condition" in SQL or plain English 
-
-			//textmultiline is passed as text ! 
-			if (fType == EvoDB.t_text)
-				switch (Operator)
-				{
-					case EvoDB.soEqual:
-						return string.Format(EvoLang.lEquals, fValue);
-					case EvoDB.soStartWith:
-						return string.Format(EvoLang.lStart, fValue);
-					case EvoDB.soFinishWith:
-						return string.Format(EvoLang.lFinish, fValue);
-					case EvoDB.soIsNull:
-						return string.Format(EvoLang.lIsNull, fLabel);
-					case EvoDB.soIsNotNull:
-						return string.Format(EvoLang.lIsNotNull, fLabel);
-					default: // EvoDB.soContain 
-						return string.Format(EvoLang.lContain, fValue);
-				}
-			else
-				switch (Operator)
-				{
-					case EvoDB.soGreaterThan:
-						return ">";
-					case EvoDB.soSmallerThan:
-						return "<";
-					case EvoDB.soIsNull:
-						return string.Format(EvoLang.lIsNull, fLabel);
-					case EvoDB.soIsNotNull:
-						return string.Format(EvoLang.lIsNotNull, fLabel);
-					default:
-						return "=";
-				}
-		}
-
-		private int BuildSQLDeleteItem()
-		{
-			int retVal = 0;
-			string aSQL = null;
-			SqlConnection con = new SqlConnection(_SqlConnection);
-
-			if (_DBAllowDelete)
-			{
-				if (string.IsNullOrEmpty(def_Data.spdelete))
-				{
-					if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
-						aSQL = string.Format("{0}=@itemid AND {1}=@userid", def_Data.dbcolumnpk, def_Data.dbcolumnuserid);
-					else
-						aSQL = string.Format("{0}=@itemid", def_Data.dbcolumnpk);
-					aSQL = EvoDB.sqlDELETE(def_Data.dbtable, aSQL);
-				}
-				else
-					aSQL = EvoDB.SQL_EXEC + def_Data.spdelete;
-				SqlCommand cmd = new SqlCommand(aSQL, con);
-				cmd.Parameters.AddWithValue(EvoDB.p_itemid, _ItemID);
-				cmd.Parameters.AddWithValue(EvoDB.p_userid, _UserID);
-				try
-				{
-					con.Open();
-					cmd.ExecuteNonQuery();
-					retVal = _ItemID;
-				}
-				catch //(Exception ex)
-				{
-					retVal = -1;
-					AddError(string.Format(EvoLang.err_Delete, def_Data.entity, _ItemID.ToString()));
-				}
-				finally
-				{
-					con.Close();
-				}
-				if (retVal > 0)
-				{
-					HeaderMsg = string.Format(EvoLang.DeleteOK, _ItemID.ToString(), EvoTC.TextNowTime());
-					OnDBChange(new DatabaseEventArgs(DBAction.DELETE, _ItemID));
-				}
-				//nav = 3 
-				_DisplayMode = 110;
-			}
-			else
-			{
-				AddError(string.Format("{0}{1} {2}.", EvoLang.err_NoPermission, EvoLang.Delete, def_Data.entities));
-				retVal = -1;
-			}
-			return retVal;
-		}
-
-		private void clearSQLCache(string cacheKey)
-		{
-			if (Convert.ToString(Page.Cache[cacheKey + "_W"]) != string.Empty)
-			{
-				Page.Cache.Remove(cacheKey + "_W2");
-				Page.Cache.Remove(cacheKey + "_W");
-				Page.Cache.Remove(cacheKey + "_O");
-			}
-		}
-
-#endregion 
-		
-//### Lists of Values LOVs ############################################################################## 
-#region "LOVs"
+		//### Lists of Values LOVs ############################################################################## 
+		#region "LOVs"
 
 		private string HTMLlov(XmlNode aNode, string FieldName, string ItemID, LOVFormat format, int Lookup)
 		{
@@ -1077,12 +1065,12 @@ namespace Evolutility
 
 			bool SingleSelection = String.IsNullOrEmpty(FieldName);
 			if (SingleSelection)
-				MaxLoop = maxItem; 
+				MaxLoop = maxItem;
 			else
-				MaxLoop = maxItem2; 
+				MaxLoop = maxItem2;
 			//cache key = LCase(EvoDB.t_lov & dbtable & A(Attr.dbtablelov) & (Attr.dbcolumnreadlov) & (Attr.dbColumnImg)) 
 			if (aNode.Attributes[xAttribute.dbTableLOV] != null)
-					SQLTable = aNode.Attributes[xAttribute.dbTableLOV].Value;
+				SQLTable = aNode.Attributes[xAttribute.dbTableLOV].Value;
 			if (string.IsNullOrEmpty(SQLTable) && (aNode.Attributes[xAttribute.lovEnumeration] != null))
 			{
 				SQLTable = aNode.Attributes[xAttribute.lovEnumeration].Value;
@@ -1140,7 +1128,7 @@ namespace Evolutility
 						if (!String.IsNullOrEmpty(SQLColumnImg))
 							sql += string.Format(EvoDB.SQL_NAME_c0, SQLColumnImg);  // ",[pix]";    
 						if (Lookup > 0)
-							SQLwhere = string.Format("ID={0}", Lookup);
+							SQLwhere = EvoDB.IDequals(Lookup);
 						if (aNode.Attributes[xAttribute.dbOrderLOV] == null)
 							SQLOrderBy = sValue;
 						else
@@ -1149,13 +1137,13 @@ namespace Evolutility
 							if (string.IsNullOrEmpty(SQLOrderBy))
 								SQLOrderBy = sValue;
 						}
-						Source = EvoDB.GetData(EvoDB.BuildSQL(sql, SQLTable, SQLwhere, SQLOrderBy, MaxLoop + 1), _SqlConnection, ref ErrorMsg);
+						Source = EvoDB.GetData(EvoDB.BuildSQL(sql, SQLTable, SQLwhere, SQLOrderBy, MaxLoop + 1), SqlConnection, ref ErrorMsg);
 						if (Source == null)
 						{
 							SQLwhere = string.Empty;
 							Lookup = 0;
 							sql = EvoDB.BuildSQL(sql, SQLTable, SQLwhere, SQLOrderBy, MaxLoop + 1);
-							Source = EvoDB.GetData(sql, _SqlConnection, ref ErrorMsg);
+							Source = EvoDB.GetData(sql, SqlConnection, ref ErrorMsg);
 						}
 						if (_UseCache && Lookup < 1 && !DynamicItemID && Source != null)
 							Page.Cache[cacheKey] = Source;
@@ -1187,20 +1175,12 @@ namespace Evolutility
 								}
 							else
 							{
-								//If MaxLoop < 4 Then '3 records 
-								// For i = 0 To MaxLoop 
-								// curID = CInt(.Rows(i).Item("ID")) 
-								// myHTML.Append(EvoUI.HTMLInputRadio(FieldName, CStr(curID), CStr(.Rows(i).Item(sValue)), , , , i = 0)) 
-								// 'myHTML.Append(EvoUI.HTMLOption(CStr(curID), CStr(.Rows(i).Item(sValue)), myID = curID)) '& "</option>" 
-								// Next 
-								//Else 
 								for (int i = 0; i < MaxLoop; i++)
 								{
 									curID = Convert.ToInt32(t.Rows[i][0]);
 									myHTML.Append(EvoUI.HTMLOption(curID.ToString(), HttpUtility.HtmlEncode(Convert.ToString(t.Rows[i][1])), myID == curID));
 									//& "</option>" 
 								}
-								//End If 
 							}
 							if (MaxLoop > maxItem)
 								myHTML.AppendFormat("<option>- {0} items maximum -", maxItem);
@@ -1217,8 +1197,8 @@ namespace Evolutility
 								}
 								myHTML.Append("</select>");
 							}
-							else  
-							{ 
+							else
+							{
 								myHTML.Append("<table border=\"0\"><tr valign=\"top\"><td>");
 								if (MaxLoop > 4) // 3 columns of checkboxes
 								{
@@ -1267,7 +1247,7 @@ namespace Evolutility
 										myHTML.Append("</nobr>");
 								}
 								if (MaxLoop > maxItem2)
-									myHTML.AppendFormat(" ({0} items maximum)",maxItem2);
+									myHTML.AppendFormat(" ({0} items maximum)", maxItem2);
 								myHTML.Append(TdTrTableEnd);
 							}
 						}
@@ -1287,23 +1267,6 @@ namespace Evolutility
 				}
 				Source = null;
 			}
-			//Else 
-			// If Mid(SQLTable, 6, 11) <> "range=" Then 
-			// MinLoop = CInt(Val(Right(SQLTable, SQLTable.Length - 11)) 
-			// i = InStr(SQLTable, "-") 
-			// MaxLoop = Convert.ToInt32(Right(SQLTable, SQLTable.Length - 11 - i))) 
-			// For i = MinLoop To MaxLoop 
-			// myHTML.Append(EvoUI.HTMLInputCheckBox(fieldname, CStr(i), CStr(i))).Append(vbCrLf) 
-			// Next 
-			// End If 
-			//'If Left(SQLTable, 5) <> "list:months" Then 
-			//' For i = 1 To 12 
-			//' myHTML.Append(EvoUI.HTMLInputCheckBox(fieldname, CStr(i), CStr(i))).Append(vbCrLf) 
-			//' Next 
-			//'End If 
-			//'split... 
-			//'integer have lov like "1-31" or " lov="range:1-31" lov="enumeration:1=January,2=February..." lov="enumaration:CA=California,..." 
-			//End If 
 			return myHTML.ToString();
 		}
 
@@ -1369,14 +1332,14 @@ namespace Evolutility
 							SQLwhere += String.Format(" AND {0}", buffer);
 						SQLTables = string.Format("{0} T,{1} T1", SQLTable, def_Data.dbtable);
 					}
-					sql = EvoDB.BuildSQL(sql, SQLTables, SQLwhere, SQLOrderBy, 101); 
+					sql = EvoDB.BuildSQL(sql, SQLTables, SQLwhere, SQLOrderBy, 101);
 				}
 				else
 				{
 					SP_LOV = EvoDB.SPcall_Get(SP_LOV, _ItemID, _UserID, fieldLOVID);
 					sql = SP_LOV;
 				}
-				Source = EvoDB.GetData(sql, _SqlConnection, ref ErrorMsg);
+				Source = EvoDB.GetData(sql, SqlConnection, ref ErrorMsg);
 				// If Not Source Is Nothing Then Page.Cache(cacheKey) = Source 
 				// End If 
 				//End If 
@@ -1431,17 +1394,6 @@ namespace Evolutility
 			string buffer = String.Empty;
 			string[] LOVtuples;
 
-			//If SQLTable = String.Empty Then 
-			// Try 
-			// SQLTable = LCase(aNode.Attributes(Attr.lovEnumeration).Value) 
-			// Catch 
-			// End Try 
-			// If SQLTable <> String.Empty Then 
-			// myHTML.Append(EvoUI.HTMLlovEnum(SQLTable, FieldName, ItemID)) 
-			// SQLTable = String.Empty 
-			// End If 
-			//End If 
-			//cache key = LCase(EvoDB.t_lov & dbtable & A(Attr.dbtablelov) & (Attr.dbcolumnreadlov) & (Attr.dbColumnImg)) 
 			string key = CacheKey.ToLower();
 			if (Page.Cache[key] != null)
 				ds = (DataSet)Page.Cache[key];
@@ -1501,7 +1453,59 @@ namespace Evolutility
 			return buffer;
 		}
 
-#endregion
-	
+		#endregion
+
+		//### Misc ######################################################################################## 
+		#region "Misc"
+
+		private string TXTec(string fLabel, string fType, string fValue, string Operator)
+		{
+			//returns a "condition" in SQL or plain English 
+
+			//textmultiline is passed as text ! 
+			if (fType == EvoDB.t_text)
+				switch (Operator)
+				{
+					case EvoDB.soEqual:
+						return string.Format(EvoLang.lEquals, fValue);
+					case EvoDB.soStartWith:
+						return string.Format(EvoLang.lStart, fValue);
+					case EvoDB.soFinishWith:
+						return string.Format(EvoLang.lFinish, fValue);
+					case EvoDB.soIsNull:
+						return string.Format(EvoLang.lIsNull, fLabel);
+					case EvoDB.soIsNotNull:
+						return string.Format(EvoLang.lIsNotNull, fLabel);
+					default: // EvoDB.soContain 
+						return string.Format(EvoLang.lContain, fValue);
+				}
+			else
+				switch (Operator)
+				{
+					case EvoDB.soGreaterThan:
+						return ">";
+					case EvoDB.soSmallerThan:
+						return "<";
+					case EvoDB.soIsNull:
+						return string.Format(EvoLang.lIsNull, fLabel);
+					case EvoDB.soIsNotNull:
+						return string.Format(EvoLang.lIsNotNull, fLabel);
+					default:
+						return "=";
+				}
+		}
+
+		private void clearSQLCache(string cacheKey)
+		{
+			if (Convert.ToString(Page.Cache[cacheKey + "_W"]) != string.Empty)
+			{
+				Page.Cache.Remove(cacheKey + "_W2");
+				Page.Cache.Remove(cacheKey + "_W");
+				Page.Cache.Remove(cacheKey + "_O");
+			}
+		}
+
+		#endregion
+
 	}
 }

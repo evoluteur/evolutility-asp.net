@@ -1,20 +1,23 @@
-﻿//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+﻿//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +33,8 @@ namespace Evolutility
 
 		static internal string _Locale, _LocaleEN;
 		static internal string _LocaleCode;
-
+        
+        static internal bool R2L; // written from right to left
 		static internal string Welcome;
 
 		static internal string entity;
@@ -95,7 +99,9 @@ namespace Evolutility
 		static internal string Selection;
 		static internal string Selections;
 		static internal string Export;
+		static internal string Charts;
 		static internal string SearchRes;
+		static internal string MassUpdate;
 		static internal string Delete;
 		static internal string ListAll;
 		static internal string Print;
@@ -130,6 +136,10 @@ namespace Evolutility
 		static internal string Save;
 		static internal string SaveAdd;
 		static internal string Cancel;
+		static internal string NoX;
+		static internal string NoChange;
+		static internal string NoGraph;
+		static internal string chart_A_per_B;
 
 		// --- user comments --- 
 		static internal string ucPostedOn;
@@ -164,12 +174,14 @@ namespace Evolutility
 		static internal string NoUpdate;
 		static internal string DeleteOK;
 		static internal string Updated;
-		static internal string DetailsUpdate;
+		static internal string DetailsUpdated;
+		static internal string MassUpdated;
 
 #endregion
 
 		static internal bool LoadLanguage(string LanguageKey)
-		{ 
+		{
+            R2L = false;
 			// Language-Key values follow the ISO 639-1 language code
 			// http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 			switch (LanguageKey)
@@ -211,6 +223,11 @@ namespace Evolutility
 				case "JP":// Japanese
 					SetLocale_JP(LanguageKey);
 					break;
+                case "FA":// Persian (Farci)
+                case "PES":// Iranian
+                    SetLocale_FA(LanguageKey);
+                    R2L = true;
+                    break;
 				case "TR":// Turkish
 					SetLocale_TR(LanguageKey);
 					break;
@@ -254,7 +271,7 @@ namespace Evolutility
 				ExportFields = "Fields to include in the export";
 				IDkey = "ID (Primary Key)";
 				AllFields = "Show all fields";
-				ExportFormats = "Comma separated (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separated values (TXT)-XML";
+				ExportFormats = "Comma separated (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separated values (TXT)-XML-Javascript Object Notation (JSON)";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "You are not allowed to ";
@@ -273,7 +290,8 @@ namespace Evolutility
 				NoUpdate = "No update necessary.";
 				DeleteOK = "Record #{0} deleted at {1:t}."; // {0}=ID {1}=time 
 				Updated = "{0} updated at {1:t}."; // {0}=entity {1}=time 
-				DetailsUpdate = "Details updated.";
+				DetailsUpdated = "Details updated.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time 
 
 				// --- login --- 
 				PleaseLogin = "Please log in.";
@@ -314,7 +332,9 @@ namespace Evolutility
 				Selections = "Selections";
 				Selection = "Selection";
 				Export = "Export";
+				Charts = "Charts";
 				SearchRes = "Search Result";
+				MassUpdate = "Mass Update";
 				Delete = "Delete";
 				ListAll = "List All";
 				Print = "Print";
@@ -327,22 +347,21 @@ namespace Evolutility
 				pNext = "Next";
 				pLast = "Last";
 
+				// --- search form dropdown ---
 				sBefore = "Before";
 				sAfter = "After";
-
-				sDateRangeLast = " in the last ";
-				sDateRangeNext = " in the next ";
-				sDateRangeWithin = " within ";
-				sDateRangeAny = " any time ";
-				sDateRange = "day|24 hours,week|1 week,month|1 month,year|1 year";
 				sEquals = "Equals";
-
-				// --- search form dropdown ---
 				sStart = "Starts with";
 				sContain = "Contains";
 				sFinish = "Finishes with";
 				sIsNull = "Is empty";
 				sIsNotNull = "Is not empty";
+				sDateRangeLast = " in the last ";
+				sDateRangeNext = " in the next ";
+				sDateRangeWithin = " within ";
+				sDateRangeAny = " any time ";
+				sDateRange = "day|24 hours,week|1 week,month|1 month,year|1 year";
+
 				qEquals = " equals ";
 				qStart = " starts with ";
 				qInList = " in list ";
@@ -367,7 +386,10 @@ namespace Evolutility
 				Save = "Save";
 				SaveAdd = "Save and Add Another";
 				Cancel = "Cancel";
-
+				NoX = "No {0}";
+				NoChange = "No change";
+				NoGraph = "No graphs available.";
+				chart_A_per_B = "{0} per {1}";
 				// --- user comments --- 
 				ucPostedOn = "Comments posted on {0:t}."; //{0}=time 
 				ucPost = "Post your comments";

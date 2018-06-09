@@ -1,5 +1,5 @@
 <form label="Resource" xmlns="http://www.evolutility.com" >
-<!-- Evolutility - (c) 2009 Olivier Giulieri - www.evolutility.com  -->
+<!-- Evolutility - (c) 2010 Olivier Giulieri - www.evolutility.org  -->
   <data icon="brl.gif" entity="school for the Blind" entities="schools for the Blind"
   dbtable="BRL_Resource" dbwhere="t.typeID=2" dborder="t.name" 
   dbtableusers="Evol_User" dbtablecomments="EVOL_Comment" dbcommentsformid="6" 

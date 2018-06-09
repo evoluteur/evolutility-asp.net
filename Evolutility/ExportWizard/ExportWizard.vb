@@ -1,29 +1,32 @@
-'  Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+'  Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 '  This file is part of Evolutility CRUD Framework.
 
 '  Source link <http://www.evolutility.org/download/download.aspx>
 
-'  Evolutility is free software: you can redistribute it and/or modify
+'  Evolutility is open source software: you can redistribute it and/or modify
 '  it under the terms of the GNU Affero General Public License as published by
 '  the Free Software Foundation, either version 3 of the License, or
 '  (at your option) any later version.
 
-'  Evolutility is distributed in the hope that it will be useful,
-'  but WITHOUT ANY WARRANTY; without even the implied warranty of
-'  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'  GNU Affero General Public License for more details.
+'  Evolutility is distributed WITHOUT ANY WARRANTY; 
+'  without even the implied warranty of MERCHANTABILITY 
+'  or FITNESS FOR A PARTICULAR PURPOSE.  
+'  See the GNU Affero General Public License for more details.
 
 '  You should have received a copy of the GNU Affero General Public License
-'  along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+'  along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+'  Commercial licenses may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 Option Explicit On
 Option Strict On
 
-Imports System.ComponentModel  
+Imports System.ComponentModel
 Imports System.Drawing.ColorTranslator
 Imports System.Web.UI
-Imports System.Web.UI.WebControls  
+Imports System.Web.UI.WebControls
 Imports System.Xml
 Imports System.Configuration
 Imports System.Text
@@ -222,7 +225,7 @@ Namespace Evolutility.ExportWizard
 			Dim myScript As New StringBuilder
 
 			If _StepIndex <> 4 Then
-				output.Write(HTMLComments("ExportWizard - www.evolutility.org - (c) 2009 Olivier Giulieri"))
+				output.Write(HTMLComments("ExportWizard - www.evolutility.org - (c) 2010 Olivier Giulieri"))
 				output.Write(String.Format("<table ID=""{0}"" {1}", UID, " cellpadding=""10"" cellspacing=""0"" width=""100%"" class=""Panel"">"))
 				If Not (String.IsNullOrEmpty(ErrorMsg) Or String.IsNullOrEmpty(HeaderMsg)) Then
 					output.Write(TrTd2Begin)
@@ -284,6 +287,7 @@ Namespace Evolutility.ExportWizard
 
 		Friend Function FormButtons() As String
 			Dim b As New StringBuilder()
+			Const spaces2 As String = "&nbsp;&nbsp;"
 
 			With b
 				.Append("<tr class=""PanelLabel""><td>&nbsp;&nbsp;")
@@ -295,15 +299,16 @@ Namespace Evolutility.ExportWizard
 				.Append("</td><td><p align=""right"">&nbsp;&nbsp;")
 				If atRunTime Then
 					.Append(HTMLInputButton(UID & "back", "&lt; Back", False, EventRef(CStr(_StepIndex - 1)), _Enabled And _StepIndex > 1))
+					.Append(spaces2)
 					If _StepIndex < 3 Then
-						.Append("&nbsp;&nbsp;").Append(HTMLInputButton(UID & "submit", "Next &gt;", True, , _Enabled))
+						.Append(HTMLInputButton(UID & "submit", "Next &gt;", True, , _Enabled))
 					Else
-						.Append("&nbsp;&nbsp;").Append(HTMLInputButton(UID & "finish", "Finish", False, EventRef("4"), _Enabled And _StepIndex = 3 And ErrorMsg = ""))
+						.Append(HTMLInputButton(UID & "finish", "Finish", False, EventRef("4"), _Enabled And _StepIndex = 3 And ErrorMsg = ""))
 					End If
 				Else
 					.Append(HTMLInputButton("", "&lt; Back", False, , _Enabled And _DesignStep > 0))
-					.Append("&nbsp;&nbsp;").Append(HTMLInputButton("", "Next &gt;", True, , _Enabled And _DesignStep < 3))
-					.Append("&nbsp;&nbsp;&nbsp;&nbsp;").Append(HTMLInputButton("", "Finish", False, , _Enabled And _DesignStep < 3))
+					.Append(spaces2).Append(HTMLInputButton("", "Next &gt;", True, , _Enabled And _DesignStep < 3))
+					.Append(spaces2).Append(spaces2).Append(HTMLInputButton("", "Finish", False, , _Enabled And _DesignStep < 3))
 				End If
 				.Append("&nbsp;&nbsp;</p></td></tr>")
 			End With
@@ -346,7 +351,7 @@ Namespace Evolutility.ExportWizard
 						buffer += "O"
 					End If
 					sql.Append(HTMLscript_end)
-					Page.RegisterClientScriptBlock(buffer, sql.ToString)
+					Page.ClientScript.RegisterClientScriptBlock(Me.GetType(), buffer, sql.ToString)
 				End If
 				OnStepped(New ShowEventArgs(_TitleCurrent, _StepIndex))
 			End If
@@ -454,7 +459,7 @@ Namespace Evolutility.ExportWizard
 						Else
 							_TitleCurrent = "ExportWizard for " & expObj
 						End If
-				End Select 
+				End Select
 				If expObjType = "Q" Then
 					If StepID > 2 Then
 						HTMLStepPanel = HTMLStep(StepID - 1, 2)
@@ -486,7 +491,7 @@ Namespace Evolutility.ExportWizard
 			Return myHTML.ToString
 		End Function
 
-		Private Function FormStep1() As String 
+		Private Function FormStep1() As String
 			'Tables Views Query
 			Dim myHTML As New StringBuilder, myHTML2 As New StringBuilder
 			Dim i As Integer, lastj As Integer = 0, MaxLoop As Integer, sql As String, fieldName As String, buffer As String
@@ -524,7 +529,7 @@ Namespace Evolutility.ExportWizard
 							activeTab = 0
 					End Select
 				Else
-					activeTab = 0 
+					activeTab = 0
 				End If
 				For iTab = 0 To nbTabs - 1
 					'tabs buttons
@@ -601,6 +606,9 @@ Namespace Evolutility.ExportWizard
 						End If
 					End If
 					myHTML.Append("</div>")
+					If Not atRunTime Then
+						Exit For
+					End If
 				Next
 			End If
 			myHTML.Append(HTMLInputHidden(UID & "FT", firstTable))
@@ -709,13 +717,11 @@ Namespace Evolutility.ExportWizard
 						'hard coded dummy data for display in designer mode
 						myHTML.Append(HTMLInputCheckBox("", "", "ID", , , _Enabled, True, False))
 						myHTML.Append("&nbsp;&nbsp;&nbsp;<small>[").Append(HTMLLink("#", "Select All")).Append("]</small>")
-						myHTML.Append("<br>").Append(HTMLInputCheckBox("", "", "Firstname", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "Lastname", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "Title", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "Company", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "Phone1", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "Phone2", , , _Enabled, True, False)).Append("<br>")
-						myHTML.Append(HTMLInputCheckBox("", "", "email", , , _Enabled, True, False)).Append("<br>")
+						myHTML.Append("<br>")
+						Dim myFields() As String = Split("Firstname,Lastname,Title,Company,Phone1,Phone2,email", ",")
+						For i = 0 To myFields.Length - 1
+							myHTML.Append(HTMLInputCheckBox("", "", myFields(i), , , _Enabled, True, False)).Append("<br>")
+						Next
 						myHTML.Append("&nbsp;&nbsp;...&nbsp; <small>[").Append(HTMLLink("#", "Show all fields")).Append("]&nbsp;[").Append(HTMLLink("#", "None")).Append("]</small>")
 					End If
 				End If
@@ -800,7 +806,7 @@ Namespace Evolutility.ExportWizard
 			Return myHTML.ToString
 		End Function
 
-		Private Function FormStep4() As String
+		Private Sub FormStep4()
 			Dim Filename As String
 			Dim i As Integer, buffer As String, OrderBy As String, sql As String
 
@@ -842,7 +848,7 @@ Namespace Evolutility.ExportWizard
 				response.BinaryWrite(New UTF8Encoding().GetBytes(GenerateExport(sql, buffer, expOut)))
 				response.End()
 			End If
-		End Function
+		End Sub
 
 		Private Function GenerateExport(ByVal sql As String, ByVal tableName As String, Optional ByVal outputType As String = "CSV", Optional ByVal maxRow As Integer = 0) As String
 			Dim i As Integer, j As Integer, maxLoop As Integer, fieldValue As String
@@ -1067,7 +1073,7 @@ Namespace Evolutility.ExportWizard
 		End Function
 
 		Private Function EventRef(ByVal EventParam As String) As String
-			Return Page.GetPostBackEventReference(Me, EventParam)
+			Return Page.ClientScript.GetPostBackEventReference(Me, EventParam)
 		End Function
 
 		Private Function HTMLPanelTitle(ByVal panelTitle As String, ByVal panelID As String, ByVal alternateCell2 As String) As String

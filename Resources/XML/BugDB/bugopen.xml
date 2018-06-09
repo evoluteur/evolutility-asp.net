@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- (c) 2009 Olivier Giulieri - www.evolutility.org -->
+<!-- (c) 2010 Olivier Giulieri - www.evolutility.org -->
   <form label="Bugs" xmlns="http://www.evolutility.com">
     <data entity="bug" entities="bugs"   icon="bug.gif" 
        dbtable="Bug" dbwhere="t.publish>0 and t.statusid&lt;&gt;5" dborder="severityid"  
@@ -15,7 +15,7 @@ dbtableusers="EvoDico_User" dbtablecomments="Evol_Comment" dbcommentsformid="0"
 
       <field type="date" label="Date Submited" labellist="Submited" dbcolumn="submitDate" dbcolumnread="submitDate" format="short date" width="15" search="1" searchlist="1" searchadv="1"/>
       <field type="date" label="Date Expected Fix" labellist="Fix" dbcolumn="Expected_Fix" dbcolumnread="Expected_Fix" format="short date" width="20" search="1" searchlist="0" searchadv="1"/>
-      <field type="date" label="Date Fixed" labellist="Fix" dbcolumn="Expected_Fix" dbcolumnread="Expected_Fix" format="short date" width="20" search="1" searchlist="0" searchadv="1"/>
+      <field type="date" label="Date Fixed" labellist="Fix" dbcolumn="CloseDate" dbcolumnread="CloseDate" format="short date" width="20" search="1" searchlist="0" searchadv="1"/>
    
       <field type="textmultiline" label="Description" maxlength="1000"  dbcolumn="Description" dbcolumnread="Description" width="100" height="12" search="1" searchlist="0" searchadv="1" />
       <field type="textmultiline" label="Associated Error Message" optional="1" maxlength="200"  dbcolumn="ErrorMSG" dbcolumnread="ErrorMSG" width="100" height="2" search="1" searchlist="0" searchadv="1" />

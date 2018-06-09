@@ -1,22 +1,24 @@
 ﻿//	ROMANIAN translation from Cosmin Munteanu
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -33,7 +35,7 @@ namespace Evolutility
 			{
 				_LocaleCode = "RO";
 				_LocaleEN = "Romanian"; // do not translate this line - this is the english name for the language
-				_Locale = "Romanian"; // no babelfish
+				_Locale = "Român"; 
 
 				Welcome = "Bine ai venit {0}"; //{0}=login 
 
@@ -54,7 +56,7 @@ namespace Evolutility
 				ExportFormat = "Formatul de export";
 				ExportFields = "Câmpuri incluse în export";
 				IDkey = "ID (cheie primară)";
-				ExportFormats = "Separate prin virgulă (CSV, TXT, XLS...)-HTML-SQL script (SQL)-Valori separate prin tabulatori (TXT)-XML";
+				ExportFormats = "Separate prin virgulă (CSV, TXT, XLS...)-HTML-SQL script (SQL)-Valori separate prin tabulatori (TXT)-XML-JSON";
 				AllFields = "Toate câmpuri"; // no babelfish
 
 				// --- errors & warnings --- 
@@ -74,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "Actualizarea nu este necesară.";
 				DeleteOK = "Înregistrarea #{0} a fost ştearsă la {1:t}."; // {0}=ID {1}=time 
 				Updated = "{0} a fost actualizat la {1:t}."; // {0}=entity {1}=time 
-				DetailsUpdate = "Detaliile au fost actualizate.";
+				DetailsUpdated = "Detaliile au fost actualizate.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Please log in.";
@@ -114,8 +117,10 @@ namespace Evolutility
 				NewSearch = "Căutare nouă";
 				Selections = "Selecţii";
 				Selection = "Selecţie";
-				Export = "Exportă";
+				Export = "Exportă"; 
 				SearchRes = "Rezultatul căutării";
+				Charts = "Grafice";  // googletranslate
+				MassUpdate = "Mass Update";  // googletranslate
 				Delete = "Şterge";
 				ListAll = "Listează toate";
 				Print = "Tipăreşte";
@@ -142,8 +147,8 @@ namespace Evolutility
 				sStart = "Începe cu";
 				sContain = "Conţine";
 				sFinish = "Se termină cu";
-				sIsNull = "Is empty"; // no babelfish
-				sIsNotNull = "Is not empty"; // no babelfish
+				sIsNull = "Este gol"; // googletranslate
+				sIsNotNull = "Nu este gol"; // googletranslate
 				qEquals = " egal ";
 				qStart = " începe cu ";
 				qInList = " în listă ";
@@ -155,8 +160,8 @@ namespace Evolutility
 				lStart = " începe cu \"{0}\""; //{0}= FieldValue 
 				lFinish = " se termină cu \"{0}\""; //{0}= FieldValue 
 				lContain = " conţine \"{0}\""; //{0}= FieldValue 
-				lIsNull = "\"{0}\" is empty"; //{0}= FieldValue // no babelfish
-				lIsNotNull = "\"{0}\" is not empty"; //{0}= FieldValue  // no babelfish
+				lIsNull = "\"{0}\" este gol"; //{0}= FieldValue // googletranslate
+				lIsNotNull = "\"{0}\" nu este gol"; //{0}= FieldValue  // googletranslate
 
 				opAnd = " şi ";
 				opOr = " sau ";
@@ -169,6 +174,10 @@ namespace Evolutility
 				Save = "Salvează";
 				SaveAdd = "Salvează şi adaugă încă unul";
 				Cancel = "Anulează";
+				NoX = "Nici un {0}"; // googletranslate
+				NoChange = "Nici o schimbare"; //"No Change" googletranslate
+				NoGraph = "Nu Grafice disponibile."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Comentarii postate la {0:t}."; //{0}=time 

@@ -1,5 +1,5 @@
 /* Demo Database - Database Design Documents   */
-/* www.evolutility.org - (c) 2009 Olivier Giulieri  */
+/* www.evolutility.org - (c) 2011 Olivier Giulieri  */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -15,7 +15,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU Affero General Public License
-	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 */
 
 CREATE VIEW EvoVW_DBObjectColumn AS

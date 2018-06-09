@@ -1,5 +1,5 @@
 //   Evolutility Localization Library GERMAN
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation by Joachim Seidel
 
 var EvolLang={
@@ -12,8 +12,8 @@ var EvolLang={
 	email:'"{0}" muss eine korrekte eMail Adresse sein.',
 	integer:'"{0}" muss numerisch sein.',
 	decimal:'"{0}" muss eine Dezimalzahl sein.',
-	date:'"{0}" muss ein korrektes Datum enthalten, Format: "DD.MM.JJJJ", wie "24.12.2009".',
-	datetime:'"{0}" muss ein korrektes Datum/Zeit Format enthalten, Format: "DD.MM.JJJJ hh:mm", wie "24.12.2009 22:30".',
+	date:'"{0}" muss ein korrektes Datum enthalten, Format: "DD.MM.JJJJ", wie "24.12.2010".',
+	datetime:'"{0}" muss ein korrektes Datum/Zeit Format enthalten, Format: "DD.MM.JJJJ hh:mm", wie "24.12.2010 22:30".',
 	time:'"{0}" muss eine korrekte Zeit enthalten, Format: "hh:mm", wie "22:30".',
 	max:'"{0}" muss kleiner oder gleich {1} sein.',
 	min:'"{0}" muss grösser oder gleich {1} sein.',
@@ -42,7 +42,7 @@ var EvolLang={
 // date picker
 var defaultDateFormat = "dmy";
 var weekBegin=1,weekEnd=0;
-var todayName = "Heute ist ";
+var todayIs = "Heute ist ";
 var thisMonth = "diesen Monat";
 var dayArrShort = ['Mo','Di','Mi','Do','Fr','Sa', 'So'];
 var dayArrMed = ['Mon','Die','Mit','Don','Fre','Sam', 'Son'];

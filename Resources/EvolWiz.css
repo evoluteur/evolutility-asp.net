@@ -1,11 +1,12 @@
-/*  www.evolutility.org - (c) 2009 Olivier Giulieri */
+/*  www.evolutility.org - (c) 2011 Olivier Giulieri */
 
 span.Steps span{
   border:0;
   background-color :transparent; 
   background-image:url(pixevo/1to9.gif);
   background-repeat:no-repeat;
-  height:18px;width:18px} 
+  height:18px;width:18px;
+  padding-right:18px;} 
 span.Steps .n1{background-position:0 0;}
 span.Steps .n2{background-position:-20 0;}
 span.Steps .n3{background-position:-40 0;}

@@ -1,24 +1,22 @@
-﻿//   Evolutility Library 
-//   www.evolutility.org - (c) 2009 Olivier Giulieri 
+﻿//   Evolutility Library - www.evolutility.org
 
-//	Copyright (c) 2003-2009 Olivier Giulieri
-//  email: evoluteur at evolutility dot org 
+//  Copyright (c) 2003-2011 Olivier Giulieri
+//  email: olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
 //	the Free Software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY; without even the implied 
+//	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 
 
 // ############  Evolutility.JS  #################################################################
@@ -37,7 +35,7 @@
 
 var Evol={
 
-	version:'3.0',
+	version:'4.0',
 	
 	prefix:'EVOLU_',
 	sep:'~!',
@@ -70,7 +68,6 @@ var Evol={
 					}
 				}
 				// setup toolbar events
-				var tb=tb.firstChild;
 				var c=tb.getElementsByTagName('a');
 				for(var i=0;i<c.length;i++){
 					if(sp5!=null)
@@ -96,13 +93,17 @@ var Evol={
 							case 'sel': // 60
 								url=['Evol.showForm(\'',cn,'\')'].join('');
 								break;
+							case 'chart': // 90
+								url="EvPost('90')";
+								break;							 
 							default:
-								var toDo={view:0,edit:1,'new':12,all:110,logout:49};
+								var toDo={view:0,edit:1,'new':12,all:110,'export':70,export1:72,logout:49};
 								url=['EvPost(',toDo[cn],')'].join('');
 								break;
 							}
-						}else
+						}else{
 							url='void(0)';
+						}
 						c[i].href='javascript:'+url;
 						EvoGen.tbBttn[cn]=c[i];
 					}
@@ -124,26 +125,55 @@ var Evol={
 			}
 		}
 		switch(EvoGen.mode){
-			case '1': // edit view
-				// FCKeditor - Rich Text Editor
-				var FCKbad=false;
+			case '1': // edit view 
+				// Rich Text Editor - Tiny MCE
+				var badRTF=false;
 				var fds=EvoGen.fields;
 				for(var i in fds){
 					var fd=fds[i];
 					if(fd.t=='html'){
-						try{ 
-							var oFCKeditor=new FCKeditor(Evol.prefix+fd.id);
-							oFCKeditor.BasePath=EvoGen.path+"FCKeditor/";
-							oFCKeditor.Config["AutoDetectLanguage"]=false;
-					 		oFCKeditor.Config["DefaultLanguage"]=EvoGen.lang.toLowerCase();
-							oFCKeditor.ReplaceTextarea();
+						try{
+							tinyMCE.init({
+								mode:"textareas",
+								theme:"advanced",
+								//plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+								plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist",
+								editor_selectorzz:"mce",
+								// Theme options
+								theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+								theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+								theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,fullscreen",
+								theme_advanced_toolbar_location : "top", 
+								theme_advanced_toolbar_align : "left", 
+								theme_advanced_statusbar_location : "bottom", 
+								theme_advanced_resizing : true, 
+								// Example content CSS (should be your site CSS) 
+								content_css : "css/content.css",  
+								// Drop lists for link/image/media/template dialogs 
+								template_external_list_url : "lists/template_list.js", 
+								external_link_list_url : "lists/link_list.js", 
+								external_image_list_url : "lists/image_list.js", 
+								media_external_list_url : "lists/media_list.js", 
+								// Style formats 
+								style_formats : [
+									{title : 'Bold text', inline : 'b'},
+									{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+									{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+									{title : 'Example 1', inline : 'span', classes : 'example1'}, 
+									{title : 'Example 2', inline : 'span', classes : 'example2'}, 
+									{title : 'Table styles'}, 
+									{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'} 
+								] 
+							});
+							useRTF=true;
+							break;
 						}catch(err){
-							FCKbad=true;
+							badRTF=true;
 						}
 					}
 				}
-				if(FCKbad)
-					alert('Error: Cannot find widget FCKeditor.')
+				if(badRTF)
+					alert('Error: Cannot find the rich text editor TinyMCE.')
 				// Details
 				if(EvoUI.isNN(EvoGen.details)){
 					for(var i in EvoGen.details.lst)
@@ -157,7 +187,7 @@ var Evol={
 						var f=e$(Evol.prefix+fd.id);
 						if(f!=null){
 							Evol.setLovContent(fd.id,fd.dep,ie);
-							EvoUI.setOnClick(f,['Evol.setLovContent("',fd.id,'","',fd.dep,'")'].join(''),ie);
+							EvoUI.setOnChange(f,['Evol.setLovContent("',fd.id,'","',fd.dep,'")'].join(''),ie);
 						}
 					}
 				}
@@ -180,11 +210,19 @@ var Evol={
 
 	// Generic. used for Search and Adv Search for now.
 	showForm:function(m){
-		isSearch= m=='search';
+		var isSearch= m=='search';
+		if(useRTF){
+			var editors=tinymce.EditorManager.editors;
+			for(var key in editors){
+				tinyMCE.execCommand('mceRemoveControl',false,editors[key].id);
+			}
+			useRTF=false;
+		}
 		if(isSearch){
 			m1=e$('EVOL_Mode').value;
-			if(m1==3)
+			if(m1==3){
 				m='searchp';
+			}
 		}
 		if((isSearch || m=='sel') && EvoGen.cacheForms[m]!=null){
 			Evol.setForm(EvoGen.cacheForms[m],m);
@@ -209,6 +247,9 @@ var Evol={
 			if(b!=null&&b.className!=css){
 				b.className=css;
 				b.href='javascript:void(0)';
+				if(b.firstChild!=null){
+				    b.firstChild.className=css;
+				}
 			}
 		}
 
@@ -227,8 +268,13 @@ var Evol={
 		var allB=EvoGen.tbBttn;
 		if(mode=='search'||mode=='searchp'||mode=='sel'){
 			var b=allB.search;
-			if(b!=null)
-				b.className=(mode=='search')?'searchp act':'search act';
+			if(b!=null){
+				var css=(mode=='search')?'searchp':'search';
+				b.className=css+" act"; 
+				if(b.firstChild!=null){
+					b.firstChild.className=css;
+				}
+			}	
 			disableTbButton(allB.del,'delZ');
 			disableTbButton(allB.edit,'editZ');	
 			disableTbButton(allB.view,'editZ');
@@ -240,7 +286,7 @@ var Evol={
 		if(tmsg!=null)
 			tmsg.style.display='none';
 		Evol.setup();
-	},  
+	},
 	SetFormTitle:function(t){
 		var te=e$("EVOL_Title")
 		if(te!=null)
@@ -271,7 +317,7 @@ var Evol={
 
 	// Comments
 	commentsForm:function(){
-		var frm=['<hr><div class="FieldLabel" onmouseover="javascript:EvoUI.showResize(\'EVOLComPost\',-1,this)"><label for="EVOLComPost">',
+		var frm=['<div class="evoSep"></div><div class="FieldLabel" onmouseover="javascript:EvoUI.showResize(\'EVOLComPost\',-1,this)"><label for="EVOLComPost">',
 			EvolLang.comments,'</label></div>',
 			EvoUI.inputTextM('EVOLComPost','',2000,4),
 			'<br/><input type="button" onclick="EvPost(\'0\')" class="button" name="puc" value=" ',
@@ -346,28 +392,25 @@ var Evol={
 		var ss=EvoUI.getOrCreate('fadeEVOL').style;
 		Evol.fadeScreen(ss);
 		var lb=EvoUI.getOrCreate('lightEVOL');
-		//position:absolute;top:25%;left:25%;width:50%;padding:16px;
 		var msg=['<table class="LB_sep" style="background-color:white;"><tr valign="top">'];
 		if(ico!=null){
-			msg.push(['<td width="20px"><span class="ico msg',ico,'">&nbsp;</span></td><td>&nbsp;'].join(''));
+			msg.push('<td width="20px"><span class="ico msg',ico,'">&nbsp;</span></td><td>&nbsp;');
 		}else{
 			msg.push('<td>');
 		}
-		msg.push(txt);
-		msg.push('</td></tr><tr><td>');
+		msg.push(txt,'</td></tr><tr><td>');
 		if(ico!=null)
 			msg.push('</td><td>');
 		msg.push('<p align="right"><a href="javascript:');
 		if(fn!=null){
-			msg.push([fn,'">',EvolLang.ok,'</a>&nbsp;&nbsp;&nbsp;<a href="javascript:Evol.closeLB();">',EvolLang.cancel].join(''));
+			msg.push(fn,'">',EvolLang.ok,'</a>&nbsp;&nbsp;&nbsp;<a href="javascript:Evol.closeLB();">',EvolLang.cancel);
 		}else{
 			msg.push('Evol.closeLB();');
 			if(ff!=null){
-				msg.push(['EvoUI.focus(\'',ff,'\')">',EvolLang.close].join(''));
+				msg.push('EvoUI.focus(\'',ff,'\')">',EvolLang.close);
 			}
 		}
-		msg.push('</a>&nbsp;</p>');
-		msg.push('</td></tr></table>');	
+		msg.push('</a>&nbsp;</p></td></tr></table>');	
 		lb.innerHTML=msg.join("");
 		var lbs=lb.style;
 		lbs.position='absolute';
@@ -398,23 +441,27 @@ var Evol={
 	togglePanel:function(pID,b){
 		var c,p=e$(pID)
 		if(p==null)
-			return false;
+			return;
 		var ps=p.style,d=(ps.display=='none');
 		ps.overflow='hidden';
 		if(d){
-			c='close';
-			ps.height=0;
-			ps.display='';
+			c='Close';
+			if(EvoUI.isIE()){
+				ps.height=0;
+				ps.display='';
+			}
 		}else{
-			c='open';
-			p.mh=p.offsetHeight;
-			ps.height=p.mh;
+			c='Open';
+			if(EvoUI.isIE()){
+				p.mh=p.offsetHeight;
+				ps.height=p.mh;
+			}
 		}
 		EvoUI.slide(p,d);
 		if(b){
 			var l=e$(pID+'link');
 			if(l!=null)
-				l.className='ico panel'+c;
+				l.className='Ico Panel'+c;
 		}
 	},
 
@@ -427,15 +474,17 @@ var Evol={
 	selTab:function(t,n){
 		var tn=t+'Tab';
 		EvoUI.setDisplay(tn+n,'');
-		e$(tn+'B'+n).className='tabselected';
+		e$(tn+'B'+n).className='TabSelected';
 		if(TABevo!=n){
 			EvoUI.setDisplay(tn+TABevo,'none');
-			e$(tn+'B'+TABevo).className='tab';
+			e$(tn+'B'+TABevo).className='Tab';
 			TABevo=e$('EvoActTab').value=n;
 		}
 	}
 
 }
+
+var useRTF=false;
 
 // ############ EvoVal #################################################################
 
@@ -536,17 +585,22 @@ var EvoVal={ // Validation
 							labMsg(EvolLang[fd.t]);
 						break;
 					case "datetime":
-					case "date":
-						if((fv!='')&&(EvolLang.LOCALE=='EN')&&(!Date.parse(fv)))
+					case "date": 
+						if((fv!='')&&(!isDate(fv)))
 							labMsg(EvolLang[fd.t]);
 						break;
 				}
 		}
 		function isEmpty(f){
-			if(f.tagName=="SELECT"&&f.selectedIndex>-1)
-				return(f.options[f.selectedIndex].value=="0");
-			else
-				return(f.value.trim()=="");
+		    var v,tn=f.tagName;
+			if(tn=="SELECT"&&f.selectedIndex>-1){
+				v=f.options[f.selectedIndex].value=="0";
+			}else if(tn=="TEXTAREA"){
+			    v=tinyMCE.get(f.id).getContent().trim()=="";
+			}else{
+				v=f.value.trim()=="";
+		    }
+		    return v;
 		}
 		function labMsg(msg,r2){
 			var m=msg.replace('{0}',fd.l);
@@ -942,6 +996,17 @@ var EvoGrid={
 
 var EvoUI={
 
+	adEvent:function(obj,evName,fn){
+		if (obj.addEventListener){
+			obj.addEventListener(evName, fn, false);
+			return 1;
+		}else if (obj.attachEvent){
+			obj.attachEvent("on"+evName, fn);
+			return 2;
+		}
+		return 0;
+	},
+	
 	fieldLabel:function(fID,fLbl){
 		return ['<div class="FieldLabel"><label for="',fID,'">',fLbl,'</label></div>'].join('');
 	},
@@ -952,8 +1017,7 @@ var EvoUI={
 	inputText:function(fID,fV,ml){
 		var fh=['<input type="text" name="',fID,'" id="',fID,'" value="',fV];
 		if(ml>0){
-			fh.push('" maxlength="');
-			fh.push(ml);
+			fh.push('" maxlength="',ml);
 		}	
 		fh.push('" class="Field">');
 		return fh.join('');
@@ -966,10 +1030,8 @@ var EvoUI={
 		var fh=['<textarea name="',fID,'" id="',fID,
 			'" class="Field" style="height:64" rows="',h,'" cols="52'];
 		if(ml>0)
-			fh.push(['" onKeyUp="EvoVal.checkMaxLen(this,',ml,')'].join(''));
-		fh.push('">');	
-		fh.push(fV);
-		fh.push('</textarea>');
+			fh.push('" onKeyUp="EvoVal.checkMaxLen(this,',ml,')');
+		fh.push('">',fV,'</textarea>');
 		return fh.join('');
 	},
 	inputDate:function(fID,fV){
@@ -987,9 +1049,7 @@ var EvoUI={
 		var fh=['<label for="',fID,'"><input ID="',fID,'" name="',fN,'" type="radio" value="',fV,'"'];
 		if(sel)
 			fh.push(' checked="checked"');
-		fh.push('"><small>');
-		fh.push(fLbl);
-		fh.push("</small></label>&nbsp;");
+		fh.push('"><small>',fLbl,"</small></label>&nbsp;");
 		return fh.join("");
 	},
 	inputLOV:function(fID,fV,fVLabel,fLOV){
@@ -999,8 +1059,7 @@ var EvoUI={
 			var lv=fLOV[i];
 			rVs.push(EvoUI.inputOption(lv.id,lv.v));
 		}
-		fh.push(rVs.join(''));	
-		fh.push('</select>');		
+		fh.push(rVs.join(''),'</select>');		
 		return fh.join('');
 	},
 	inputHidden:function(fID,fV){
@@ -1032,6 +1091,12 @@ var EvoUI={
 			obj['onclick']=new Function(fn);
 		else
 			obj.setAttribute('onclick',fn);
+	},	
+	setOnChange:function(obj,fn,ie){
+		if(ie)
+			obj['onchange']=new Function(fn);
+		else
+			obj.setAttribute('onchange',fn);
 	},
 	
 	createElem:function(fTg,fID){
@@ -1118,10 +1183,19 @@ var EvoUI={
 		EvoUI.showOrHide('rm_'+fID,b2);
 	},
 	
-	slide:function(p,d){
-		var ps=p.style,h=parseInt(ps.height),iu=false;
+	slide:function(p,d){	
+		function hidePanel(){
+				p.runtimer=null;
+				ps.display='none';
+				ps.height='';
+				iu=true;
+		};
+		var ps=p.style, iu=false, h=parseInt(ps.height);
+		if(isNaN(h)){
+			h=parseInt(ps.clientHeight );
+		}
 		var cb=function(){EvoUI.slide(p,d)};
-		if(d){
+		if(d){ // open
 			if(h<p.mh){
 				ps.height=h+10+' px';
 				p.runtimer=window.setTimeout(cb,10);
@@ -1129,19 +1203,18 @@ var EvoUI={
 			}else{
 				p.runtimer=null;
 				if(p.mh!=null)
-				ps.height=p.mh;
+					ps.height=p.mh;
 				ps.display=ps.height='';
 			}
-		}else{
+		}else{ // close
 			if(h>11){
 				ps.height=h-10+' px';
-				p.runtimer=window.setTimeout(cb,10)
-			}else{
-				p.runtimer=null;
-				ps.display='none';
-				ps.height='';
-				iu=true;
-			}
+				if(h==parseInt(ps.height))
+					hidePanel();
+				else
+					p.runtimer=window.setTimeout(cb,10);
+			}else
+				hidePanel();
 		}
 		return iu;
 	},
@@ -1155,7 +1228,11 @@ var EvoUI={
 	},
 		
 	AJAX:function(url,vars,cb){
-		var rq=new XMLHttpRequest();
+		var rq;
+		if(window.XMLHttpRequest)
+			rq=new XMLHttpRequest();
+		else if(window.ActiveXObject) // IE6, IE5
+			rq=new ActiveXObject("Microsoft.XMLHTTP");
 		rq.open('POST',url,true);
 		rq.setRequestHeader('Content-Type','application/x-www-form-urlencoded'); 
 		rq.onreadystatechange=function(){
@@ -1166,7 +1243,8 @@ var EvoUI={
 			}
 		}
 		rq.send(vars);
-	}
+	}	
+	
 }
 
 e$=function(e){
@@ -1176,6 +1254,4 @@ e$=function(e){
 String.prototype.trim=function(){
 	return this.replace(/^\s+|\s+$/g,"");
 }
-
-
 

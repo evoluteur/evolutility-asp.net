@@ -1,26 +1,29 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System.Xml;
 
 namespace Evolutility
 {
-
+	// ==================   XML - constants for element and attribute names   ==================   
 	/* 
 	This library is a dependency of : 
 	 * Evolutility.UIServer 
@@ -29,6 +32,7 @@ namespace Evolutility
 
 	static class xElement
 	{
+		/// <summary>Elements for Evolutility metadata.</summary>
 
 		internal const string form = "form";
 		internal const string data = "data";
@@ -40,6 +44,7 @@ namespace Evolutility
 
 	static class xAttribute
 	{
+		/// <summary>Attributes for Evolutility metadata.</summary>
 		
 		internal const string id = "id";
 
@@ -120,12 +125,14 @@ namespace Evolutility
 
 	static class xQuery
 	{
+		/// <summary>Common XPath queries.</summary> 
 		internal const string evoNameSpace = "http://www.evolutility.com";
 		internal const string XMLHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
 		internal const string tab = "//evo:tab";
 		internal const string panel = "//evo:panel";
 		internal const string panelField = "//evo:panel/evo:field";
+		internal const string aggregableFields = "//evo:panel/evo:field[@type='boolean' or @type='lov']";
 		internal const string panelDetails = "//evo:panel-details";
 		internal const string panelDetailsField = "//evo:panel-details/evo:field";
 		internal const string data = "//evo:form/evo:data";

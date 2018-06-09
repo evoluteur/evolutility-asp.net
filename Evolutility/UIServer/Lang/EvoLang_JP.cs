@@ -1,22 +1,24 @@
 ﻿//	JAPANESE translation from Kazue Watanabe
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -55,7 +57,7 @@ namespace Evolutility
 				ExportFields = "エクスポートに含めるフィールド";
 				IDkey = "ID (Primary Key)";
 				AllFields = "すべての分野"; // babelfish
-				ExportFormats = "コンマで区分けされた(CSV, TXT, XLS...)-HTML-SQL ステートメントを挿入する(SQL)-タブ separated values (TXT)-XML";
+				ExportFormats = "コンマで区分けされた(CSV, TXT, XLS...)-HTML-SQL ステートメントを挿入する(SQL)-タブ separated values (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "許可されておりません。";
@@ -74,7 +76,8 @@ namespace Evolutility
 				NoUpdate = "アップデートは必要とされません。";
 				DeleteOK = "{1:t}でレコード　#{0}が削除されました。."; // {0}=ID {1}=time 
 				Updated = "{1:t}で　{0}がアップデートされました。."; // {0}=entity {1}=time 
-				DetailsUpdate = "詳細がアップデートされました";
+				DetailsUpdated = "詳細がアップデートされました";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "ログインしてください。";
@@ -116,6 +119,8 @@ namespace Evolutility
 				Selection = "選択";
 				Export = "エクスポート";
 				SearchRes = "検索結果";
+				Charts = "チャート"; // googletranslate
+				MassUpdate = "大量更新"; // googletranslate
 				Delete = "削除";
 				ListAll = "全てを列挙";
 				Print = "印刷";
@@ -168,6 +173,10 @@ namespace Evolutility
 				Save = "保存";
 				SaveAdd = "保存し他のものを追加しなさい。";
 				Cancel = "キャンセル";
+				NoX = "いいえ{0}"; // googletranslate
+				NoChange = "変更なし"; //"No Change" googletranslate
+				NoGraph = "利用可能なグラフはありません。"; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "{0:t}に掲載されたコメント。"; //{0}=time 

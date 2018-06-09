@@ -1,6 +1,5 @@
-﻿/* **  www.evolutility.com - (c) 2009 Olivier Giulieri  ** */
+﻿/* **  www.evolutility.org - (c) 2010 Olivier Giulieri  ** */
 /*    SQL script for generic pagin with Evolutility     */
-/*    updated 9/03/2008 for addition of dbcolumnpk (primary key name)  */
 
 CREATE PROCEDURE CH_SP_PagedItem
 	(

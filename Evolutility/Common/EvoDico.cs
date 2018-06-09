@@ -1,37 +1,43 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 //#define DB_MySQL
 #undef DB_MySQL
 
+using System.Web;
 using System.Xml;
+using System.Data;
+
 #if DB_MySQL
 using MySql.Data;
 using MySql.Data.MySqlClient;
 #else
 using System.Data.SqlClient;
 #endif
-using System.Data;
+
 
 namespace Evolutility
 {
-
+	// ==================   Evolutility Dictionary EvoDico   ==================   
+	// UNDER CONSTRUCTION
 	/* 
 	This library is a dependency of : 
 	 * Evolutility.UIServer 
@@ -40,24 +46,40 @@ namespace Evolutility
 
 	static class EvoDico
 	{
+		
 
-		internal static string dicoDB2XML(int FormID, int UserID, string sqlConnectionDico)
+//### EvoDico DB 2 XML ############################################################################################ 
+#region "EvoDico Form"
+
+		internal static DataSet GetForm(int FormID, int UserID, string sqlConnectionDico)
 		{
-			// Generate XML from DB dico query
+			/// <summary>Generate XML from DB dico query.</summary>
 
 			string sql = null;
 			string errorMsg = null;
-			int MaxLoop;
-			//bool UseTabs = false;
-			//bool UseDetails = false;
 			DataSet ds = new DataSet();
 
 			sql = string.Format("EXEC EvoDico_Form_Get @FormID, {0}", EvoDB.p_userid);
 #if DB_MySQL
 			ds = EvoDB.GetDataParameters(sql, sqlConnectionDico, new MySqlParameter[] { new MySqlParameter("@FormID", FormID), new MySqlParameter(EvoDB.p_userid, UserID) }, ref errorMsg);
 #else
-			ds = EvoDB.GetDataParameters(sql, sqlConnectionDico, new SqlParameter[] {new SqlParameter("@FormID", FormID), new SqlParameter(EvoDB.p_userid, UserID)}, ref errorMsg);
+			ds = EvoDB.GetDataParameters(sql, sqlConnectionDico, new SqlParameter[] { new SqlParameter("@FormID", FormID), new SqlParameter(EvoDB.p_userid, UserID) }, ref errorMsg);
 #endif
+			return ds;
+		}
+
+		internal static string dicoDB2XML(int FormID, int UserID, bool showIDs, string sqlConnectionDico)
+		{
+			/// <summary>Generate XML from DB dico query.</summary>
+ 
+			string errorMsg = null;
+			int MaxLoop;
+			//bool UseTabs = false;
+			//bool UseDetails = false;
+			DataSet ds = new DataSet();
+
+			ds = GetForm(FormID, UserID, sqlConnectionDico);
+ 
 			if (ds != null)
 			{
 				//built hierarchical relationships between recordsets 
@@ -173,7 +195,7 @@ namespace Evolutility
 					//' rel6.Nested = True 
 					//'End If 
 				}
-				sql = ds.GetXml();
+				string sql = ds.GetXml();
 				int cp = sql.Length;
 				if (cp > 20)
 				{
@@ -195,6 +217,8 @@ namespace Evolutility
 		//    EvoDB.GetData(EvoDB.BuildSQL("top 1 ID", "evodico_Form"), SqlConnection, ref ErrorMsg);
 		//    return string.IsNullOrEmpty(ErrorMsg);
 		//} 
+
+#endregion
 
 	}
  

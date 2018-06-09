@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Text;
@@ -23,7 +26,7 @@ using System.Web;
 
 namespace Evolutility
 {
-
+	// ==================   HTML for elements UI   ==================   
 	/* 
 	This library is a dependency of : 
 	 * Evolutility.UIServer 
@@ -38,7 +41,7 @@ namespace Evolutility
 
 		internal const string evoName = "Evolutility";  
 		internal const string evoLink = "http://www.evolutility.org";
-		internal const string CRE = "\n<!-- Evolutility 3.0 - www.evolutility.org - (c) 2009 Olivier Giulieri -->\n";
+		internal const string CRE = "\n<!-- Evolutility 4.0 - www.evolutility.org - (c) 2011 Olivier Giulieri -->\n";
 
 		internal const string JSscript = "\n<script type=\"text/javascript\">//<![CDATA[\n";
 		internal const string JSscriptClose = "\n //]]></script>\n";
@@ -47,24 +50,24 @@ namespace Evolutility
 
 		internal const string tag_cTDcTRoTRoTD = "</td></tr><tr><td>";
 		internal const string qChecked = "\" checked=\"checked";
-		internal const string PixCheck = "check.gif"; 
-		internal const string PixCheckCSS = "<span class=\"CheckBlack\"> </span>";
-		internal const string PixCheckBlueCSS = "<span class=\"CheckBlue\"> </span>";
-		//internal const string PixCheckGreenCSS = "<span class=\"CheckGreen\"> </span>"; 
-		//internal const string PixCheckRedCSS = "<span class=\"CheckBlue\"> </span>"; 
-		internal const string PixEndTag = "\" class=\"Icon\" alt=\"\"/>";
+		internal const string PixCheck = "check.gif";
+		internal const string HTMLPixCheckCSS = "<span class=\"CheckBlack\"> </span>";
+		internal const string HTMLPixCheckBlueCSS = "<span class=\"CheckBlue\"> </span>";
+		//internal const string HTMLPixCheckGreenCSS = "<span class=\"CheckGreen\"> </span>"; 
+		//internal const string HTMLPixCheckRedCSS = "<span class=\"CheckBlue\"> </span>"; 
+		internal const string HTMLPixEndTag = "\" class=\"Icon\" alt=\"\"/>";
 
-		internal const string PixComment = "<span class=\"Ico Comment\">&nbsp;</span>";
-		internal const string PixCommentAdd = "<span class=\"Ico CommentAdd\">&nbsp;</span>";
-		internal const string PixCommentUser = "<span class=\"Ico CommentUser\">&nbsp;</span>";
-		private const string PixComment1 = "<span class=\"Ico Comment\" title=\"1\">&nbsp;</span>";
-		private const string PixComments = "<span class=\"Ico Comments\" title=\"{0}\">&nbsp;</span>";
+		internal const string HTMLPixComment = "<span class=\"Ico Comment\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+		internal const string HTMLPixCommentAdd = "<span class=\"Ico CommentAdd\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+		internal const string HTMLPixCommentUser = "<div class=\"Ico CommentUser\">&nbsp;&nbsp;&nbsp;&nbsp;</div>";
+		private const string HTMLPixComment1 = "<span class=\"Ico Comment\" title=\"1\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+		private const string HTMLPixComments = "<span class=\"Ico Comments\" title=\"{0}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>";
 
-		internal const string PixAddRow = "<span class=\"AddRow\">&nbsp;</span>";
-		internal const string PixDelRow = "<span class=\"DelRow\">&nbsp;</span>";
+		internal const string HTMLPixAddRow = "<span class=\"AddRow\">&nbsp;&nbsp;&nbsp;</span>";
+		internal const string HTMLPixDelRow = "<span class=\"DelRow\">&nbsp;&nbsp;&nbsp;</span>";
 
-		internal const string FlagRequired = "<span class=\"Required\">*</span>";
-		internal const string FlagPopup = "<span class=\"ExtWeb\">&nbsp;</span>";
+		internal const string HTMLFlagRequired = "<span class=\"Required\">*</span>";
+		internal const string HTMLFlagPopup = "<span class=\"ExtWeb\">&nbsp;</span>";
 
 		internal const string HTMLoptionZero = "<option value=\"0\"> - </option>";
 		internal const string HTMLSpace = "&nbsp;";
@@ -137,13 +140,13 @@ namespace Evolutility
 			if (popup)
 				HTML.Append("\" target=\"").Append(target);
 			HTML.Append("\">");
-			if (useImg) 
-				HTML.Append("<img src=\"").Append(Img).Append(PixEndTag).Append(label); 
+			if (useImg)
+				HTML.Append("<img src=\"").Append(Img).Append(HTMLPixEndTag).Append(label); 
 			else
 			{
 				HTML.Append(label);
 				if (popup)
-					HTML.Append(FlagPopup);
+					HTML.Append(HTMLFlagPopup);
 			}
 			HTML.Append("</a>");
 			return HTML.ToString();
@@ -158,10 +161,10 @@ namespace Evolutility
 				HTML.Append("\" target=\"").Append(target); 
 			HTML.Append("\">");
 			if (! string.IsNullOrEmpty(Img))
-				HTML.Append("<img src=\"").Append(Img).Append(PixEndTag);
+				HTML.Append("<img src=\"").Append(Img).Append(HTMLPixEndTag);
 			HTML.Append(label);
 			if (popup)
-				HTML.Append(FlagPopup);
+				HTML.Append(HTMLFlagPopup);
 			HTML.Append("</a>");
 			return HTML.ToString();
 		}
@@ -187,7 +190,7 @@ namespace Evolutility
 		static internal string HTMLImgCheckMark(bool IEbrowser, string PixPath)
 		{
 			if (IEbrowser)
-				return EvoUI.PixCheckCSS;
+				return EvoUI.HTMLPixCheckCSS;
 			else
 			{
 				StringBuilder myHTML = new StringBuilder();
@@ -257,7 +260,7 @@ namespace Evolutility
 				zHTML.Append("button");
 			if (!string.IsNullOrEmpty(onclick))
 				zHTML.Append("\" onclick=\"").Append(onclick);
-			zHTML.Append("\" class=\"Button\" name=\"").Append(name).Append("\" value=\" ").Append(label).Append("\">");
+			zHTML.Append("\" class=\"Button\" name=\"").Append(name).Append("\" value=\" ").Append(label).Append(" \">");
 			return zHTML.ToString();
 		}
 
@@ -333,7 +336,7 @@ namespace Evolutility
 				myHTML.Append("', false, 'dmy', '/");
 			else if (locale.Equals("DA"))
 				myHTML.Append("', false, 'dmy', '-");
-			myHTML.Append("');\" class=\"Ico Calendar\"></a></nobr>");
+			myHTML.Append("');\" class=\"Ico Calendar\">&nbsp;&nbsp;&nbsp;&nbsp;</a></nobr>");
 			return myHTML.ToString();
 		}
 
@@ -373,40 +376,6 @@ namespace Evolutility
 			return zHTML.ToString();
 		}
 
-		static internal string menuItem(string label, string css, bool enabled)
-		{
-			//HTML for a single menu item 
-			if (enabled)
-				return String.Format("<a href=\"#\" class=\"{0} act\">{1} </a>", css, label);
-			else
-				return String.Format("<a href=\"#\" class=\"{0}Z\">{1} </a>", css, label);
-		}
-
-		static internal string menuNav(int displayMode, bool navBefore, bool navAfter)
-		{
-			StringBuilder zHTML = new StringBuilder();
-			string buffer = "<a href=\"javascript:EvPost('{0}{1}')\" class=\"Ico nav{1}\"></a>";
-			string aNumString = (displayMode == 1) ? "30" : "20";
-
-			if (navBefore)
-				zHTML.Append("<span class=\"nav1\"></span><span class=\"nav2\"></span>");
-			else
-				zHTML.AppendFormat(buffer, aNumString, "1").AppendFormat(buffer, aNumString, "2");
-			if (navAfter)
-				zHTML.Append("<span class=\"nav3\"></span><span class=\"nav4\"></span>");
-			else
-				zHTML.AppendFormat(buffer, aNumString, "3").AppendFormat(buffer, aNumString, "4");
-			return zHTML.ToString();
-		}
-
-		static internal string menuNavSep(bool IEbrowser)
-		{
-			if (IEbrowser) 
-				return "<span class=\"nav9\"></span>"; 
-			else 
-				return "<span class=\"nav9ff\">&nbsp;</span>";
-		}
-
 		static internal string GetValFromCSVTuples(string myCSVTuples, string myKey)
 		{
 			//myCSVTuples= "day|24 hours,week|week,month|month,year|year" 
@@ -426,7 +395,7 @@ namespace Evolutility
 
 		static internal string HTMLlovEnum(string enumerationList, string FieldName, int ItemID, bool abbrev)
 		{
-			//make a query and returns the HTML for a lov 
+			/// <summary>make a query and returns the HTML for a lov.</summary>
 			StringBuilder myHTML = new StringBuilder();
 			int curID = 0;
 			string currentEnum = null;
@@ -502,9 +471,9 @@ namespace Evolutility
 				case 0:
 					return string.Empty;
 				case 1:
-					return PixComment1;
+					return HTMLPixComment1;
 				default:
-					return String.Format(PixComments, nbCommentsRow);
+					return String.Format(HTMLPixComments, nbCommentsRow);
 			}
 		}
 
@@ -562,18 +531,21 @@ namespace Evolutility
 		{
 			StringBuilder myHTML = new StringBuilder();
 			string css = "Msg"+icon.ToString("G");
-			myHTML.Append("<table id=\"Msg\" class=\"Msg ").Append(css).Append("\"><tr><td>");
+
+			myHTML.Append("<div id=\"Msg\" class=\"Msg ").Append(css).Append("\">");
 			if (icon != MsgType.x)
 			{
-				myHTML.Append("<div class=\"Ico ").Append(css).Append("\">&nbsp;</div></td><td width=\"100%\">");
+				myHTML.Append("<div class=\"Ico ").Append(css).Append("\">&nbsp;</div>");
 			}
 			myHTML.Append(message.Replace("\n", tag_BR)); //leave < and > 
-			myHTML.Append("</td></tr></table>");
+			myHTML.Append("</div><div class=\"clear\"></div>");
 			return myHTML.ToString();
 		}
 
 		static internal string HTMLSearchOperators(string sEquals, string sStart, string sContain, string sFinish)
 		{
+			/// <summary>Search Operator for dropdown.</summary>
+			/// <remarks>operators = equals, start with, contains, finishes with.</remarks>
 			StringBuilder sb = new StringBuilder(); 
 
 			sb.Append("_c\">");
@@ -592,6 +564,8 @@ namespace Evolutility
 		
 		static internal string FormLogin(string labelLogin, string labelPassword, string labelButton, string DefaultLogin)
 		{
+			/// <summary>Login form (HTML).</summary>
+			/// <remarks>Shared between Evolutility, and Wizards.</remarks>
 			StringBuilder myHTML = new StringBuilder();
 
 			myHTML.Append("<p align=\"Center\"><br/><table class=\"FormLogin\" border=\"0\" width=\"62%\"><tr><td><div class=\"Key\"></div></td><td width=\"90%\">");
@@ -600,13 +574,13 @@ namespace Evolutility
 			myHTML.Append("</td></tr><tr><td></td><td>");
 			myHTML.Append(HTMLFieldLabel(fNamePassword, labelPassword));
 			myHTML.Append("<input type=\"password\" class=\"Field\" name=\"").Append(fNamePassword).Append("\" maxlength=\"50\">");
-			myHTML.Append("</td></tr><tr><td class=\"PanelLabel\"></td><td class=\"PanelLabel\">");
+			myHTML.Append("</td></tr><tr><td></td><td class=\"PanelLabel\">");
 			myHTML.Append(HTMLInputButton("Login", labelButton, true, ""));
-			myHTML.Append("</td></tr></table><br/></p>");
+			myHTML.Append("<br/>&nbsp;</td></tr></table><br/></p>");
 			myHTML.Append(JSscript).Append("document.getElementById('").Append(fNameLogin).Append("').focus();").Append(JSscriptClose);
 			return myHTML.ToString();
 		}
-	
+
 #endregion
 
 //### EvoDico Designer ############################################################################################ 
@@ -620,41 +594,27 @@ namespace Evolutility
 			fld  // field
 		}
 
-		static internal string LinkDesigner(DesType DesignerType, int ItemID, string ItemLabel, string pathDesigner)
+		internal static string LinkDesigner(DesType DesignerType, int ItemID, string ItemLabel, string pathDesigner)
 		{
-			return string.Format(" <a href=\"Javascript:EvoDico.edit('{0}','{2}ed_{0}.aspx?ID={1}','{3}')\" class=\"des-{0}\"></a>", DesignerType.ToString("G"), ItemID, pathDesigner, HttpUtility.HtmlEncode(ItemLabel));
-		}
-
-		static internal string menuItemCustomize(int DisplayMode, string CustomizeLabel)
-		{
-			return EvoUI.HTMLLinkEventRef("c:" + DisplayMode.ToString(), CustomizeLabel + EvoUI.HTMLSpace, "customize act");
+			return string.Format(" <a href=\"Javascript:EvoDico.edit('{0}','{2}ed_{0}.aspx?ID={1}','{3}')\" class=\"des-{0}\">&nbsp;</a>", DesignerType.ToString("G"), ItemID, pathDesigner, HttpUtility.HtmlEncode(ItemLabel));
 		}
 
 #endregion
-		
+
 //### Misc. ############################################################################################ 
 #region "Misc."
 
 		static internal string JSIncludeEvoScripts(string path, string language)
 		{
+			/// <summary>Script tags for Evolutility JS libraries.</summary>
+			/// <remarks>Used by Evolutility, and EvoDico Wizards.</remarks>
+			const String bScript = "<script type=\"text/javascript\" src=\"";
 			StringBuilder sbJS = new StringBuilder();
-			sbJS.Append("<script type=\"text/javascript\" src=\"").Append(path).Append("JS/EvolUtility.js\"></script>\n");
-			sbJS.Append("<script type=\"text/javascript\" src=\"").AppendFormat("{0}JS/lang/{1}.js", path, language).Append("\"></script>\n");
-			sbJS.Append("<script type=\"text/javascript\" defer=\"defer\" src=\"").Append(path).Append("JS/EvolDate.js\"></script>\n"); 
+			sbJS.Append(bScript).Append(path).Append("JS/EvolUtility.js\"></script>\n");
+			sbJS.Append(bScript).AppendFormat("{0}JS/lang/{1}.js", path, language).Append("\"></script>\n");
+			sbJS.Append(bScript).Append(path).Append("JS/EvolDate.js\" defer=\"defer\"></script>\n");
 			return sbJS.ToString();
 		}
-
-		//static internal string JSIncludeScriptDate(string path)
-		//{
-		//    return string.Format("<script src=\"{0}JS/EvolDate.js\" defer=\"defer\" type=\"text/javascript\"></script>", path); 
-		//}
-
-		//static internal string JSIncludeScript(string path)
-		//{
-		//    StringBuilder sbJS = new StringBuilder();
-		//    sbJS.Append("<script type=\"text/javascript\" src=\"").Append(path).Append("\"></script>\n");
-		//    return sbJS.ToString();
-		//}
 
 		static internal int ModeRequestInt(string strMode)
 		{
@@ -680,6 +640,9 @@ namespace Evolutility
 						return 50;
 					case "export":
 						return 70;
+					case "chart":
+					case "charts":
+						return 90;
 					case "list":
 						return 110;
 					//Case "lastlist" 
@@ -702,6 +665,21 @@ namespace Evolutility
 			else
 				return string.Empty;
 		}
+
+		//static internal string LicInfo()
+		//{
+		//    string[] colors = new string[] { "FFC0C0", "FFFFC0", "C0FFC0", "C0FFFF", "C0C0FF", "FFC0FF" };
+		//    StringBuilder sb = new StringBuilder();
+		//    sb.Append("<table style=\"width:100%;padding:10px;background:#");
+		//    Random r = new Random();
+		//    sb.Append(colors[r.Next(0, 5)]);
+		//    sb.Append("\"><tr><td><b>Evolutility</b> offers ");
+		//    sb.Append(HTMLLink("http://evolutility.org/product/License.aspx", "open source", "e", ""));
+		//    sb.Append(" or ");
+		//    sb.Append(HTMLLink("http://evolutility.org/product/Purchase.aspx", "commercial", "e", ""));
+		//    sb.Append(" licenses.</td></tr></table>");
+		//    return sb.ToString();
+		//} 
 
 #endregion
 	

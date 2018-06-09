@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library FRENCH
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation from Eddy Boels - http://www.ed-design.org/
 
 var EvolLang={
@@ -15,7 +15,7 @@ var EvolLang={
 	date:'"{0}" doit s\'\351crire sous la forme Jour/Mois/Ann\351e, par exemple: 24/12/2005.',
 	datetime:'"{0}" doit s\'\351crire sous la forme Jour/Mois/Ann\351e heure:minutes am/pm, par exemple : 24/12/2005 10:30 am.', 
 	time:'"{0}" doit s\'\351crire sous la forme heure:minutes am/pm, par exemple : 10:30 am.',
-	max:'"{0}" doit pas \352tre inf\351rieur ou \351gal \340 {1}.',
+	max:'"{0}" doit \352tre inf\351rieur ou \351gal \340 {1}.',
 	min:'"{0}" doit \352tre sup\351rieur ou \351gal \340 {1}.',
 	reg:'"{0}" doit v\351rifier l\'expression r\351guli\232;re "{1}".',
 	

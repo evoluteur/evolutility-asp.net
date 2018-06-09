@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- (c) 2009 Olivier Giulieri - www.evolutility.org  -->
+<!-- (c) 2011 Olivier Giulieri - www.evolutility.org  -->
 <wizard_install>
 	<appgroup label="Personal information manager">
 		<app label="Address book" icon="contact.gif" file="AddressBook.xml" description=""/>

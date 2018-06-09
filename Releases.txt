@@ -3,20 +3,20 @@
 
 #################################################################
 
-Evolutility - version 3.0 - 09/17/2009
+Evolutility - version 4.0 - 12/12/2011
 
-Evolutility 3.0 is a major release providing support for MySQL, Rich Text Format with the integration of FCKeditor, 
-as well as new localization in German, Hindi, and Turkish. 
+Evolutility 4.0 brings charting capabilities and a brand new look.
 
 Enhancements:
-2824630 - Support for MySQL
-2819222	- Rich Text Editor with the integration of FCKeditor
-2823734 - Multi-Select Listboxes for advanced search
+New look with rounded corners.
+Charting capabilities.
+Updated TinyMCE (for rich text) to version 3.4.7 and include more features.
 
 Bug fixes:
-2826299 - Date field saved empty in Spanish language
-2830694 - Query description in adv. search uses ID instead of values.
-2817275 - "Back to search results" link poorly positioned.
+3444826 - Navigation icons disappears with right-to-left languages.
+3441315 - Required fields of type "Rich Text" don't validate properly
+3177949 - Toolbar labels appear on top of icons.
+2882288 - International Date Format. Thanks to Gurmit Singh for contributing the fix.
 
 More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
 
@@ -32,6 +32,7 @@ Many THANKS for their translation:
 - Hindi by P.K.Agarwal.
 - Italian by Pier Giuseppe Meo.
 - Japanese by Kazue Watanabe.
+- Persian (Farsi) by Sohail Abbasi.
 - Portuguese by Gilberto Botaro.
 - Romanian by Cosmin Munteanu.
 - Spanish by Gilberto Botaro.
@@ -44,6 +45,144 @@ and also for their code or contribution to:
 - All the people who gave me feedback and encouragements
 
 http://www.evolutility.org
+
+#################################################################
+
+Evolutility Patch - version 3.6.2 - 11/06/2011
+
+Evolutility Patch 3.6.2 fixes the bug #3177949 where on some browsers the toolbar labels appearing on top of icons.
+
+To install the patch, replace on your web site the files "Evol.css" and "Evol-green.css" by the new version provided with this download.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility Patch - version 3.6.1 - 10/18/2011
+
+Evolutility Patch 3.6.1 fixes the international date formats bug #2882288. 
+
+To install the patch, replace the file Evodico/JS/EvoDates.js by the new version provided with this download. 
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.6 - 06/23/2011
+
+Evolutility 3.6 brings the addition of Persian (Farsi) localization, as well as a few UI improvements and bug fixes.
+
+Enhancements:
+Localization to Persian (Farsi).
+UI improvements in form title, toolbar, and buttons.
+Some rounded corners and upgraded sprites (lighter toggle button to open/close panels).
+EvoDico - Added users management.
+3314977 - Support for languages written from right to left.
+
+Bug fixes:
+3138581	- Export more than 20 records.
+3316003 - Step wizard paging not displayed (in some browsers).
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.5 - 11/01/2010
+
+Evolutility 3.5 is a maintenance release with bug fixes and improvements to EvoDico Wizards. 
+EvoDico (to use the database instead of XML) is included with Evolutility.
+
+Bug fixes:
+3099581 - Add code for "left bar" to the download
+3064489 - Hide panel sometimes doesn't work on the last panel w/ tabs.
+3088972 - In Export page, "show all" link is there w/ all fields.
+3064497 - Icon repeated in first fields of every tab.
+3059670 - Warning when compiling ExportWizard.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.4 - 06/22/2010
+
+Evolutility 3.4 is a minor release with bug fixes and small UI improvements. 
+
+Bug fixes:
+3019622 - Date validation not working.
+3019487 (regression) - Item Navigate missing search filter.
+3007169 - Menu on Evolutility Site Incorrectly Positioned w/ FireFox 3.6.3 
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.3 - 05/10/2010
+
+Evolutility 3.3 is getting back to real lightweight by replacing the Rich Text Editor CKEditor with TinyMCE.
+It also provides a few bug fixes. 
+
+Bug fixes:
+2997093 - Dependant LOV problem w/ special characters.
+2997976 - DatePicker problem in Hindi, German, and Turkish.
+2997135 (regression) - can't update other user's records with Multiple_Users_Collaboration.
+2997138 (regression) - Problem sorting columns with LOV records.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.2 - 04/29/2010
+
+Evolutility 3.2 adds a new web form for "Mass Update". 
+It also includes AJAX and CSS improvements (mostly for Google Chrome browser), as well as bug fixes.
+
+Bug fixes:
+2993992 - Dependant fields do not work properly w/ Chrome.
+2803819 - Icon for popup not showing w/ Chrome.
+2991576 - UserID not saved when using "Multiple_Users_Collaboration".
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.1 - 02/16/2010
+
+Evolutility 3.1 adds JSON (JavaScript Object Notation) as an export format, easier access to EvoDico tables, and upgrade to CKeditor 3.1.
+
+Enhancements:
+2946845 - Upgrade of Rich Text Format editor to CKeditor 3.1.
+2952629	- Add JSON as an export format.
+2952379 - Add easy way to switch between DBs for data and metadata.
+
+Bug fixes:
+2943490 - "search" and "selections" should be disabled if not loggedin.
+2913901 - SQL Scripts Not in Download.
+
+Note: EvoDico 3.1 is a separate download.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 3.0 - 09/17/2009
+
+Evolutility 3.0 is a major release of Evolutility open source framework for CRUD. 
+
+After SQL Server, it now also provides support for MySQL database. 
+It adds Rich Text Format with the integration of FCKeditor.
+It also includes new localization in German, Hindi, and Turkish; now making Evolutility available in 13 languages. 
+ 
+Enhancements:
+2824630 - Support for MySQL
+2819222	- Rich Text Editor with the integration of FCKeditor
+2823734 - Multi-Select Listboxes for advanced search
+
+Bug fixes:
+2826299 - Date field saved empty in Spanish language
+2830694 - Query description in adv. search uses ID instead of values.
+2817275 - "Back to search results" link poorly positioned.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
 
 #################################################################
 
@@ -357,5 +496,5 @@ http://www.evolutility.org
 
 Download Evolutility at http://www.evolutility.org
 
-(c) 2009 Olivier Giulieri - http://www.evolutility.org
+(c) 2011 Olivier Giulieri - http://www.evolutility.org
 

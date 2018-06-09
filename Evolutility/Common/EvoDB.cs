@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org
+//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 
 //#define DB_MySQL
@@ -34,7 +37,7 @@ using System.Data.SqlClient;
 
 namespace Evolutility
 {
-
+	// ==================   General SQL generation & DB access   ==================   
 	/* 
 	This library is a dependency of : 
 	 * Evolutility.DataServer 
@@ -65,18 +68,25 @@ namespace Evolutility
 		internal const string t_email = "email";
 		internal const string t_url = "url";
 
+		// SQL parameter names
 		internal const string p_itemid = "@itemid";
 		internal const string p_userid = "@userid";
 
 		// SQL
 		internal const string SQL_WHERE = " WHERE ";
+		internal const string SQL_GROUPBY = " GROUP BY ";
+		internal const string SQL_HAVING = " HAVING ";
 		internal const string SQL_EXEC = "EXEC ";
 		internal const string SQL_NULL = "NULL";
+		internal const string SQL_INSERT = "INSERT INTO ";
+
 
 		 
 #if DB_MySQL
 
 		internal const string SQL_NAME_NOW = "CURTIME()";
+		internal const string SQL_DATEDIFFe012 = " DATEDIFF(day,{0},{1}){2}0 "; // bug ?
+		internal const string SQL_DATEstr012 = "convert(datetime,'{1}/{0}/{2}',101)"; // bug ?
 		internal const string SQL_NAME_0c = "`{0}`,";
 		internal const string SQL_NAME_0e1c = "`{0}`={1},";
 		internal const string SQL_NAME_c0 = ",`{0}`";
@@ -85,15 +95,18 @@ namespace Evolutility
 		internal const string SQL_ISNULL_0 = "ISNULL({0})=0";
 
 		internal const string SQL_IDENTITY = " SELECT LAST_INSERT_ID()"; 
-		internal const string SQL_ID_INSERT = "SET IDENTITY_INSERT ";
+		internal const string SQL_ROWCOUNT = " SELECT FOUND_ROWS();"; // bug ?
+		internal const string SQL_ID_INSERT = "SET IDENTITY_INSERT {0} {1};\n\n"; // OK b/c only used in export wizard
 		internal const string SQL_BEGIN_TRANS = "START TRANSACTION; \r\n";
 		internal const string SQL_COMMIT_TRANS = ";\r\n COMMIT ";
-		internal const string SQL_INCREMENT = "{0}=CASE WHEN({0} is null)THEN 1 ELSE {0}+1 END";  // will work for null values
+		internal const string SQL_INCREMENT = "{0}={0}+1";  // bug ? check SQLServer version for null values handling
 
-		internal const string SQL_SELECT_LOV_T = "t.ID,rtrim(t.{1}) AS value";
+		internal const string SQL_SELECT_LOV_T = "t.ID,rtrim(t.{1}) AS value"; // need "LIMIT {0}" at end of query
 
 #else
 		internal const string SQL_NAME_NOW = "getdate()";
+		internal const string SQL_DATEDIFFe012 = " DATEDIFF(day,{0},{1}){2}0 ";
+		internal const string SQL_DATEstr012 = "convert(datetime,'{1}/{0}/{2}',101)";
 		internal const string SQL_NAME_0c = "[{0}],";
 		internal const string SQL_NAME_0e1c = "[{0}]={1},";
 		internal const string SQL_NAME_c0 = ",[{0}]";
@@ -102,7 +115,8 @@ namespace Evolutility
 		internal const string SQL_ISNULL_0 = "isnull({0},0)=0";
 
 		internal const string SQL_IDENTITY = " SELECT SCOPE_IDENTITY()"; // @@IDENTITY
-		internal const string SQL_ID_INSERT = "SET IDENTITY_INSERT ";
+		internal const string SQL_ROWCOUNT = " SELECT @@ROWCOUNT";
+		internal const string SQL_ID_INSERT = "SET IDENTITY_INSERT {0} {1};\n\n";
 		internal const string SQL_BEGIN_TRANS = "BEGIN TRANSACTION \r\n";
 		internal const string SQL_COMMIT_TRANS = "\r\n COMMIT TRANSACTION \r\n";
 		internal const string SQL_INCREMENT = "{0}=CASE WHEN({0} is null)THEN 1 ELSE {0}+1 END";  // will work for null values
@@ -337,15 +351,21 @@ namespace Evolutility
 		static internal string SPcall_Paging(string SPname, string spSelect, string spFrom, string spWhere, string spOrderBy, string sqlPK, int spPageID, int spPageSize, int spUserID, string myDBtable)
 		{
 			string sql;
-			sql = SPname.Replace("@SQLselect", string.Format("'{0}'", spSelect.Replace("'", "''")));
-			sql = sql.Replace("@SQLtable", string.Format("'{0}'", myDBtable.Replace("'", "''")));
-			sql = sql.Replace("@SQLfrom", string.Format("'{0}'", spFrom.Replace("'", "''")));
-			sql = sql.Replace("@SQLwhere", string.Format("'{0}'", spWhere.Replace("'", "''")));
-			sql = sql.Replace("@SQLorderby", string.Format("'{0}'", spOrderBy.Replace("'", "''")));
-			sql = sql.Replace("@SQLpk", string.Format("'{0}'", sqlPK.Replace("'", "''")));
+			sql = SPname.Replace("@SQLselect", quotedVar(spSelect));
+			sql = sql.Replace("@SQLtable", quotedVar(myDBtable));
+			sql = sql.Replace("@SQLfrom", quotedVar(spFrom));
+			sql = sql.Replace("@SQLwhere", quotedVar(spWhere));
+			sql = sql.Replace("@SQLorderby", quotedVar(spOrderBy));
+			sql = sql.Replace("@SQLpk", quotedVar(sqlPK));
 			sql = sql.Replace("@pageid", string.Format("'{0}'", spPageID));
-			sql = sql.Replace("@pagesize", string.Format("'{0}'", spPageSize)); 
+			sql = sql.Replace("@pagesize", string.Format("'{0}'", spPageSize));
+			sql = sql.Replace("@userid", string.Format("'{0}'", spUserID));
 			return sql;
+		}
+
+		static internal string quotedVar(string myVar)
+		{
+			return string.Format("'{0}'", myVar.Replace("'", "''"));
 		}
 
 		static internal string SPcall_Get(string SPname, int itemID, int userID)
@@ -374,7 +394,7 @@ namespace Evolutility
 				else
 					ValidDate = EvoTC.isDate(string.Format("{1}/{0}/{2}", dateParts[0], dateParts[1], dateParts[2]));
 				if (ValidDate)
-					return string.Format("convert(datetime,'{1}/{0}/{2}',101)", dateParts[0], dateParts[1], dateParts[2]);
+					return string.Format(SQL_DATEstr012, dateParts[0], dateParts[1], dateParts[2]);
 				else
 					return SQL_NULL;
 			}
@@ -391,7 +411,7 @@ namespace Evolutility
 		{
 			if (DBoperator==null)
 				DBoperator = "=";
-			return String.Format(" DATEDIFF(day,{0},{1}){2}0 ", DBformatedDate, DBcolumn, DBoperator);
+			return String.Format(SQL_DATEDIFFe012, DBformatedDate, DBcolumn, DBoperator);
 		}
 
 		static internal string wBoolIsFalse(string DBcolumn)
@@ -405,6 +425,10 @@ namespace Evolutility
 //### SQL generation ###################################################################################### 
 #region "SQL generation"
 
+		static internal string BuildSQL(string SQLselect, string SQLfrom)
+		{
+			return string.Format("SELECT {0} FROM {1};", SQLselect, SQLfrom);
+		}
 		static internal string BuildSQL(string SQLselect, string SQLfrom, string SQLwhere, string SQLorderby, int top)
 		{
 			StringBuilder sql = new StringBuilder();
@@ -427,14 +451,36 @@ namespace Evolutility
 
 			return sql.ToString();
 		}
-		static internal string BuildSQL(string SQLselect, string SQLfrom)
+		static internal string BuildSQL(string SQLselect, string SQLfrom, string SQLwhere, string SQLgroupby,string SQLhaving, string SQLorderby, int top)
 		{
-			return string.Format("SELECT {0} FROM {1};", SQLselect, SQLfrom);
+			StringBuilder sql = new StringBuilder();
+			sql.Append("SELECT ");
+#if (!DB_MySQL)
+			if(top>0)
+				sql.AppendFormat("TOP {0} ", top); 
+#endif
+			sql.Append(SQLselect).Append(" FROM ").Append(SQLfrom);
+			if (! string.IsNullOrEmpty(SQLwhere))
+				sql.Append(SQL_WHERE).Append(SQLwhere);
+			if (!string.IsNullOrEmpty(SQLgroupby))
+				sql.Append(SQL_GROUPBY).Append(SQLgroupby);
+			if (!string.IsNullOrEmpty(SQLhaving))
+				sql.Append(SQL_HAVING).Append(SQLhaving);
+			if (! string.IsNullOrEmpty(SQLorderby)) 
+				sql.Append(" ORDER BY ").Append(SQLorderby);
+#if DB_MySQL
+			if (top > 0)
+				sql.AppendFormat(" LIMIT {0};", top);	
+#else
+			sql.Append(";");
+#endif 
+
+			return sql.ToString();
 		}
 
 		static internal string sqlINSERT(string SQLTable, string SQLColumns, string SQLvalues)
 		{
-			return (new StringBuilder()).Append("INSERT INTO ").Append(SQLTable).Append("(").Append(SQLColumns).Append(") VALUES (").Append(SQLvalues).Append(");").ToString();
+			return (new StringBuilder()).Append(SQL_INSERT).Append(SQLTable).Append("(").Append(SQLColumns).Append(") VALUES (").Append(SQLvalues).Append(");").ToString();
 		}
 
 		static internal string sqlUPDATE(string SQLTable, string SQLColumnsValuesTuples, string SQLWhere)
@@ -451,6 +497,11 @@ namespace Evolutility
 		{
 			return (new StringBuilder()).Append(SQL_BEGIN_TRANS).Append(mySQL).Append(SQL_COMMIT_TRANS).ToString();
 		}
+
+		static internal  string IDequals(int ID)
+		{
+			return string.Format("ID={0}", ID);
+		} 
 
 #endregion
 

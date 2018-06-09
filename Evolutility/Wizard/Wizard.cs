@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.ComponentModel;
@@ -69,12 +72,13 @@ namespace Evolutility
 		private string AppName; 
 		private string _PathXML = "xml", _PathWeb = "", _PathPix = "pixevo/"; 
 		private string _SqlConnection; 
+		private string _SqlConnectionDico; 
 		private int MaxStep = 6; 
 
 		private bool _Mustlogin = true; 
 		private bool _BuildPages = false; 
 		private bool _BuildDB = false; 
-		private bool _ShowASPX = false, _ShowXML = false, _ShowSQL = false, _ShowSkin = false; 
+		private bool _ShowASPX = false, _ShowXML = false, _ShowSQL = false;
 		private int _StepID = 0;
 		private string appTitle; 
 		private string appXML, appSQL, appASPX; 
@@ -156,13 +160,6 @@ namespace Evolutility
 			set { _ShowSQL = value; } 
 		}
 
-		[Category("Behavior"), DefaultValue(false),
-		Description("Displays links to different skins for testing.")]   
-		public bool ShowSkin { 
-			get { return _ShowSkin; } 
-		   set { _ShowSkin = value; } 
-		}
-
 		[Category("Behavior"), DefaultValue("1000"),
 		Description("Type of wizard.")]   
 		public EvolWizardMode WizardMode { 
@@ -180,6 +177,12 @@ namespace Evolutility
 		public string SqlConnection { 
 			get { return _SqlConnection; } 
 			set { _SqlConnection = value; } 
+		}
+		[Category("Data"), DefaultValue(""), 
+		Description("Connection string to Evolutility Dictionary Database.")] 
+		public string SqlConnectionDico {
+			get { return _SqlConnectionDico; }
+			set { _SqlConnectionDico = value; } 
 		}
 
 		[Category("Data"), DefaultValue("Path to Wizards metadata."),
@@ -248,6 +251,12 @@ namespace Evolutility
 			UserID = EvoTC.String2Int(GetPageSession(uIDname));
 			if (string.IsNullOrEmpty(_SqlConnection))
 				_SqlConnection = EvoUI.GetAppSetting("SQLConnection");
+			if (string.IsNullOrEmpty(_SqlConnectionDico))
+			{
+				_SqlConnectionDico = EvoUI.GetAppSetting("SQLConnectionDico");
+				if (string.IsNullOrEmpty(_SqlConnectionDico))
+					_SqlConnectionDico = _SqlConnection;
+			}
 			if (_Mustlogin)
 				UserID = EvoTC.String2Int(GetPageSession(uIDname));
 			else
@@ -316,22 +325,22 @@ namespace Evolutility
 							sbSQL.AppendFormat("'{0}')", sqlbuffer.Replace("'", "''")); 
 						}
 						sbSQL.Append(EvoDB.SQL_IDENTITY);
-						AppID = EvoTC.String2Int(EvoDB.GetDataScalar(sbSQL.ToString(), _SqlConnection, ref ErrorMessage));
+						AppID = EvoTC.String2Int(EvoDB.GetDataScalar(sbSQL.ToString(), _SqlConnectionDico, ref ErrorMessage));
 						if (AppID > 0 && string.IsNullOrEmpty(ErrorMsg))
 						{
 							sql = string.Format("UPDATE EvoDico_Form SET dbtable=dbtable+'{0}' WHERE ID={0}", AppID); 
-							ErrorMessage = EvoDB.RunSQL(sql, _SqlConnection, false); 
+							ErrorMessage = EvoDB.RunSQL(sql, _SqlConnectionDico, false); 
 						}
 						break; 
 					case 1: //data def 
 						sql = EvoDB.BuildSQL("dbtable", "EvoDico_Form", "ID=" + AppID.ToString(), "", 1);
-						tablename = EvoDB.GetDataScalar(sql, _SqlConnection, ref ErrorMessage);
+						tablename = EvoDB.GetDataScalar(sql, _SqlConnectionDico, ref ErrorMessage);
 						// if user pressed browser back button (deleting panels deletes fields)
 						sbSQL.Append("DELETE FROM EvoDico_Panel WHERE formID=").Append(AppID);
 						// need dummy panel b/c of DB integrity constraint
 						sbSQL.Append(";INSERT INTO EvoDico_Panel(FormID, Label) VALUES(").AppendFormat("{0},'{1}')", AppID, EvoDB.SQLescape(appTitle));
 						sbSQL.Append(EvoDB.SQL_IDENTITY);
-						int PanelID = EvoTC.String2Int(EvoDB.GetDataScalar(sbSQL.ToString(), _SqlConnection, ref ErrorMessage));
+						int PanelID = EvoTC.String2Int(EvoDB.GetDataScalar(sbSQL.ToString(), _SqlConnectionDico, ref ErrorMessage));
 						sbSQL = new StringBuilder();
 						fieldList = "~"; 
 						for (int i = 1; i < NbFields; i++)
@@ -378,7 +387,7 @@ namespace Evolutility
 								} 
 							} 
 						} 
-						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnection, true); 
+						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnectionDico, true); 
 						break; 
 					case 2: //data def details 
 						for (int i = 1; i < NbFields; i++)
@@ -410,7 +419,7 @@ namespace Evolutility
 								sbSQL.AppendFormat(" WHERE ID={0};", fID); 
 							} 
 						} 
-						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnection, true); 
+						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnectionDico, true); 
 						break; 
 					case 3: //search, adv search, search res. 
 						for (int i = 1; i < NbFields; i++) 
@@ -426,7 +435,7 @@ namespace Evolutility
 								sbSQL.AppendFormat(" WHERE ID={0};", fID); 
 							} 
 						} 
-						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnection, true); 
+						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnectionDico, true); 
 						break; 
 					case 4: //panels layout 
 						bool isFirst = true;
@@ -449,7 +458,7 @@ namespace Evolutility
 								}
 							} 
 						} 
-						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnection, true); 
+						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnectionDico, true); 
 						break; 
 					case 5: //field layout 
 						for (int i = 1; i < NbFields; i++)
@@ -466,7 +475,7 @@ namespace Evolutility
 								sbSQL.AppendFormat(" WHERE ID={0};", fID); 
 							} 
 						} 
-						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnection, true); 
+						ErrorMessage = EvoDB.RunSQL(sbSQL.ToString(), _SqlConnectionDico, true); 
 						break; 
 					default:
 						if (FormID > 0) 
@@ -484,12 +493,12 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 
 			IEbrowser = Page.Request.Browser.Browser == "IE"; 
-			output.Write(EvoUI.CRE); 
-			output.Write("<table width=\"100%\" class=\"Panel\" cellpadding=\"10\">\n");  
+			output.Write(EvoUI.CRE);
+            output.Write("<div class=\"Evo\"><table width=\"100%\" class=\"EvoContent\">\n");  
 			if (UserID < 1 && _Mustlogin)
 			{
 				output.Write(tag_oTRoTD);  
-				output.Write(EvoUI.HTMLMessage("Please log in.", EvoUI.MsgType.Del));
+				output.Write(EvoUI.HTMLMessage("Please log in.", EvoUI.MsgType.Info));
 				output.Write(EvoUI.tag_cTDcTRoTRoTD);  
 				output.Write(EvoUI.FormLogin("Login", "Password", "Login", String.Empty)); 
 				output.Write(tag_cTDcTR);
@@ -623,9 +632,9 @@ namespace Evolutility
 					//////////// mode Catalog ///////////////////////////////////////////////////////////////////////////////////// 
 					case EvolWizardMode.Wizard_Catalog:
 						output.Write(TrTd_openPanelLabel);
-						output.Write("<h1>Welcome to Evolutility</h1>");
+						output.Write("<h1>Application Wizards</h1>");
 						output.Write(EvoUI.tag_cTDcTRoTRoTD);  
-						int i = EvoTC.String2Int(EvoDB.GetDataScalar(EvoDB.BuildSQL("count(*)", "EvoDico_Form"), _SqlConnection, ref ErrorMessage));
+						int i = EvoTC.String2Int(EvoDB.GetDataScalar(EvoDB.BuildSQL("count(*)", "EvoDico_Form"), _SqlConnectionDico, ref ErrorMessage));
 						output.Write(FormWizardCatalog(i)); 
 						output.Write(tag_cTDcTR); 
 						break; 
@@ -665,7 +674,7 @@ namespace Evolutility
 							case 1: //map 
 								output.Write(HTMLTitleAndStep(lang_Finished, 1, 2));
 								output.Write(tag_oTRoTD);
-								output.Write(FormXML2DBNow()); 
+								output.Write(FormXML2DBNow(_SqlConnectionDico)); 
 								output.Write(tag_cTDcTR); 
 								break; 
 						} 
@@ -679,7 +688,7 @@ namespace Evolutility
 					//    break; 
 				} 
 			}   
-			output.Write("</table>"); 
+			output.Write("</table></div>"); 
 			output.Write(EvoUI.Signature());
 		} 
 		
@@ -722,14 +731,11 @@ namespace Evolutility
 			myHTML.Append("<ul class=\"Queries\">");
 			myHTML.Append("<li><a href=\"EvoDicoWiz.aspx?WIZ=build\">Build a new application from scratch</a></li>");
 			myHTML.Append("<li><a href=\"EvoDicoWiz.aspx?WIZ=install\">Install a packaged application</a></li>");
-			myHTML.Append("</ul>");
-
-			myHTML.Append("<p>Advanced options</p>");
-			myHTML.Append("<ul class=\"Queries\">");
-			//myHTML.Append("<li><a href=\"EvoDicoWiz.aspx?WIZ=csv2db\">Import CSV file</a></li>");
 			myHTML.Append("<li><a href=\"EvoDicoWiz.aspx?WIZ=dbscan\">Map an existing database table</a></li>");
 			myHTML.Append("<li><a href=\"EvoDicoWiz.aspx?WIZ=xml2db\">Import an XML application definition</a></li>");
+			////myHTML.Append("<li><a href=\"ExportForm.aspx\">Export application definition to XML</a></li>");
 			myHTML.Append("</ul>");
+
 			if (nbApps > 0)
 			{
 				myHTML.Append("<p>You already have <a href=\"EvoDicoForm.aspx\">").Append(nbApps).Append(" applications</a>.");
@@ -763,7 +769,7 @@ namespace Evolutility
 				sbSQL.AppendLine(EvoDB.BuildSQL("title, dbtable, dbcolumnpk", "EvoDico_form", "id=" + strAppID, String.Empty, 0)); 
 				sbSQL.Append(EvoDB.BuildSQL("f.*", "EvoDico_field f, EvoDico_panel p", "f.formID=" + strAppID + " AND p.formID=f.formID AND f.panelid=p.id", "p.ppos,f.fpos,f.id", 0));
 				ErrorMsg = String.Empty;
-				ds = EvoDB.GetData(sbSQL.ToString(), _SqlConnection, ref ErrorMsg);
+				ds = EvoDB.GetData(sbSQL.ToString(), _SqlConnectionDico, ref ErrorMsg);
 				if (ErrorMsg != string.Empty || ds == null || ds.Tables[0].Rows.Count == 0)
 				{
 					buildError = string.Format("<p>{0}<br/>{1}</p>", ErrorMsg, sbSQL.ToString()); 
@@ -919,8 +925,8 @@ namespace Evolutility
 							} 
 						} 
 					} 
-					sqlbuffer = "/*** www.Evolutility.org - (c) 2009 Olivier Giulieri ***/\n";
-					sqlbuffer += String.Format("/*** {0} database - {1} ***/\n\n", AppName, EvoTC.TextNow()); 
+					sqlbuffer = String.Format("/*** {0} database - {1} ***/\n", AppName, EvoTC.TextNow());
+					sqlbuffer += "/*** generated by evolutility - http://www.evolutility.org ***/\n\n"; 
 					appSQL = sqlbuffer + FullSQL + "\n"; 
 					if (pBuildFiles) 
 					{ 
@@ -931,16 +937,16 @@ namespace Evolutility
 				} 
 				
 				//########### XML - CREATE XML DEFINITION ######################################################## 
-				EvoDico.dicoDB2XML(AppID, 0, _SqlConnection); 
+				//EvoDico.dicoDB2XML(AppID, 0, _SqlConnectionDico); 
 				if (_ShowXML) 
 				{ 
 					myHTML.Append(myDOM.InnerXml);
-					myHTML.Append(EvoDico.dicoDB2XML(AppID, 0, _SqlConnection)); 
+					myHTML.Append(EvoDico.dicoDB2XML(AppID, 0, false, _SqlConnectionDico)); 
 					appXML = myHTML.Replace("\"True\"", "\"1\"").Replace("\"False\"", "\"0\"").Replace(" dbtablelov=\"\"", "").ToString(); 
 					if (pBuildFiles)
 					{ 
-						myDOM.LoadXml(myHTML.ToString()); 
-						myDOM.Save(_PathXML + AppName + "-" + strAppID + ".xml"); 
+						myDOM.LoadXml(myHTML.ToString());
+						myDOM.Save(string.Format("{0}{1}-{2}.xml", _PathXML, AppName, strAppID)); 
 					} 
 				}  
 				
@@ -950,7 +956,7 @@ namespace Evolutility
 					appASPX = ASPXNestingPage(AppName, strAppID); 
 					if (pBuildFiles)
 					{ 
-						StreamWriter sw = new StreamWriter(_PathWeb + AppName + "-" + strAppID + ".aspx"); 
+						StreamWriter sw = new StreamWriter(string.Format("{0}{1}-{2}.aspx", _PathWeb, AppName, strAppID)); 
 						sw.WriteLine(appASPX); 
 						sw.Close(); 
 					} 
@@ -989,7 +995,7 @@ namespace Evolutility
 			SqlDataReader dr = null;
 			string username	= GetPageRequest(EvoUI.fNameLogin);
 			string aSQL;
-			SqlConnection cn = new SqlConnection(_SqlConnection);
+			SqlConnection cn = new SqlConnection(_SqlConnectionDico);
 
 			if (string.IsNullOrEmpty(ErrorMsg) && !string.IsNullOrEmpty(username))
 			{
@@ -1030,7 +1036,7 @@ namespace Evolutility
 			string sql = string.Format("SELECT TOP 300 ID,rtrim({0}) as value FROM {1} ORDER BY ID", fieldColumnDisplay, TableName);
 			try
 			{
-				Source = EvoDB.GetData(sql, _SqlConnection, ref ErrorMsg);
+				Source = EvoDB.GetData(sql, _SqlConnectionDico, ref ErrorMsg);
 				if (SelectedItemID == 0)
 				{
 					for (int i = 0; i < Source.Tables[0].Rows.Count; i++)
@@ -1123,12 +1129,12 @@ namespace Evolutility
 				return string.Empty;
 		} 
 		 
-		private string HTMLInputTextRequiredFormated(string name, string value, string label, int maxlength, string help) 
+		private string HTMLInputTextRequiredFormatted(string name, string value, string label, int maxlength, string help) 
 		{ 
 			StringBuilder zHTML = new StringBuilder(); 
 			
 			if (!string.IsNullOrEmpty(label))
-				zHTML.Append(EvoUI.HTMLFieldLabel(name, label + EvoUI.FlagRequired));
+				zHTML.Append(EvoUI.HTMLFieldLabel(name, label + EvoUI.HTMLFlagRequired));
 			zHTML.Append(EvoUI.HTMLInputText(name, value, maxlength));
 			if (!string.IsNullOrEmpty(help))
 				zHTML.Append(EvoUI.HTMLHelpTip(name, help)); 
@@ -1166,7 +1172,7 @@ namespace Evolutility
 
 		private string HTMLStep(int stepid, int maxstep)
 		{
-			string c, mySpan = "<span class=\"n{0}{1}\"></span>";
+			string c, mySpan = "<span class=\"n{0}{1}\">&nbsp;</span>";
 			StringBuilder myHTML = new StringBuilder();
 			myHTML.Append("<span class=\"Steps\">");
 			for (int i = 1; i <= maxstep; i++)
@@ -1257,19 +1263,9 @@ namespace Evolutility
 				sb.AppendFormat("<p>{0}: ", AppName);
 			if (!string.IsNullOrEmpty(FormID))
 			{
-				sb.Append("<a target=\"_test\" href=\"EvoDicoTest.aspx?MODE=new&formID=").Append(FormID).Append("\"><b>Run it now!</b>").Append(EvoUI.FlagPopup);
+				sb.Append("<a target=\"_test\" href=\"EvoDicoTest.aspx?MODE=new&formID=").Append(FormID).Append("\"><b>Run it now!</b>").Append(EvoUI.HTMLFlagPopup);
 				sb.Append("</a> - <a href=\"EvoDicoForm.aspx?ID=").Append(FormID).Append("&Mode=Edit\"><b>Customize it</b></a>");
 				sb.Append(" - <a href=\"EvoDoc.aspx?ID=").Append(AppID).Append("\"><b>Design doc.</b></a>");
-				if (_ShowSkin)
-				{
-					sb.Append("</p><p>Skin test: ");
-					sb.Append(HTMLSkinLink("Autonomous", FormID));
-					sb.Append(" - ").Append(HTMLSkinLink("Citrus", FormID));
-					sb.Append(" - ").Append(HTMLSkinLink("Localize", FormID));
-					sb.Append(" - ").Append(HTMLSkinLink("Refreshed", FormID));
-					sb.Append(" - ").Append(HTMLSkinLink("Sinorca", FormID));
-					sb.Append(" - ").Append(HTMLSkinLink("Sliqua", FormID));
-				}
 				sb.Append("</p>");
 			}
 			return sb.ToString();
@@ -1277,7 +1273,7 @@ namespace Evolutility
 
 		private string HTMLSkinLink(string SkinName, string AppID)
 		{
-			return string.Format("<a target=\"_test\" href=\"css/evol_skin_{0}.aspx?formID={1}\">{0}{2}</a>", SkinName, AppID, EvoUI.FlagPopup);
+			return string.Format("<a target=\"_test\" href=\"css/evol_skin_{0}.aspx?formID={1}\">{0}{2}</a>", SkinName, AppID, EvoUI.HTMLFlagPopup);
 		} 
 
 #endregion 

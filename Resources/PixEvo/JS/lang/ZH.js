@@ -1,10 +1,10 @@
-﻿//   Evolutility Localization Library ENGLISH
-//   www.evolutility.org - (c) 2009 Olivier Giulieri
+﻿//   Evolutility Localization Library CHINESE SIMPLIFIED
+//   (c) 2011 Olivier Giulieri - www.evolutility.org
 //   Translation by Sam Zhou
 
-var EvolLang = {
+var EvolLang={
 
-    LOCALE: "ZH",    // CHINESE (SIMPLIFIED) - CHS 
+    LOCALE:"ZH",    // CHINESE (SIMPLIFIED) - CHS 
 
     // validation
     intro: '无法为您保存：',//'You are not finished yet:',
@@ -12,8 +12,8 @@ var EvolLang = {
     email: '{0}必须是合法的邮箱地址。',//'"{0}" must be a valid email.',
     integer: '{0}必须填入数字。',//'"{0}" must only use numbers.',
     decimal: '{0}必须填入十进制小数。',//'"{0}" must be a valid decimal numbers.',
-    date: '{0}必须是一个合法的日期，日期的格式必须是"YYYY-MM-DD"如："2009-12-24"。',//'"{0}" must be a valid date, format must be "MM/DD/YYYY" like "12/24/2005".',
-    datetime: '{0}必须是一个合法的日期时间，时间的格式必须是"YYYY-MM-DD hh:mm:ss"如："2009-12-24 18:12:55"。',//'"{0}" must be a valid date/time, format must be "MM/DD/YYYY hh:mm am/pm" like "12/24/2005 10:30 am".',
+    date: '{0}必须是一个合法的日期，日期的格式必须是"YYYY-MM-DD"如："2010-12-24"。',//'"{0}" must be a valid date, format must be "MM/DD/YYYY" like "12/24/2005".',
+    datetime: '{0}必须是一个合法的日期时间，时间的格式必须是"YYYY-MM-DD hh:mm:ss"如："2010-12-24 18:12:55"。',//'"{0}" must be a valid date/time, format must be "MM/DD/YYYY hh:mm am/pm" like "12/24/2005 10:30 am".',
     time: '{0}必须是一个合法的时间，时间的格式必须是"hh:mm:ss"如："18:12:55"。',//'"{0}" must be a valid date/time, format must be "hh:mm am/pm" like "10:30 am".',
     max: '{0}必须小于或等于{1}。',//'"{0}" must be smaller or equal to {1}.',
     min: '{0}必须大于或等于{1}。',//'"{0}" must be greater or equal to {1}.',

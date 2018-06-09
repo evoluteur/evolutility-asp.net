@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Evolutility metadata for Address Book DANISH
-- (c) 2009 Olivier Giulieri - www.evolutility.org  
+- (c) 2011 Olivier Giulieri - www.evolutility.org  
 - Translated by Henrik Holm  -->
 <form label="Addresse bog"  xmlns="http://www.evolutility.com" >
 	<data icon="contact.gif" entity="contact" entities="contacts" 

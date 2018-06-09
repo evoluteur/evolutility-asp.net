@@ -1,20 +1,23 @@
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
+
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
+
 
 using System;
 using System.Text;
@@ -24,14 +27,20 @@ using System.Web;
 using System.Drawing; 
 //using System.Data.SqlClient;
 
+
 namespace Evolutility
 {
-	partial class UIServer //  Grid : for list and edit
+	// ==================   Paging and Edit Grids   ==================   
+	// for list and edit
+
+	partial class UIServer 
 	{
 
 		private string HTMLDataset(XmlNodeList aNodeList, string sql, string title, int ListMode, string LinkDetailNew, bool InsidePanel, int PanelDetailsIndex, int PanelDetailsID)
 		{
+			// Generates HTML for paging grid, details grid, and edit grid.
 			//ListMode: 0=list, 1=details, 2 details edit 
+
 			string ctable, iconEntityDetails;
 			bool UseComments = false, YesNo = false;
 			string fieldType, fieldValue;
@@ -60,7 +69,7 @@ namespace Evolutility
 			}
 			else
 			{
-				ds = EvoDB.GetData(sql, _SqlConnection, ref ErrorMsg);
+				ds = EvoDB.GetData(sql, SqlConnection, ref ErrorMsg);
 				if (ds != null)
 				{
 					t = ds.Tables[0];
@@ -118,10 +127,14 @@ namespace Evolutility
 					if (_ShowDesigner && _FormID > 0)
 						myHTML.Append(EvoUI.LinkDesigner(EvoUI.DesType.src, _FormID, title, _PathDesign));
 					myHTML.Append("</p></td><td><p class=\"Right\">");
-					if (TotalNbRecords > 0)
+					if (TotalNbRecords > 0 && (_DBAllowExport  || _DBAllowMassUpdate))
 					{
 						if (_DBAllowExport)
-							htmlRecCount += String.Format(" - {0}&nbsp;", EvoUI.HTMLLinkEventRef("70", EvoLang.Export));
+							htmlRecCount += String.Format(" - {0}", EvoUI.HTMLLinkEventRef("70", EvoLang.Export));
+#if !DB_MySQL
+						if (_DBAllowMassUpdate)
+							htmlRecCount += String.Format(" - {0}", EvoUI.HTMLLinkEventRef("80", EvoLang.MassUpdate));
+#endif
 						myHTML.Append(htmlRecCount);
 					}
 					myHTML.Append("</p></td></tr><tr><td colspan=\"2\">");
@@ -293,7 +306,7 @@ namespace Evolutility
 								// Label + Flag & Actions (required, designer, sorting)
 								myHTML2.Append(myLabel);
 								if (ListMode == 2 && cn.Attributes[xAttribute.required] != null && cn.Attributes[xAttribute.required].Value == s1)
-									myHTML2.Append(EvoUI.FlagRequired);
+									myHTML2.Append(EvoUI.HTMLFlagRequired);
 								if (_ShowDesigner)
 									myHTML2.Append(EvoUI.LinkDesigner(EvoUI.DesType.fld, Convert.ToInt32(cn.Attributes[xAttribute.id].Value), myLabel, _PathDesign));
 								if (_AllowSorting && ListMode == 0 && TotalNbRecords > 2)
@@ -555,24 +568,29 @@ namespace Evolutility
 		}
 
 		private string HTMLSortingArrows(string ColumnID)
-		{ // sorting arrow links for grid header
+		{ 			
+			/// <summary>Sorting arrow links for grid header.</summary>
+			/// <remarks>Use CSS and sprite for IE, use pictures for other browsers.</remarks>
 			if (IEbrowser && IEbrowserVersion > 6)
+				// use CSS and sprite
 				return string.Format("<a href=\"javascript:EvPost('a:{0}')\" class=\"Ico arrUp\"></a><a href=\"javascript:EvPost('d:{0}')\" class=\"Ico arrDown\"></a>", ColumnID);
 			else
+				// use pictures
 				return string.Format("&nbsp;<img src=\"{1}ordUp.gif\" alt=\"\" onclick=\"javascript:EvPost('a:{0}')\"/><img class=\"Tool\" src=\"{1}ordDown.gif\" onclick=\"javascript:EvPost('d:{0}')\" alt=\"\"/>", ColumnID, _PathPixToolbar);
 		}
 
 		private string HTMLAddDeleteRows(int gridID)
-		{ // HTML = 1 or 2 icon links for Add & Delete rows
+		{
+			/// <summary>Generates HTML for 1 or 2 icon links for Add & Delete rows.</summary>
 			StringBuilder myHTML = new StringBuilder();
 			if (_DBAllowInsertDetails)
 			{
 				myHTML.Append("<div class=\"Paging\"><nobr>&nbsp;<a href=\"Javascript:EvoGrid.addRow");
-				myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.AddRow, EvoUI.PixAddRow);
+				myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.AddRow, EvoUI.HTMLPixAddRow);
 				if (_DBAllowDelete) // inside => no delete if no insert!
 				{
 					myHTML.Append("</a>&nbsp;<a href=\"Javascript:EvoGrid.delRow");
-					myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.DelRow, EvoUI.PixDelRow);
+					myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.DelRow, EvoUI.HTMLPixDelRow);
 				}
 				myHTML.Append("</a></nobr></div>");
 			}
@@ -582,6 +600,7 @@ namespace Evolutility
 
 		private string HTMLNoGrid(int ListMode, string title, string LinkDetailNew)
 		{
+			/// <summary>When a grid is empty, show message.</summary>
 			StringBuilder myHTML = new StringBuilder();
 
 			myHTML.Append("<div class=\"Holder2\">");
@@ -606,28 +625,23 @@ namespace Evolutility
 			return myHTML.ToString();
 		}
 
-		private StringBuilder HTMLNavLinksPaging()
-		{
-			StringBuilder myHTML = new StringBuilder();
-
-			myHTML.Append(EvoUI.HTMLLinkEventRef("n" + (pageID - 1).ToString(), EvoLang.pPrev));
-			for (int i = pageID - 5; i < pageID; i++)
-			{
-				if (i > 0)
-					myHTML.Append(EvoUI.HTMLLinkEventRef("n" + i.ToString(), i.ToString())).Append(EvoUI.HTMLSpace);
-			}
-			return myHTML;
-		}
-
 		private StringBuilder HTMLPagingFullNav(int MaxLoopSQL, int TotalNbRecords, string htmlRecCount)
 		{
+			/// <summary>generates HTML for Paging grid footer.</summary>
+			/// <remarks>Previous 1 2 3 4 Next.</remarks>
 			StringBuilder myHTML = new StringBuilder();
 
 			if ((MaxLoopSQL == _RowsPerPage - 1) || pageID > 1)
 			{
 				myHTML.Append("<span class=\"Paging\">");
-				if (pageID > 1)
-					myHTML.Append(HTMLNavLinksPaging());
+				if (pageID > 1){
+					myHTML.Append(EvoUI.HTMLLinkEventRef("n" + (pageID - 1).ToString(), EvoLang.pPrev));
+					for (int i = pageID - 5; i < pageID; i++)
+					{
+						if (i > 0)
+							myHTML.Append(EvoUI.HTMLLinkEventRef("n" + i.ToString(), i.ToString())).Append(EvoUI.HTMLSpace);
+					}
+				}
 				myHTML.Append("<span class=\"PagingSel\">").Append(pageID).Append("</span>");
 				if (MaxLoopSQL > 0 && pageID * _RowsPerPage <= TotalNbRecords)
 				{

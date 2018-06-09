@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Evolutility metadata for Address Book ITALIAN
-- (c) 2009 Olivier Giulieri - www.evolutility.org
+- (c) 2011 Olivier Giulieri - www.evolutility.org
 - Translated by Pier Giuseppe Meo  -->
 <form label="Rubrica"  xmlns="http://www.evolutility.com" >
 	<data icon="contact.gif" entity="contact" entities="contacts" 

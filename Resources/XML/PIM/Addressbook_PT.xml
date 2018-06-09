@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--  	Evolutility metadata for Address Book PORTUGUESE 
--  	(c) 2009 Olivier Giulieri - www.evolutility.org 
+-  	(c) 2011 Olivier Giulieri - www.evolutility.org 
 -  	Translated by Gilberto Botaro  -->
 <form label="Agenda de Endereços"  xmlns="http://www.evolutility.com" >
 	<data icon="contact.gif" entity="contato" entities="contatos" 

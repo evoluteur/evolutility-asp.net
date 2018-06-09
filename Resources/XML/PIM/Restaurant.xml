@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility - (c) 2009 Olivier Giulieri - www.evolutility.org  -->
+<!-- Evolutility - (c) 2011 Olivier Giulieri - www.evolutility.org  -->
   <form label="Restaurants" xmlns="http://www.evolutility.com">
     <data icon="resto.gif" entity="restaurant" entities="restaurants"   title="Restaurants"
     dbtable="EVOL_Restaurant" dborder="t.name"  dbcolumnlead="name" 

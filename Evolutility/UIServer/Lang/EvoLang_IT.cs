@@ -1,23 +1,24 @@
 ﻿//	ITALIAN - Translation from Pier Giuseppe Meo
 
-//	Copyright (c) 2003-2009 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
 
-//	Evolutility is free software: you can redistribute it and/or modify
+//	Evolutility is open source software: you can redistribute it and/or modify
 //	it under the terms of the GNU Affero General Public License as published by
-//	the Free Software Foundation, either version 3 of the License, or
+//	the open source software Foundation, either version 3 of the License, or
 //	(at your option) any later version.
 
-//	Evolutility is distributed in the hope that it will be useful,
-//	but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	GNU Affero General Public License for more details.
+//	Evolutility is distributed WITHOUT ANY WARRANTY;
+//	without even the implied warranty of MERCHANTABILITY
+//	or FITNESS FOR A PARTICULAR PURPOSE.
+//	See the GNU Affero General Public License for more details.
 
 //	You should have received a copy of the GNU Affero General Public License
-//	along with Evolutility. If not, see <http://www.gnu.org/licenses/>.
+//	along with Evolutility. If not, see <http://www.fsf.org/licensing/licenses/agpl-3.0.html>.
 
+//  Commercial license may be purchased at www.evolutility.org <http://www.evolutility.org/product/Purchase.aspx>.
 
 
 using System;
@@ -57,7 +58,7 @@ namespace Evolutility
 				ExportFields = "campi da includere nella esportazione";
 				IDkey = "ID (Chiave principale)";
 				AllFields = "Tutti i campi";
-				ExportFormats = "Separati da virgola (CSV, TXT, XLS...)-HTML-SQL Insert Statement (SQL)-Tab separati da tabulazioni (TXT)-XML";
+				ExportFormats = "Separati da virgola (CSV, TXT, XLS...)-HTML-SQL Insert Statement (SQL)-Tab separati da tabulazioni (TXT)-XML-JSON";
 
 				// --- errors & warnings --- 
 				err_NoPermission = "Non hai i permessi per ";
@@ -76,7 +77,8 @@ namespace Evolutility
 				NoUpdate = "Nessuna modifica necessaria.";
 				DeleteOK = "Record #{0} cancellato alle {1:t}."; // {0}=ID {1}=time 
 				Updated = "{0} Modificato alle {1:t}."; // {0}=entity {1}=time 
-				DetailsUpdate = "Righe modificate.";
+				DetailsUpdated = "Righe modificate.";
+				MassUpdated = "{0} {1} updated at {2:t}."; // {0}=nb rec {1}=entities  {2}=time // googletranslate
 
 				// --- login --- 
 				PleaseLogin = "Autenticarsi.";
@@ -118,6 +120,8 @@ namespace Evolutility
 				Selection = "Selezione";
 				Export = "Esporta";
 				SearchRes = "Risultati ricerca";
+				Charts = "Grafici";// googletranslate
+				MassUpdate = "Mass Update"; //"Mass Update" googletranslate
 				Delete = "Cancella";
 				ListAll = "Elenca tutti";
 				Print = "Stampa";
@@ -169,6 +173,10 @@ namespace Evolutility
 				Save = "Salva";
 				SaveAdd = "Salva ed aggiungi altro";
 				Cancel = "Cancella";
+				NoX = "Nessun {0}"; // googletranslate
+				NoChange = "Nessun cambiamento"; //"No Change" googletranslate
+				NoGraph = "Nessun grafico disponibile."; // "No graphs available." googletranslate
+				chart_A_per_B = "{0} / {1}"; // to be reviewed
 
 				// --- user comments --- 
 				ucPostedOn = "Note inserite il {0:t}."; //{0}=time 

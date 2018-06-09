@@ -58,6 +58,8 @@
     <Compile Include="..\Common\EvoXML.cs">
       <Link>EvoLib\EvoXML.cs</Link>
     </Compile>
+    <Compile Include="Lang\EvoLang_FA.cs" />
+    <Compile Include="UIServerToolBar.cs" />
     <Compile Include="Lang\EvoLang_DE.cs" />
     <Compile Include="Lang\EvoLang_HI.cs" />
     <Compile Include="Lang\EvoLang_IT.cs" />

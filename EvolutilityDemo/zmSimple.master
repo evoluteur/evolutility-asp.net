@@ -1,0 +1,44 @@
+<%@ Master Language="C#" AutoEventWireup="true" %> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server"> 
+<title>Evolutility demo</title>
+<link href="evol.css" rel="stylesheet"/> 
+</head>
+<body>
+<div class="bluetop">
+<a href="Default.aspx"><img alt="Evolutility.org" class="logo2" src="pix/evologo2.gif" /></a>
+</div> 
+<table class="B"> 
+<tr valign="top">
+<td style="width:150px" class="B tabDemo tabAll"><br />
+<ul class="links">
+<li><a href="Demo_addressbook.aspx"><img src="pixevo/m-address.gif" class="icon" alt=""/>Address book</a></li>
+<li><a href="Demo_todo.aspx"><img alt="" class="icon" src="pixevo/m-todo.gif"/>To do</a></li>
+<li><a href="Demo_memopad.aspx"><img alt="" class="icon" src="pixevo/memo.gif"/>Memo pad</a></li>
+<li><a href="demo_restaurant.aspx"><img alt="" class="icon" src="pixevo/resto.gif"/>Restaurants</a></li>
+<li><a href="demo_winecellar.aspx"><img alt="" class="icon" src="pixevo/m-wine.gif"/>Wine Cellar</a></li>
+<li><a href="demo_braille.aspx"><img alt="" class="icon" src="pixevo/m-brl.gif"/>Braille</a></li>
+<li><a href="demo_db.aspx"><img alt="" class="icon" src="pixevo/m-db.gif"/>Database structure</a></li>
+</ul>
+</td>
+<td class="hsep">&nbsp;</td>
+<td class="B">
+
+<form id="f" runat="server" enctype="multipart/form-data">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+</asp:contentplaceholder>
+</form>
+
+</td>
+    <td style="width:10px">
+        &nbsp;
+    </td>
+</tr>
+<tr><td colspan="4" align="center">
+<br class="clear" />
+<div class="footer"> &#169; 2008 Olivier Giulieri - <a href="http://www.evolutility.org">Evolutility.org</a></div>
+</td></tr>
+</table>
+</body>
+</html>
+

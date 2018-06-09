@@ -1,0 +1,44 @@
+<form label="Resource" xmlns="http://www.evolutility.com" >
+<!-- Evolutility - (c) 2008 Olivier Giulieri - www.evolutility.com  -->
+  <data icon="brl.gif" entity="resource" entities="resources"
+  dbtable="BRL_Resource" dborder="t.name" 
+  dbtableusers="Evol_User" dbtablecomments="EVOL_Comment" dbcommentsformid="6" 
+   dbcolumnlead="name"
+      splogin="EvoSP_LOGIN @login, @password" 
+      sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @pageid, @pagesize" />
+
+  <panel label="Name" width="100" >
+    <field type="text" required="1" cssclass="fieldmain" dbcolumn="name" dbcolumnread="name" label="Name" maxlength="100"  search="1" searchlist="1" searchadv="1" width="62" />
+    <field type="lov" required="1" dbtablelov="BRL_ResourceType" dbcolumn="typeID" dbcolumnread="type" label="Type of organization" labeledit="Organization" labellist="Organization" maxlength="100"  search="1" searchlist="1" searchadv="1" width="38"  />
+    <field type="url" optional="1" dbcolumn="web" dbcolumnread="web" label="Web" maxlength="100"  search="0" searchlist="0" searchadv="0" width="100"  />
+  </panel>   
+  <panel label="Contact" width="38" >
+    <field type="text" dbcolumn="contact" dbcolumnread="contact" label="Contact" maxlength="255"  search="0" searchlist="0" searchadv="1" width="100" />
+    <field type="text" dbcolumn="phone" dbcolumnread="phone" label="Phone" maxlength="35"  search="0" searchlist="0" searchadv="1" width="100" />
+    <field type="text" optional="1" dbcolumn="phone2" dbcolumnread="phone2" label="Phone 2" maxlength="35"  search="0" searchlist="0" searchadv="0" width="100" />
+    <field type="text" optional="1" dbcolumn="tdd" dbcolumnread="tdd" label="TDD" maxlength="35"  search="0" searchlist="0" searchadv="0" width="100" />
+    <field  type="email" optional="1" dbcolumn="email" dbcolumnread="email" label="email" maxlength="100"  search="0" searchlist="0" searchadv="1" width="100"  />
+  </panel>   
+  <panel label="Address" width="62" >
+    <field type="text" dbcolumn="address1" dbcolumnread="address1" label="Address" maxlength="60"  search="0" searchlist="0" searchadv="0" width="100" />
+    <field type="text" optional="1" dbcolumn="address2" dbcolumnread="address2" label="" labeledit="address 2" maxlength="60"  search="0" searchlist="0" searchadv="0" width="100" />
+    <field type="text" required="1" dbcolumn="city" dbcolumnread="city" label="City" maxlength="60"  search="1" searchlist="1" searchadv="1" width="60" />
+    <field type="lov" dbcolumn="stateID" dbcolumnread="state" dbtablelov="zstate" dbcolumnreadlov="state" label="State" maxlength="2"  search="1" searchlist="1" searchadv="1" width="15" 
+    link="demo_braillebystate.aspx?ID=@itemid" />
+    <field type="text" optional="1" dbcolumn="zip" dbcolumnread="zip" label="Zip" maxlength="15"  search="0" searchlist="0" searchadv="1" width="25" />
+  </panel>
+  
+    <queries label="Canned queries (defined in the XML)">
+        <query label="Resources in California" dbwhere="StateID=5" url="ca" />
+        <query label="Guide dogs Schools in California" dbwhere=" stateID=5 and typeid=3" url="gdsca" />  
+        <query label="Schools for the Blind in California" dbwhere=" stateID=5 and  typeID=2" url="sbca" />  
+        <query label="Resources in New York City" dbwhere="city ='New York'" dborder="t.name" url="nyc" />               
+        <query label="Resources in New York State" dbwhere="stateid=33" dborder="t.name" url="nys" />               
+        <query label="Schools for the Blind" dbwhere=" t.typeID=2" url="schools" />  
+        <query label="Resources with Web site" dbwhere=" web&lt;&gt;''" url="web" />                
+    </queries>  
+   
+</form>
+
+
+

@@ -30,6 +30,17 @@
 	
 	EvoGen: generated model w/ fields info and Grid def for edit
 */
+// ############  Evolutility.JS  #################################################################
+/*
+	Evol: Core features
+	EvoVal: Validation
+	EvoHelp: User help
+	EvoGrid: Edit grid
+	EvoExport: Export forms
+	EvoUI: UI helpers
+	
+	EvoGen: generated model w/ fields info and Grid def for edit
+*/
 
 // ############  Evol #################################################################
 
@@ -378,7 +389,7 @@ var Evol={
 		lb.innerHTML=msg.join("");
 		var lbs=lb.style;
 		lbs.position='absolute';
-		lbs.pixelTop=ss.pixelTop+parseInt(dfc.offsetHeight/4);
+		lbs.top=ss.pixelTop+parseInt(dfc.offsetHeight/4)+'px';
 		lbs.display='block';
 		document.body.style.overflow='hidden';
 	},
@@ -464,8 +475,11 @@ var EvoVal={ // Validation
 			nv=parseInt(fv,10)
 		else{
 			var ln=EvolLang.LOCALE;
-			if(ln=='FR'||ln=='DA')
-				fv=fv.replace(",",".");
+			if(ln=='FR'||ln=='DA'||ln=='IT'){
+				if(fv.indexOf(',')){
+					F.value=fv.replace(',', '.');
+				}
+			}
 			nv=parseFloat(fv);
 		}
 		if(isNaN(nv))

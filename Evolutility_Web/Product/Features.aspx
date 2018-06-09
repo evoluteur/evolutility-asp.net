@@ -6,7 +6,6 @@ SubMenuID="2"
     Meta_Keywords="evolutility open source object features master-details CRUD metadata xml database"
     Title="Evolutility : Features" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">  
-
 <h1>Evolutility Features</h1>
 
 <p>Evolutility is the only open source metadata-driven framework covering at the same time the UI and the database dynamically 
@@ -33,7 +32,7 @@ who do not let you host your applications on your own server, even less look at 
 <p>CRUD functions, in-place editing grid for details.</p>
 
 <h2>Integrated Rich Text Editor</h2>
-	<p>WYSIWYG editor in the browser for HTML fields with TinyMCE.<br />
+	<p>WYSIWYG editor in the browser for HTML fields with NicEdit.<br />
 		<br />
 		<img src="..\Doc\pix\ft\html-edit.gif" class="shadow" /></p>
 	

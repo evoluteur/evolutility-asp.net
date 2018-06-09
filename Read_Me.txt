@@ -1,17 +1,21 @@
-Evolutility 2.2 - 8/25/2008
+Evolutility Source Code - version 2.3 - 9/23/2008
 
-To run the evolutility sample applications:
- - Copy the directory "EvoDemo" which contains the web site to your web server.
- - Create a new SQL Server database
- - Change the database connection string in the "appSettings" section of the Web.config file (or in every ASPX page).
- - Run the SQL script called EVOL-Common.sql on your database.
- - If you want to use login and passwords for multiple users, run the SQL script called EVOL-MultiUser.sql
- - Run any or all the other SQL scripts for the demos you want.
+The source code include:
+- An ASP.net Server control - in VB.net
+- A Client library - in Javascript
+- A sample database for SQL Server - in SQL
+- An XML schema for validation - in XSD
+- Many pictures and ASP.net pages to support the demo applications
 
-Live demos and license information is available at http://www.evolutility.com
+Evolutility source code is available on SourceForge.net
+http://sourceforge.net/project/showfiles.php?group_id=225915
+
+It is licensed under the GNU Affero GPL v3 with a Dual License business model.
+			
+Live demos and information are available at http://www.evolutility.org
 Product documentation is available on-line at http://www.evolutility.com/doc/EvoDoc.aspx 
  
-For more information please contact info@evolutility.com or go to http://www.evolutility.com.
+For more information please contact info@evolutility.org or go to http://www.evolutility.org.
  
 
 (c) 2003-2008 Olivier Giulieri

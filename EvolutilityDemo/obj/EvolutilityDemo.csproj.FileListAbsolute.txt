@@ -1,5 +1,0 @@
-C:\inetpub\wwwroot\EvolutilityDemo\obj\Debug\ResolveAssemblyReference.cache
-C:\inetpub\wwwroot\EvolutilityDemo\bin\EvolutilityDemo.dll
-C:\inetpub\wwwroot\EvolutilityDemo\bin\EvolutilityDemo.pdb
-C:\inetpub\wwwroot\EvolutilityDemo\obj\Debug\EvolutilityDemo.dll
-C:\inetpub\wwwroot\EvolutilityDemo\obj\Debug\EvolutilityDemo.pdb

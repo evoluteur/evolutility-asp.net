@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Address Book - (c) 2003-2008 Olivier Giulieri - www.evolutility.com  -->
+<form label="Address book"  xmlns="http://www.evolutility.com" >
+	<data icon="contact.gif" entity="contact" entities="contacts"  dbtableusers="EvoUser"
+	dbcolumnlead="lastname" dbtable="EVOL_Contact" dborder="t.lastname,t.firstname" 
+ dbcommentsformid="147"
+	splogin="EvoSP_Login @login, @password"
+	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+	<panel label="Name" width="55">
+		<field type="text" label="Lastname" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" cssclass="fieldmain" width="50" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="Firstname" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" cssclass="fieldmain" width="40" search="2" searchlist="2" searchadv="2"/>
+		<field type="text" label="Middle" maxlength="5" dbcolumn="Middlename" dbcolumnread="Middlename" required="0" cssclass="fieldmain" width="10" search="0" searchlist="0" searchadv="0"/>
+		<field type="text" label="Title" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Company" maxlength="50" dbcolumn="Company" dbcolumnread="Company" width="50" search="4" searchlist="4" searchadv="1"/>
+		<field type="email" label="email" maxlength="255" dbcolumn="emailaddress" dbcolumnread="emailaddress" width="100" search="0" searchlist="0" searchadv="1"/>
+	</panel>
+	<panel label="Contact Info" width="45">
+		<field type="text" label="Work Phone" maxlength="20" dbcolumn="phone" dbcolumnread="phone" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Home Phone" maxlength="20" dbcolumn="phoneh" dbcolumnread="phoneh" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Mobile" maxlength="20" dbcolumn="phonem" dbcolumnread="phonem" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Fax" maxlength="20" dbcolumn="Fax" dbcolumnread="Fax" width="50" search="0" searchlist="0" searchadv="0"/>
+		<field type="url" label="URL" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
+	</panel>
+	<panel label="Address" width="55">
+		<field type="text" label="Address" labeledit="Address" labellist="Address" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="" labellist="Address line 2" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="City" maxlength="100" dbcolumn="City" dbcolumnread="City" width="60" search="13" searchlist="0" searchadv="1"/>
+		<field type="text" label="State" maxlength="3" dbcolumn="State" dbcolumnread="State" width="20" search="0" searchlist="0" searchadv="14"/>
+		<field type="text" label="Zip" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" width="20" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Country" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	<panel label="Misc." width="45">
+		<field type="lov" label="Category" dbcolumn="CategoryID" dbcolumnread="Category" width="70" dbtablelov="EVOL_ContactCategory" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="Custom 1" maxlength="250" dbcolumn="Custom1" dbcolumnread="Custom1" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Custom 2" maxlength="250" dbcolumn="Custom2" dbcolumnread="Custom2" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Custom 3" maxlength="250" dbcolumn="Custom3" dbcolumnread="Custom3" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	<panel label="Notes" width="100">
+		<field type="textmultiline" label="Notes" maxlength="800" dbcolumn="notes" dbcolumnread="notes" required="0" width="100" height="3" search="0" searchlist="0" searchadv="1"/>
+	</panel>	
+</form>

@@ -1,0 +1,42 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="zmEvoDico.master.cs" inherits="zmEvoDico" %> 
+<%@ Register TagPrefix="EVOL" Namespace="Evolutility.SideBar" Assembly="Evolutility.SideBar" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server"> 
+<title>Evolutility</title>
+<link href="../evol.css" rel="stylesheet"/>
+<link href="../evolWiz.css" rel="stylesheet" />
+</head>
+<body>
+<div class="bluetop">
+<a href="../index.aspx"><img alt="Evolutility.org" class="logo3" src="../pix/evologo3.gif" /></a> 
+<span class="version"> 4.1</span>
+<table id="menu" style="top:54px;" ><tr>
+	<td><a href="MyEvol.aspx"><img alt="My applications" class="icon" src="../pixEvo/lock.png" />My Apps</a></td>
+	<td><a href="MyEvolPub.aspx"><img alt="My public content (read-only)" class="icon" src="../pixEvo/world.png" />Shared Apps</a></td>	
+	<td><a href="EvoDicoForm.aspx" class="active"><img alt="Designer" class="icon" src="../pixEvo/edi_frm_edit.png" />App Designer</a></td> 
+</tr></table>  
+</div>
+<table class="B"> 
+<tr valign="top">
+<td style="width:150px" class="B">
+<EVOL:sidebar id="EvoMenu1" runat="server" VirtualPathPictures="../pixevo/"></EVOL:sidebar>
+</td>
+<td>&nbsp;</td>
+<td class="B"><form id="f" runat="server" enctype="multipart/form-data">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+
+</asp:contentplaceholder>
+</form></td>
+    <td style="width:10px">
+        &nbsp;
+    </td>
+</tr>
+<tr><td colspan="4" align="center">
+<br class="clear" />
+<div class="footer"><a href="../company.aspx">About Us</a> | <a href="../contact.aspx">Contact Us</a> | &#169; 2011 Olivier Giulieri
+<br />&nbsp;</div>
+</td></tr>
+</table>
+</body>
+</html>

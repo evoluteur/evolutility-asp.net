@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- www.Evolutility.org - (c) 2013 Olivier Giulieri -->
+<form label="User" description="" xmlns="http://www.evolutility.com" >
+  <data entity="user" dbtable="EVOL_User" dbwhere="publish>0"  dborderby="login" 
+        icon="user.gif" 
+         splogin="EvoDicoSP_Login @login, @password" 
+  sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" /> 
+<panel label="Identity" width="70">
+	<field type="text" label="Login" readonly="2" maxlength="100" dbcolumn="Login" dbcolumnread="Login" required="1" width="60" cssclass="fieldmain" search="1" searchlist="1" searchadv="1"/>
+	<field type="boolean" label="Administrator" labellist="Admin." dbcolumn="Admin" dbcolumnread="Admin" width="40"  search="1" searchlist="1" searchadv="1"  img="checkb.gif"/>
+	<field type="email" label="email" maxlength="100" dbcolumn="email" dbcolumnread="email" required="0" width="100" search="1" searchlist="0" searchadv="1"/>
+	<field type="url" label="URL" maxlength="255" dbcolumn="URL" dbcolumnread="URL" width="100" search="0" searchlist="0" searchadv="1" target="new" />
+	<field type="text" label="Tag Line" maxlength="100" dbcolumn="TagLine" dbcolumnread="TagLine" required="0" width="100" search="1" searchlist="1" searchadv="1"/>
+	<field type="textmultiline" height="6" label="Introduction" maxlength="500" dbcolumn="Intro" dbcolumnread="Intro" required="0" width="100" search="1" searchlist="0" searchadv="1"/>
+</panel>
+<panel label="Activity" width="30">
+	<field type="datetime" readonly="1" label="Last Visit" maxlength="20" dbcolumn="lastVisit" dbcolumnread="lastVisit" width="100" search="1" searchlist="1" searchadv="1" />
+	<field type="date" readonly="1" label="User Since" maxlength="20" dbcolumn="creationdate" dbcolumnread="creationdate" width="100" search="1" searchlist="0" searchadv="1"/>
+	<field type="integer" readonly="1" label="Number of visits" labellist="Visits" dbcolumn="NBVisits" dbcolumnread="NBVisits" width="100" search="1" searchlist="1" searchadv="1"/>
+</panel>
+
+<panel label="Address" width="62">
+	<field type="textmultiline" label="Address" labeledit="Address" labellist="Address" maxlength="150" dbcolumn="Address" dbcolumnread="Address" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+	<field type="text" label="City" maxlength="100" dbcolumn="City" dbcolumnread="City"
+		   width="62" search="13" searchlist="0" searchadv="1"/>
+	<field type="text" label="State" maxlength="3" dbcolumn="State" dbcolumnread="State"
+		   width="15" search="0" searchlist="0" searchadv="14"/>
+	<field type="text" label="Zip" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip"
+		   width="23" search="0" searchlist="0" searchadv="15"/>
+	<field type="text" label="Country" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+</panel>
+</form>

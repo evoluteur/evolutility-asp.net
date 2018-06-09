@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Restaurant list - www.evolutility.org - (c) 2013 Olivier Giulieri -->
+<applicationcomponent>
+	<xml>
+		<![CDATA[ 
+  <form label="Restaurants" xmlns="http://www.evolutility.com">
+    <data icon="resto.gif" entity="restaurant" entities="restaurants" 
+    dbtable="EVOL_Restaurant" dborder="t.name"  dbcolumnlead="name" 
+      splogin="EvoSP_LOGIN @login, @password" 
+      sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+    <panel label="Name" width="60" >
+      <field type="text" label="" labeledit="Name" labellist="Name"  maxlength="50" dbcolumn="name" dbcolumnread="name" required="1" width="100" height="1" dbtablelov="" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Food" dbcolumn="CategoryID" dbcolumnread="CategoryName" required="1" width="40" height="1" dbtablelov="EVOL_Restaurant_Category" dborderlov="id" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Rating" dbcolumn="RatingID" dbcolumnread="RatingName" 
+        width="30" height="1" dbtablelov="EVOL_Restaurant_rating" 
+        dborderlov="id" search="1" searchlist="1" searchadv="1" />
+      <field type="url" optional="1" label="Web site" labeledit="Web" labellist="Web" maxlength="200" dbcolumn="url" dbcolumnread="url" width="70" height="1" search="0" searchlist="0" searchadv="2" />
+    </panel>
+    <panel label="Contact Info" width="40">
+      <field type="text" label="Phone" maxlength="16" dbcolumn="phone" dbcolumnread="phone" width="100" height="1" dbtablelov="" search="1" searchlist="0" searchadv="1" />
+      <field type="text" label="Phone 2" maxlength="16" dbcolumn="phone2" dbcolumnread="phone2" width="50" height="1" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="Fax" maxlength="16" dbcolumn="Fax" dbcolumnread="Fax" width="50" height="1" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="email" optional="1" label="email" maxlength="100" dbcolumn="email" dbcolumnread="email" width="70" height="1" search="0" searchlist="0" searchadv="1" />
+    </panel>
+    <panel label="Notes" width="60">
+      <field type="textmultiline" label="Comments" maxlength="300" dbcolumn="comments" dbcolumnread="comments" width="100" height="2" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="textmultiline" optional="1" label="Favorite Dishes" maxlength="300" dbcolumn="favorite" dbcolumnread="favorite" width="100" height="2" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+    </panel>
+    <panel label="Address" width="40">
+      <field type="text" label="Address" maxlength="100" dbcolumn="Address1" dbcolumnread="Address1" width="100" height="1" dbtablelov="" search="0" searchlist="0" searchadv="10" />
+      <field type="text" label="" maxlength="100" dbcolumn="Address2" dbcolumnread="Address2" width="100" height="1" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="City" maxlength="100" dbcolumn="City" dbcolumnread="City" width="60" height="1" search="1" searchlist="1" searchadv="1" />
+      <field type="text" label="State" maxlength="2" dbcolumn="State" dbcolumnread="State" width="20" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="Zip" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" width="20" height="1" search="0" searchlist="0" searchadv="1" />
+    </panel> 
+    <queries label="Selections of restaurants">
+        <query label="Restaurant in San Francisco" dbwhere="t.City ='san francisco' " url="sfo"  name="sfo"/>
+        <query label="Restaurant in the East Bay" dbwhere="t.city IN('berkeley' ,'oakland' ,'albany','emeryville')" dborder="t.city,t.name" url="eastbay" />               
+        <query label="French food" dbwhere=" t.categoryID=2" url="french" />  
+        <query label="Asian food" dbwhere=" t.categoryID IN (3,4,5,6,7,11,12)" url="asian" />                
+        <query label="W/ web site" dbwhere=" t.url&lt;&gt;''" url="wweb" />
+        <query label="W/ users comments" dbwhere=" t.CommentCount>0" url="wuc" />        
+        <query label="All Restaurants" dbwhere="t.id>0" url="allrestos" />    
+    </queries>
+  </form>
+
+]]>
+	</xml>
+	<sql dbtable="EVOL_Restaurant" views="" sp="">
+		<create>
+			<![CDATA[ 
+CREATE TABLE [EVOL_Restaurant] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[Name] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL CONSTRAINT [DF_EVOL_Restaurant_Name] DEFAULT ('[Untitled]'),
+	[UserID] [int] NULL ,
+	[Publish] [int] NULL CONSTRAINT [DF_EVOL_Restaurant_CommentCount] DEFAULT (0),
+	[CommentCount] [int] NULL ,
+	[CategoryID] [int] NULL CONSTRAINT [DF_EVOL_Restaurant_CategoryID] DEFAULT (1),
+	[Price] [money] NULL ,
+	[RatingID] [int] NOT NULL CONSTRAINT [DF_EVOL_Restaurant_RatingID] DEFAULT (1),
+	[Phone] [nvarchar] (16) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Phone2] [nvarchar] (16) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Fax] [nvarchar] (16) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[email] [nvarchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[url] [nvarchar] (200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[urlMap] [nvarchar] (500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[address1] [nvarchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[address2] [nvarchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[City] [nvarchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[State] [nvarchar] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Zip] [nvarchar] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Favorite] [nvarchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Comments] [nvarchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[creationdate] [datetime] NULL CONSTRAINT [DF_EVOL_Restaurant_creationdate] DEFAULT (getdate())
+) ON [PRIMARY];
+  
+CREATE TABLE [EVOL_Restaurant_Category] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[Name] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL CONSTRAINT [DF_EVOL_Restaurant_Category_Name] DEFAULT ('')
+) ON [PRIMARY];
+
+CREATE TABLE [EVOL_Restaurant_Rating] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[Name] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL CONSTRAINT [DF_EVOL_Restaurant_Rating_Name] DEFAULT (''),
+	[Description] [nvarchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL 
+) ON [PRIMARY];
+
+CREATE TABLE [EVOL_Restaurant_Price] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[Name] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL  CONSTRAINT [DF_EVOL_Restaurant_Price_Name] DEFAULT ('')
+) ON [PRIMARY];
+
+ALTER TABLE [EVOL_Restaurant] WITH NOCHECK ADD 
+	CONSTRAINT [PEVOL_Restaurant] PRIMARY KEY  CLUSTERED 
+	(
+		[ID]
+	)  ON [PRIMARY];
+
+ALTER TABLE [EVOL_Restaurant_Category] WITH NOCHECK ADD 
+	CONSTRAINT [PEVOL_Restaurant_Category] PRIMARY KEY  CLUSTERED 
+	(
+		[ID]
+	)  ON [PRIMARY];
+
+ALTER TABLE [EVOL_Restaurant_Rating] WITH NOCHECK ADD 
+	CONSTRAINT [PEVOL_Restaurant_Rating] PRIMARY KEY  CLUSTERED 
+	(
+		[ID]
+	)  ON [PRIMARY];
+
+ALTER TABLE [EVOL_Restaurant_Price] WITH NOCHECK ADD 
+	CONSTRAINT [PEVOL_Restaurant_Price] PRIMARY KEY  CLUSTERED 
+	(
+		[ID]
+	)  ON [PRIMARY];
+
+ CREATE  INDEX [IDX_EVOL_Restaurant_name] ON [EVOL_Restaurant]([Name]) ON [PRIMARY];
+
+ CREATE  INDEX [IDX_EVOL_Restaurant_Category] ON [EVOL_Restaurant]([CategoryID]) ON [PRIMARY];
+  ]]>
+		</create>
+		<seed>
+			<![CDATA[ 
+ 
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('French');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Vietnamese');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Chinese');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Fusion');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Japanese');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Thai');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Mexican');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Mediterranean');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('American');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Indian');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Korean');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Italian');
+INSERT INTO EVOL_Restaurant_Category (Name) VALUES ('Spanish');
+
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('NR');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('*');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('**');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('***');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('****');
+INSERT INTO EVOL_Restaurant_Rating (Name) VALUES ('*****');
+
+INSERT INTO EVOL_Restaurant_Price (Name) VALUES ('NR');
+INSERT INTO EVOL_Restaurant_Price (Name) VALUES ('$');
+INSERT INTO EVOL_Restaurant_Price (Name) VALUES ('$$');
+INSERT INTO EVOL_Restaurant_Price (Name) VALUES ('$$$');
+INSERT INTO EVOL_Restaurant_Price (Name) VALUES ('$$$$'); 
+
+]]>
+		</seed>
+		<sample>
+			<![CDATA[
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Tong Kiang', 4, 0, 6, '415 387 8273', '', '', '', '415 752 4440', '5821 Geary Blvd (22nd & 23rd Ave)', '', 'San Francisco', 'CA', '', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Anamandara', 3, 0, 6, '415 771 6800', '', '', '', 'http://www.anamandara.com', '891 Beach Street at Polk', '', 'San Francisco', 'CA', '94122', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Cheval (le)', 3, 0, 5, '510 763 8957', '', '', '', '', '1007 Clay St. @11th', '', 'Oakland', 'CA', '94607', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Ebisu', 6, 0, 6, '415 566 1770', '', '', '', 'ebisu.citysearch.com', '1283 9th Ave', '', 'San Francisco', 'CA', '', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Folie (la)', 2, 0, 6, '415 776 5577', '', '', '', '', '2316 Polk  (between Union & Green)', '', 'San Francisco', 'CA', '', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Indian Oven', 11, 0, 1, '415 626 1628', '', '415 626 3945', '', '', '233 Fillmore St (Haight/Waller)', '', 'San Francisco', 'CA', '94117', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('International Vegetarian House', 4, 0, 1, '408 292 3798', '', '', '', '', '580 East Santa Clara', '', 'San Jose', 'CA', '95112', '', '');
+INSERT INTO EVOL_Restaurant (Name, CategoryID, Price, RatingID, Phone, Phone2, Fax, email, url, address1, address2, City, State, Zip, Favorite, Comments) 
+  VALUES ('Plouf Seafood Bistro', 2, 0, 1, '415 986 6491', '', '', '', '', '40 Belden Place(between Bush & Pine)', '', 'San Francisco', 'CA', '94104', '', '');
+
+]]>
+		</sample>
+	</sql>
+	<description>
+		<![CDATA[ 
+			  
+]]>
+	</description>
+</applicationcomponent>
+

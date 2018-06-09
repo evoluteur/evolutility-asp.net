@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility Wine Cellar - www.evolutility.org - (c) 2013 Olivier Giulieri  -->
+<form label="WineCellar" xmlns="http://www.evolutility.com">
+  <data entity="wine" entities="wines" title="Wine Cellar" dbdetails="1" 
+  dbtable="Wine" dbcolumnlead="Name"  
+dbtableusers="Evol_User" dbtablecomments="Evol_Comment" dbcommentsformid="210" 
+  sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"  />
+  <panel eindex="1" label="Wine" width="80" >
+    <field type="text" dbcolumn="Name" dbcolumnread="Name" label="Name" required="1" maxlength="150" search="1" searchlist="1" searchadv="1"  width="62" />
+    <field type="integer" dbcolumn="Vintage" dbcolumnread="Vintage" label="Vintage" labeledit="Vintage" labellist="Vint." required="1" maxlength="100" search="1" searchlist="1" searchadv="1" 
+     width="38" min="1900" max="2012"/>
+  </panel>   
+<tab label="General" >
+  <panel eindex="1" label="Wine" width="80" >
+     <field type="text" dbcolumn="Winery" dbcolumnread="Winery" label="Winery" maxlength="100" required="1" search="1" searchlist="1" searchadv="1" 
+     width="62" />
+    <field type="lov" dbtablelov="WineBottle" dborderlov="id" dbcolumn="BottleID" dbcolumnread="Bottle_text" label="Bottle Size" labellist="Bottle" search="0" searchlist="0" searchadv="1"
+     width="38" />
+    <field type="lov" dbtablelov="WineGrape" dbcolumn="GrapeID" dbcolumnread="Grape_text" label="Grape" search="1" searchlist="1" 
+     searchadv="1" width="62" />
+     
+    <field type="lov" dbtablelov="WineType" dbcolumn="TypeID" dbcolumnread="Type_text" 
+    dbcolumnicon="pix" label="Type" search="1" searchlist="1" searchadv="1" 
+     width="38" />
+    <field type="text" optional="1" dbcolumn="Appellation" dbcolumnread="Appellation" label="Appellation" search="1" searchlist="0" 
+     searchadv="1" width="100" />
+    <field type="lov" dbtablelov="WineCountry" dborderlov="id" dbcolumn="CountryID" dbcolumnread="Country_text" label="Country" search="1" searchlist="0" searchadv="1" 
+     width="32" />
+    <field type="text" dbcolumn="Region" dbcolumnread="Region" label="Region" maxlength="100" search="0" searchlist="0" searchadv="1" 
+     width="30" />
+    <field type="text" dbcolumn="Area" dbcolumnread="Area" label="Area" maxlength="100" search="0" searchlist="0" searchadv="1" 
+     width="38" />
+  </panel>   
+<panel label="Bottle Label" width="20">
+    <field type="image" label="" labeledit="" labellist="Label" maxlength="200"  
+    dbcolumn="PictureFileName" dbcolumnread="PictureFileName" required="0" width="100" height="1" dbtablelov="" search="0" searchlist="1" searchadv="0" />
+  </panel>
+</tab >
+<tab label="Purchase" >
+  <panel eindex="1" label="Purchase" width="30" >
+    <field type="date" dbcolumn="BuyingDate" dbcolumnread="BuyingDate" label="Buying Date" search="1" searchlist="0" searchadv="1" width="40" />
+    <field type="decimal" dbcolumn="Price" dbcolumnread="Price" label="Price" maxlength="10" search="1" searchlist="1" searchadv="1" width="30" format="$ 0.00"/>
+    <field type="decimal" dbcolumn="CurrentValue" dbcolumnread="CurrentValue" label="Value" maxlength="10" search="1" searchlist="0" searchadv="1" width="30" format="$ 0.00"/>
+    <field type="integer" dbcolumn="BottlesIni" dbcolumnread="BottlesIni" label="Bottles Purchased" labellist="Purchased" maxlength="10" search="0" searchlist="0" searchadv="0" width="40" />
+    <field type="integer" dbcolumn="BottlesR" dbcolumnread="BottlesR" label="Remaining" labeledit="Bottles Remaining" maxlength="10" search="0" searchlist="0" searchadv="0" width="60" />
+    <field type="textmultiline" dbcolumn="notes" dbcolumnread="notes" label="Note" maxlength="150" search="1" searchlist="0" searchadv="1" width="100" height="2" />
+  </panel> 
+</tab >
+<tab label="Drinking and Score" >   
+  <panel label="Drinking" width="62" >
+    <field type="integer" dbcolumn="YearDrink" dbcolumnread="YearDrink" label="Drink from (year)" labellist="Drink" maxlength="10" search="0" searchlist="1" searchadv="1" width="50"
+		min="1900" max="2100"  />
+    <field type="integer" dbcolumn="YearDrinkEnd" dbcolumnread="YearDrinkEnd" label="to" maxlength="10" search="0" searchlist="0" searchadv="1" width="50"
+		min="1900" max="2100"   />
+    <field type="integer" dbcolumn="YearPeak" dbcolumnread="YearPeak" label="Peak from" labellist="Peak" maxlength="10" search="0" searchlist="0" searchadv="1" width="50"
+		min="1900" max="2100"   />
+	<field type="integer" dbcolumn="YearPeakEnd" dbcolumnread="YearPeakEnd" label="to" maxlength="10" search="0" searchlist="0" searchadv="1" width="50"
+		min="1900" max="2100"   />
+    <field type="textmultiline" dbcolumn="food" dbcolumnread="food" label="Meal" maxlength="200" search="1" searchlist="0" searchadv="1" width="100" height="2" />
+  </panel>  
+  <panel eindex="1" label="Score" width="38" > 
+    <field type="lov" dbtablelov="WineScore" dbcolumn="ScoreID" dbcolumnread="Score_text" label="My Score" labellist="Score" maxlength="100" search="1" searchlist="0" searchadv="0" width="10" />
+    <field type="integer" dbcolumn="ScoreParker" dbcolumnread="ScoreParker" label="Parker" maxlength="10" search="0" searchlist="0" searchadv="0" width="100" />
+    <field type="integer" dbcolumn="ScoreWineSpec" dbcolumnread="ScoreWineSpec" label="WineSpectator" maxlength="10" search="0" searchlist="0" searchadv="0" width="100"  />
+  </panel> 
+</tab >
+<tab label="Wine Tasting" >   
+  <panel-details label="Degustations" width="100" dbtabledetails="WineDegustation" dbcolumndetails="wineid" panelid="1" dborder="ddate desc" >
+    <field type="text" panelid="1" label="Robe" maxlength="100"  dbcolumn="Robe" dbcolumnread="Robe" searchlist="1"  />
+    <field type="date" panelid="1" dbcolumn="ddate" dbcolumnread="ddate" label="Date" maxlength="20" searchlist="1" />
+    <field type="text" panelid="1" label="Nose" maxlength="100" dbcolumn="Nose" dbcolumnread="Nose" searchlist="1"/>
+    <field type="text" panelid="1" label="Taste" maxlength="100" dbcolumn="Taste" dbcolumnread="Taste" searchlist="1"  />
+    <field type="textmultiline" panelid="1" dbcolumn="notes" dbcolumnread="notes" label="Note" maxlength="300" searchlist="1" width="100" height="4"/>
+  </panel-details> 
+</tab >
+<tab label="Notes" >
+  <panel eindex="1" label="Comments" width="100" >
+    <field type="textmultiline" dbcolumn="Comments" dbcolumnread="Comments" label="Comments" maxlength="300" search="0" searchlist="0" searchadv="0" width="90" height="8" />
+  </panel>
+</tab >
+	
+	<queries label="Wine selections">
+		<query label="Wines to drink soon" dbwhere="year(getdate())&lt;=t.YearDrink AND year(getdate())&gt;=t.YearDrink" url="soon" />   
+		<query label="Red wines" dbwhere="t.TypeID=2" url="red" />
+		<query label="White, sweet, and sparkling wines" dbwhere="t.TypeID in (5,4,3)" url="whiteS" />
+		<query label="Bottles over $100" dbwhere="t.Price&gt;100" url="expensive" /> 
+	</queries>
+	
+</form>

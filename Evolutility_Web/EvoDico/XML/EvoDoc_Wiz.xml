@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
+<form label="EvoDico Form" description="" xmlns="http://www.evolutility.com"  >
+<data entity="component" entities="components" dbdetails="1" dbtable="EvoDico_Form"  dbpix="" dbcolumnicon="dbpix" 
+      dborder="t.Title" 
+        splogin="EvoDicoSP_Login @login, @password" 
+ sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"  />
+ 
+ 
+<panel label="Step 1 - Application" width="62">
+	<field label="Title" 
+		   help="example: 'Address book'" type="text" dbcolumn="Title" dbcolumnread="Title" maxlength="100" search="1" searchlist="1" searchadv="1" width="100" height="1" required="1" />
+	<field label="Item name" help="example: 'contact'" type="text" dbcolumn="entity" dbcolumnread="entity" maxlength="50" search="1" searchlist="0" searchadv="1"  width="50" />
+	<field label="name (plural)" help="example: 'contacts'" type="text" dbcolumn="entities" dbcolumnread="entities" maxlength="50" search="0" searchlist="0" searchadv="1"  width="50" />
+ </panel>
+<panel-details dbmaxrows="100" label="Step 2 - Data Definition" panelid="1" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborderby="t.fpos,t.id" > 
+	<field panelid="1" label="Type" type="lov" dbcolumnicon="Typepix" dbcolumn="TypeID" dbcolumnread="Type" dbtablelov="EvoDico_vFieldType" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="60" />
+	<field panelid="1" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+  />
+  </panel-details> 
+<panel-details dbmaxrows="100" panelid="2" label="Step 3 - Data Definition Details" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborderby="t.fpos,t.id" > 
+ 	<field panelid="2" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+	 />
+ 	<field panelid="2" label="Max Length" type="integer" format="" dbcolumn="maxlength" dbcolumnread="maxlength" maxlength="3" required="0" search="0" searchlist="1" searchadv="1" width="62" />
+ 	<field panelid="2" label="Options" type="text"  dbcolumn="Options" dbcolumnread="Options" maxlength="500" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+	 />
+	<field panelid="2" label="Required"   type="boolean" dbcolumn="Required" dbcolumnread="Required" maxlength="3" required="0" search="0" searchlist="1" searchadv="1" width="38" />
+</panel-details> 
+<panel-details dbmaxrows="100" panelid="3" label="Step 4 - Search Options" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborderby="t.fpos,t.id" > 
+	<field panelid="3" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+	 />
+	<field panelid="3" 
+	lovcondition="EvoDico_panel.formid=@itemid" label="Panel" type="lov"  dbcolumn="panelid" dbcolumnread="panelname" dbtablelov="EvoDico_panel" dbcolumnreadlov="Label" maxlength="50" search="1" searchlist="1" searchadv="1" width="50" 
+ />
+	<field panelid="3" label="Search" type="boolean" dbcolumn="search" dbcolumnread="search" required="0" search="1" searchlist="1" searchadv="1" width="100" />
+	<field panelid="3" label="Adv.Search" type="boolean" dbcolumn="searchadv" dbcolumnread="searchadv" required="0" search="1" searchlist="1" searchadv="1" width="100" />
+	<field panelid="3" label="Result List" help="Field shows as header field for lists" labellist="List" type="boolean" dbcolumn="searchlist" dbcolumnread="searchlist" required="0" search="1" searchlist="1" searchadv="1" width="50" img="checkg.gif" />
+ </panel-details> 
+ 
+<panel-details dbmaxrows="100" panelid="4" label="Step 5 - Panels" width="100" dbtabledetails="EvoDico_Panel" dbcolumndetails="FormID" dborderby="t.ppos,t.id" > 
+	<field panelid="4" label="Panle name" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+	  />
+ 	<field panelid="4" label="Width" type="integer" dbcolumn="Width" dbcolumnread="Width" required="0" search="1" searchlist="1" searchadv="1" width="100" />
+  </panel-details>  
+<panel-details dbmaxrows="100" panelid="5"  label="Step 6 - Data Definition" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborderby="t.fpos,t.id" > 
+	<field panelid="5" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+  />
+	<field panelid="5" label="Width" type="integer" dbcolumn="Width" dbcolumnread="Width" required="0" search="1" searchlist="1" searchadv="1" width="100" />
+
+	<field panelid="5" lovcondition="EvoDico_vpanel.formid=@itemid" label="Panel" type="lov"  dbcolumn="panelid" dbcolumnread="panelname" dbtablelov="EvoDico_vpanel" dbcolumnreadlov="Label" maxlength="50" search="1" searchlist="1" searchadv="1" width="50" 
+ />
+ </panel-details>  
+  
+</form>

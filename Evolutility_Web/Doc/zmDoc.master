@@ -1,0 +1,47 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="zmDoc.master.cs" inherits="zmDoc" %> 
+<%@ Register Assembly="Evolutility.SideBar" Namespace="Evolutility.SideBar" TagPrefix="EVOL" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server"> 
+<title>Evolutility</title>
+<link rel="shortcut icon" href="../favicon.ico"/>
+<link rel="icon" href="../favicon_anim.gif" type="image/gif"/>
+<link href="../evol.css" rel="stylesheet"/> 
+</head>
+<body>
+<div class="bluetop">
+<a href="../index.aspx"><img alt="Evolutility.org" class="logo3" src="../pix/evologo3.gif" /></a>
+<span class="version"> 4.1</span>
+<table id="menu"><tr>
+<td><a href="../product/Product.aspx">Product</a></td>
+<td><a href="../demo/demo.aspx">Demos</a></td> 
+<td><a href="../Download/Download.aspx">Download</a></td>
+<td><a class="Active" href="../doc/index.aspx">More</a></td>
+</tr></table> 
+</div>
+<table class="B"> 
+<tr valign="top">
+<td style="width:150px" class="B LeftPane">
+ 
+<EVOL:SideBar id="EvoMenu1" runat="server" M1="doc"  ></EVOL:sidebar>
+</td>
+<td>&nbsp;</td>
+<td class="B"><form id="f" runat="server" enctype="multipart/form-data">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+
+</asp:contentplaceholder>
+</form>
+<br /><br />
+<div class="footer"> 
+<a href="../company.aspx">About Us</a> | <a href="../contact.aspx">Contact Us</a> | <a href="../zprivacy.aspx">Privacy Notice</a> | &#169; 2013 Olivier Giulieri
+<center>
+<table><tr><td class="footer"><nobr>Evolutility project is hosted by</nobr> 
+</td><td><a href="http://sourceforge.net/projects/evolutility" target="new"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=225915&type=12" width="120" height="30" border="0" alt="Get Evolutility at SourceForge.net" class="shadow" /></a>
+</td></tr></table>
+</center> 
+</div> 
+</td>
+<td style="width:10px">&nbsp;</td>
+</tr>
+</table>
+</body>
+</html>

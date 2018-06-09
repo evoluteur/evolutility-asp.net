@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Movie Director - www.evolutility.org - (c) 2013 Olivier Giulieri  -->
+  <form label="Movies"  xmlns="http://www.evolutility.com" >
+    <data entity="director" entities="directors"
+		dbtable="MovieDirector" 
+		splogin="EvoSP_Login @login, @password"
+		sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+    <panel label="" width="32">
+      <field type="image" label="" labeledit="Photo" maxlength="200"  dbcolumn="Photo" dbcolumnread="Photo" width="50" height="1" search="0" searchlist="0" searchadv="0" />
+    </panel>
+    <panel label="" width="68">
+      <field type="text" label="Name" maxlength="100"  dbcolumn="fullname" dbcolumnread="fullname" required="1" width="75" height="1" search="1" searchlist="1" searchadv="1" searchquick="1" />
+      <field type="date" label="BirthDate" dbcolumn="bdate" dbcolumnread="bdate" width="25" height="1" search="1" searchlist="1" searchadv="1" searchquick="0" />
+      <field type="textmultiline" label="" labeledit="Bio" maxlength="500"  dbcolumn="Bio" dbcolumnread="Bio" width="100" height="5" search="0" searchlist="0" searchadv="7" />
+    </panel> 
+	<panel-details label="" dbcolumnicon="pix" width="100" dbtabledetails="Movie" dbcolumndetails="directorID"  panelid="0" dborder="movieyear DESC" >
+      <field type="text" searchlist="1" panelid="0" label="Title" maxlength="100"  dbcolumn="Title" dbcolumnread="Title" required="1"
+       link="movie.aspx?ID=@itemid" />
+      <field type="integer" panelid="0" label="Year" maxlength="100" dbcolumn="movieyear" dbcolumnread="movieyear" searchlist="1" />
+		<field type="lov" panelid="0" label="Genre" maxlength="25" dbcolumn="GenreID" dbcolumnread="Genrename" required="-1" width="50" height="1" dbtablelov="MovieGenre" search="1" searchlist="1" searchadv="1" />
+		<field type="lov" panelid="0" label="Rating" maxlength="25" dbcolumn="RatingID" dbcolumnread="Ratingname" width="25" height="1" dbtablelov="MovieRating" dborderlov="abbreviation" dbcolumnreadlov="abbreviation" search="1" searchlist="1" searchadv="1" />
+	</panel-details>  
+</form>

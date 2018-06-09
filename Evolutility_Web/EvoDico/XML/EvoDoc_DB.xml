@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<form label="Database Objects" xmlns="http://www.evolutility.com">
+    <data dbdetails="1"  dbtable="evoVW_DBObjectList" dborder="t.name" dbcolumnlead="Name"
+     entity="object" entities="objects"  dbcolumnicon="pix"  
+      splogin="EvoSP_LOGIN @login, @password"   />
+<panel label="Object" width="5">
+      <field type="text" label="Name" 
+			 readonly="1" maxlength="100" dbcolumn="Name" dbcolumnread="Name" width="70" height="1" dbtablelov="" search="1" searchlist="1" searchadv="1"  />
+      <field type="text" label="Type" maxlength="100" dbcolumn="typename" dbcolumnread="typename" 
+		  readonly="1" width="20" search="1" searchlist="1" searchadv="1"/>
+      <field type="text" label="xType" maxlength="100" dbcolumn="xtype" dbcolumnread="xtype" readonly="1" width="10" search="1" searchlist="0" searchadv="1" />
+</panel>
+<panel-details label="Fields or Parameters" width="100" 
+dbtabledetails="evoVW_DBObjectColumn" dbcolumndetails="ID" dborder="colid" panelid="0" >
+      <field panelid="0" type="text" label="Name" maxlength="100" dbcolumn="Name" dbcolumnread="Name" readonly="1" searchlist="1" />
+      <field panelid="0" type="lov" label="Type" maxlength="100" dbcolumn="typename" dbcolumnread="typename" readonly="1" searchlist="1" />
+      <field panelid="0" type="integer" label="Length" maxlength="100" dbcolumn="length" dbcolumnread="length" readonly="1" searchlist="1" />
+      <field panelid="0" type="boolean" label="Allow Nulls" maxlength="100" dbcolumn="isnullable" dbcolumnread="isnullable" readonly="1" searchlist="1" />
+</panel-details>
+<panel-details label="SQL" width="100" dbtabledetails="syscomments" dbcolumndetails="ID" optional="1" panelid="1" dborder="ID DESC">
+      <field panelid="1" type="textmultiline" label="" cssclass="SQL" maxlength="100" dbcolumn="text" dbcolumnread="text" readonly="1" searchlist="1" />
+</panel-details>
+	  <queries label="Selections">
+		  <query label="EvoDico" dbwhere="name like 'evodico%'" url="evodico" />			 
+		  
+		  <query label="Tables" dbwhere="xtype ='U'" url="U" />
+		  <query label="Views" dbwhere="xtype ='V'" url="V" />
+		  <query label="Stored Procedures" dbwhere="xtype ='P'" url="P" />
+		  <query label="Triggers" dbwhere="xtype ='TR'" url="TR" />
+	  </queries>
+</form>

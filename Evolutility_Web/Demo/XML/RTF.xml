@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<form label="RTF"  xmlns="http://www.evolutility.com">
+<data entity="Rich text sample" entities="Rich text samples" 
+	dbtable="RTF_Sample" dborder="title"  
+	dbcolumnlead="title" 
+	  splogin="EvoSP_Login @login, @password" 
+	  sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+	<panel label="Task" width="100" >
+		<field type="text" required="1" label="Title" maxlength="255" dbcolumn="title" dbcolumnread="title" width="100" search="1" searchlist="1" searchadv="1" />
+		<field type="html" label="Rich text sample" labeledit="Rich text sample" labellist="RTF" maxlength="2000" dbcolumn="RichText" dbcolumnread="RichText" required="0" 
+			   width="100" height="6" search="1" searchlist="1" searchadv="1" />
+  </panel>
+</form> 

@@ -1,0 +1,36 @@
+/*  www.evolutility.org - (c) 2011 Olivier Giulieri */
+
+span.Steps span{
+  border:0;
+  background-color :transparent; 
+  background-image:url(pixevo/1to9.gif);
+  background-repeat:no-repeat;
+  height:18px;width:18px;
+  padding-right:18px;} 
+span.Steps .n1{background-position:0 0;}
+span.Steps .n2{background-position:-20 0;}
+span.Steps .n3{background-position:-40 0;}
+span.Steps .n4{background-position:-60 0;}
+span.Steps .n5{background-position:-80 0;}
+span.Steps .n6{background-position:-100 0;}
+span.Steps .n7{background-position:-120 0;}
+span.Steps .n8{background-position:-140 0;}
+span.Steps .n9{background-position:-160 0;}
+span.Steps .ns1{background-position:0 -20;}
+span.Steps .ns2{background-position:-20 -20;}
+span.Steps .ns3{background-position:-40 -20;}
+span.Steps .ns4{background-position:-60 -20;}
+span.Steps .ns5{background-position:-80 -20;}
+span.Steps .ns6{background-position:-100 -20;}
+span.Steps .ns7{background-position:-120 -20;}
+span.Steps .ns8{background-position:-140 -20;}
+span.Steps .ns9{background-position:-160 -20;}
+span.Steps .nd1{background-position:0 -40;}
+span.Steps .nd2{background-position:-20 -40;}
+span.Steps .nd3{background-position:-40 -40;}
+span.Steps .nd4{background-position:-60 -40;}
+span.Steps .nd5{background-position:-80 -40;}
+span.Steps .nd6{background-position:-100 -40;}
+span.Steps .nd7{background-position:-120 -40;}
+span.Steps .nd8{background-position:-140 -40;}
+span.Steps .nd9{background-position:-160 -40;}

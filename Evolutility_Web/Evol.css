@@ -1,0 +1,1104 @@
+/*  CSS for Evolutility web site & web control  */
+/*  (c) Olivier Giulieri 2013 - www.evolutility.org */
+/*  Evolutility 4.1  */ 
+
+BODY {
+	margin: 0;
+	padding: 0; 
+	background-color: #fff; 
+	color:#3c3c3c; 
+}
+BODY, td,input,textarea,select{ 
+	font-size: 11pt;
+	font-family: "Century Gothic",arial;	
+}
+A,A:visited,A:active{
+	COLOR: #0066CC;}
+A:hover{
+	COLOR: #FF6600; 
+	text-decoration:underline;}
+.bluetop{
+	background: #275480 url('pix/bbgev.gif') repeat-x;
+	background-color:#275480; 
+	height:87px;
+}
+.redtop{
+	background: #275480 url('pix/bbgev-red.gif') repeat-x;
+	background-color:#922c14; 
+	height:87px;
+} 
+.logo3{
+position: absolute;
+border:0;
+top:37px;left:36px;
+height:72px;width:283px;
+}
+table.B{
+min-width: 520px;
+width:100%;
+border:0; 
+background-color: #fff; 
+} 
+td.B{
+padding: 20px 26px 26px 26px
+} 
+.LightGrey{
+background:#F5F8FB;
+padding:10;
+}
+.Title{
+	font-size:large;
+}
+h1,h2,h3,h4,.Title{
+	color: #33608C;	
+	font-family:"Century Gothic",arial, serif;
+	margin: 5px 0 5px 0;	
+	font-weight:normal;
+}
+h2,h3,h4{margin-top:3px;}
+#menu2{
+position: absolute; 
+left: 450px;
+top:12px
+} 
+#menu2 a{
+display: block;
+padding:0 0 0 10; 
+color: white;
+font-weight: bold;  
+text-decoration: none;
+}
+#menu{
+position: absolute;
+top:54px;
+left:450px; 
+min-width:410px;
+font-size:8px;
+} 
+#menu a{
+display: block;
+padding: 0.4em 1.0em .4em 1.0em;
+background-color: #275480;
+color:White;
+border: solid 1px #fff;
+color: white;
+font-weight: bold;  
+text-decoration: none; 
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	-moz-border-top-left-radius: 4px;
+	-moz-border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;	
+}
+#menu a.active, #menu a.active:hover{
+background: #FFFFFF;
+color: #184366;
+border: solid 1px #ffffff;
+} 
+#menu a:hover{
+background: #FFF794;
+color:#000000;
+text-decoration: underline;
+} 
+.titleH
+{color: White;
+	font-size: 20px;
+	font-weight: bold;
+	left: 20px;
+	position: absolute;
+	top: 14px;
+}
+td.LeftPane{
+	background:#f6f6f6;
+	border:solid 0;
+	border-right:solid 1px #C9D6E9; 
+	padding-left:16;
+	padding-right:16;
+	height:555px;
+	width:150px;
+	min-width:150px;
+}
+div.links
+{
+list-style: none;
+font-size:smaller; 
+}
+div.links div{
+padding:3px;
+}
+div.links div a.sele:active, div.links div a.sele:visited{
+ font-weight:bold;
+ color:#184366;
+}
+div.links div.sele{ 
+	background-color: #FFFFFF;
+	border: solid 1px #cccccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.GreyText{
+color:#808080; font-style:italic;
+}
+.LightText{
+color:#808080;
+}
+ul.links2{
+border: none; 
+left:-20px;
+position:relative; 
+}
+ul.bullet{
+margin-left:16px;  
+}
+ul.bullet li, ul.vSpaced li{ 
+padding-bottom:10px; 
+}
+
+ul.indent{ 
+list-style: none;
+margin-left:10px; 
+padding-left:10px; 
+}
+ul.noindent2{ 
+list-style: none;
+margin-left:6px;  
+padding-left:6px;  
+}
+ul.indent li,ul.noindent li,ul.noindent2 li{ 
+padding-bottom:10px; 
+}
+div.indent{
+margin-left:20px}
+.indent1{margin-left:12px}
+.indent2{margin-left:30px}
+.indent3{margin-left:45px}
+td.footer{
+font-size:smaller;
+color:Gray;
+}
+div.footer{ 
+text-align: center;
+font-size:smaller;
+color:Gray;
+border-bottom: dotted 1px #E1E1E1;
+border-top: dotted 1px #E1E1E1;
+margin-top: 1.0em;
+margin-bottom: 1.0em;
+padding-top: 1.0em;
+}
+.groupedColumns{
+	padding:0;
+	border:0;
+	width:100%; 
+}
+.TabH{
+ position:absolute;
+ right:30px;
+ top:20px;
+ width:330px;
+}
+#TabHelp{
+ color:white;
+ position:absolute;
+ top:20px;
+ left:500px;
+ min-width:300px;
+}
+.version{
+	color:#ffffff;
+	font-size:larger;
+	position:absolute;
+	top:69px;
+	left:320px;
+}
+.bigTxt{
+font-size:20; 
+}
+.SimpleGrid{  
+	width:100%
+}
+.SimpleGrid, SimpleGrid tr, SimpleGrid tr td { 
+	border:solid 1px #C9D6E9;
+	vertical-align:top;
+}
+.blue_gr1{background-color:#F5F8FB;}
+.blue_gr2{background-color:#CBE2F2;}
+.blue_gr3{background-color:#BBDBF2;}
+.blue_gr4{background-color:#A7C8E2;}
+
+.AppsForSale {
+	border-collapse:separate;
+	width:100%;
+}
+.AppsForSale, .AppsForSale tr, .AppsForSale tr td {
+	border-bottom:solid 1px grey;
+	vertical-align:top;
+}
+.dft{ 
+	border: 2px solid #A7C8E2;
+	margin: 6px 3px 12px 3px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 10px; 
+}
+
+div.evoFlags div{
+	width:110px;
+	padding:5px 5px 5px 10px;
+	float:left;
+}
+div.demoApp div{
+	width:140px; 
+	padding:5px 5px 5px 10px;
+	float:left;
+}
+p.FAQquestion{
+	font-weight:bold;
+}
+p.FAQanswer{
+	margin-left:20px;
+}
+.shadow {
+	border: 0;
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+/* ######### Evolutility documentation ######### */
+img.pixEvoMode{
+	width:350px;
+	border: 0; 
+   -webkit-transition: all .3s ease-out; 
+   -moz-transition: all .3s ease-out; 
+   -o-transition: all .3s ease-out; 
+   transition: all .3s ease-out; 
+}
+img.pixEvoMode2{
+	width:250px;
+	border: 0; 
+   -webkit-transition: all .3s ease-out; 
+   -moz-transition: all .3s ease-out; 
+   -o-transition: all .3s ease-out; 
+   transition: all .3s ease-out; 
+}
+img.pixEvoMode:hover, img.pixEvoMode:hover2{ 
+   -moz-transform: scale(1.5);
+   -webkit-transform: scale(1.5);
+   -o-transform: scale(1.5);
+   transform: scale(1.5);
+   }
+.code{ 
+	background-color:#F5F5F5;
+	color : #000000;
+	text-decoration: none;
+	font-family:Courier;
+	border: solid 1px #A2A2A2;
+	padding: 20px 5px 20px 5px;
+}
+.xmlElem,.ctrProp{font-weight: bold;color:#990000;}
+.xmlAttr{color: #990000;}
+.xmlVal{font-weight: bold;}
+.xmlAttrField{color: #990000;
+	background-color:#FFFFFF; 
+	width:100%; 
+}
+.sql {
+	font-family: Courier;
+	background-color: #F3F3F3;
+}
+.Highlight { 
+	background-color:#FFFFCC; 
+	display: inline-block;
+}
+.HighlightBlue{ 
+	background-color:#DFF2FD; 
+	display: inline-block
+}
+/* ######### Evolutility.org ######### */
+/* ######### CSS for Evolutility web control ######### */
+/* (c) 2013 Olivier Giulieri */
+
+.R2L{
+	direction:rtl;
+	font-family:Ezra SIL;
+} 
+.clear{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
+}
+div.Evo{
+	width:100%;
+	margin:0;
+	padding:0;
+	border-collapse:collapse;
+	border:solid 2px #dedede;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	}
+div.Evo TR{vertical-align:top}
+.EvoContent {
+	padding:5px 10px 5px 5px;
+}
+img.Icon{
+	margin-left:4px; margin-right:4px; border:0}
+img.Icon16{
+	margin-left:4px; margin-right:4px; border:0;
+	height:16px;width:16px;}
+img.IconFlag{
+	margin-left:4px; margin-right:4px; border:0;
+	height:11px;width:16px;}
+img.Tool{
+	margin-left:4px;
+	border:0}
+.evoSep{
+	height:5px;
+	border-bottom:solid 2px #dedede;
+	margin:5px 0 5px; 	
+}
+.Panel{  
+	background-color:#F9F9F9;
+	border:solid 2px #e0e0e0; 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding-bottom:7px;
+	margin: 5px;
+}
+.PanelLabel {
+	background: #DEE7F7;
+	border:0;
+	border-bottom: 2px solid #DEDEDE;
+	margin: 0 0 5px 0;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-right-radius: 4px;
+	padding: 3px;
+}
+.PanelLabel a { 
+	font-size: x-small; 
+}
+.PanelButtons{
+	background: #DEE7F7;
+	border: 2px solid #DEDEDE;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px;
+}
+.PanelIn{ 
+
+}	
+.noMargin{
+	margin: 2px 0 2px;
+}
+.hSpace{
+	height:12px;
+}
+.SearchLabel{
+	/*text-align:left;*/
+}
+.SearchLabel .FieldLabel{
+	margin-left:12;
+}
+.evo-ml{
+	margin-left:5px;
+}
+.Header{ 
+	padding:4px 4px 4px 10px;  
+	font-weight:bold;
+	width:100%;
+	margin:0 5px 5px 5px;
+}
+.Right{
+	text-align:right
+}
+.Center{
+	text-align:center
+}
+.evo-Toolbar{ 
+	background: #DEE7F7;
+	border: 2px solid #DEDEDE;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px;
+	line-height:22px;
+	overflow:hidden;
+} 
+.evo-Toolbar a{
+	text-decoration:none;
+	font-family: "trebuchet ms", helvetica, sans-serif; 
+	font-size:10pt;
+	border:solid 1px transparent;
+	padding: 0 5px 0 0;
+} 
+.evo-Toolbar div{
+	text-decoration:none;
+	font-family: "trebuchet ms", helvetica, sans-serif; 
+	font-size:10pt;
+	height:18px;
+	border:solid 1px transparent;
+	margin: 0 ;
+	padding: 0 ;
+} 
+.evo-Toolbar b{
+	float:left;
+} 
+.evo-Toolbar div, .evo-Toolbar a div, .Ico{
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat;
+	text-decoration:none;	
+	padding: 1px 2px 1px 2px;
+}
+.evo-Toolbar a, .evo-Toolbar a:visited, .evo-Toolbar a:active, .evo-Toolbar a:hover{
+	color:#808080;
+	text-decoration:none;
+}
+.evo-Toolbar a.act, .evo-Toolbar a.act:active, .evo-Toolbar a.act:visited{color:#202020;}
+.evo-Toolbar a.act:hover {text-decoration:none;
+	color:#202020;
+	background-color:#f5f5dc;
+	border:solid 1px #888888;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+div.nav{
+	background-image:none;
+}
+span.navtab{ 
+	background-image:none;
+}
+span.navR2L{
+	position:absolute;
+	top:0;
+	left:-18px;
+	background-image:none;
+}
+.tbToggle{
+	text-decoration:none; 
+	border:solid 1px transparent;
+	background:transparent url(pixevo/evolui.gif) no-repeat; 
+	padding: 1px 2px 3px 18px;
+	float:right;
+} 
+div.new,div.edit,div.editZ,div.view,div.del,div.delZ,div.search,div.searchp,div.sel,div.print,div.help,div.all,div.logout,div.copy,div.customize,div.chart,div.export{
+	float:left;
+	width:20px;height:18px;
+}
+a.new,a.edit,a.editZ,a.view,a.del,a.delZ,a.search,a.searchp,a.sel,a.print,a.help,a.all,a.logout,a.copy,a.customize,a.chart,a.export{
+	float:left; 
+}
+div.new{background-position:0 0;}
+div.edit{background-position:0 -21px;}
+div.editZ{background-position:0 -42px;}
+div.view{background-position:0 -63px;}
+div.del{background-position:0 -84px;}
+div.delZ{background-position:0 -105px;}
+div.search{background-position:0 -126px;}
+div.searchp{background-position:0 -147px;}
+div.sel{background-position:0 -168px;}
+div.print{background-position:0 -189px;}
+div.help{background-position:-127 -651px;}
+div.all{background-position:0 -210px;}
+div.logout{background-position:0 -231px;}
+div.copy{background-position:0 -246px;}
+div.customize{background-position:0 -757px;}
+div.chart{background-position:0 -803px;}
+div.export{background-position:0 -823px;}
+
+a.nav1,a.nav2,a.nav3, a.nav4{background-image:none;float:left;padding:0;margin:0; }
+a.nav1 div{width:20px;background-position:-1px -274px; }
+div.nav1{width:20px;height:20px;background-position:0 -358px;float:left;}
+a.nav2 div{width:18px;background-position:-2px -295px;}
+div.nav2{width:18px;height:20px;background-position:-2px -379px;float:left;}
+a.nav3 div{width:18px;background-position:-2px -316px;}
+div.nav3{width:18px;height:20px;background-position:-2px -400px;float:left;}
+a.nav4 div{width:20px;background-position:0 -337px;} 
+div.nav4{width:20px;height:20px;background-position:0 -421px;float:left;} 
+div.nav0{background-image:none;width:0;padding:0}
+div.navp{ 
+	background-image:none;
+	width:20px;
+	height:10px;
+} 
+.nav1:hover div,.nav2:hover div,.nav3:hover div, .nav4:hover div{ 
+	color:#202020;
+	background-color:#f5f5dc;
+	border:solid 1px #888888;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.moveUp,.moveDown,.moveLeft,.moveRight{ 
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat;}
+.moveLeft{background-position:-107px -742px;}
+.moveRight{background-position:-127px -742px;}
+.moveUp{background-position:-148px -742px;}
+.moveDown{background-position:-169px -742px;}
+
+div.Key{
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	background-position:0 -231px;
+	width:24px;height:22px;
+	margin-top:18px;
+	margin-right:10px;
+	float:left; /* test */ 
+}
+
+a.Calendar{height:20px;width:20px;margin-bottom:6px;background-position:0 -738px;}
+a.Calendar:hover{background-position:-32px -738px;text-decoration:none;}
+
+a.PanelOpen{height:20px;width:20px;background-position:0 -441px;}
+a.PanelClose{height:20px;width:20px;background-position:0 -462px;}
+a.PanelOpen:hover{background-position:-26px -441px;}
+a.PanelClose:hover{background-position:-26px -462px;}
+
+a.MLbigger,a.MLsmaller{height:4px;width:5px;padding:0 0 0 14px}
+a.MLbigger{background-position:0 -702px;margin-left:5px}
+a.MLsmaller{background-position:0 -718px;} 
+a.MLbigger:hover{background-position:-21px -702px;}
+a.MLsmaller:hover{background-position:-21px -718px;}
+ 
+span.Comment{background-position:0 -628px;}
+span.Comments{background-position:-55px -628px;}
+span.CommentAdd{background-position:-30px -624px;}
+span.CommentUser{background-position:-85px -628px;float:left;width:22px;}
+
+.PanelComments{ 
+	border: 2px solid #DEDEDE;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 10px;  
+	border: 2px solid #DEDEDE; 
+}
+.PanelCalendar{ 
+	width:230px;
+	border:solid 1px #bbbbbb;
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	background-color:#F9F9F9;
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);	 
+}
+.PanelCalendar tr td{ 
+	 width:30px; 
+}
+.AddRow, .DelRow{
+	margin:2px;
+	background: url(pixevo/evolui.gif); 
+	background-repeat:no-repeat; 
+	position:relative;
+	padding:1px;
+	padding-left:20px}
+.AddRow{
+	background-position:-139px -709px;
+	}
+.DelRow{ 
+	background-position:-100px -709px;	
+	}
+
+div.close{
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	height:20px;width:28px;background-position:-42px -775px;
+	cursor: pointer;
+	position:relative;	
+	top: -4px;
+	right: -4px;
+} 
+div.Msg{ 
+	border:solid 1px #bbbbbb;
+	vertical-align:top;
+	margin-bottom:4px;
+	padding:5px;
+	margin:5px;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+.MsgInfo,.MsgError,.MsgWarn,.MsgDel,.MsgHelp{
+	min-height:24px;
+	width:24px;
+	float:left;
+}
+.MsgInfo{background-position:0 -651px;} 
+.MsgError{background-position:-29px -651px;}
+.MsgWarn{background-position:-63px -651px;} 
+.MsgDel{background-position:-97px -651px;}
+.MsgHelp{background-position:-131px -651px;}
+
+.bgMsgInfo,.bgMsgWarn,.bgMsgDel,.bgMsgHelp{
+	background-color:#FFFFCC;} 
+.bgMsgError{
+	background-color:#fdd;} 
+
+span.CheckGreen,span.CheckBlue,span.CheckRed,span.CheckBlack{
+	height:16px;width:18px;
+	border-style:none;
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	margin: 4px 6px 2px 2px; 
+}
+span.CheckGreen{background-position:-85px -779px;}
+span.CheckBlue{background-position:-107px -779px;}
+span.CheckRed{background-position:-128px -779px;}
+span.CheckBlack{background-position:-151px -779px;}
+
+a.arrUp,a.arrDown{height:4px;width:5px;padding:0 0 0 14px}
+a.arrUp{background-position:0 -585px;margin-left:5px}
+a.arrDown{background-position:0 -601px;} 
+a.arrUp:hover{background-position:-18px -585px;}
+a.arrDown:hover{background-position:-18px -601px;} 
+
+.des-frm,.des-pnl,.des-fld,.des-src{
+	height:24px;width:24px;border:0;
+	background:transparent url(pixevo/EvolUI.gif) no-repeat; 
+	padding: 0 0 0 24px;
+	text-decoration:none;
+	position:relative;
+	top:1px;
+}  
+.des-frm{background-position:0px -680px;}
+.des-pnl{background-position:-25px -680px;}
+.des-src{background-position:-55px -680px;}
+.des-fld{background-position:-85px -680px;}
+.des-frm:hover,.des-pnl:hover,.des-src:hover,.des-fld:hover{text-decoration:none;}
+	
+.Main{
+	background: #DCDCDC;
+	border: 1px;
+	border-color: Gray;
+	border-style:solid;
+}
+.FormLogin{ 
+	padding:10px;  
+	background-color:#F9F9F9; 
+	border:solid 2px #e0e0e0; 
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 22px;
+	width:280px;
+}
+.evoLoginFields {
+	margin: 10px 26px;
+	padding: 10px;
+	width: 220px;
+	display:block; 
+}
+.FormSearch ,.FormExport, .FormSelections {
+	border-collapse:collapse;
+	border:0;
+	width:100%;
+} 
+.FormLogin tr td{
+	padding: 10px 10px 5px 10px;
+} 
+.FormSearch tr td {
+	padding: 4px 16px 4px 10px;
+	height:38px;
+	vertical-align:top;
+} 
+.FormSearch .Field{
+	min-width:114px;
+} 
+.FormExport tr td {
+	padding:15px; 
+	vertical-align:top; 
+}
+div.ExportOptions {
+	padding:10px;
+	padding-left:10px;
+	height:160px;
+}
+.RowHeader,.dpDayTD{
+	background: #DEE7F7;
+	white-space: nowrap;
+	font-size: smaller;
+}
+.RowHeader td{
+	white-space: nowrap;
+}
+.RowHeader img{
+	cursor:pointer;
+}
+.RowEven{
+	background-color:#ECF0F6;
+	vertical-align:top
+}
+.RowOdd{
+	background-color: #F7F7F7;
+	vertical-align:top
+}
+.RowNewVal{
+	background-color:#A9E1A9;
+}
+.RowBadVal{
+	background-color:#FFCCCC;
+}
+.Holder,.Holder2{
+	border-collapse:collapse;
+	border:0;
+	width:100%;
+}
+.Holder tr td{
+	padding: 2px; 
+	vertical-align:top;
+}
+.Holder2 tr td, div.Holder2{ 
+	padding:  4px 13px 5px 13px;
+}
+tr.RowFoot td{ 
+	height:40px;
+	padding:6px;
+}
+tr.RowInfo td{
+	padding:10px 6px 10px 6px;
+} 
+.FieldLabel, .FieldLabelR2L{
+	color:#404040;
+	font-size: smaller ;
+	width:100%;
+}
+.FieldLabelR2L{
+	font-family:Ezra SIL;
+	direction:rtl;
+}
+.LabelBlue{
+	color: Blue;
+	font-weight:bold;
+	font-size: smaller ;
+}
+.Field, .FieldView, .FieldMain{
+	color:#000000;
+	background-color:#FFFFFF; 
+	width:100%;
+	border: 1px solid #C0C0C0;
+	min-width:50px;
+}
+.FieldComments{
+	margin-left:27px;
+	color:#000000;
+	padding:5px;
+	background-color:#FFFFFF;  
+	border: 1px solid #f0f0f0; 
+}
+.FieldReadOnly{
+	color:#000000;
+	background-color:#FFFFFF; 
+	width:100%;
+}
+
+.FieldRJ{ 
+	color:#000000;
+	background-color:#FFFFFF; 
+	width:100%;
+	text-align:right;
+}
+ 
+/* .fieldImg {
+	border:solid 6px white
+}  */
+.FramedImg{
+	border:solid 6px white
+}  
+
+.Field, .Fieldew{
+	padding:2px;
+	border-width:1px;
+	width:100%;
+	margin:0 5px 0 0;
+}
+.Field80{
+	width:80%;
+}
+.Fieldew{
+	color:#000000;
+	background-color:#FFFFFF; 
+	text-align:left;
+} 
+.FieldViewR2L{
+	font-family:Ezra SIL;
+	direction:rtl;
+	color:#000000;
+	background-color:#FFFFFF; 
+	width:100%;
+	padding-right:3px;
+	border-style:  none;	 
+}
+.FieldInvalid{
+	background-color:#FFCCCC; 
+}
+.FieldMain{ 
+  font-weight:bolder
+}
+.FieldResize{
+	height:100px;width:100px; 
+}
+.smallTxt{
+	font-size:smaller;
+}
+.Button,.Button2{
+	background: #EDEDED url(PixEvo/bg_bttn.gif);
+	border: solid 1px #cccccc;
+	padding:1px 8px;
+	margin:4px;
+	height:40px;
+	color:#5E5E5E;
+	cursor:hand;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+} 
+.Button{
+	font-weight:bolder;
+} 
+.IndentBtn{
+	margin-left:20px;
+}
+.Required{
+	margin-left:3px;
+	color:#FF0000;
+	font-weight:bold;
+}
+.ChartHolder{
+	background-color :#FFFFFF;
+	padding: 10px 5px 5px 5px;	
+	margin:10px;
+	float:left;
+	border:solid 2px #e0e0e0; 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+}
+.chartTitle{
+	text-align:center;
+	padding-bottom:20px;
+}
+.Calendar{
+	border:0;
+	width:16px;
+	height:16px;
+}
+.HelpTip{
+	font-size:11px;
+	color:#0000CC;
+	background-color:#FFFFCC;
+	border:solid 1px #FFCC35;
+	padding:0 3px 1px 3px;
+	display: inline-block
+} 
+.YellowNote{ 
+	color:#505050;
+	background-color:#FFFFCC;
+	border:solid 1px #FFCC35;
+	padding:7px;
+	display: inline-block
+}
+.TabBar{
+	border:0;
+	height:28px; 
+	width:100%;
+	display: inline-block;
+	padding-bottom:8px;
+}
+.TabHolder{
+	width:100%;
+	border-bottom:solid 2px #DEDEDE;
+	height:26px; 
+	margin-top: 8px;
+}
+.TabHolderAll{
+	padding-top:12px;	
+}
+.Tab, .TabSelected{
+	color: #000000;  
+	height:26px;
+	border-left: 2px solid #bbbbbb; 
+	padding: 6px 10px 6px 10px;
+	text-decoration:none;
+	margin-left:3px;
+	margin-top:6px;
+	border-top-left-radius: 7px 7px;
+	-moz-border-top-left-radius: 7px 7px;
+	-webkit-border-top-left-radius: 7px 7px;
+	border-top-right-radius: 7px 7px;
+	-moz-border-top-right-radius: 7px 7px;
+	-webkit-border-top-right-radius: 7px 7px;
+}	
+.Tab{
+	background-color:#EDEDED;
+	border-top: 1px outset #bbbbbb;
+	border-right: 1px solid #bbbbbb; 
+	cursor: hand;
+	text-decoration:none;
+}
+.Tab:visited, .Tab:active, .Tab:hover,
+.TabSelected:active, .TabSelected:visited, .TabSelected:hover 
+{
+	color:#000000;
+	text-decoration:none;
+}
+.Tab:hover{
+	background:#f5f5dc;
+}	
+.TabSelected{  
+	padding: 8px 10px 8px 10px; 
+	border-top: 1px solid #bbbbbb;
+	border-right: 1px solid #bbbbbb;
+	background:#ffffff; 
+}
+.TabLeft a.Tab, .TabLeft a.TabSelected{
+	width:100%;	
+} 
+.Queries li { line-height:30px}
+.EditGrid{
+	widows:100%; 
+}
+.EditGrid, .EvoEditGrid{ 
+	width:100%
+}
+.EditGrid, .EvoEditGrid, .EvoEditGrid tr td, 
+.FixedHeaderGrid, .FixedHeaderGrid tr td{ 
+	border-collapse:collapse;
+	border:solid 1px #C9D6E9;
+	vertical-align:top;
+}
+
+div.ColorBox{
+	height:24px;
+	width:24px;
+	border:solid 1px #808080;
+}  
+#fadeEvol{
+	display: none;
+	position: absolute;
+	top:0;left:0;width:4000px;height:4000px;
+	background-color: gray;
+	-moz-opacity: 0.62;
+	opacity:.62;  
+	filter: alpha(opacity=62);
+	z-index:12000;
+} 
+#lightEvol{
+	display: none;
+	position: absolute;
+	top:25%;left:25%;width:400px;
+	padding: 16px;
+	border: 4px solid #C1D9EB;
+	background-color: white;
+	overflow: auto;
+	z-index:12010;
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+}
+.LB_Sep{
+	width:100%;	
+}
+.Paging{
+	padding:5px;
+	margin:5px;
+} 
+.Paging a, span.PagingSel{ 
+	border: none;
+	padding:0 2px;
+	margin: 2px 3px; 
+} 
+span.ExtWeb
+{
+	background: url(PixEvo/EvolUI.gif);
+	background-repeat:no-repeat; 
+	background-position: -70px -735px; 
+	height:12px; 
+	padding-top:3px;
+	padding-right:12px;
+}
+.Hidden{display:none;}
+
+/* ######### Date Picker #########  Original DatePicker from Julian Robichaux -- http://www.nsftools.com  */
+/* a table cell that holds a date number (either blank or 1-31) */
+.dpTD{
+	border: 1px solid #ece9d8;
+}
+/* a table cell that holds a highlighted day (usually either today's date or the current date field value) */
+.dpDayHighlightTD{
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+}
+/* the date number table cell that the mouse pointer is currently over (you can use contrasting colors to make it apparent which cell is being hovered over) */
+.dpTDHover{
+	background-color: #f5f5dc;
+	border: 1px solid #888888;
+	cursor: pointer;
+	color: #808080;
+}
+/* additional style information for the text that indicates the month and year */
+.dpTitleText{ 
+	color: gray;
+	font-weight: bold;
+}
+/* additional style information for the cell that holds a highlighted day (usually either today's date or the current date field value) */ 
+.dpDayHighlight{
+	color: #4060ff;
+	font-weight: bold;
+}
+
+/* ######### Designer Popup #########  Courtesy of softcomplex.com */
+div#eScreen {
+	background: url('screenBG.gif') repeat;
+}
+table.dialogWindow {
+	background-color: white;
+	border-collapse: collapse;
+}
+.dialogWindow th {
+	background-color: silver;
+	padding: 4px;
+	border-collapse: collapse;
+	border: 0;
+	cursor: move;
+}
+.dialogWindow th img {
+	cursor: pointer;
+	margin: 3px 3px 0 0;
+}
+.dialogWindow td {
+	border-collapse: collapse;
+	border: 0;
+	padding: 0;
+}
+.dialogWindow iframe {
+	border: 0;
+	margin:0;
+}
+

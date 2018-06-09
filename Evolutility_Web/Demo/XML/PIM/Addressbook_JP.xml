@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 	Evolutility metadata for Address Book JAPANESE
+	(c) 2013 Olivier Giulieri - www.evolutility.org
+	Translation by Kazue Watanabe      -->
+<form label="住所録"  xmlns="http://www.evolutility.com" >
+	<data icon="contact.gif" entity="連絡先" entities="連絡先" 
+	dbcolumnlead="lastname" dbtable="EVOL_Contact" dborder="t.lastname,t.firstname" 
+	splogin="EvoSP_Login @login, @password" 
+	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+	<panel label="アイデンティティ" width="62">
+		<field type="text" label="苗字" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
+			   width="62" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="名前" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
+			   width="38" search="2" searchlist="2" searchadv="2"/>
+		<field type="text" label="役職" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
+			   width="62" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="会社" maxlength="50" dbcolumn="Company" dbcolumnread="Company" 
+			   width="38" search="4" searchlist="4" searchadv="1"/>
+		<field type="email" label="電子メール" maxlength="255" dbcolumn="emailaddress" dbcolumnread="emailaddress" 
+			   width="100" search="1" searchlist="1" searchadv="1"/>
+	</panel>
+	<panel label="連絡先" width="38">
+		<field type="text" label="職場電話番号" maxlength="20" dbcolumn="phone" dbcolumnread="phone" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="自宅電話番号" maxlength="20" dbcolumn="phoneh" dbcolumnread="phoneh" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="携帯番号" maxlength="20" dbcolumn="phonem" dbcolumnread="phonem" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="ファックス" maxlength="20" dbcolumn="Fax" dbcolumnread="Fax" width="50" search="0" searchlist="0" searchadv="0"/>
+		<field type="url" label="ウェブサイト" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
+	</panel>
+	<panel label="住所" width="62">
+		<field type="text" label="住所" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="" labellist="住所 2" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="都市" maxlength="100" dbcolumn="City" dbcolumnread="City" 
+			   width="62" search="13" searchlist="0" searchadv="1"/>
+		<field type="text" label="州" maxlength="3" dbcolumn="State" dbcolumnread="State" 
+			   width="15" search="0" searchlist="0" searchadv="14"/>
+		<field type="text" label="郵便番号" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" 
+			   width="23" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="国" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	<panel label="不明" width="38">
+		<field type="lov" label="カテゴリ" dbcolumn="CategoryID" dbcolumnread="Category" width="70" dbtablelov="EVOL_ContactCategory" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="カスタム 1" maxlength="250" dbcolumn="Custom1" dbcolumnread="Custom1" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="カスタム 2" maxlength="250" dbcolumn="Custom2" dbcolumnread="Custom2" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="カスタム 3" maxlength="250" dbcolumn="Custom3" dbcolumnread="Custom3" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	
+	<queries label="連絡先リスト">
+		<query label="サンフランシスコでの連絡先" dbwhere="t.City ='san francisco' " url="sfo"  name="sfo"/> 
+		<query label="電子メールのある連絡先" dbwhere="t.emailaddress&lt;&gt;'' " url="email"  name="email"/> 
+		<query label="ウェブサイトのある連絡先" dbwhere="t.url&lt;&gt;'' " url="web"  name="web"/> 		
+	</queries> 
+</form>

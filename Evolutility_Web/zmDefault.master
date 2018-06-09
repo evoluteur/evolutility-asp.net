@@ -1,0 +1,42 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="zmDefault.master.cs" inherits="zmDefault" %>
+<%@ Register Src="z_footer.ascx" TagName="z_footer" TagPrefix="uc1" %>
+<%@ Register TagPrefix="EVOL" Namespace="Evolutility.SideBar" Assembly="Evolutility.SideBar" %> 
+<html xmlns="http://www.w3.org/1999/xhtml" > 
+<head id="Head1" runat="server"> 
+<title>Evolutility</title>
+<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="icon" href="favicon_anim.gif" type="image/gif"/>
+<link href="evol.css" rel="stylesheet"/> 
+<script type="text/javascript" src="Pix/EvolWeb.js"></script>
+</head>
+<body> 
+<div class="bluetop">
+<a href="Index.aspx"><img alt="Evolutility.org" class="logo3" src="pix/evologo3.gif" /></a>
+<span class="version"> 4.1</span>
+<table id="menu"><tr>
+<td><a href="product/Product.aspx" onmouseover="javascript:tProd()" onmouseout="javascript:tO()">Product</a></td>
+<td><a href="demo/demo.aspx" onmouseover="javascript:tDemo()" onmouseout="javascript:tO()">Demos</a></td> 
+<td><a href="EvoDico/EvoDico.aspx" onmouseover="javascript:tDico()" onmouseout="javascript:tO()">EvoDico</a></td>
+<td><a href="doc/index.aspx" onmouseover="javascript:tMore()" onmouseout="javascript:tO()">More</a></td>
+</tr></table> 
+</div>
+<table class="B"> 
+<tr valign="top">
+<td style="width:150px" class="B LeftPane">
+<EVOL:SideBar id="EvoMenu1" runat="server"></EVOL:SideBar>
+</td>
+<td>&nbsp;</td>
+<td class="B">
+<form id="Form1" runat="server" enctype="multipart/form-data">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+
+</asp:contentplaceholder>
+</form>
+<br /><br />
+<uc1:z_footer ID="Z_footer1" runat="server" />
+</td>
+<td style="width:10px">&nbsp;</td>
+</tr>
+</table>
+</body>
+</html>

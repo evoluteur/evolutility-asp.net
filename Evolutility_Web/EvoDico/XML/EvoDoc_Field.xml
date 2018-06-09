@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
+<form label="Field" description=""  xmlns="http://www.evolutility.com" >
+<data dbtable="EvoDico_Field" 
+ entity="field" entities="fields" 
+         splogin="EvoDicoSP_Login @login, @password" 
+  sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+<panel label="Field" width="62">
+	<field label="Label" type="text" 
+		   help="Field title for the user" dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="1" search="1" searchlist="1" searchadv="1" width="62"   />
+	<field label="Form" type="lov" lookup="1" readonly="2" 
+	dbcolumn="formID" help="" dbcolumnread="form"  dbcolumnicon="icon" 
+	dbtablelov="EvoDico_Form" dbcolumnreadlov="title" 
+	 maxlength="50" search="1" searchlist="1"  searchadv="1" width="38" 
+	link="EvoDoc.aspx?ID=@itemid" />
+	<field label="Help" help="Help on the field for edition" type="textmultiline"  dbcolumn="Help" dbcolumnread="Help" maxlength="500"  search="0" searchlist="0" searchadv="1" width="100" height="2"  />
+</panel>  
+<panel label="Type" width="38" >
+	<field label="Type" help="User Type for the field on screen. Text, or emails can be char, varchar or nvarchar..." 
+	type="lov" dbcolumnicon="Typepix" dbcolumn="TypeID" dbcolumnread="ft" dbtablelov="EvoDico_vFieldType" maxlength="100" required="1" search="1" searchlist="1" searchadv="1" width="62" />
+	<field label="max. length" help="Maximum number of characters allowed" type="integer" dbcolumn="maxlength" dbcolumnread="maxlength" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="38" />
+	<field label="Read only" help="Users can view this field value but cannot modify it" type="boolean" dbcolumn="readonly" dbcolumnread="readonly" maxlength="100" required="0" search="1" searchlist="0" searchadv="1" width="62" img="checkr.gif" />
+	<field label="Required" help="Mandatory field" type="boolean" dbcolumn="required" dbcolumnread="required" maxlength="100" required="0" search="1" searchlist="0" searchadv="1" width="38" img="checkb.gif" />
+</panel> 
+<panel label="Look and Feel" width="62">
+	<field label="Panel"   type="lov"  dbwherelov="EvoDico_xformpanels.fieldid=@itemid"  help="Field group" dbcolumn="panelid" dbcolumnread="panelid" dbtablelov="EvoDico_xformpanels" dbcolumnreadlov="Label" maxlength="30" required="0" search="0" searchlist="0" searchadv="0" width="62" />
+	<field label="Position"  help="Integer (gaps OK)" type="integer" dbcolumn="fpos" dbcolumnread="fpos" maxlength="3" required="0" search="0" searchlist="0" searchadv="1" width="38" />
+	<field label="Width" help="Relative width in percentage" type="integer" format="0 '%'" dbcolumn="Width" dbcolumnread="Width" maxlength="3" required="0" search="0" searchlist="0" searchadv="1" width="62" />
+	<field label="Height"  help="Height in number of lines (for ''Textmultiline'' fields)" type="integer" dbcolumn="Height" dbcolumnread="Height" maxlength="3" required="0" search="0" searchlist="0" searchadv="1" width="38" />
+	<field label="Format" type="text" help="example '$ 0.00'" dbcolumn="format" dbcolumnread="format" maxlength="30" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="Stylesheet class name" help="Stylesheet class name for the field. Default to the class set in the page." labellist="Style" type="text" dbcolumn="cssclass" dbcolumnread="cssclass" maxlength="20" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="Label for edition"  help="Label used for edition" type="text"  dbcolumn="Labeledit" dbcolumnread="LabelEdit" maxlength="100" required="0" search="0" searchlist="0" searchadv="1"  width="62"   />
+	<field label="Short label"  help="Label used for title in list result" type="text"  dbcolumn="LabelList" dbcolumnread="LabelList" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="38"   />
+</panel> 
+<panel label="Behavior" width="38">
+	<field label="Result List" help="Field shows as header field for lists" labellist="List" type="boolean" dbcolumn="searchlist" dbcolumnread="searchlist" required="0" search="1" searchlist="1" searchadv="1" width="50" img="checkg.gif" />
+	<field label="Hide if empty" help="Only displayed if it has a value" labellist="Optional" type="boolean" dbcolumn="Optional" dbcolumnread="Optional" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="50" />
+	<field label="Search" help="Field shows in the search form" type="boolean" dbcolumn="search" dbcolumnread="search" required="0" search="1" searchlist="1" searchadv="1" width="50" />
+	<field label="Adv. Search" help="Field shows in the advanced search form" type="boolean" dbcolumn="searchadv" dbcolumnread="searchadv" required="0" search="1" searchlist="0" searchadv="1" width="50" />
+	<field label="Javascript function" help="example :'CustomFieldValidation(@fieldid, @fieldlabel)'"  type="text" dbcolumn="jsvalidation" dbcolumnread="jsvalidation" maxlength="50" required="0" search="1" searchlist="0" searchadv="1" width="100" />
+
+	<field label="Link" help="Field is hyperlink. example 'EvoDicoForm.aspx?ID=@itemid'"  type="text" dbcolumn="link" dbcolumnread="link" maxlength="150" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="Link label"  help="Text of the hyperlink" type="text"  dbcolumn="linklabel" dbcolumnread="linklabel" maxlength="100" required="0" search="0" searchlist="0" searchadv="1"  width="62"   />
+	<field label="target"  help="Example: 'new'." type="text"  dbcolumn="linktarget" dbcolumnread="linktarget" maxlength="10" required="0" search="0" searchlist="0" searchadv="1" width="38"   />
+</panel>    
+<panel label="Database Mapping (SQL)" width="62">
+	<field label="Column" help="Column to be used in SELECT statements" required="1" type="text" dbcolumn="dbcolumn" dbcolumnread="dbcolumn" maxlength="100" search="1" searchlist="0" searchadv="1" width="100" />
+	<field label="Alias" help="Alias for the column name. Same as column, except for LOVs"  required="1" type="text" dbcolumn="dbcolumnread" dbcolumnread="dbcolumnread" maxlength="100" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="Column image" help="Column name for icon path."  required="" type="text" dbcolumn="dbcolumnicon" dbcolumnread="dbcolumnicon" maxlength="100" search="0" searchlist="0" searchadv="1" width="100" />
+</panel> 
+<panel label="Database LOV" width="38">
+	<field label="LOV Table" help="Table used for list of values" type="text" dbcolumn="dbtablelov" dbcolumnread="dbtablelov" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="LOV Column" help="Column to display" type="text" dbcolumn="dbcolumnreadlov" dbcolumnread="dbcolumnreadlov" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="LOV ''WHERE''" help="SQL WHERE clause to filter records" type="text" dbcolumn="dbwherelov" dbcolumnread="dbwherelov" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+	<field label="LOV ''ORDER BY''" help="SQL ORDER BY clause to sort records" type="text" dbcolumn="dborderlov" dbcolumnread="dborderlov" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="100" />
+</panel> 
+</form>

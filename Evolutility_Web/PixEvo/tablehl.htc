@@ -1,0 +1,93 @@
+
+<public:event name="onrowselect" ID=rowSelect />
+<public:property name="hlColor" />
+<public:property name="slColor" />
+<PUBLIC:ATTACH EVENT="ondetach" ONEVENT="cleanup()" />
+
+<script language=jscript>
+
+var currRow = -1;
+var selRow = -1;
+
+if (element.tagName == 'TABLE')
+{
+	element.attachEvent('onmouseover', onMouseOver);
+	element.attachEvent('onmouseout', onMouseOut);
+	element.attachEvent('onclick', onClick);
+}
+else
+{
+	alert("Error: tablehl not attached to a table element");
+}
+
+function cleanup()
+{
+	hilite(-1);
+
+	element.detachEvent('onmouseover', onMouseOver);
+	element.detachEvent('onmouseout', onMouseOut);
+	element.detachEvent('onclick', onClick);
+}
+
+function onClick()
+{
+	srcElem = window.event.srcElement;
+
+	//crawl up the tree to find the table row
+	while (srcElem.tagName != "TR" && srcElem.tagName != "TABLE")
+		srcElem = srcElem.parentElement;
+
+	if(srcElem.tagName != "TR") return;
+
+	if(srcElem.rowIndex == 0 ) return;
+
+	if (selRow != -1) selRow.runtimeStyle.backgroundColor = '';
+
+	srcElem.runtimeStyle.backgroundColor = slColor;
+	selRow = srcElem;
+	
+	var oEvent 	= createEventObject();
+	oEvent.selected = selRow;
+	rowSelect.fire(oEvent);
+}
+
+function onMouseOver()
+{
+	srcElem = window.event.srcElement;
+	//crawl up to find the row
+	while (srcElem.tagName != "TR" && srcElem.tagName != "TABLE")
+		srcElem = srcElem.parentElement;
+
+	if(srcElem.tagName != "TR") return;
+
+	if (srcElem.rowIndex > 0)
+		hilite(srcElem);
+	else
+		hilite(-1);
+
+}
+
+function onMouseOut()
+{
+	// Make sure we catch exit from the table
+	hilite(-1, -1);
+}
+
+function hilite(newRow)
+{
+	if (newRow>-1 && hlColor != null )
+	{
+		if (currRow != -1 && currRow!=selRow)
+		{
+			currRow.runtimeStyle.backgroundColor = '';
+		}
+
+		if (newRow != -1 && newRow!=selRow)
+		{
+			newRow.runtimeStyle.backgroundColor = hlColor;
+		}
+	}
+	currRow = newRow;
+} 
+
+</script>

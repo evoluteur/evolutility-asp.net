@@ -1,0 +1,76 @@
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
+<wizard_build>
+	<step label="Create Application" id="0">
+		<intro>
+			<![CDATA[
+Create a new application: 
+  ]]>
+		</intro>
+	</step>
+	<step label="Data definition" id="1">
+		<intro>
+			<![CDATA[
+<p>Create a list of fields that will be tracked. In "Type of Data", choose the description that best match your data.</p>
+<p>In the example of an AddressBook, the fields could be Firstname (text), Lastname (text), email (email)...
+  ]]>
+		</intro>
+		<field label="Type of data"  width="10" />
+		<field label="Field name" width="90" />
+	</step>
+	<step label="Data definition details" id="2">
+		<intro>
+			<![CDATA[
+<p>Enter the options for each field.
+<ul>
+<li>Required=Field cannot be empty.</li>
+<li>Max Length=Maximum number of characters for the field (i.e. "50")</li>
+<li>List of Values=List of possible values for the field (i.e. "Mr,Mrs,Miss")</li>
+</ul>
+</p>
+  ]]>
+		</intro>
+		<field label="Field name" width="30" />
+		<field label="Options" width="60" />
+		<field label="Required"  width="10" />
+	</step>
+	<step label="Search options" id="3">
+		<intro>
+			<![CDATA[
+<p>Specify the fields which are searchable and will be displayed in the list of results.
+<ul>
+<li><b>Search</b> enables a "search by example"; data is matched against the user's input.</li>
+<li><b>Advanced Search</b> employs conditional search criteria.</li>
+<li><b>List</b> are the fields which are returned upon a sucessful search.</li>
+</ul>
+</p>
+  ]]>
+		</intro>
+		<field label="Field name" width="25" />
+		<field label="Search"  width="5" />
+		<field label="Adv.search"  width="5" />
+		<field label="List"  width="5" />
+	</step>
+	<step label="Panels layout" id="4">
+		<intro>
+			<![CDATA[
+<p>You can organize your fields into different panels (sections) on the page. 
+Panels are placed sequentially, left to right, until a Width of 100% is reached.  
+Once the maximum width is reached, the next panel will appear below the previous group of panels. 
+</p>
+  ]]>
+		</intro>
+		<field label="Panel name" width="80" />
+		<field label="Width"  width="20" />
+	</step>
+	<step label="Fields layout" id="5">
+		<intro>
+			<![CDATA[
+<p>Assign fields to panels and set the width of each field.
+</p>
+  ]]>
+		</intro>
+		<field label="Field name" width="65" />
+		<field label="Width"  width="15" />
+		<field label="Panel" width="20" />
+	</step>
+</wizard_build>

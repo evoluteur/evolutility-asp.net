@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<form label="Restaurants" xmlns="http://www.evolutility.com">
+    <data icon="resto.gif" entity="restaurant" entities="restaurants"
+    dbtable="EVOL_Restaurant" dborder="t.name"  dbcolumnlead="name" 
+	dbtableusers="Evol_User" dbtablecomments="Evol_Comment" dbcommentsformid="200" 
+      splogin="EvoSP_LOGIN @login, @password" 
+      sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+    <panel label="Name" width="60" >
+      <field type="text" label="" labeledit="Name" labellist="Name"  maxlength="50" dbcolumn="name" dbcolumnread="name" required="1" width="100" height="1" dbtablelov="" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Food" dbcolumn="CategoryID" dbcolumnread="CategoryName" required="1" width="40" height="1" dbtablelov="EVOL_Restaurant_Category" dborderlov="id" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Rating" dbcolumn="RatingID" dbcolumnread="RatingName" 
+        width="30" height="1" dbtablelov="EVOL_Restaurant_rating" 
+        dborderlov="id" search="1" searchlist="1" searchadv="1" />
+      <field type="url" optional="1" label="Web site" labeledit="Web" labellist="Web" maxlength="200" dbcolumn="url" dbcolumnread="url" width="70" height="1" search="0" searchlist="0" searchadv="2" />
+    </panel>
+    <panel label="Contact Info" width="40">
+      <field type="text" label="Phone" maxlength="16" dbcolumn="phone" dbcolumnread="phone" width="100" height="1" dbtablelov="" search="1" searchlist="0" searchadv="1" />
+      <field type="text" label="Phone 2" maxlength="16" dbcolumn="phone2" dbcolumnread="phone2" width="50" height="1" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="Fax" maxlength="16" dbcolumn="Fax" dbcolumnread="Fax" width="50" height="1" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="email" optional="1" label="email" maxlength="100" dbcolumn="email" dbcolumnread="email" width="70" height="1" search="0" searchlist="0" searchadv="1" />
+    </panel>
+    <panel label="Notes" width="60">
+      <field type="textmultiline" label="Comments" maxlength="300" dbcolumn="comments" dbcolumnread="comments" width="100" height="2" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+      <field type="textmultiline" optional="1" label="Favorite Dishes" maxlength="300" dbcolumn="favorite" dbcolumnread="favorite" width="100" height="2" dbtablelov="" search="0" searchlist="0" searchadv="1" />
+    </panel>
+    <panel label="Address" width="40">
+      <field type="text" label="Address" maxlength="100" dbcolumn="Address1" dbcolumnread="Address1" width="100" height="1" search="0" searchlist="0" searchadv="10" />
+      <field type="text" label="" maxlength="100" dbcolumn="Address2" dbcolumnread="Address2" width="100" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="City" maxlength="100" dbcolumn="City" dbcolumnread="City" width="60" height="1" search="1" searchlist="1" searchadv="1" />
+      <field type="text" label="State" maxlength="2" dbcolumn="State" dbcolumnread="State" width="20" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="text" label="Zip" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" width="20" height="1" search="0" searchlist="0" searchadv="1" />
+    </panel> 
+    <queries label="Selections of restaurants">
+        <query label="Restaurant in San Francisco" dbwhere="t.City ='san francisco' " url="sfo"  name="sfo"/>
+        <query label="Restaurant in the East Bay" dbwhere="t.city IN('berkeley' ,'oakland' ,'albany','emeryville')" dborder="t.city,t.name" url="eastbay" />               
+        <query label="French food" dbwhere=" t.categoryID=2" url="french" />  
+        <query label="Asian food" dbwhere=" t.categoryID IN (3,4,5,6,7,11,12)" url="asian" />                
+        <query label="W/ web site" dbwhere=" t.url&lt;&gt;''" url="wweb" />
+        <query label="W/ users comments" dbwhere=" t.CommentCount>0" url="wuc" />        
+        <query label="All Restaurants" dbwhere="t.id>0" url="allrestos" />    
+    </queries>
+  </form>

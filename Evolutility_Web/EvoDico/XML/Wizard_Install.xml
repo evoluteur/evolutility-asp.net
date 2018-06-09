@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<wizard_install>
+	<appgroup label="Personal information manager">
+		<app label="Address book" icon="contact.gif" file="AddressBook.xml" description=""/>
+		<app label="Memo pad" icon="memo.gif" file="Memo.xml" description=""/>	
+		<app label="To do" icon="todo.gif" file="ToDo.xml" description=""/>
+		<app label="Restaurant list" icon="Resto.gif" file="Restaurant.xml" description=""/>	
+		<app label="Bookmarks" icon="favourites.gif" file="Bookmark.xml" description=""/>	
+	</appgroup>
+<!--   
+	<appgroup label="Community">
+		<app label="User profile" icon="mec2.gif" file="UserProfile.xml" description=""/>
+		<app label="Forum" icon="forum.gif" file="forum.xml" description=""/>	
+	</appgroup>
+	<appgroup label="Software product">
+		<app label="Bug database" icon="bug.gif" file="bugdb.xml" description=""/>
+		<app label="Enhancement requests" icon="lightbulb.png" file="enhancement_request" description=""/>	
+	</appgroup>	 -->
+</wizard_install>
+

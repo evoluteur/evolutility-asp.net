@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
+<form label="Components" description="" xmlns="http://www.evolutility.com"  >
+<data entity="component" entities="components" dbtable="EvoDico_Form" dborder="t.title"
+	  dbcolumnlead="Title" 
+	  icon="" dbcolumnicon="icon" 
+	 splogin="EvoDicoSP_Login @login, @password" 
+	 sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"  />
+
+<panel label="Component" width="62">
+	<field label="Title"  
+		   help="example: 'Address book'" type="text" dbcolumn="Title" dbcolumnread="Title" maxlength="100" search="1" searchlist="1" searchadv="1" width="98" height="1" required="1" />
+	<field label="Icon" help="" type="image" readonly="1" dbcolumn="icon" dbcolumnread="icon" maxlength="50" search="1" searchlist="0" searchadv="1" width="2" height="1" />
+	<field label="Item name" help="example: 'contact'" type="text" dbcolumn="entity" dbcolumnread="entity" maxlength="50" search="1" searchlist="0" searchadv="1"  width="50" />
+	<field label="name (plural)" help="example: 'contacts'" type="text" dbcolumn="entities" dbcolumnread="entities" maxlength="50" search="0" searchlist="0" searchadv="1"  width="50" />
+	<field label="Description" help="Description" type="textmultiline" dbcolumn="Description" dbcolumnread="Description" maxlength="500" search="0" searchlist="0" searchadv="1" width="100" height="3" />
+	<field label="Help" help="Help on the field (for edition)" labeledit="Help" type="textmultiline" dbcolumn="Help" dbcolumnread="Help" maxlength="500" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+</panel>
+<panel-details panelid="1" label="Fields" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborder="t.fpos,t.id" > 
+	<field panelid="1" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100"  search="1" searchlist="1" searchadv="1" width="200" 
+		link="EvoDoc.aspx?ID=@itemid&amp;md=fld" />
+	<field panelid="1" readonly="1" label="Type" type="lov" dbcolumnicon="Typepix" dbcolumn="TypeID" dbcolumnread="Type" dbtablelov="EvoDico_vFieldType" maxlength="100"  search="1" searchlist="1" searchadv="1" width="60" />
+	<field panelid="1" label="Length"  type="integer" dbcolumn="maxlength" dbcolumnread="maxlength" maxlength="100"  search="0" searchlist="1" searchadv="1" width="38" />
+	<field panelid="1" label="Required"  type="boolean" dbcolumn="required" dbcolumnread="required" maxlength="100"  search="1" searchlist="1" searchadv="1" width="38" img="checkb.gif" />
+	<field panelid="1" label="Read Only"   type="boolean" dbcolumn="readonly" dbcolumnread="readonly" maxlength="100"  search="1" searchlist="1" searchadv="1" width="62" img="checkr.gif" />
+</panel-details> 
+<panel-details panelid="2" label="Panels, Searches, and Formats" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborder="EvoDico_vpanel.ppos,t.fpos,t.id" > 
+	<field panelid="2" dbwherelov="EvoDico_vpanel.formid=@itemid" label="Panel" type="lov"  dbcolumn="panelid" dbcolumnread="panelname" dbtablelov="EvoDico_vpanel" dbcolumnreadlov="Label" maxlength="50" search="1" searchlist="1" searchadv="1" width="50"  />
+	<field panelid="2" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100"  search="1" searchlist="1" searchadv="1" width="200"  />
+	<field panelid="2" label="Result List" help="Field shows as header field for lists" labellist="List" type="boolean" dbcolumn="searchlist" dbcolumnread="searchlist"  search="1" searchlist="1" searchadv="1" width="50" img="checkg.gif" />
+	<field panelid="2" label="Search" type="boolean" dbcolumn="search" dbcolumnread="search"  search="1" searchlist="1" searchadv="1" width="100" />
+	<field panelid="2" label="Adv.Search" type="boolean" dbcolumn="searchadv" dbcolumnread="searchadv"  search="1" searchlist="1" searchadv="1" width="100" />
+	<field panelid="2" label="Format" type="text" help="example '$ 0.00'" dbcolumn="format" dbcolumnread="format" maxlength="30"  search="0" searchlist="0" searchadv="1" width="100" />
+	<field panelid="2" label="Stylesheet class name" help="Stylesheet class name for the field. Default to the class set in the page." labellist="Style" type="text" dbcolumn="cssclass" dbcolumnread="cssclass" maxlength="100"  search="0" searchlist="0" searchadv="1" width="100" />
+</panel-details> 
+<panel label="Database table" width="32">
+	<field label="Table" help="Driving table" type="text" dbcolumn="dbtable" dbcolumnread="dbtable" maxlength="100" search="1" searchlist="1" searchadv="1" width="100" height="1" required="1" />
+	<field label="Primary key name" help="Usually ID" labellist="P.Key" type="text" dbcolumn="dbcolumnpk" dbcolumnread="dbcolumnpk" maxlength="50" search="0" searchlist="0" searchadv="1" width="50" height="1" />
+	<field label="Column used as title" help="Title column" type="text" dbcolumn="dbcolumnlead" dbcolumnread="dbcolumnlead" maxlength="100"  searchlist="0" searchadv="1"  width="100" height="1" />
+	<field label="WHERE clause" help="Example 'CategoryID=3'" labellist="Where" type="textmultiline" dbcolumn="dbwhere" dbcolumnread="dbwhere" maxlength="50" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+	<field label="ORDER BY clause" help="Use 'T' for driving table alias. Example 'T.lastname,T.firstname'" labellist="Order" type="textmultiline" dbcolumn="dborder" dbcolumnread="dborder" maxlength="50" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+	<field label="Icon Column" help="Column used to store the name of a thumnail or icon specific to each record" type="text" dbcolumn="dbColumnicon" dbcolumnread="dbColumnicon" maxlength="50" search="1" searchlist="0" searchadv="1" width="100" height="1" />
+	<field label="Users table" help="Table storing users" type="text" dbcolumn="dbtableusers" dbcolumnread="dbtableusers" maxlength="100"  searchlist="0" searchadv="0"  width="100" height="1" />
+	<field label="Comments table" help="Table storing user comments" type="text" dbcolumn="dbtablecomments" dbcolumnread="dbtablecomments" maxlength="100"  searchlist="0" searchadv="0"  width="100" height="1" />
+</panel>
+<panel-details panelid="3" label="Database columns" width="68" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborder="ID" > 
+      <field panelid="3" type="text" label="Column name" maxlength="100" 
+			 dbcolumn="dbcolumn" dbcolumnread="dbcolumn" readonly="1" searchlist="1" />
+      <field panelid="3" type="text" label="Column alias" maxlength="100" 
+			 dbcolumn="dbcolumnread" dbcolumnread="dbcolumnread" readonly="1" searchlist="1" />
+</panel-details> 
+<panel-details panelid="4" label="List of Values Tables (LOV)" width="100" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dbwhere="typeid=4" dborder="t.id" > 
+ 	<field panelid="4" label="Table" type="text"  dbcolumn="dbtablelov" dbcolumnread="dbtablelov" maxlength="100"  search="1" searchlist="1" searchadv="1" width="200"  />
+	<field panelid="4" label="Foreign key" type="text" dbcolumn="dbcolumn" dbcolumnread="dbcolumn"  search="1" searchlist="1" searchadv="1" width="50" img="checkg.gif" />
+	<field panelid="4" label="Seed data" type="textmultiline" dbcolumn="options" dbcolumnread="options"  maxlength="500" search="1" searchlist="1" searchadv="1" width="50" img="checkg.gif" />
+ </panel-details> 
+<panel label="Database stored procedures" width="100">
+	<field label="Paging" help="Stored Procedure used for displaying selection lists" labeledit="Paging SP" type="textmultiline" dbcolumn="spPaging" dbcolumnread="spPaging" maxlength="200" search="1" searchlist="0" searchadv="1" width="100" height="3" />
+	<field label="Login" help="Stored Procedure used for user login" type="textmultiline"  dbcolumn="spLogin" dbcolumnread="spLogin" maxlength="200" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+	<field label="Get" help="Stored Procedure used to get a single record" type="textmultiline" dbcolumn="spGet" dbcolumnread="spGet" maxlength="200" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+	<field label="Delete" help="Stored Procedure used to delete or disable a record" type="textmultiline"  dbcolumn="spDelete" dbcolumnread="spDelete" maxlength="200" search="0" searchlist="0" searchadv="1" width="100" height="2" />
+ </panel>
+</form>

@@ -3,7 +3,7 @@ Evolutility - version 4.1 - 2/12/2013
 Lightweight CRUD Framework for heavy lifting (for ASP.net and SQL Server)
 
 To run the Evolutility sample applications:
- - Copy the directory "EvolutilityWeb" which contains the web site to your web server.
+ - Copy the directory "Evolutility_Web" which contains the web site to your web server.
  - Attach the database (located in the "App_Data" directory of the web site). 
    You may also create a new database and run the SQL scripts.
  - If necessary, change the database connection string in the "appSettings" section 

@@ -1,0 +1,42 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="zmProduct.master.cs" inherits="zmDefault" %> 
+<%@ Register Src="z_footer.ascx" TagName="z_footer" TagPrefix="uc1" %>
+<%@ Register TagPrefix="EVOL" Namespace="Evolutility.SideBar" Assembly="Evolutility.SideBar" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server"> 
+<title>Evolutility</title>
+<link rel="shortcut icon" href="../favicon.ico"/>
+<link rel="icon" href="../favicon_anim.gif" type="../image/gif"/>
+<link href="../evol.css" rel="stylesheet"/> 
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+<div class="bluetop">
+<a href="../index.aspx"><img alt="Evolutility.org" class="logo3" src="../pix/evologo3.gif" /></a>
+<span class="version"> 4.1 </span>
+<table id="menu"><tr> 
+<td><a class="active" href="Product.aspx">Product</a></td>
+<td><a href="../demo/demo.aspx">Demos</a></td> 
+<td><a href="../EvoDico/EvoDico.aspx" >EvoDico</a></td>
+<td><a href="../doc/index.aspx">More</a></td>
+</tr></table> 
+</div> 
+<table class="B"> 
+<tr valign="top">
+<td style="width:150px" class="B LeftPane">
+<EVOL:sidebar id="EvoMenu1" runat="server" VirtualPathPictures="../pixEvo/"></EVOL:sidebar>
+</td>
+<td>&nbsp;</td>
+<td class="B"><form id="f" runat="server" enctype="multipart/form-data">
+<asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+
+</asp:contentplaceholder>
+</form>
+<br /><br />
+
+<uc1:z_footer ID="Z_footer1" runat="server" />
+</td>
+<td style="width:10px">&nbsp;</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Address Book - (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<applicationcomponent>
+	<xml>
+		 <![CDATA[ 
+		<form label="Address book"  xmlns="http://www.evolutility.com" >
+			<data icon="contact.gif" entity="contact" entities="contacts" 
+			dbcolumnlead="lastname" dbtable="EVOL_Contact" dborder="t.lastname,t.firstname" 
+			splogin="EvoSP_Login @login, @password" 
+			sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+			<panel label="Identity" width="62">
+				<field type="text" label="Lastname" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
+					   width="62" search="1" searchlist="1" searchadv="1"/>
+				<field type="text" label="Firstname" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
+					   width="38" search="2" searchlist="2" searchadv="2"/>
+				<field type="text" label="Title" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
+					   width="62" search="0" searchlist="0" searchadv="1"/>
+				<field type="text" label="Company" maxlength="50" dbcolumn="Company" dbcolumnread="Company" 
+					   width="38" search="4" searchlist="4" searchadv="1"/>
+				<field type="email" label="email" maxlength="255" dbcolumn="emailaddress" dbcolumnread="emailaddress" 
+					   width="100" search="1" searchlist="1" searchadv="1"/>
+			</panel>
+			<panel label="Contact Info" width="38">
+				<field type="text" label="Work Phone" maxlength="20" dbcolumn="phone" dbcolumnread="phone" width="50" search="0" searchlist="0" searchadv="1"/>
+				<field type="text" label="Home Phone" maxlength="20" dbcolumn="phoneh" dbcolumnread="phoneh" width="50" search="0" searchlist="0" searchadv="1"/>
+				<field type="text" label="Mobile" maxlength="20" dbcolumn="phonem" dbcolumnread="phonem" width="50" search="0" searchlist="0" searchadv="1"/>
+				<field type="text" label="Fax" maxlength="20" dbcolumn="Fax" dbcolumnread="Fax" width="50" search="0" searchlist="0" searchadv="0"/>
+				<field type="url" label="URL" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
+			</panel>
+			<panel label="Address" width="62">
+				<field type="text" label="Address" labeledit="Address" labellist="Address" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+				<field type="text" label="" labellist="Address line 2" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+				<field type="text" label="City" maxlength="100" dbcolumn="City" dbcolumnread="City" 
+					   width="62" search="13" searchlist="0" searchadv="1"/>
+				<field type="text" label="State" maxlength="3" dbcolumn="State" dbcolumnread="State" 
+					   width="15" search="0" searchlist="0" searchadv="14"/>
+				<field type="text" label="Zip" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" 
+					   width="23" search="0" searchlist="0" searchadv="15"/>
+				<field type="text" label="Country" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+			</panel>
+			<panel label="Misc." width="38">
+				<field type="lov" label="Category" dbcolumn="CategoryID" dbcolumnread="Category" width="70" dbtablelov="EVOL_ContactCategory" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+				<field type="text" label="Custom 1" maxlength="250" dbcolumn="Custom1" dbcolumnread="Custom1" width="100" search="0" searchlist="0" searchadv="15"/>
+				<field type="text" label="Custom 2" maxlength="250" dbcolumn="Custom2" dbcolumnread="Custom2" width="100" search="0" searchlist="0" searchadv="15"/>
+				<field type="text" label="Custom 3" maxlength="250" dbcolumn="Custom3" dbcolumnread="Custom3" width="100" search="0" searchlist="0" searchadv="15"/>
+			</panel> 	
+		</form>	
+			  ]]>
+	  </xml>
+	<sql dbtable="EVOL_Contact" views="" sp=""> 
+		<create>
+			<![CDATA[ 
+CREATE TABLE [EVOL_Contact] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL , 
+	[Firstname] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Middlename] [nvarchar] (5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Lastname] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[Suffix] [nvarchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[JobTitle] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Title] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Company] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[CategoryID] [int] NULL ,
+	[Phone] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Phoneh] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Phonem] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Fax] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[emailAddress] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[url] [nvarchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[AddressLine1] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[AddressLine2] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[City] [nvarchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[State] [nvarchar] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Zip] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Country] [nvarchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Notes] [nvarchar] (800) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Custom1] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Custom2] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Custom3] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Custom4] [nvarchar] (250) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[Publish] [int] NOT NULL CONSTRAINT [DF_EVOL_Contact_Publish] DEFAULT (0),
+	[UserID] [int] NULL CONSTRAINT [DF_EVOL_Contact_UserID] DEFAULT (1),
+	[CommentCount] [int] NULL CONSTRAINT [DF_EVOL_Contact_CommentCount] DEFAULT (0),
+	[creationdate]  [datetime] NULL CONSTRAINT [DF_EVOL_Contact_Creationdate]  DEFAULT (getdate())
+)  ON [PRIMARY];
+  
+ CREATE  INDEX [IDX_Firstname] ON [EVOL_Contact]([Firstname]) ON [PRIMARY];
+
+ CREATE  INDEX [IDX_Lastname] ON [EVOL_Contact]([Lastname]) ON [PRIMARY];
+
+ CREATE  INDEX [IDX_UserID] ON [EVOL_Contact]([UserID]) ON [PRIMARY];
+
+ CREATE  INDEX [IDX_CategoryID] ON [EVOL_Contact]([CategoryID]) ON [PRIMARY];
+
+ CREATE  INDEX [IDX_Publish] ON [EVOL_Contact]([Publish]) ON [PRIMARY];
+
+CREATE TABLE [EVOL_ContactCategory] (
+	[ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[Name] [nvarchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+) ON [PRIMARY];
+
+ALTER TABLE [EVOL_ContactCategory] WITH NOCHECK ADD 
+	CONSTRAINT [PK_EVOL_ContactCategory] PRIMARY KEY  CLUSTERED 
+	( 
+		[ID]
+	)  ON [PRIMARY] ;
+	   
+  ]]>
+		</create>
+		<seed>
+			<![CDATA[ 
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('[Unfiled]');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Hobby');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Travel');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Finances');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Family');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Business');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Restaurant');
+INSERT INTO EVOL_ContactCategory (Name)
+  VALUES ('Health');
+
+]]>  
+		</seed>
+		<sample>
+			<![CDATA[
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, Phone, Phoneh, Phonem, Fax, emailaddress, url, Addressline1, City, State, Zip, Notes)
+  VALUES (1, 2, 'John', 'Smith', 'Senior Developer', 'Test', 6, '415 123 1234', '415 123 1238', '', '', 'test@test.com', 'http://www.test.com', '123 2nd St.', 'San Francisco', 'CA', ' ', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Mary', 'Clark', 'MD', 'Acme Software', 6, '650 123 1456', '650 123 1456', '650 123 1456', '650 123 1456', 'jim@clark.com', '', '34 Olive Street', 'San Francisco', 'CA', '', 'He is Superman.');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Michael', 'Jackson', 'Singer', '', 1, '', '', '', '', '', 'http://www.michaeljackson.com', '', '', '', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 3, 'John', 'Doe', 'CEO', 'Nasdaq', 6, '123 456 7891', '', '123 456 7891', '123 456 7891', 'johndoe@nasdaq.com', 'http://www.nasdaq.com', '123 Nowhere St', 'New York', 'NY', '94123', 'difficult to reach...');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 3, 'Ralph', 'Smith', '', '', 6, '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Laura', 'White', '', 'CoolTool', 6, '415 123 1234', '415 234 5678', '415 456 7890', '415 123 1234', '', '', '', '', '', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Jean-Marc', 'Dupond', 'Commercial', 'FNAC', 1, '40 12 12 12 12', '', '', '', 'jmdupond@fnac.fr', 'http://www.fnac.fr', '', 'Paris', '', '75015', 'Tres sympa. Excellent au go.');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Han', 'Lee', 'Software Engineer', 'Microsoft', 1, '224 443 4433', '224 343 5554', '224 343 5555', '', 'hanlee@microsoft.com', 'http://www.microsoft.com', '452 12th Street', 'Redmond', 'WA', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Akemi', 'Inoue', 'Localization Engineer', 'Amazon', 1, '444 424 4444', '444 424 4455', '444 424 4466', '', 'akemiinoue@amazon.com', 'http://www.amazon.com', '1212 7th St', 'Redmond', 'WA', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 3, 'Bart', 'Simpson', 'K-12', '', 1, '', '', '', '', '', '', '', '', '', '', 'I''ve seen him on TV');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 2, 'Marie', 'Durand', 'Ingenieur Logiciel', 'CoolSoft', 1, '23 23 23 23 23', '12 12 23 34 45', '', '', 'mdurand@CoolSoft.fr', 'http://www.CoolSoft.fr', '', 'Paris', '', '', '');
+INSERT INTO EVOL_Contact (Publish, UserID, Firstname, Lastname, Title, Company, CategoryID, phone, Phoneh, Phonem, Fax, emailaddress, url, AddressLine1, City, State, Zip, Notes)
+  VALUES (1, 3, 'Sanjay', 'Ganesh', 'Director R&D', 'Tata', 5, '', '', '', '', '', '', '', '', '', '', '');
+ ]]> 
+		</sample>
+	   </sql>
+	<description>
+<![CDATA[ 
+			  
+]]>		
+	   </description>
+</applicationcomponent>
+

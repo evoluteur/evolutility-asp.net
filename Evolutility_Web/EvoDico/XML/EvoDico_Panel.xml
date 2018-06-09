@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
+<form label="Panel" description="field group" xmlns="http://www.evolutility.com"  >
+<data dbtable="EvoDico_Panel" entity="panel" entities="panels" dborder="t.formid,t.ppos,t.id" 
+	  icon="edi_pnl.png" 
+	dbcolumnlead="Label" 
+    splogin="EvoDicoSP_Login @login, @password" 
+	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+<panel label="Panel (field group)" width="100">
+	<field type="text" label="Panel label"  
+		   help="Panel title" dbcolumn="Label" dbcolumnread="Label" maxlength="100" 
+		   required="0" search="1" searchlist="1" searchadv="1" width="62" />
+	<field label="Form" type="lov" readonly="2"
+		   dbcolumnicon="icon"
+dbcolumn="formID" help="" dbcolumnread="form"  
+dbtablelov="EvoDico_Form" dbcolumnreadlov="title"
+ maxlength="50" search="1" searchlist="1"  searchadv="1" width="38"
+link="EvoDicoForm.aspx?ID=@itemid" />
+</panel> 
+<panel label="Look and Feel" width="62">
+	<field label="Position"  help="Weight for positioning the panel relative to other panels" type="integer" dbcolumn="ppos" dbcolumnread="ppos" maxlength="3" required="0" search="0" searchlist="1" searchadv="1" width="38" />
+	<field label="Width"  help="Relative width of the panel (in percentage)" type="integer" dbcolumn="Width" dbcolumnread="Width" maxlength="3" required="0" search="0" searchlist="1" searchadv="1" width="31" />
+	<field label="Optional" help="Hides the field if it has no value" labellist="Optional" type="boolean" dbcolumn="Optional" dbcolumnread="Optional" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="31" />
+	<field label="CSS Class" help="CSS Class for the panel" labellist="CSS" type="text" dbcolumn="cssclass" dbcolumnread="cssclass" maxlength="100" required="0" search="0" searchlist="1" searchadv="1" width="38" />
+	<field label="CSS Class Label"  help="CSS Class for the panel label" labellist="CSS Labels" type="text" dbcolumn="cssclassLabel" dbcolumnread="cssclassLabel" maxlength="100" required="0" search="0" searchlist="0" searchadv="1" width="62" />
+	<field label="Summary" type="textmultiline" 
+	dbcolumn="Summary" dbcolumnread="Summary" 
+	maxlength="250" required="0" search="0"  help="Notes about this application (not visible to users)."
+	searchlist="0" searchadv="1" width="100" height="4"  />
+</panel> 
+<panel-details panelid="1" label="Fields" width="38" 
+dbtabledetails="EvoDico_Field" dbcolumndetails="PanelID"> 
+	<field panelid="1" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
+		link="EvoDicoField.aspx?ID=@itemid&amp;formID=Search" />
+</panel-details>   
+
+</form>

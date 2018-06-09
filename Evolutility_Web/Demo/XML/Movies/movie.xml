@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Movie - www.evolutility.org  - (c) 2013 Olivier Giulieri -->
+  <form label="Movies" xmlns="http://www.evolutility.com">
+    <data entity="movie" entities="movies" dbcolumnicon="pix"  
+    dbtable="Movie" dborder="T.title"  
+    dbtablecomments="Comment" dbtableusers="DemoUser" 
+  splogin="EvoSP_Login @login, @password" 
+  sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+    <panel label="" width="10">
+      <field type="image" label="" labeledit="Picture" maxlength="200"  dbcolumn="PIX" dbcolumnread="PIX" width="100" height="1" search="0" searchlist="0" searchadv="0" />
+    </panel>
+    <panel label="" width="90">
+      <field type="text" label="Title" maxlength="100"  dbcolumn="Title" dbcolumnread="Title" required="1" width="90" height="1" search="1" searchlist="1" searchadv="1" searchquick="1" />
+      <field type="lov" label="Director" dbcolumn="directorID" dbcolumnread="director" width="50" height="1" dbtablelov="MovieDirector" dbcolumnreadlov="fullname" search="1" searchlist="1" searchadv="1" searchquick="1" 
+      link="Movie_Director.aspx?ID=@itemid"/>
+  	  <field type="lov" label="Language" maxlength="25" dbcolumn="LanguageID" dbcolumnread="Languagen" width="25" height="1" 
+			 dbtablelov="MovieLanguage" dborderlov="ID" search="1" searchlist="0" searchadv="1" />   
+	  <field type="integer" label="Year" dbcolumn="movieyear" dbcolumnread="movieyear" width="25" height="1" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Genre" maxlength="25" dbcolumn="GenreID" dbcolumnread="Genrename" required="-1" width="50" height="1" dbtablelov="MovieGenre" search="1" searchlist="1" searchadv="1" />
+      <field type="lov" label="Rating" maxlength="25" dbcolumn="RatingID" dbcolumnread="Ratingname" width="25" height="1" dbtablelov="MovieRating" dborderlov="abbreviation" dbcolumnreadlov="abbreviation" search="1" searchlist="1" searchadv="1" />
+      <field type="integer" label="Duration" maxlength="25" max="300" format="### 'min'"  dbcolumn="Duration" dbcolumnread="Duration" width="25" height="1" search="4" searchlist="0" searchadv="1" />
+      <field type="textmultiline" label="Story" maxlength="1200"  dbcolumn="story" dbcolumnread="story" width="100" height="8" search="0" searchlist="0" searchadv="1" />
+      <field type="textmultiline" label="Awards" optional="1" maxlength="300"  dbcolumn="Awards" dbcolumnread="Awards" width="100" height="4" search="0" searchlist="0" searchadv="1" />
+
+     </panel>
+	  <panel-details label="" width="100" dbtabledetails="MovieNNActor" dbcolumndetails="MovieID" panelid="0" >
+		  <field panelid="0" type="lov" label="Actor" dbcolumn="ActorID" dbcolumnread="Actor" dbtablelov="MovieActor"  dbcolumnreadlov="name" required="1"
+			link="movie_actor.aspx?ID=@itemid" />
+		  <field panelid="0" type="text" label="" labeledit="Role" labellist="Role" maxlength="100"  dbcolumn="Role" dbcolumnread="Role"   />
+	  </panel-details>
+  </form>

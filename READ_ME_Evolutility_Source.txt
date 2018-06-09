@@ -11,9 +11,6 @@ The source code (for ASP.net and SQL Server) includes:
 - An XML schema for validation - in XSD
 - Many pictures and ASP.net pages to support the demo applications 
 
-Code analysis at ohloh.net
-http://www.ohloh.net/p/evolutility/analyses/latest
-
 Evolutility source code and sample applications are available on SourceForge.net
 http://sourceforge.net/project/showfiles.php?group_id=225915
 

@@ -74,6 +74,7 @@
     <Compile Include="Lang\EvoLang_JP.cs" />
     <Compile Include="Lang\EvoLang_PT.cs" />
     <Compile Include="Lang\EvoLang_RO.cs" />
+    <Compile Include="Lang\EvoLang_RU.cs" />
     <Compile Include="UIServerForms.cs" />
     <Compile Include="UIServerDB.cs" />
     <Compile Include="UIServerCom.cs" />

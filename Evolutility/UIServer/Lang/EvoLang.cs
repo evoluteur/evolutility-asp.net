@@ -234,6 +234,9 @@ namespace Evolutility
 				case "CA":// Catalan
 					SetLocale_CA(LanguageKey);
 					break;
+				case "RU":// Russian
+					SetLocale_RU(LanguageKey);
+					break;
 			}
 			if (_LocaleCode != LanguageKey)
 			{

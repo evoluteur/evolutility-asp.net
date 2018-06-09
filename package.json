@@ -1,0 +1,24 @@
+{
+  "name": "evolutility-asp.net",
+  "version": "4.1.0",
+  "copyright": "(c) 2018 Olivier Giulieri",
+  "license": "MIT",
+  "homepage": "http://evoluteur.github.io/evolutility-asp.net/",
+  "author": "Olivier Giulieri (https://evoluteur.github.io/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evoluteur/evolutility-asp.net.git"
+  },
+  "bugs": "https://github.com/evoluteur/evolutility-asp.net/issues",
+  "keywords": [
+    "model",
+    "metadata",
+    "forms",
+    "CRUD",
+    "ASP.net",
+    "web",
+    "ASPX",
+    "SQL-Server",
+    "low-code",
+  ]
+}

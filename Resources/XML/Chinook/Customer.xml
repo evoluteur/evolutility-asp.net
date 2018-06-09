@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <form title="Customer" xmlns="http://www.evolutility.com">
+    <data dbtable="CH_Customer" entity="customer" entities="customers" icon="user_gray.png" 
+		  dbcolumnpk="ID" 
+		  sppaging="CH_SP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" 
+		  splogin="EvoDicoSP_Login @login, @password" />
+			<panel label="Customer" width="62">
+			  <field type="text" label="Lastname" dbcolumn="LastName" dbcolumnread="LastName" maxlength="20" required="1" search="1" searchadv="1" searchlist="1" height="1" width="62" />
+			  <field type="text" label="Firstname" dbcolumn="FirstName" dbcolumnread="FirstName" maxlength="40" required="1" search="1" searchadv="1" searchlist="1" height="1" width="38" />
+			  <field type="text" label="Company" dbcolumn="Company" dbcolumnread="Company" maxlength="80"  search="1" searchadv="1" searchlist="1" height="1" width="62" />
+			  <field type="lov" label="Support rep." dbcolumn="SupportRepId" dbcolumnread="SupportRep"
+					link="Employee.aspx?ID=@itemid"
+					 maxlength="2" dbtablelov="CH_VW_Employee" search="1" searchadv="1" height="1" width="38" />
+			</panel>
+	  <tab label="Contact info">
+			<panel label="Address" width="62">
+			  <field type="text" label="Address" dbcolumn="Address" dbcolumnread="Address" maxlength="70" search="1" searchadv="1" searchlist="0" height="1" width="100" />
+			  <field type="text" label="City" dbcolumn="City" dbcolumnread="City" maxlength="40" search="1" searchadv="1" searchlist="1" height="1" width="62" />
+			  <field type="text" label="State" dbcolumn="State" dbcolumnread="State" maxlength="40" search="1" searchadv="1" height="1" width="38" />
+			  <field type="text" label="Country" dbcolumn="Country" dbcolumnread="Country" maxlength="40" search="1" searchadv="1" height="1" width="62" />
+			  <field type="text" label="Postalcode" dbcolumn="PostalCode" dbcolumnread="PostalCode" maxlength="10" search="1" searchadv="1" height="1" width="38" />
+			</panel>
+			<panel label="Contact" width="38">
+			  <field type="text" label="Phone" dbcolumn="Phone" dbcolumnread="Phone" maxlength="24" search="1" searchadv="1" searchlist="" height="1" width="100" />
+			  <field type="text" label="Fax" dbcolumn="Fax" dbcolumnread="Fax" maxlength="24" search="1" searchadv="1" searchlist="" height="1" width="100" />
+			  <field type="email" label="Email" dbcolumn="Email" dbcolumnread="Email" maxlength="60" required="1" search="1" searchadv="1" searchlist="" height="1" width="100" />
+			</panel>
+	  </tab>
+	  <tab label="Invoices">
+		  <panel-details panelid="1" label="Invoices" width="100"
+				dbtabledetails="CH_Invoice" dbcolumndetails="CustomerId" > 
+			  <field panelid="1" type="text" label="ID" dbcolumn="ID" dbcolumnread="ID" readonly="1" maxlength="40" search="1" searchadv="1" searchlist="1" height="1" width="68"
+					 link="Invoice.aspx?ID=@itemid" />
+			  <field panelid="1" type="date" label="Invoice date" dbcolumn="InvoiceDate" dbcolumnread="InvoiceDate" required="1" search="1" searchadv="1" searchlist="1" height="1" width="32" />
+			  <field panelid="1" type="decimal"
+					 format="$0.00" 
+					 label="Total" dbcolumn="Total" dbcolumnread="Total" maxlength="4"
+				readonly="1" search="1" searchadv="1" searchlist="1" height="1" width="32" />
+			  <field panelid="1" type="text" label="City" dbcolumn="BillingCity" dbcolumnread="BillingCity" maxlength="40" search="1" searchadv="1" searchlist="1" height="1" width="68" />
+			  <field panelid="1" type="text" label="Country" dbcolumn="BillingCountry" dbcolumnread="BillingCountry" maxlength="40" search="1" searchadv="1" searchlist="1" height="1" width="68" />
+		  </panel-details>
+	</tab>
+  </form>

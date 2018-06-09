@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2009 Olivier Giulieri - www.evolutility.org -->
+  <form label="Bugs" >
+    <data entity="bug" entities="bugs"  icon="bug.gif" 
+       dbtable="Bug"  dborder="severityid"  
+         splogin="EvoDico_Login_SP @login, @password" 
+    sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+     />
+    <panel label="Bug Description" width="80" >
+      <field type="text" required="1" label="Title" labeledit="Title" labellist="Title" maxlength="100"  dbcolumn="Title" dbcolumnread="Title" width="85" height="1" search="1" searchlist="1" searchadv="1" searchquick="1" />
+      <field type="integer" readonly="1" label="Bug ID" labellist="ID" dbcolumn="ID" dbcolumnread="ID" width="15" height="1" search="1" searchlist="1" searchadv="1" searchquick="1" 
+            format="'#'00" />  
+      <field type="date" label="Date Submited" labellist="Submited" dbcolumn="submitDate" dbcolumnread="submitDate" format="short date" width="20" search="1" searchlist="1" searchadv="1"/>
+      <field type="date" label="Date Expected Fix" labellist="Fix" dbcolumn="Expected_Fix" dbcolumnread="Expected_Fix" format="short date" width="20" search="1" searchlist="0" searchadv="1"/>
+   
+      <field type="textmultiline" label="Description" description="" maxlength="3000"  dbcolumn="Description" dbcolumnread="Description" width="100" height="12" search="1" searchlist="0" searchadv="1" searchquick="1" />
+      <field type="textmultiline" label="How to reproduce the problem" labellist="Reproduction" optional="1" maxlength="500"  dbcolumn="Reproduction" dbcolumnread="Reproduction" width="100" height="4" search="0" searchlist="0" searchadv="1" searchquick="1" />
+      <field type="textmultiline" label="Any way around it" labellist="Workaround" optional="1" maxlength="500"  dbcolumn="Workaround" dbcolumnread="Workaround" width="100" height="4" search="0" searchlist="0" searchadv="1" searchquick="1" />
+    
+    </panel> 
+    <panel label="Categories" width="20" >
+      <field type="lov" label="Status" dbcolumn="StatusID" dbcolumnread="Status" width="100" dbtablelov="BugStatus"
+       dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+      <field type="lov" label="Resolution" dbcolumn="ResolutionID" dbcolumnread="Resolution" width="100" dbtablelov="BugResolution" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+      <field type="lov" label="Severity" dbcolumn="SeverityID" dbcolumnread="Severity" width="100" dbtablelov="BugSeverity" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+      <field type="lov" label="Priority" dbcolumn="PriorityID" dbcolumnread="Priority" width="100" dbtablelov="BugPriority" dborderlov="id" search="1" searchlist="0" searchadv="1"/>
+      
+      <field type="boolean" label="XML" dbcolumn="bxml" dbcolumnread="bxml" width="100" height="1" search="1" searchlist="0" searchadv="1" />
+      <field type="boolean" label="SQL" dbcolumn="bsql" dbcolumnread="bsql" width="100" height="1" search="1" searchlist="0" searchadv="1" />
+      <field type="boolean" label="HTML" dbcolumn="bhtml" dbcolumnread="bhtml" width="100" height="1" search="1" searchlist="0" searchadv="1" />
+      <field type="boolean" label="Javascript" dbcolumn="BJavascript" dbcolumnread="BJavascript" width="100" height="1" search="1" searchlist="0" searchadv="1" />
+    </panel> 
+    
+  
+  </form>

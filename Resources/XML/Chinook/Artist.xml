@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <form xmlns="http://www.evolutility.com" >
+    <data dbtable="CH_Artist" entity="artist" entities="artists" icon="user_orange.png" 
+		  dbcolumnpk="ID" sppaging="CH_SP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" splogin="EvoDicoSP_Login @login, @password" />
+		<panel label="Artist" width="100">
+		  <field type="text" label="Name" dbcolumn="Name" dbcolumnread="Name" 
+				 maxlength="120" search="1" searchadv="1" searchlist="1" height="1" width="80" />
+		  <field type="formula" label="Albums" dbcolumn="SELECT COUNT(*) FROM CH_Album WHERE t.id=CH_Album.ArtistID" dbcolumnread="NBAlbums" 
+				 maxlength="120" search="1" searchadv="1" searchlist="1" height="1" width="20"	  />
+		</panel>
+	  <panel-details panelid="1" label="Albums" width="100"
+					 dbtabledetails="CH_Album" dbcolumndetails="ArtistID" dborder="t.Title"  >
+		  <field panelid="1" id="1" type="text" label="Title"
+				 link="Album.aspx?ID=@itemid" 
+				 dbcolumn="Title" dbcolumnread="Title" maxlength="160" required="1"
+				 search="1" searchadv="1" searchlist="1" height="1" width="62" />
+	  </panel-details>
+
+  </form>

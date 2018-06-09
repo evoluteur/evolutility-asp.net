@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2009 Olivier Giulieri - www.evolutility.org -->
+  <form label="Bugs" xmlns="http://www.evolutility.com">
+    <data entity="bug" entities="bugs"   icon="m-bug.gif" 
+       dbtable="Bug" dbwhere="t.publish>0" dborder="severityid"  
+dbtableusers="EvoDico_User" dbtablecomments="Evol_Comment" dbcommentsformid="0" 
+         splogin="EvoDico_Login_SP @login, @password" 
+    sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
+    <panel label="Description" width="80" >
+		<field cssclass="fieldmain" type="text" required="1" label="Titre" labellist="Titre" maxlength="200"  dbcolumn="Title" dbcolumnread="Title" width="62" height="1" search="1" searchlist="1" searchadv="1" />
+		<field cssclass="fieldmain" type="integer" readonly="1" label="Bug ID" labellist="ID" dbcolumn="ID" dbcolumnread="ID" width="38" height="1" search="1" searchlist="1" searchadv="1"
+      format="00" />
+		<field type="lov" label="Produit" dbcolumn="ProductID" dbcolumnread="Product" width="62" dbtablelov="EvolProduct" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+		<field type="date" label="Date de Soumission" labellist="Soumission" dbcolumn="submitDate" dbcolumnread="submitDate" format="" width="38" search="1" searchlist="1" searchadv="1"/>
+		<field type="date" label="Date de Résolution Prévue" labellist="Plan" dbcolumn="ExpectedDate" dbcolumnread="ExpectedDate" format="" width="20" search="1" searchlist="0" searchadv="1"/>
+		<field type="date" label="Date de Résolution" labellist="Résolution" dbcolumn="CloseDate" dbcolumnread="CloseDate" format="" width="20" search="1" searchlist="0" searchadv="1"/>
+
+		<field type="textmultiline" label="Description" maxlength="1000"  dbcolumn="Description" dbcolumnread="Description" width="100" height="12" search="1" searchlist="0" searchadv="1" />
+      <field type="textmultiline" label="Message d'erreur" optional="1" maxlength="200"  dbcolumn="ErrorMSG" dbcolumnread="ErrorMSG" width="100" height="2" search="1" searchlist="0" searchadv="1" />
+      <field type="textmultiline" label="Comment avoir le probleme" labellist="Reproduction" optional="1" maxlength="500"  dbcolumn="Reproduction" dbcolumnread="Reproduction" width="100" height="4" search="0" searchlist="0" searchadv="1" />
+      <field type="textmultiline" label="Astuce" labellist="Astuce" optional="1" maxlength="500"  dbcolumn="Workaround" dbcolumnread="Workaround" width="100" height="4" search="0" searchlist="0" searchadv="1" />
+    
+    </panel> 
+    <panel label="Categories" width="20" >
+      <field cssclass="fieldmain" type="lov" label="Status" dbcolumn="StatusID" dbcolumnread="Status" width="100" dbtablelov="BugStatus" dbcolumnreadlov="name_FR" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+      <field type="lov" label="Gravité" dbcolumn="SeverityID" dbcolumnread="Severite" width="100" dbtablelov="BugSeverity" dbcolumnreadlov="name_FR" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+      <field type="lov" label="Priorité" dbcolumn="PriorityID" dbcolumnread="Priorite" width="100" dbtablelov="BugPriority" dbcolumnreadlov="name_FR" dborderlov="id" search="1" searchlist="0" searchadv="1"/>
+      
+      <field type="boolean" label="XML" dbcolumn="bxml" dbcolumnread="bxml" width="100" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="boolean" label="SQL" dbcolumn="bsql" dbcolumnread="bsql" width="100" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="boolean" label="HTML" dbcolumn="bhtml" dbcolumnread="bhtml" width="100" height="1" search="0" searchlist="0" searchadv="1" />
+      <field type="boolean" label="Javascript" dbcolumn="BJavascript" dbcolumnread="BJavascript" width="100" height="1" search="0" searchlist="0" searchadv="1" />
+    </panel> 
+    
+       <queries label="Bugs">
+        <query label="Blockers and Critical open bugs" dbwhere="(t.SeverityID&lt;3 and t.statusid&lt;&gt;5)" url="bugBC" />
+        <query label="All Open bugs" dbwhere="t.statusid&lt;&gt;5" url="UNR" />   
+        <query label="Unresolved and High Priority bugs" dbwhere="(t.statusid&lt;&gt;5 AND t.priorityid&lt;3)" url="UNRHP" />  
+        
+         <query label="Browser bugs - HTML, Javascript" dbwhere="(t.bhtml=1 OR t.bjavascript=1)" url="htmljs" />        
+         <query label="Server bugs - SQL, XML" dbwhere="(t.bxml=1 OR t.bsql=1)" url="sqlxml" />     
+         
+         <query label="New bugs in the last 30 days" dbwhere="getdate()-t.SubmitDate&lt;31" url="new-month" />                      
+        <query label="Closed bugs" dbwhere="t.statusid=5" url="closed" />           
+    </queries>  
+  </form>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <form label="Track" description="table 'Track'" xmlns="http://www.evolutility.com">
+    <data dbtable="CH_Track" entity="track" entities="tracks" icon="music.png" dbcolumnpk="ID" 
+		  sppaging="CH_SP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" 
+		  splogin="EvoDicoSP_Login @login, @password" />
+    <panel label="Track" width="100">
+      <field type="text" label="Name" dbcolumn="Name" dbcolumnread="Name" maxlength="200" required="1" search="1" searchadv="1" searchlist="1" height="3" width="100" />
+      <field type="lov" label="Album" 
+			 link="Album.aspx?ID=@itemid"
+			 dbcolumn="AlbumId" dbcolumnread="Album" dbtablelov="CH_Album" dbcolumnreadlov="Title"
+			 maxlength="2" search="1" searchadv="1" searchlist="1" height="1" width="62" />
+      <field type="decimal" format="$0.00" label="Price" dbcolumn="UnitPrice" dbcolumnread="UnitPrice" maxlength="4" required="1" search="1" searchadv="1" searchlist="" height="1" 
+			 width="38" />
+      <field type="lov" label="Media Type"
+			 link="LOV_MediaType.aspx?ID=@itemid" 
+			 dbcolumn="MediaTypeId" dbcolumnread="MediaType" dbtablelov="CH_MediaType" 
+			  maxlength="2" required="1" search="1" searchadv="1" searchlist="1" height="1" width="62" />
+      <field type="lov" label="Genre"
+			 link="LOV_Genre.aspx?ID=@itemid" 
+			 dbcolumn="GenreId" dbcolumnread="Genre" dbtablelov="CH_Genre" 
+			  maxlength="2" search="1" searchadv="1" searchlist="1" height="1" width="38" />
+      <field type="textmultiline" label="Composer" dbcolumn="Composer" dbcolumnread="Composer" maxlength="220" search="1" searchadv="1" searchlist="1" height="3" width="100" />
+      <field type="integer" label="Milliseconds" dbcolumn="Milliseconds" dbcolumnread="Milliseconds" maxlength="2" required="1" search="1" searchadv="1" searchlist="" height="1" width="62" />
+      <field type="integer" label="Bytes" dbcolumn="Bytes" dbcolumnread="Bytes" maxlength="2" search="1" searchadv="1" searchlist="" height="1" width="38" />
+    </panel> 
+
+	  <panel-details panelid="1" label="Customer who bought this track also bought" width="100" 
+					 dbtabledetails="CH_VW_TrackSameCustomer" dbcolumndetails="TrackID" dborder="t.purchases DESC, t.name" >
+		  <field panelid="1" type="text" label="Track"
+				link="Track.aspx?ID=@itemid" dbcolumn="Name" dbcolumnread="Name" 
+				 readonly="1" maxlength="200" required="1" search="1" searchadv="1" searchlist="1" height="3" width="100" />
+		  <field panelid="1" type="lov" label="Artist"
+				 link="Artist.aspx?ID=@itemid"
+				 dbcolumn="ArtistId" dbcolumnread="Artist" dbtablelov="CH_Artist" 
+				  maxlength="2" readonly="1" search="1" searchadv="1" searchlist="1" height="1" width="20" />
+		  <field panelid="1" type="lov" label="Album"
+				 link="Album.aspx?ID=@itemid"
+				 dbcolumn="AlbumId" dbcolumnread="Album" dbtablelov="CH_Album" dbcolumnreadlov="title"
+				  maxlength="2" readonly="1" search="1" searchadv="1" searchlist="1" height="1" width="20" />
+		  <field panelid="1" type="integer" label="Purchases" 
+				 dbcolumn="Purchases" dbcolumnread="Purchases" 
+				  maxlength="2" readonly="1" search="1" searchadv="1" searchlist="1" height="1" width="20" />		  
+	  </panel-details>
+  </form>

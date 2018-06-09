@@ -1,0 +1,80 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{089105DD-FC77-4D3A-BCDE-FD9613DE18C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Evolutility</RootNamespace>
+    <AssemblyName>Evolutility.Wizard</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common\EvoDB.cs">
+      <Link>EvoLib\EvoDB.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoDDL.cs">
+      <Link>EvoLib\EvoDDL.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoDico.cs">
+      <Link>EvoLib\EvoDico.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoModel.cs">
+      <Link>EvoLib\EvoModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoTC.cs">
+      <Link>EvoLib\EvoTC.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoUI.cs">
+      <Link>EvoLib\EvoUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\EvoXML.cs">
+      <Link>EvoLib\EvoXML.cs</Link>
+    </Compile>
+    <Compile Include="WizardBuild.cs" />
+    <Compile Include="WizardInstall.cs" />
+    <Compile Include="WizardXML2Dico.cs" />
+    <Compile Include="WizardDB2Dico.cs" />
+    <Compile Include="Wizard.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wizard.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Evolutility.Wizard.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

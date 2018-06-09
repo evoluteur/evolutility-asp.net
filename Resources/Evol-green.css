@@ -1,0 +1,742 @@
+/* ######### CSS for Evolutility web site & web control ######### */
+/* (c) Olivier Giulieri 2003-2009 */
+
+/* ######### Evolutility.org ######### */
+BODY {
+	margin: 0;
+	padding: 0; 
+	background-color: #fff; 
+	color:#3c3c3c;
+}
+BODY, td,input,textarea,select{ 
+	font-size: 11pt;
+	font-family: "Century Gothic",arial;	
+} 
+A,A:visited,A:active{ COLOR: #437E3E}
+A:hover{COLOR: #FF6600; text-decoration:underline;}
+.bluetop{
+	background: #437E3E url('pix/bbgev-green.gif') repeat-x; 
+	height:87px;
+}
+.logoyou{
+position: absolute;
+border:0;
+top:10px;
+left:16px;
+} 
+.logo3{
+position: absolute;
+border:0;
+top:37px;left:36px;
+height:72;width:283;
+z-index:2000
+}
+table.B{
+width:100%;
+border:0; 
+background: #fff url('pix/n2.gif') 0px 1px repeat-x; 
+} 
+td.B{
+padding: 20px 26px 26px 26px
+} 
+.LightGrey{
+background:#F5F8FB;
+padding:10;
+}
+h1,h2,h3,h4{
+color:#437E3E;
+font-family:"Century Gothic",arial, serif;
+	margin: 5px 0 5px 0;	
+	font-weight:normal;
+}
+h1{margin-top:5;}
+h2,h3,h4{margin-top:3;}
+#menu2{
+position: absolute; 
+right: 20px;
+top:12px
+} 
+#menu2 a{ 
+text-transform: lowercase;
+display: block;
+padding:0 0 0 10; 
+color: white;
+font-weight: bold;  
+text-decoration: none;
+}
+#menu{
+position: absolute;
+top:50px;
+right: 20px;
+bottom: 0px;
+min-width:410px;
+} 
+#menu a{ 
+text-transform: lowercase;
+display: block;
+padding: 0.4em 1.0em 0.5em 1.0em; 
+background: #DEE7F7 url(PixEvo/bg_pnl_lbl-green.gif); 
+border: solid 1px #fff;
+color: #606060;
+font-weight: bold;  
+text-decoration: none;
+}
+#menu a.active, #menu a.active:hover{
+background: #FFFFFF url('pix/n4.gif') repeat-x;
+color:#437E3E;
+border: solid 1px #ffffff;
+} 
+#menu a:hover{
+background: #EFF7F1 url('pix/n5.gif') repeat-x;
+color:#000000;
+text-decoration: underline;
+} 
+td.LeftPane{
+background-color:#EFF7F1;
+border-right:solid 1 #C9D6E9; 
+padding-left:16;
+padding-right:16;
+}
+div.links
+{
+list-style: none;
+font-size:smaller; 
+}
+div.links div{
+padding:3px;
+}
+div.links div a.sel:active, div.links div a.sel:visited{
+ font-weight:bold;
+ color:#184366;
+}
+div.links div.sel{ 
+	background-color: #FFFFFF;
+	border: solid 1 #cccccc;
+}
+
+ul.links2{
+border: none; 
+left:-20px;
+position:relative; 
+}
+ul.bullet{
+margin-left:16px;  
+}
+ul.bullet li{ 
+padding-bottom:10px; 
+}
+
+ul.indent{ 
+list-style: none;
+margin-left:10px; 
+padding-left:10px; 
+}
+ul.noindent2{ 
+list-style: none;
+margin-left:6px;  
+padding-left:6px;  
+}
+ul.indent li,ul.noindent li,ul.noindent2 li{ 
+padding-bottom:10px; 
+}
+div.indent{
+margin-left:20px}
+.indent1{margin-left:12px}
+.indent2{margin-left:30px}
+.indent3{margin-left:45px}
+td.footer{
+font-size:smaller;
+color:Gray;
+}
+div.footer{ 
+text-align: center;
+font-size:smaller;
+color:Gray;
+border-top: dotted 1px #E1E1E1;
+margin-top: 1.0em;
+margin-bottom: 1.0em;
+padding-top: 1.0em;
+}
+.groupedColumns{
+	padding:0;
+	border:0;
+	width:100%; 
+}
+.TabH{
+ position:absolute;
+ right:30;
+ top:20;
+ width:330;
+}
+#TabHelp{
+ display:none;
+ color:white
+}
+.version{
+	color:#ffffff;
+	font-size:larger;
+	position:absolute;
+	top:69px;
+	left:416px;
+}
+/* ######### Evolutility documentation ######### */
+.code 
+{ 
+	background-color:#F5F5F5;
+	color : #000000;
+	text-decoration: none;
+	font-family:Courier;
+	border: solid 1 #A2A2A2;
+    padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 5px;
+    padding-right: 5px;
+}
+.xmlElem,.ctrProp{font-weight: bold;color:#990000;}
+.xmlAttr{color: #990000;}
+.xmlVal{font-weight: bold;}
+.xmlAttrField{color: #990000;
+	background-color:#FFFFFF; 
+    width:100%; 
+}
+.sql {
+	font-family: Courier;
+	background-color: #F3F3F3;
+}
+ 
+/* ######### Evolutility control ######### */
+/* ######### CSS for Evolutility web control ######### */
+/* (c) Olivier Giulieri 2009 */
+
+div.Evo{
+	width:100%;
+	margin:0;
+	padding:0;
+	border-collapse:collapse;
+    border:solid 1px #bbbbbb; 
+    background-color: #EFF7F1; 
+	}
+div.Evo TR{vertical-align:top}
+img.Icon{
+	margin-left:4px; margin-right:4px; border:0}
+img.Tool{
+	margin-left:4px;
+	border:0}
+.Panel{ 
+    filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=white,endColorStr=#ECF6EE); 
+    border:solid 1px #bbbbbb; 
+    background-color:#EFF7F1;
+}
+.PanelComments{ 
+    border:solid 1px #bbbbbb; 
+    background-color:#F3F3F3;
+}
+.PanelLabel{
+	background: #E0F8EE url(PixEvo/bg_pnl_lbl-green.gif);
+	font-size: small; 
+	padding-bottom:0; 
+	position:relative; 
+	color:#437E3E;
+}
+.SearchLabel{
+	text-align:left;
+}
+.SearchLabel .FieldLabel{
+	margin-left:12;
+}
+.Header{
+	font-weight:bold
+}
+.Right{
+	text-align:right
+}
+.Center{
+	text-align:center
+}
+.Toolbar{
+	background:#EFF7F1; 
+	height:20px;
+	width:100%;
+	position:relative; 
+	font-size:smaller;
+	padding:1}
+.Toolbar span {color:#808080;} 
+.Toolbar span, .Toolbar a, .Ico{
+	text-decoration:none;
+	font-family: "trebuchet ms", helvetica, sans-serif; 
+	font-size:10pt;
+	border:solid 1px transparent;
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	padding: 1 2 3 24px;}    
+.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{color:#808080;text-decoration:none;}
+.Toolbar a.act, .Toolbar a.act:active, .Toolbar a.act:visited{color:#202020;}
+.Toolbar a.act:hover {text-decoration:none;color:#202020;background-color:#f5f5dc;border:solid 1px #888888}
+span.nav{position:absolute;top:0;right:0px;background-image:none}
+a.new{background-position:0 0;}
+a.edit{background-position:0 -21;}
+a.editZ{background-position:0 -42;}
+a.view{background-position:0 -63;}
+a.del{background-position:0 -84;}
+a.delZ{background-position:0 -105;}
+a.search{background-position:0 -126px;}
+a.searchp{background-position:0 -147px;}
+a.sel{background-position:0 -168px;}
+a.print{background-position:0 -189px;}
+a.help{background-position:-115 -651px;width:0}
+a.all{background-position:0 -210px;}
+a.logout{background-position:0 -231px;}
+a.copy{background-position:0 -246px;}
+a.customize{background-position:0 -757px;}
+
+a.nav1{width:20;background-position:0 -274px;}
+span.nav1{width:20;background-position:0 -358px;}
+a.nav2{width:20;background-position:0 -295px;}
+span.nav2{width:20;background-position:0 -379px;}
+a.nav3{width:20;background-position:0 -316px;}
+span.nav3{width:20;background-position:0 -400px;}
+a.nav4{width:20;background-position:0 -337px;} 
+span.nav4{width:20;background-position:0 -421px;} 
+span.nav0 {background-image:none;width:0;padding:0 0 0 0}
+span.nav9 {background-image:none;padding:0 0 0 105}
+span.nav9ff {background-image:none;padding:0 0 0 105}
+span.navp{position:absolute;top:-2;right:0px;background-image:none}
+
+.moveUp,.moveDown,.moveLeft,.moveRight{ 
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat;}
+.moveLeft{background-position:-107 -742;}
+.moveRight{background-position:-127 -742;}
+.moveUp{background-position:-148 -742;}
+.moveDown{background-position:-169 -742;}
+
+div.Key{
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	background-position:0 -231px;
+	width:24px;height:22px;
+	margin-top:18
+}
+
+a.Calendar{height:20;width:20;margin-bottom:6px;background-position:0 -738px;}
+a.Calendar:hover{background-position:-22px -738px;}
+
+a.PanelOpen{height:20;width:20;background-position:0 -441px;}
+a.PanelClose{height:20;width:20;background-position:0 -462px;}
+a.PanelOpen:hover{background-position:-26px -441px;}
+a.PanelClose:hover{background-position:-26px -462px;}
+
+a.MLbigger,a.MLsmaller{height:4;width:5;padding:0 0 0 14}
+a.MLbigger{background-position:0 -702px;margin-left:5}
+a.MLsmaller{background-position:0 -718px;} 
+a.MLbigger:hover{background-position:-21px -702px;}
+a.MLsmaller:hover{background-position:-21px -718px;}
+
+span.Comment{height:20;width:20;background-position:0 -628px;}
+span.Comments{height:20;width:20;background-position:-55 -628px;}
+span.CommentAdd{height:20;width:20;background-position:-25 -628px;}
+span.CommentUser{height:20;width:20;background-position:-85 -628px;}
+
+.AddRow, .DelRow{
+	margin:2px;
+	background: url(pixevo/evolui.gif); 
+	background-repeat:no-repeat; 
+	position:relative;
+	padding:1;
+	padding-left:20;
+}
+.AddRow{background-position:-139 -709px;}
+.DelRow{background-position:-100 -709px;}
+
+div.close{
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	height:20;width:28;background-position:-42 -775px;
+	cursor: pointer;
+}
+
+table.Msg{ 
+    border:solid 1px #bbbbbb;  
+    background-color:#F3F3F3;
+    vertical-align:top;
+	width:100%;
+}
+table.Msg tr td{
+    vertical-align:top;
+}
+.msgInfo{height:24;width:8;background-position:0 -651px;} 
+.msgError{height:24;width:8;background-position:-25 -651px;}
+.msgWarn{height:24;width:8;background-position:-55 -651px;} 
+.msgDel{height:24;width:8;background-position:-85 -651px;}
+.msgHelp{height:24;width:8;background-position:-115 -651px;}
+
+table.MsgInfo,table.MsgWarn,table.MsgDel{
+	background-color:#DDEBF5;border-color:#C4DDEE} 
+table.MsgHelp{
+	background-color:#FFFFCC;border-color:#FFCC35;} 
+table.MsgError{
+	background-color:#fdd;border-color:#fbb;} 
+
+span.CheckGreen,span.CheckBlue,span.CheckRed,span.CheckBlack{
+	height:16;width:18;
+	border-style:none;
+	background-color :transparent; 
+	background-image:url(pixevo/evolui.gif);
+	background-repeat:no-repeat; 
+	margin: 4 6 2 2; 
+}
+span.CheckGreen{background-position:-85 -779px;}
+span.CheckBlue{background-position:-107 -779px;}
+span.CheckRed{background-position:-128 -779px;}
+span.CheckBlack{background-position:-151 -779px;}
+
+a.arrUp,a.arrDown{height:4;width:5;padding:0 0 0 14}
+a.arrUp{background-position:0 -585px;margin-left:5}
+a.arrDown{background-position:0 -601px;} 
+a.arrUp:hover{background-position:-18px -585px;}
+a.arrDown:hover{background-position:-18px -601px;} 
+
+
+.des-frm,.des-pnl,.des-fld,.des-src{
+	height:24;width:24;border:0;
+	background:transparent url(pixevo/evolui.gif) no-repeat; 
+	padding: 0 0 0 24px;
+	position:relative;top:5px; 
+}  
+.des-frm{background-position:0px -680px;}
+.des-pnl{background-position:-25px -680px;}
+.des-src{background-position:-55px -680px;}
+.des-fld{background-position:-85px -680px;}
+	
+.Main{
+	background: #DCDCDC;
+	border: 1px;
+	border-color: Gray;
+	border-style:solid;
+}
+.FormLogin
+{
+	border-collapse:collapse;
+    border:solid 1px #bbbbbb; 
+    background-color:#F3F3F3;
+    padding:0;
+}
+.FormSearch ,.FormExport, .FormSelections {
+	border-collapse:collapse;
+	border:0;
+	width:100%;
+} 
+.FormLogin tr td{
+	 padding: 5 10 5 10;
+} 
+.FormSearch tr td {
+	 padding:5px;
+} 
+.FormExport tr td {
+	 padding:15px;   
+}
+div.ExportOptions {
+	 padding:10px;
+	 padding-left:10px;
+	 height:160px;
+}
+.RowHeader,.dpDayTD{
+	background: #DEE7F7 url(PixEvo/bg_pnl_lbl-green.gif);
+	white-space: nowrap;
+	font-size: smaller ; 
+	color:#437E3E;
+	}
+.RowHeader TD{
+	white-space: nowrap;
+}
+.RowEven{
+	background-color:#ECF6EE;
+	vertical-align:top
+}
+.RowOdd{
+	background-color: #F5FFF7;
+	vertical-align:top
+}
+.RowNewVal{
+	background-color:#A9E1A9;
+}
+.RowBadVal{
+	background-color:#FFCCCC;
+}
+.Holder,.Holder2{
+	border-collapse:collapse;
+	border:0;
+	width:100%;
+}
+.Holder tr td{
+	padding: 2px 3px 2px 3px;	
+}
+.Holder2 tr td, div.Holder2{ 
+	padding: 12px 13px 12px 13px;	
+}
+tr.RowFoot td{ 
+	height:40;
+	padding:6px;
+}
+tr.RowInfo td{
+	padding:10 6 10 6;
+}
+.FieldLabel{
+	color:#404040;
+	font-size: smaller ;
+}
+.LabelBlue{
+	color: Blue;
+	font-weight:bold;
+	font-size: smaller ;
+}
+.FieldLabelEdit{
+	color: Gray;
+	font-size: 1em; 
+}  
+.Field, .FieldReadOnly, .FieldComments, .FieldMain{
+	color:#000000;
+	background-color:#FFFFFF; 
+    width:100%;  
+	text-align:left; 
+}
+ 
+/* .fieldImg 
+{
+	border:solid 6 white
+}  */
+.FramedImg{
+	border:solid 6 white
+}  
+.Field,.Fieldew{
+	padding-left:2px;
+	border-width:2px;
+}
+.Field80{
+	width:80%;
+}
+.Fieldew{
+	color:#000000;
+	background-color:#FFFFFF; 
+	text-align:left;
+}
+.FieldReadOnly{
+	padding-left:3px;
+	border-style:  none;	 
+}
+.FieldInvalid{
+    background-color:#FFCCCC; 
+}
+.FieldMain{ 
+  font-weight:bolder
+}
+.FieldResize{
+	height:100;
+	width:100;
+}
+.Button,.Button2{
+	border: solid 1 #cccccc;
+	padding:2;
+	margin:5;
+	height:40px;
+	color:#5E5E5E;
+	cursor:hand;
+} 
+.Button2{
+	background:#E5FABC;
+}
+.Button{
+	background:#F5FCE6; 
+	color:#5E5E5E;
+	font-weight:bolder;
+} 
+.bSpace{
+	width:20px
+}
+.Required{
+	margin-left:3px;
+	color:#FF0000;
+	font-weight:bold;
+}
+.Calendar{
+	border:0;
+	width:16px;height:16px;
+}
+.HelpTip{
+	font-size:11px;
+	color:#0000CC;
+	background-color:#FFFFCC;
+	border:solid 1px #FFCC35;
+	padding:0 3 1 3;
+	display: inline-block
+}
+.YellowNote{ 
+	color:#505050;
+	background-color:#FFFFCC;
+	border:solid 1px #FFCC35;
+	padding:7;
+	display: inline-block
+}
+.TabBar{border:0;
+	display: inline-block}
+.TabHolder{
+	width:100%;
+	border-bottom:solid 1 #bbbbbb; 
+}
+.Tab, .TabSelected{
+	color: #000000; 
+	height:30px;
+	border-left: 1px outset #bbbbbb; 
+	padding: 6px 10px 6px 10px;
+	text-decoration:none;
+	margin-left:3px;
+	margin-top:5;
+	background: #EDEDED url(PixEvo/bg_bttn.gif);
+}	
+.Tab{
+	background-color:#EDEDED;
+	border-top: 1px outset #bbbbbb;
+	border-right: 1px solid #bbbbbb; 
+	cursor: hand;
+}
+.Tab:visited, .Tab:active, .Tab:hover,
+.TabSelected:active, .TabSelected:visited
+{
+	color:#000000;
+	text-decoration:none;
+}
+.Tab:hover{
+	background:#f5f5dc;
+}	
+.TabSelected{  
+	padding: 8px 10px 8px 10px; 
+	border-top: 1px solid #bbbbbb;
+	border-right: 1px solid #bbbbbb;
+	background:#F3F3F3 url(PixEvo/bg_pnl_lbl.gif); 
+}
+.TabLeft a.Tab, .TabLeft a.TabSelected{
+	width:100%;	
+} 
+.Queries li { line-height:30px}
+.EditGrid{
+	widows:100%; 
+}
+.EditGrid, .EvoEditGrid{ 
+	width:100%
+}
+.EditGrid, .EvoEditGrid, .EvoEditGrid tr td{ 
+	border-collapse:collapse;
+	border:solid 1 #C9D6E9;
+}
+div.ColorBox{height:20;width:20;border:solid 1 #808080;}  
+#fadeEvol{
+    display: none;
+    position: absolute;
+    top:0;left:0;width:4000;height:4000;
+    background-color: gray; 
+    -moz-opacity: 0.62;
+    opacity:.62;  
+    filter: alpha(opacity=62);
+	z-index:12000;
+} 
+#lightEvol{
+    display: none;
+    position: absolute;
+    top:25%;left:25%;width:50%;
+    padding: 16px;
+    border: 4px solid #C1D9EB;
+    background-color: white; 
+    overflow: auto;
+	z-index:12010;
+}
+.LB_Sep{
+	width:100%;
+}
+.Paging{  
+	padding:5px;
+	margin:5;
+} 
+.Paging a, span.PagingSel{ 
+	border: solid 1 #cccccc;
+	padding:0 7 0 7;
+	margin:2 8 2 0;
+} 
+.Paging a{
+	background: #EDEDED url(PixEvo/bg_bttn.gif);
+}
+span.PagingSel{
+	background: #EDEDED url(PixEvo/bg_pnl_lbl-green.gif);
+}
+span.ExtWeb
+{
+	background: url(PixEvo/EvolUI.gif);
+	background-repeat:no-repeat; 
+	background-position: -70 -735px; 
+	height:12;
+	width:16;
+	padding-top:3px;
+}
+
+/* ######### Date Picker #########  Original DatePicker from Julian Robichaux -- http://www.nsftools.com  */
+/* a table cell that holds a date number (either blank or 1-31) */
+.dpTD{
+	border: 1px solid #ece9d8;
+}
+/* a table cell that holds a highlighted day (usually either today's date or the current date field value) */
+.dpDayHighlightTD{
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+}
+/* the date number table cell that the mouse pointer is currently over (you can use contrasting colors to make it apparent which cell is being hovered over) */
+.dpTDHover{
+	background-color: #f5f5dc;
+	border: 1px solid #888888;
+	cursor: pointer;
+	color: #808080;
+}
+/* additional style information for the text that indicates the month and year */
+.dpTitleText{ 
+	color: gray;
+	font-weight: bold;
+}
+/* additional style information for the cell that holds a highlighted day (usually either today's date or the current date field value) */ 
+.dpDayHighlight{
+	color: #4060ff;
+	font-weight: bold;
+}
+
+/* ######### Designer Popup #########  Courtesy of softcomplex.com */
+div#eScreen {
+	background: url('screenBG.gif') repeat;
+}
+table.dialogWindow {
+	background-color: white;
+	border-collapse: collapse;
+}
+.dialogWindow th {
+	background-color: silver;
+	padding: 4px;
+	border-collapse: collapse;
+	border: 0;
+	cursor: move;
+}
+.dialogWindow th img {
+	cursor: pointer;
+	margin: 3px 3px 0 0;
+}
+.dialogWindow td {
+	border-collapse: collapse;
+	border: 0;
+	padding: 0;
+}
+.dialogWindow iframe {
+	border: 0;
+	margin:0;
+}
+
+
+

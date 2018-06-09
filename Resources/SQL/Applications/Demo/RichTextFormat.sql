@@ -1,6 +1,6 @@
 /* Rich Text Format demo database   */
 
-/* (c) 2011 Olivier Giulieri - www.evolutility.org  */
+/* (c) 2012 Olivier Giulieri - www.evolutility.org  */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>

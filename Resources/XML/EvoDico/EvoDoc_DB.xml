@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility - (c) 2011 Olivier Giulieri - www.evolutility.org  -->
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
 <form label="Database Objects" xmlns="http://www.evolutility.com">
     <data dbdetails="1"  dbtable="evoVW_DBObjectList" dborder="t.name" dbcolumnlead="Name"
      entity="object" entities="objects"  dbcolumnicon="pix"  
       splogin="EvoSP_LOGIN @login, @password"   />
 <panel label="Object" width="5">
-      <field type="text" label="Name" cssclass="FieldMain" cssclassview="FieldMain"
+      <field type="text" label="Name" 
 			 readonly="1" maxlength="100" dbcolumn="Name" dbcolumnread="Name" width="70" height="1" dbtablelov="" search="1" searchlist="1" searchadv="1"  />
       <field type="text" label="Type" maxlength="100" dbcolumn="typename" dbcolumnread="typename" 
 		  readonly="1" width="20" search="1" searchlist="1" searchadv="1"/>

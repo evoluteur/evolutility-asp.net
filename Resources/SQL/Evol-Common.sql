@@ -1,5 +1,5 @@
-﻿/* **  (c) 2011 Olivier Giulieri - www.evolutility.org   ** */
-/*    SQL script for generic pagin with Evolutility     */ 
+﻿/* **  (c) 2012 Olivier Giulieri - www.evolutility.org   ** */
+/*    SQL script for generic paging with Evolutility     */ 
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -34,23 +34,40 @@ CREATE PROCEDURE EvoSP_PagedItem
 AS
 
 SET NOCOUNT ON
-CREATE TABLE #TempItems ( IDt int IDENTITY, IDo int)
-IF (@WhereClause='')
-  	INSERT INTO #TempItems (IDo) EXEC('SELECT T.'+@pk+' FROM '+@TableS+'  ORDER BY ' +@OrderBy)
-ELSE
-	EXEC( 'INSERT INTO #TempItems (IDo) SELECT T.'+@pk+' FROM '+@TableS+'  WHERE ' + @WhereClause+ ' ORDER BY '+@OrderBy)
 DECLARE @FirstRec int, @LastRec int
-SELECT @FirstRec = (@Page - 1) * @RecsPerPage
-SELECT @LastRec = (@Page * @RecsPerPage + 1)
-IF (@WhereClause='')
-	EXEC( 'SELECT '+@Select + ', MoreRecords = ( SELECT COUNT(*)  FROM #TempItems Temp  WHERE Temp.IDt >= ' 
-+ @LastRec + ')  FROM #TempItems Temp,  ' + @TableS  
-	+ ' WHERE T.'+@pk+' = Temp.IDo AND Temp.IDt > '+ @FirstRec + ' AND Temp.IDt < '+ @LastRec + '  ORDER BY '+  @OrderBy)
+
+SELECT @FirstRec = (@Page - 1) * @RecsPerPage + 1
+
+SELECT @LastRec = (@Page * @RecsPerPage)
+
+IF(@RecsPerPage > 0)
+BEGIN
+	IF (@WhereClause='')
+	BEGIN	
+		EXEC('WITH Entries AS
+		(SELECT ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ' ) AS ROW, ' + @Select 
+			+ ' FROM ' + @TableS  + ') '
+		+ 'SELECT *, MoreRecords = (SELECT COUNT(*) FROM Entries WHERE ROW > ' + @LastRec + ') FROM Entries T WHERE ROW BETWEEN ' + @FirstRec 
+			+ ' AND ' + @LastRec) 
+	END
+	ELSE
+	BEGIN
+		EXEC('WITH Entries AS
+		(SELECT ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ' ) AS ROW, ' + @Select 
+			+ ' FROM ' + @TableS  + ' WHERE ' + @WhereClause + ')'
+		+ 'SELECT *, MoreRecords = (SELECT COUNT(*) FROM Entries WHERE ROW > ' + @LastRec + ') FROM Entries T WHERE ROW BETWEEN ' + @FirstRec 
+			+ ' AND ' + @LastRec) 
+	END
+END
 ELSE
-	EXEC( 'SELECT '+@Select + ', MoreRecords = ( SELECT COUNT(*)  FROM #TempItems Temp  WHERE Temp.IDt >= ' 
-+ @LastRec + ')  FROM #TempItems Temp,  ' + @TableS  
-	+ ' WHERE T.'+@pk+' = Temp.IDo AND Temp.IDt > '+ @FirstRec + ' AND Temp.IDt < '+ @LastRec + ' AND ' + @WhereClause+ ' ORDER BY '+  @OrderBy)
+BEGIN
+	IF (@WhereClause='')
+		EXEC('SELECT ' + @Select + ' FROM ' + @TableS  + ' ORDER BY ' +  @OrderBy) 
+	ELSE
+		EXEC('SELECT ' + @Select + ' FROM ' + @TableS  + ' WHERE ' + @WhereClause + ' ORDER BY ' +  @OrderBy) 
+END
 SET NOCOUNT OFF
+
 
 GO
 

@@ -13,7 +13,7 @@ Imports System.Web.UI
 <Assembly: AssemblyDescription("Left menu bar for www.Evolutility.org")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("Sidebar")> 
-<Assembly: AssemblyCopyright("Copyright © 2011 Olivier Giulieri")> 
+<Assembly: AssemblyCopyright("Copyright © 2013 Olivier Giulieri")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)> 
 <Assembly: AssemblyCulture("")> 
@@ -32,4 +32,4 @@ Imports System.Web.UI
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("4.0.0")> 
+<Assembly: AssemblyVersion("4.1.0")> 

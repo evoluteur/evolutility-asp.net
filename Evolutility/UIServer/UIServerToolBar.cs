@@ -1,4 +1,4 @@
-//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -9,7 +9,7 @@
 //	(at your option) any later version.
 
 //	Evolutility is distributed WITHOUT ANY WARRANTY;
-//	but  without even the implied warranty of
+//	without even the implied warranty of MERCHANTABILITY
 //	or FITNESS FOR A PARTICULAR PURPOSE.
 //	See the GNU Affero General Public License for more details.
 
@@ -40,14 +40,13 @@ namespace Evolutility
 			StringBuilder zHTML = new StringBuilder();
 			bool YesNo = true;
 			const string sep = "<b>|</b>";
-			bool higherTB = _Language == "JP";
 
 			if (_ToolbarPosition != EvolToolbarPosition.None)
 			{
-				zHTML.Append("\n<div class=\"Toolbar\" id=\"Toolbar\"");
+				zHTML.Append("\n<div class=\"evo-Toolbar\" id=\"Toolbar\"");
 				if(IEbrowser)
 					zHTML.Append(" style=\"height:32px\"");
-				else if (higherTB)
+				else if (_Language == "JP")
 					zHTML.Append(" style=\"height:22px\"");
 				zHTML.Append(">");
 				if (!_DBReadOnly)
@@ -116,9 +115,6 @@ namespace Evolutility
 				zHTML.Append(menuItem(EvoLang.ListAll, "all", true));
 				if (_DBAllowSelections)
 					zHTML.Append(menuItem(EvoLang.Selections, "sel", true));
-				if(_DBAllowSearch || _DBAllowSelections){
-					zHTML.Append(sep);
-				}
 				if (_DBAllowCharts)
 					zHTML.Append(menuItem(EvoLang.Charts, "chart", true));
 				/*
@@ -137,13 +133,10 @@ namespace Evolutility
 						zHTML.Append(menuItem(EvoLang.Export, "export", false));
 					}
 				} */
-				if (_DBAllowPrint || _DBAllowHelp)
-				{
-					if (_DBAllowPrint)
-						zHTML.Append(menuItem(EvoLang.Print, "print", true));
-					if (_DBAllowHelp && _DisplayMode > 0 && _DisplayMode < 5)
-						zHTML.Append(menuItem(EvoUI.HTMLSpace, "help", true));
-				}
+				if (_DBAllowPrint)
+					zHTML.Append(menuItem(EvoLang.Print, "print", true));
+				if (_DBAllowHelp && _DisplayMode > 0 && _DisplayMode < 5)
+					zHTML.Append(menuItem(EvoUI.HTMLSpace, "help", true));
 				if (_DBAllowDesign && !_ShowDesigner) // Customize 
 					zHTML.Append(sep).Append(menuItemCustomize(_DisplayMode, EvoLang.Customize));
 				if (_DBAllowLogout && _UserID > 0) //'--- login / logout 
@@ -159,12 +152,8 @@ namespace Evolutility
 						navBar = (navBefore ? s0 : s1) + (navAfter ? s0 : s1);
 					}
 				}
-				//--- footer menu 
 				zHTML.Append("</div>\n");
 			}
-			//--- extra stuff 
-			if (!SecondIteration && _ShowTitle)
-				zHTML.Append(HTMLTitle( ));
 			return zHTML.ToString();
 		}
 
@@ -173,7 +162,7 @@ namespace Evolutility
 			/// <summary>Form title (mode name or title field).</summary>
 			StringBuilder zHTML = new StringBuilder();
 
-			zHTML.Append("<div class=\"Header\" id=\"EVOL_Title\">");
+			zHTML.Append("<h2 class=\"Header\" id=\"EVOL_Title\">");
 			if (_ItemID > 0 && !def_Data.Equals(null) && !string.IsNullOrEmpty(def_Data.dbcolumnlead))
 			{
 				if (_DisplayMode == 0 || _DisplayMode == 1)
@@ -204,24 +193,7 @@ namespace Evolutility
 						break;
 				}
 			}
-			zHTML.Append(EvoUI.HTMLSpace);
-			string buffer = null;
-			switch (DisplayMode)
-			{
-				case EvolDisplayMode.Search:
-					buffer = EvoUI.HTMLLinkEventRef(s4, EvoLang.AdvSearch);
-					break;
-				case EvolDisplayMode.AdvancedSearch:
-					buffer = EvoUI.HTMLLinkEventRef(s3, EvoLang.Search);
-					break;
-				default:
-					buffer = string.Empty;
-					break;
-			}
-			if (buffer != string.Empty)
-				zHTML.Append("<span style=\"float:right\">").Append(buffer).Append("</span><span class=\"clear\"></span>");
-			zHTML.Append("</div>");
-
+			zHTML.Append("</h2>");
 			return zHTML.ToString();
 		}
 
@@ -234,28 +206,28 @@ namespace Evolutility
 			{
 				switch (cDisplayMode)
 				{
-					case 0:
+					case 0:  // View
 						buffer.AppendFormat(s, EvoLang.View, def_Data.entity);
 						break;
-					case 1:
+					case 1:  // Edit, New
 						if (_ItemID > 0)
 							buffer.AppendFormat(s, EvoLang.Edit, def_Data.entity);
 						else
 							buffer.AppendFormat(s, EvoLang.New, def_Data.entity);
 						break;
-					case 3:
+					case 3:  // Search
 						buffer.AppendFormat(s, EvoLang.Search, def_Data.entities);
 						break;
-					case 4:
+					case 4:  // AdvSearch
 						buffer.AppendFormat(s, EvoLang.AdvSearch, def_Data.entities);
 						break;
-					case 60:
+					case 60:  // Selections
 						buffer.AppendFormat(s, EvoTC.ToUpperLowers(def_Data.entity), EvoLang.Selections);
 						break;
-					case 70:
+					case 70:  // Export
 						buffer.AppendFormat(s, EvoLang.Export, def_Data.entities);
 						break;
-					case 80:
+					case 80:  // MassUpdate
 						buffer.AppendFormat(s, EvoLang.MassUpdate, def_Data.entities);
 						break;
 					case 90:
@@ -291,15 +263,15 @@ namespace Evolutility
 				zHTML.Append("<div class=\"nav1\"></div><div class=\"nav2\"></div>");
 			else
 			{
-				zHTML.AppendFormat(aLinkbuffer, aNumString, "1");
-				zHTML.AppendFormat(aLinkbuffer, aNumString, "2");
+				zHTML.AppendFormat(aLinkbuffer, aNumString, "1")
+					.AppendFormat(aLinkbuffer, aNumString, "2");
 			}
 			if (navAfter)
 				zHTML.Append("<div class=\"nav3\"></div><div class=\"nav4\"></div>");
 			else
 			{
-				zHTML.AppendFormat(aLinkbuffer, aNumString, "3");
-				zHTML.AppendFormat(aLinkbuffer, aNumString, "4");
+				zHTML.AppendFormat(aLinkbuffer, aNumString, "3")
+					.AppendFormat(aLinkbuffer, aNumString, "4");
 			}
 			zHTML.Append("<span class=\"clear\"></span>");
 			return zHTML.ToString();
@@ -307,7 +279,8 @@ namespace Evolutility
 
 		private static string menuItemCustomize(int DisplayMode, string CustomizeLabel)
 		{
-			return EvoUI.HTMLLinkEventRef("c:" + DisplayMode.ToString(), CustomizeLabel + EvoUI.HTMLSpace, "customize act");
+			string label = "<div class=\"customize\"></div> " + CustomizeLabel + EvoUI.HTMLSpace;
+			return EvoUI.HTMLLinkEventRef("c:" + DisplayMode.ToString(), label, "customize act");
 		}
 
 #endregion 

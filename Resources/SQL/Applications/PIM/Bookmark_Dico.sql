@@ -1,4 +1,4 @@
-/* (c) 2011 Olivier Giulieri - www.evolutility.org */
+/* (c) 2012 Olivier Giulieri - www.evolutility.org */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -33,12 +33,12 @@ SELECT @PanelID = SCOPE_IDENTITY();
 
 -- fields --
 INSERT INTO EvoDico_Field (FormID, UserID, PanelID, Label, TypeID, dbcolumn, dbcolumnread, dbcolumnicon, maxlength, dbtablelov, dborderlov, dbcolumnreadlov, dbcolumndetails, dbwherelov, readonly, required, format, link, linklabel, linktarget, search, searchadv, searchlist, cssclass, height, width, CreationDate)
-  VALUES (@FormID, 1, @PanelID, 'Title', 5, 'Title', 'Title', '', 200, '', '', '', '', '', 0, 1, '', '', '', '', 1, 1, 1, 'FieldMain', 1, 62, '2011-1-18 06:29:48 PM');
+  VALUES (@FormID, 1, @PanelID, 'Title', 5, 'Title', 'Title', '', 200, '', '', '', '', '', 0, 1, '', '', '', '', 1, 1, 1, 'FieldMain', 1, 62, '2012-1-18 06:29:48 PM');
 INSERT INTO EvoDico_Field (FormID, UserID, PanelID, Label, TypeID, dbcolumn, dbcolumnread, dbcolumnicon, maxlength, dbtablelov, dborderlov, dbcolumnreadlov, dbcolumndetails, dbwherelov, readonly, required, format, link, linklabel, linktarget, search, searchadv, searchlist, cssclass, height, width, CreationDate)
-  VALUES (@FormID, 1, @PanelID, 'Url', 7, 'url', 'url', '', 300, '', '', '', '', '', 0, 1, '', '', '', 'link', 1, 1, 1, '', 2, 62, '2011-1-18 06:29:48 PM');
+  VALUES (@FormID, 1, @PanelID, 'Url', 7, 'url', 'url', '', 300, '', '', '', '', '', 0, 1, '', '', '', 'link', 1, 1, 1, '', 2, 62, '2012-1-18 06:29:48 PM');
 INSERT INTO EvoDico_Field (FormID, UserID, PanelID, Label, TypeID, dbcolumn, dbcolumnread, dbcolumnicon, maxlength, dbtablelov, dborderlov, dbcolumnreadlov, dbcolumndetails, dbwherelov, readonly, required, format, link, linklabel, linktarget, search, searchadv, searchlist, cssclass, height, width, CreationDate)
-  VALUES (@FormID, 1, @PanelID, 'Category', 4, 'CategoryID', 'Category', '', 2, 'EVOL_BookmarkCategory', '', 'name', '', '', 0, 0, '', '', '', '', 1, 1, 1, '', 1, 38, '2011-1-18 06:29:48 PM');
+  VALUES (@FormID, 1, @PanelID, 'Category', 4, 'CategoryID', 'Category', '', 2, 'EVOL_BookmarkCategory', '', 'name', '', '', 0, 0, '', '', '', '', 1, 1, 1, '', 1, 38, '2012-1-18 06:29:48 PM');
 INSERT INTO EvoDico_Field (FormID, UserID, PanelID, Label, TypeID, dbcolumn, dbcolumnread, dbcolumnicon, maxlength, dbtablelov, dborderlov, dbcolumnreadlov, dbcolumndetails, dbwherelov, readonly, required, format, link, linklabel, linktarget, search, searchadv, searchlist, cssclass, height, width, CreationDate)
-  VALUES (@FormID, 1, @PanelID, 'Notes', 6, 'notes', 'notes', '', 8, '', '', '', '', '', 0, 0, '', '', '', '', 1, 1, 0, '', 4, 100, '2011-1-18 06:29:48 PM');
+  VALUES (@FormID, 1, @PanelID, 'Notes', 6, 'notes', 'notes', '', 8, '', '', '', '', '', 0, 0, '', '', '', '', 1, 1, 0, '', 4, 100, '2012-1-18 06:29:48 PM');
 INSERT INTO EvoDico_Field (FormID, UserID, PanelID, Label, TypeID, dbcolumn, dbcolumnread, dbcolumnicon, maxlength, dbtablelov, dborderlov, dbcolumnreadlov, dbcolumndetails, dbwherelov, readonly, required, format, link, linklabel, linktarget, search, searchadv, searchlist, cssclass, height, width, CreationDate)
-  VALUES (@FormID, 1, @PanelID, 'Creation date', 17, 'CreationDate', 'CreationDate', '', 0, '', '', '', '', '', 1, 0, '', '', '', '', 1, 1, 0, '', 1, 38, '2011-1-18 06:29:48 PM');
+  VALUES (@FormID, 1, @PanelID, 'Creation date', 17, 'CreationDate', 'CreationDate', '', 0, '', '', '', '', '', 1, 0, '', '', '', '', 1, 1, 0, '', 1, 38, '2012-1-18 06:29:48 PM');

@@ -1,6 +1,6 @@
 ﻿//	JAPANESE translation from Kazue Watanabe
 
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -55,7 +55,7 @@ namespace Evolutility
 				ExportFirstLine = "フィールド名の最初の行";
 				ExportFormat = "エクスポートするフォーマット";
 				ExportFields = "エクスポートに含めるフィールド";
-				IDkey = "ID (Primary Key)";
+				IDkey = "ID (主キー)"; //googletranslate
 				AllFields = "すべての分野"; // babelfish
 				ExportFormats = "コンマで区分けされた(CSV, TXT, XLS...)-HTML-SQL ステートメントを挿入する(SQL)-タブ separated values (TXT)-XML-JSON";
 

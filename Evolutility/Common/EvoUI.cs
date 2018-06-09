@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -22,7 +22,6 @@
 using System;
 using System.Text;
 using System.Web;
-//using System.Xml;
 
 namespace Evolutility
 {
@@ -41,13 +40,13 @@ namespace Evolutility
 
 		internal const string evoName = "Evolutility";  
 		internal const string evoLink = "http://www.evolutility.org";
-		internal const string CRE = "\n<!-- Evolutility 4.0 - www.evolutility.org - (c) 2011 Olivier Giulieri -->\n";
+		internal const string CRE = "\n<!-- Evolutility 4.1 - www.evolutility.org - (c) 2013 Olivier Giulieri -->\n";
 
 		internal const string JSscript = "\n<script type=\"text/javascript\">//<![CDATA[\n";
 		internal const string JSscriptClose = "\n //]]></script>\n";
 
 		internal const string tag_BR = "<br/>";
-
+		internal const string clearer = "<div class=\"clear\"></div>";
 		internal const string tag_cTDcTRoTRoTD = "</td></tr><tr><td>";
 		internal const string qChecked = "\" checked=\"checked";
 		internal const string PixCheck = "check.gif";
@@ -59,17 +58,17 @@ namespace Evolutility
 
 		internal const string HTMLPixComment = "<span class=\"Ico Comment\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
 		internal const string HTMLPixCommentAdd = "<span class=\"Ico CommentAdd\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
-		internal const string HTMLPixCommentUser = "<div class=\"Ico CommentUser\">&nbsp;&nbsp;&nbsp;&nbsp;</div>";
+		internal const string HTMLPixCommentUser = "<span class=\"Ico CommentUser\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
 		private const string HTMLPixComment1 = "<span class=\"Ico Comment\" title=\"1\">&nbsp;&nbsp;&nbsp;&nbsp;</span>";
 		private const string HTMLPixComments = "<span class=\"Ico Comments\" title=\"{0}\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>";
 
-		internal const string HTMLPixAddRow = "<span class=\"AddRow\">&nbsp;&nbsp;&nbsp;</span>";
-		internal const string HTMLPixDelRow = "<span class=\"DelRow\">&nbsp;&nbsp;&nbsp;</span>";
+		internal const string HTMLPixAddRow = "<span class=\"AddRow\">&nbsp;</span>";
+		internal const string HTMLPixDelRow = "<span class=\"DelRow\"></span>";
 
 		internal const string HTMLFlagRequired = "<span class=\"Required\">*</span>";
 		internal const string HTMLFlagPopup = "<span class=\"ExtWeb\">&nbsp;</span>";
 
-		internal const string HTMLoptionZero = "<option value=\"0\"> - </option>";
+		internal const string HTMLOptionZero = "<option value=\"0\"> - </option>";
 		internal const string HTMLSpace = "&nbsp;";
 		internal const string HTMLCheckBoxBegin = "<input type=\"checkbox\" name=\"";
 		internal const string HTMLNameIdClass = " name=\"{0}\" id=\"{1}\" class=\"{2}\"";
@@ -121,13 +120,13 @@ namespace Evolutility
 		static internal string HTMLOption(string fieldValue, string fieldlabel, bool selected)
 		{
 			if (selected)
-				return String.Format("<option value=\"{0}\" selected>{1}", fieldValue, fieldlabel);
+				return String.Format("<option value=\"{0}\" selected>{1}</option>", fieldValue, fieldlabel);
 			else
 				return HTMLOption(fieldValue, fieldlabel);
 		}
 		static internal string HTMLOption(string fieldValue, string fieldlabel)
 		{
-			return string.Format("<option value=\"{0}\">{1}", fieldValue, fieldlabel);
+			return string.Format("<option value=\"{0}\">{1}</option>", fieldValue, fieldlabel);
 		}
 
 		static internal string HTMLLinkCSS(string URL, string label, string target, string Img)
@@ -193,9 +192,9 @@ namespace Evolutility
 				return EvoUI.HTMLPixCheckCSS;
 			else
 			{
-				StringBuilder myHTML = new StringBuilder();
-				myHTML.Append(EvoUI.HTMLSpace).Append(EvoUI.HTMLImg(PixPath + EvoUI.PixCheck));
-				return myHTML.ToString();
+				return new StringBuilder()
+					.Append(EvoUI.HTMLSpace).Append(EvoUI.HTMLImg(PixPath + EvoUI.PixCheck))
+					.ToString();
 			}
 		}
 
@@ -234,30 +233,17 @@ namespace Evolutility
 
 		static internal string HTMLInputTextArea(string fName, int fRows)
 		{
-			StringBuilder b = new StringBuilder();
-			b.AppendFormat("<textarea name=\"{0}\" id=\"{0}\" rows=\"{1}", fName, fRows);
-			b.Append("\" cols=\"52\" class=\"Field\"></textarea>");
-			return b.ToString();
+			return new StringBuilder()
+				.AppendFormat("<textarea name=\"{0}\" id=\"{0}\" rows=\"{1}", fName, fRows)
+				.Append("\" cols=\"52\" class=\"Field\"></textarea>")
+				.ToString();
 		}
-		//static internal string HTMLInputTextArea(string fName, int fRows, int fMaxLength, string fCSS)
-		//{
-		//    StringBuilder b = new StringBuilder();
-		//    b.AppendFormat("<textarea name=\"{0}\" id=\"{0}\" class=\"{1}\" rows=\"{2}", fName, fCSS, fRows);
-		//    if (fMaxLength > 0)
-		//        b.Append("\" onKeyUp=\"EvoVal.checkMaxLen(this,").Append(fMaxLength).Append(")");
-		//    b.Append("\" cols=\"52\"></textarea>");
-		//    return b.ToString();
-		//}
 
 		static internal string HTMLInputButton(string name, string label, bool submit, string onclick)
 		{
 			StringBuilder zHTML = new StringBuilder();
 
-			zHTML.Append("<input type=\"");
-			if (submit)
-				zHTML.Append("submit");
-			else
-				zHTML.Append("button");
+			zHTML.Append("<input type=\"").Append(submit?"submit":"button");
 			if (!string.IsNullOrEmpty(onclick))
 				zHTML.Append("\" onclick=\"").Append(onclick);
 			zHTML.Append("\" class=\"Button\" name=\"").Append(name).Append("\" value=\" ").Append(label).Append(" \">");
@@ -273,24 +259,16 @@ namespace Evolutility
 		{
 			StringBuilder zHTML = new StringBuilder();
 
+			zHTML.Append(HTMLCheckBoxBegin).Append(name).Append("\" value=\"").Append(value);
+			if (!string.IsNullOrEmpty(id))
+				zHTML.Append("\" id=\"").Append(id);
+			if (selected)
+				zHTML.Append(qChecked);
+			zHTML.Append("\">");
+			if (!string.IsNullOrEmpty(label))
 			{
-				//zHTML.Append("<div class=\"FieldCheckBox\">");
-				zHTML.Append(HTMLCheckBoxBegin).Append(name).Append("\" value=\"").Append(value);
-				if (!string.IsNullOrEmpty(id))
-					zHTML.Append("\" ID=\"").Append(id);
-				if (selected)
-					zHTML.Append(qChecked);
-				zHTML.Append("\">");
-				if (!string.IsNullOrEmpty(label))
-				{
-					zHTML.Append("<label for=\"");
-					if (string.IsNullOrEmpty(id))
-						zHTML.Append(name);
-					else
-						zHTML.Append(id);
-					zHTML.Append("\"><small>").Append(label).Append("</small></label>");
-				}
-				//zHTML.Append("</div>");
+				zHTML.Append("<label for=\"").Append(string.IsNullOrEmpty(id)?name:id)
+					.Append("\" class=\"smallTxt\">").Append(label).Append("</label>");
 			}
 			return zHTML.ToString();
 		}
@@ -300,7 +278,7 @@ namespace Evolutility
 
 			zHTML.Append(HTMLCheckBoxBegin).Append(nameAndID).Append("\" id=\"").Append(nameAndID).Append("\" value=\"").Append(value).Append("\">");
 			if (!string.IsNullOrEmpty(label))
-				zHTML.Append("<label for=\"").Append(nameAndID).Append("\"><small>").Append(label).Append("</small></label>");
+				zHTML.Append("<label for=\"").Append(nameAndID).Append("\" class=\"smallTxt\">").Append(label).Append("</label>");
 			return zHTML.ToString();
 		}
 		static internal string HTMLInputCheckBox(string nameAndID, string value, bool selected)
@@ -318,10 +296,10 @@ namespace Evolutility
 		{
 			StringBuilder myHTML = new StringBuilder();
 
-			myHTML.AppendFormat("<label for=\"{0}\"><input ID=\"{0}\" name=\"{1}\" value=\"{2}", id, fName, fValue);
+			myHTML.AppendFormat("<label for=\"{0}\" class=\"smallTxt\"><input id=\"{0}\" name=\"{1}\" value=\"{2}", id, fName, fValue);
 			if (selected)
 				myHTML.Append(qChecked);
-			myHTML.Append("\" type=\"radio\"><small>").Append(fLabel).Append("</small></label>&nbsp;");
+			myHTML.Append("\" type=\"radio\">").Append(fLabel).Append("</label>&nbsp;");
 			return myHTML.ToString();
 		}
 		
@@ -329,9 +307,9 @@ namespace Evolutility
 		{
 			StringBuilder myHTML = new StringBuilder();
 
-			myHTML.Append("<nobr><input type=\"text\" class=\"Field Field80\" size=\"15\" maxlength=\"22\"");
-			myHTML.AppendFormat(" name=\"{0}\" id=\"{0}\" value=\"{1}", fName, fValue);
-			myHTML.Append("\">&nbsp;<a href=\"javascript:ShowDatePicker('").Append(fName);
+			myHTML.Append("<nobr><input type=\"text\" class=\"Field Field80\" size=\"15\" maxlength=\"22\"")
+				.AppendFormat(" name=\"{0}\" id=\"{0}\" value=\"{1}", fName, fValue)
+				.Append("\"><a href=\"javascript:ShowDatePicker('").Append(fName);
 			if (locale.Equals("FR") || locale.Equals("IT"))
 				myHTML.Append("', false, 'dmy', '/");
 			else if (locale.Equals("DA"))
@@ -347,10 +325,7 @@ namespace Evolutility
 
 		static internal string TRcssEvenOrOdd(bool b)
 		{
-			if (b)
-				return "<tr class=\"RowEven\">";
-			else
-				return "<tr class=\"RowOdd\">";
+			return b ? "<tr class=\"RowEven\">" : "<tr class=\"RowOdd\">";
 		}
 
 		static internal string HTMLemptyRowEdit(int MaxLoop)
@@ -366,14 +341,9 @@ namespace Evolutility
 
 		static internal string HTMLtextMore(string myText, string myOptions)
 		{ // has a copy in EvoLibDB to avoid dependency
-			StringBuilder zHTML = new StringBuilder();
-			//zHTML.Append("<span>").Append(myText);
-			//string ID = System.Guid.NewGuid().ToString(); 
-			//zHTML.Append("<span class=\"navp\"><a class=\"ico panelopen\" href=\"javascript:");
-			//zHTML.AppendFormat("Evol.togglePanel('{0}',0)\" ID=\"{0}link\"></a></span>", ID); 
-			//zHTML.Append(HTMLDiv(ID, false)).Append(myOptions).Append("</div></span>");  
-			zHTML.Append(myText).Append("<div class=\"Foot\">").Append(myOptions).Append("</div>");
-			return zHTML.ToString();
+			return new StringBuilder()
+				.Append(myText).Append("<div class=\"Foot\">").Append(myOptions).Append("</div>")
+				.ToString();
 		}
 
 		static internal string GetValFromCSVTuples(string myCSVTuples, string myKey)
@@ -397,13 +367,9 @@ namespace Evolutility
 		{
 			/// <summary>make a query and returns the HTML for a lov.</summary>
 			StringBuilder myHTML = new StringBuilder();
-			int curID = 0;
-			string currentEnum = null;
-			string bufferID = null;
-			string bufferValue = null;
-
 			string[] LOVenumerations = enumerationList.Split(new char[] { ',' });
 			int MaxLoop = LOVenumerations.Length;
+
 			if (MaxLoop == 0)
 			{
 				//ErrorMsg += "XML Error: element 'field' of type 'lov' with no attribute 'dbtablelov' or 'lovenumeration'." 
@@ -412,6 +378,10 @@ namespace Evolutility
 			}
 			else
 			{
+				int curID = 0;
+				string currentEnum = null;
+				string bufferID = null;
+				string bufferValue = null;
 				for (int i = 0; i < MaxLoop; i++)
 				{
 					currentEnum = LOVenumerations[i];
@@ -461,7 +431,7 @@ namespace Evolutility
 
 		static internal string HTMLLinkShowVanish(string divID, string linkLabel)
 		{
-			return string.Format("<a id=\"{0}link\" href=\"javascript:Evol.showMore('{0}',1)\">{1}</a>", divID, linkLabel);
+			return string.Format("<a id=\"{0}link\" href=\"javascript:Evol.showMore('{0}',1)\" class=\"smallTxt\">{1}</a>", divID, linkLabel);
 		}
 
 		static internal string HTMLCommentFlag(int nbCommentsRow)
@@ -479,10 +449,7 @@ namespace Evolutility
 
 		static internal string StyleVisibleToggle(bool Visible)
 		{
-			if (Visible)
-				return " style=\"display:inline;\" ";
-			else
-				return " style=\"display:none;\" ";
+			return Visible ? " style=\"display:inline;\" " : " style=\"display:none;\" ";
 		}
 
 		static internal string Link4itemid(string OriginalURL, string ItemID)
@@ -492,13 +459,10 @@ namespace Evolutility
 
 		static internal string HTMLtrColor(string aColor)
 		{
-			if (string.IsNullOrEmpty(aColor))
-				return "<tr>";
-			else
-				return string.Format("<tr bgcolor=\"{0}\">", aColor);
+			return string.IsNullOrEmpty(aColor) ? "<tr>" : string.Format("<tr bgcolor=\"{0}\">", aColor);
 		}
 
-		static internal string HTMLPanelLabel(string PanelLabel, string panelID, string panelClassName, bool CollapsiblePanels)
+		static internal string HTMLPanelLabel(string PanelLabel, string panelID, string panelClassName, bool CollapsiblePanels, bool IEbrowser)
 		{
 			if (string.IsNullOrEmpty(PanelLabel))
 			{
@@ -507,13 +471,26 @@ namespace Evolutility
 			else
 			{
 				StringBuilder HTML = new StringBuilder();
-				HTML.Append("<div class=\"").Append(panelClassName).Append("\">&nbsp;").Append(PanelLabel);
-				if (CollapsiblePanels)
+				if (IEbrowser)
 				{
-					HTML.Append("<span class=\"navp\"><a class=\"Ico PanelClose\" href=\"javascript:");
-					HTML.AppendFormat("Evol.togglePanel('{0}',-1)\" ID=\"{0}link\"></a></span>", panelID);
+					HTML.Append("<table class=\"").Append(panelClassName).Append("\" style=\"width:99%\"><tr><td>");
+					if (CollapsiblePanels)
+					{
+						HTML.Append("<a class=\"Ico PanelClose\" href=\"javascript:")
+							.AppendFormat("Evol.togglePanel('{0}',-1)\" ID=\"{0}link\"><div class=\"navp\"></div></a>", panelID);
+					}
+					HTML.Append(PanelLabel).Append("</td></tr></table>");
 				}
-				HTML.Append("</div>");
+				else
+				{
+					HTML.Append("<div class=\"").Append(panelClassName).Append("\">&nbsp;").Append(PanelLabel);
+					if (CollapsiblePanels)
+					{
+						HTML.Append("<a class=\"Ico PanelClose\" style=\"float:right\" href=\"javascript:")
+							.AppendFormat("Evol.togglePanel('{0}',-1)\" ID=\"{0}link\"><div class=\"navp\"></div></a>", panelID).Append(EvoUI.clearer);
+					}
+					HTML.Append("</div>");
+				}
 				return HTML.ToString();
 			}
 		}
@@ -532,7 +509,7 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 			string css = "Msg"+icon.ToString("G");
 
-			myHTML.Append("<div id=\"Msg\" class=\"Msg ").Append(css).Append("\">");
+			myHTML.Append("<div id=\"Msg\" class=\"Msg bg").Append(css).Append("\">");
 			if (icon != MsgType.x)
 			{
 				myHTML.Append("<div class=\"Ico ").Append(css).Append("\">&nbsp;</div>");
@@ -546,14 +523,14 @@ namespace Evolutility
 		{
 			/// <summary>Search Operator for dropdown.</summary>
 			/// <remarks>operators = equals, start with, contains, finishes with.</remarks>
-			StringBuilder sb = new StringBuilder(); 
-
-			sb.Append("_c\">");
-			sb.Append("<option value=\"eq\">").Append(sEquals);
-			sb.Append("<option value=\"sw\" selected>").Append(sStart);
-			sb.Append("<option value=\"ct\">").Append(sContain);
-			sb.Append("<option value=\"fw\">").Append(sFinish);
-			return sb.ToString();
+			
+			return new StringBuilder()
+				.Append("_c\">")
+				.Append("<option value=\"eq\">").Append(sEquals).Append("</option>")
+				.Append("<option value=\"sw\" selected>").Append(sStart).Append("</option>")
+				.Append("<option value=\"ct\">").Append(sContain).Append("</option>")
+				.Append("<option value=\"fw\">").Append(sFinish).Append("</option>")
+				.ToString();
 		}
 
 		static internal string Signature()
@@ -566,19 +543,18 @@ namespace Evolutility
 		{
 			/// <summary>Login form (HTML).</summary>
 			/// <remarks>Shared between Evolutility, and Wizards.</remarks>
-			StringBuilder myHTML = new StringBuilder();
-
-			myHTML.Append("<p align=\"Center\"><br/><table class=\"FormLogin\" border=\"0\" width=\"62%\"><tr><td><div class=\"Key\"></div></td><td width=\"90%\">");
-			myHTML.Append(HTMLFieldLabel(fNameLogin, labelLogin));
-			myHTML.Append(HTMLInputText(fNameLogin, DefaultLogin, 50));
-			myHTML.Append("</td></tr><tr><td></td><td>");
-			myHTML.Append(HTMLFieldLabel(fNamePassword, labelPassword));
-			myHTML.Append("<input type=\"password\" class=\"Field\" name=\"").Append(fNamePassword).Append("\" maxlength=\"50\">");
-			myHTML.Append("</td></tr><tr><td></td><td class=\"PanelLabel\">");
-			myHTML.Append(HTMLInputButton("Login", labelButton, true, ""));
-			myHTML.Append("<br/>&nbsp;</td></tr></table><br/></p>");
-			myHTML.Append(JSscript).Append("document.getElementById('").Append(fNameLogin).Append("').focus();").Append(JSscriptClose);
-			return myHTML.ToString();
+			return new StringBuilder()
+				.Append("<p align=\"center\"><table class=\"FormLogin\" width=\"62%\"><tr><td><div class=\"Key\"></div></td><td width=\"90%\">")
+				.Append(HTMLFieldLabel(fNameLogin, labelLogin))
+				.Append(HTMLInputText(fNameLogin, DefaultLogin, 50))
+				.Append("</td></tr><tr><td></td><td>")
+				.Append(HTMLFieldLabel(fNamePassword, labelPassword))
+				.Append("<input type=\"password\" class=\"Field\" name=\"").Append(fNamePassword).Append("\" maxlength=\"50\">")
+				.Append("<br/>&nbsp;</td></tr><tr><td></td><td class=\"PanelButtons\">")
+				.Append(HTMLInputButton("Login", labelButton, true, ""))
+				.Append("</td></tr></table><br/></p>")
+				.Append(JSscript).Append("document.getElementById('").Append(fNameLogin).Append("').focus();").Append(JSscriptClose)
+				.ToString();
 		}
 
 #endregion
@@ -609,11 +585,12 @@ namespace Evolutility
 			/// <summary>Script tags for Evolutility JS libraries.</summary>
 			/// <remarks>Used by Evolutility, and EvoDico Wizards.</remarks>
 			const String bScript = "<script type=\"text/javascript\" src=\"";
-			StringBuilder sbJS = new StringBuilder();
-			sbJS.Append(bScript).Append(path).Append("JS/EvolUtility.js\"></script>\n");
-			sbJS.Append(bScript).AppendFormat("{0}JS/lang/{1}.js", path, language).Append("\"></script>\n");
-			sbJS.Append(bScript).Append(path).Append("JS/EvolDate.js\" defer=\"defer\"></script>\n");
-			return sbJS.ToString();
+
+			return new StringBuilder()
+				.Append(bScript).Append(path).Append("JS/EvolUtility.js\"></script>\n")
+				.Append(bScript).AppendFormat("{0}JS/lang/{1}.js", path, language).Append("\"></script>\n")
+				.Append(bScript).Append(path).Append("JS/EvolDate.js\" defer=\"defer\"></script>\n")
+				.ToString();
 		}
 
 		static internal int ModeRequestInt(string strMode)
@@ -665,21 +642,6 @@ namespace Evolutility
 			else
 				return string.Empty;
 		}
-
-		//static internal string LicInfo()
-		//{
-		//    string[] colors = new string[] { "FFC0C0", "FFFFC0", "C0FFC0", "C0FFFF", "C0C0FF", "FFC0FF" };
-		//    StringBuilder sb = new StringBuilder();
-		//    sb.Append("<table style=\"width:100%;padding:10px;background:#");
-		//    Random r = new Random();
-		//    sb.Append(colors[r.Next(0, 5)]);
-		//    sb.Append("\"><tr><td><b>Evolutility</b> offers ");
-		//    sb.Append(HTMLLink("http://evolutility.org/product/License.aspx", "open source", "e", ""));
-		//    sb.Append(" or ");
-		//    sb.Append(HTMLLink("http://evolutility.org/product/Purchase.aspx", "commercial", "e", ""));
-		//    sb.Append(" licenses.</td></tr></table>");
-		//    return sb.ToString();
-		//} 
 
 #endregion
 	

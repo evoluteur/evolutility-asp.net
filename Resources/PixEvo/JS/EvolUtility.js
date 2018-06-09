@@ -1,6 +1,6 @@
 ﻿//   Evolutility Library - www.evolutility.org
 
-//  Copyright (c) 2003-2011 Olivier Giulieri
+//  Copyright (c) 2003-2013 Olivier Giulieri
 //  email: olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
@@ -35,7 +35,7 @@
 
 var Evol={
 
-	version:'4.0',
+	version:'4.0.1',
 	
 	prefix:'EVOLU_',
 	sep:'~!',
@@ -87,9 +87,6 @@ var Evol={
 							case 'help':
 								url='EvoHelp.setHelpContent()';
 								break;
-							case 'search':	// 3
-							case 'searchp': // 4
-								cn='search';
 							case 'sel': // 60
 								url=['Evol.showForm(\'',cn,'\')'].join('');
 								break;
@@ -97,7 +94,7 @@ var Evol={
 								url="EvPost('90')";
 								break;							 
 							default:
-								var toDo={view:0,edit:1,'new':12,all:110,'export':70,export1:72,logout:49};
+								var toDo={view:0,edit:1,search:3,searchp:4,'new':12,all:110,'export':70,export1:72,logout:49};
 								url=['EvPost(',toDo[cn],')'].join('');
 								break;
 							}
@@ -125,55 +122,26 @@ var Evol={
 			}
 		}
 		switch(EvoGen.mode){
-			case '1': // edit view 
-				// Rich Text Editor - Tiny MCE
-				var badRTF=false;
+			case '1': // edit view
 				var fds=EvoGen.fields;
+				var useRTF=badRTF=false;
 				for(var i in fds){
 					var fd=fds[i];
 					if(fd.t=='html'){
 						try{
-							tinyMCE.init({
-								mode:"textareas",
-								theme:"advanced",
-								//plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
-								plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist",
-								editor_selectorzz:"mce",
-								// Theme options
-								theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-								theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-								theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,fullscreen",
-								theme_advanced_toolbar_location : "top", 
-								theme_advanced_toolbar_align : "left", 
-								theme_advanced_statusbar_location : "bottom", 
-								theme_advanced_resizing : true, 
-								// Example content CSS (should be your site CSS) 
-								content_css : "css/content.css",  
-								// Drop lists for link/image/media/template dialogs 
-								template_external_list_url : "lists/template_list.js", 
-								external_link_list_url : "lists/link_list.js", 
-								external_image_list_url : "lists/image_list.js", 
-								media_external_list_url : "lists/media_list.js", 
-								// Style formats 
-								style_formats : [
-									{title : 'Bold text', inline : 'b'},
-									{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-									{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-									{title : 'Example 1', inline : 'span', classes : 'example1'}, 
-									{title : 'Example 2', inline : 'span', classes : 'example2'}, 
-									{title : 'Table styles'}, 
-									{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'} 
-								] 
-							});
-							useRTF=true;
-							break;
+							if(!useRTF){
+								var myNicEditor = new nicEditor();
+								useRTF=true;
+							}
+							myNicEditor.panelInstance(Evol.prefix+fd.id);
 						}catch(err){
 							badRTF=true;
+							break;
 						}
 					}
 				}
 				if(badRTF)
-					alert('Error: Cannot find the rich text editor TinyMCE.')
+					alert('Error: Cannot find the rich text editor nicEdit.')
 				// Details
 				if(EvoUI.isNN(EvoGen.details)){
 					for(var i in EvoGen.details.lst)
@@ -211,15 +179,8 @@ var Evol={
 	// Generic. used for Search and Adv Search for now.
 	showForm:function(m){
 		var isSearch= m=='search';
-		if(useRTF){
-			var editors=tinymce.EditorManager.editors;
-			for(var key in editors){
-				tinyMCE.execCommand('mceRemoveControl',false,editors[key].id);
-			}
-			useRTF=false;
-		}
 		if(isSearch){
-			m1=e$('EVOL_Mode').value;
+			var m1=e$('EVOL_Mode').value;
 			if(m1==3){
 				m='searchp';
 			}
@@ -232,7 +193,7 @@ var Evol={
 			var u=location.href; 
 			var u1=u.lastIndexOf('\/'); 
 			var pn=u.substring(u1+1);
-			pn+=(pn.indexOf("?")>0)?"&":"?";
+			pn+=(pn.indexOf('?')>0)?'&':'?';
 			EvoUI.AJAX(pn, prm, function(f){
 				if(f.length>0){ 
 					if(EvoGen.cacheForms[m]==null)
@@ -291,8 +252,7 @@ var Evol={
 		var te=e$("EVOL_Title")
 		if(te!=null)
 			te.innerHTML=t;
-	},
-	
+	},	
 	addFldLabel:function(f,many){
 		var fh=EvoUI.getOrCreateHidden(f.name+'_lbl',f.parentElement);
 		if(many){
@@ -331,14 +291,19 @@ var Evol={
 	docM:function(fn){
 		e$(fn+'_dp').value='1';
 	},
-
 	pixM:function(fn){
 		Evol.docM(fn);
 		e$(fn+'img').src=EvoGen.path+'imgdelete.gif';
 	},
-
 	deleteItem:function(){
-		Evol.showLB(EvolLang.del.replace('{0}',EvoGen.entity)+'<br/>&nbsp;',null,'EvPost(\'10\')','del');
+		var msg=EvolLang.del.replace('{0}',EvoGen.entity);
+		if(EvoUI.isIE()){
+			if(confirm(msg)){
+				EvPost('10');
+			}
+		}else{
+			Evol.showLB(msg+'<br/>&nbsp;',null,"EvPost('10')",'del');
+		}
 	},
 
 	// Dependent drop-downs 
@@ -349,7 +314,6 @@ var Evol={
 			Evol.setLov(r,fs);
 		});
  	},
-
 	setLov:function(r,fs){
 		if(r!=null){
 			var f=e$(Evol.prefix+fs),err=0;
@@ -440,8 +404,9 @@ var Evol={
 	// Panels & Tabs 
 	togglePanel:function(pID,b){
 		var c,p=e$(pID)
-		if(p==null)
+		if(p==null){
 			return;
+		}
 		var ps=p.style,d=(ps.display=='none');
 		ps.overflow='hidden';
 		if(d){
@@ -484,8 +449,6 @@ var Evol={
 
 }
 
-var useRTF=false;
-
 // ############ EvoVal #################################################################
 
 var EvoVal={ // Validation
@@ -498,7 +461,7 @@ var EvoVal={ // Validation
 	checkNum:function(F,t){
 		var nv,fv=F.value;
 		if(t.substring(0,1)=='i')
-			nv=parseInt(fv)
+			nv=parseInt(fv,10)
 		else{
 			var ln=EvolLang.LOCALE;
 			if(ln=='FR'||ln=='DA')
@@ -529,16 +492,20 @@ var EvoVal={ // Validation
 		};
 		var msgs=[],ff=null;
 		for(var i in fds){
-			var fd=fds[i], f=e$(Evol.prefix+fd.id);
+			var fd=fds[i], f=e$(Evol.prefix+fd.id), isHTML=fd.t=='html';
+			if(isHTML){
+				f.value=nicEditors.findEditor(f.id).getContent();
+			}
 			if(f!=null){
-				var ner=true,nm=msgs.length;
+				var noErr=true,nm=msgs.length;
 				// Check empty & type
-				if(fd.r>0){ 
-					if(isEmpty(f)){
+				if(fd.r>0){
+					if(isEmpty(f, isHTML)){
 						labMsg(EvolLang.empty);
-						ner=false;
-					}else
+						noErr=false;
+					}else{
 						typeCheck();
+					}
 				}else
 					typeCheck();
 				// Check regexp
@@ -554,7 +521,7 @@ var EvoVal={ // Validation
 						labMsg(p);
 				}
 				// Check min & max
-				if(ner){
+				if(noErr){
 					var fv=f.value.trim();
 					if(fv!=''){
 						if(fd.max!=null&&parseFloat(fv)>fd.max)
@@ -566,11 +533,16 @@ var EvoVal={ // Validation
 				flagValid(f,nm==msgs.length);
 			}
 		}
-		if(msgs.length>0)
-			Evol.showLB([EvolLang.intro,"<ul><li>",msgs.join("<li>"),"</li></ul>"].join(""),ff.id,null,"warn");
-		else
+		if(msgs.length>0){
+			if(EvoUI.isIE()){
+				alert(EvolLang.intro+'\n'+msgs.join('\n'));
+			}else{
+				Evol.showLB([EvolLang.intro,'<ul><li>',msgs.join('<li>'),'</li></ul>'].join(''),ff.id,null,'warn');
+			}
+		}else{
 			return true;
-
+		}
+		
 		function typeCheck(){
 			var fv=f.value.trim();
 			if(fv!='')
@@ -581,7 +553,11 @@ var EvoVal={ // Validation
 							labMsg(EvolLang[fd.t]);
 						break;
 					case "decimal":
-						if(!evoRegEx[fd.t+EvolLang.LOCALE].test(fv))
+						var myRegExp=evoRegEx[fd.t+EvolLang.LOCALE];
+						if(myRegExp==null){
+							myRegExp=evoRegEx[fd.t+"EN"]; // default to English with "."
+						}
+						if(!myRegExp.test(fv))
 							labMsg(EvolLang[fd.t]);
 						break;
 					case "datetime":
@@ -591,14 +567,20 @@ var EvoVal={ // Validation
 						break;
 				}
 		}
-		function isEmpty(f){
+		function isEmpty(f, isHTML){
 		    var v,tn=f.tagName;
-			if(tn=="SELECT"&&f.selectedIndex>-1){
+			if(tn=='SELECT'&&f.selectedIndex>-1){
 				v=f.options[f.selectedIndex].value=="0";
-			}else if(tn=="TEXTAREA"){
-			    v=tinyMCE.get(f.id).getContent().trim()=="";
+			}else if(tn=='TEXTAREA' && isHTML){
+				var editor=nicEditors.findEditor(f.id);
+				if(editor){
+					v=editor.getContent().trim()
+					v=v==''||v=='<br>';
+			    }else{
+					v=f.value.trim()=='';
+			    }
 			}else{
-				v=f.value.trim()=="";
+				v=f.value.trim()=='';
 		    }
 		    return v;
 		}
@@ -704,9 +686,9 @@ var EvoExport={
 	formHTML:function(){
 		function ColorBox(fID,lbl,fV){
 			fID='evoColRC'+fID;
-			return ['<tr><td colspan="3">',EvoUI.fieldLabel(fID,lbl),'</td></tr><tr><td valign="top"><input class="Field" type="text" style="width:120;" maxlength="20"',
-			' onKeyUp="EvoExport.color(\'',fID,'\')" name="',fID,'" id="',fID,'" value="',fV,'"></td><td>&nbsp;</td><td ID="',fID,'COL"><div class="ColorBox" style="background:',fV,
-			'"> </div></td></tr>'].join('');
+			return ['<tr><td colspan="2">',EvoUI.fieldLabel(fID,lbl),'</td></tr><tr><td valign="top"><input class="Field" type="text" style="width:120;" maxlength="20"',
+				' onKeyUp="EvoExport.color(\'',fID,'\')" name="',fID,'" id="',fID,'" value="',fV,'"></td><td ID="',fID,'COL"><div class="ColorBox" style="background:',fV,
+				'"> </div></td></tr>'].join('');
 		};
 		var ls=EvolLang.xpColors.split('-');
 		return ['<p><table border="0" class="holder" style="width:100">',
@@ -760,7 +742,7 @@ var EvoGrid={
 	},
 	
 	setSelected:function(f,s){
-		f.style.backgroundColor=(s)?'#F5F5DC':'';
+		f.style.backgroundColor=(s)?'#f5f5dc':'';
 	},
 	
 	setRowCellContent:function(r,i,v){
@@ -777,8 +759,8 @@ var EvoGrid={
 	},
 
 	editRow:function(gID,rIX){
-		var ds=EvoGen.details, gd=ds.lst[gID], fds=gd.flds, g=gd.grid;
-		var gIDo=ds.gIDc;
+		var ds=EvoGen.details, gd=ds.lst[gID], fds=gd.flds, g=gd.grid,
+			gIDo=ds.gIDc;
 		ds.gIDc=gID;
 		if(gd.cRowID==rIX && gID==gIDo)
 			return;
@@ -1036,7 +1018,7 @@ var EvoUI={
 	},
 	inputDate:function(fID,fV){
 		return ['<nobr><input type="text" id="',fID,'" name="',fID,'" value="',fV,'" class="Field Field80" size="15" maxlength="22">',
-			'&nbsp;<a href="javascript:ShowDatePicker(\'',fID,'\');" class="ico Calendar"></a></nobr>'].join('');
+			'<a href="javascript:ShowDatePicker(\'',fID,'\');" class="ico Calendar">&nbsp;&nbsp;&nbsp;</a></nobr>'].join('');
 	},
 	inputCheckbox:function(fID,fV){
 		var fh=['<input type="checkbox" id="',fID,'"'];
@@ -1050,7 +1032,7 @@ var EvoUI={
 		if(sel)
 			fh.push(' checked="checked"');
 		fh.push('"><small>',fLbl,"</small></label>&nbsp;");
-		return fh.join("");
+		return fh.join('');
 	},
 	inputLOV:function(fID,fV,fVLabel,fLOV){
 		var fh=['<select class="Field" id="',fID,'"><option value="',fV,'" selected>',fVLabel,'</option>'];
@@ -1252,6 +1234,6 @@ e$=function(e){
 }
 
 String.prototype.trim=function(){
-	return this.replace(/^\s+|\s+$/g,"");
+	return this.replace(/^\s+|\s+$/g,'');
 }
 

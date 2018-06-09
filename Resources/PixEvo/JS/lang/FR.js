@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library FRENCH
-//   (c) 2011 Olivier Giulieri - www.evolutility.org
+//   (c) 2013 Olivier Giulieri - www.evolutility.org
 //   Translation from Eddy Boels - http://www.ed-design.org/
 
 var EvolLang={

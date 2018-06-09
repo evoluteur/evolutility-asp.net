@@ -1,9 +1,12 @@
 
 /*******************************************************************************
-   Create Views & SPs
+   Chinook Database
+   Script: Create Views & SPs
+   DB Server: SQL Server
+   Version: 1.1
+   License: http://www.codeplex.com/ChinookDatabase/license
 ********************************************************************************/
-
-
+ 
 CREATE VIEW CH_VW_Employee AS 
 SELECT ID, lastname+', '+firstname as name
 FROM CH_Employee;

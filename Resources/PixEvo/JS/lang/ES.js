@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library SPANISH
-//   (c) 2011 Olivier Giulieri - www.evolutility.org
+//   (c) 2013 Olivier Giulieri - www.evolutility.org
 //   Translation by Gilberto Botaro
 
 var EvolLang={

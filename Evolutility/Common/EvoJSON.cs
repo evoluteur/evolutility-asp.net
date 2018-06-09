@@ -1,4 +1,4 @@
-//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -64,6 +64,13 @@ namespace Evolutility
 				return string.Empty;
 			else
 				return HttpUtility.HtmlEncode(Value.Replace("\n\r", "\\n").Replace("\n", "\\n").Replace("\r", "").Replace("'", "\\'"));
+		}
+		static internal string JSONEncodeDoubleQuote(String Value)
+		{
+			if (string.IsNullOrEmpty(Value))
+				return string.Empty;
+			else
+				return HttpUtility.HtmlEncode(Value.Replace("\n\r", "\\n").Replace("\n", "\\n").Replace("\r", "").Replace("\"", "\\\""));
 		}
 
 #endregion 

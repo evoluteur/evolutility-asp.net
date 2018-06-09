@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility metadata for Movie - www.evolutility.org  - (c) 2011 Olivier Giulieri -->
+<!-- Evolutility metadata for Movie - www.evolutility.org  - (c) 2013 Olivier Giulieri -->
   <form label="Movies" xmlns="http://www.evolutility.com">
     <data entity="movie" entities="movies" dbcolumnicon="pix"  
     dbtable="Movie" dborder="T.title"  
@@ -10,7 +10,7 @@
       <field type="image" label="" labeledit="Picture" maxlength="200"  dbcolumn="PIX" dbcolumnread="PIX" width="100" height="1" search="0" searchlist="0" searchadv="0" />
     </panel>
     <panel label="" width="90">
-      <field type="text" label="Title" maxlength="100"  dbcolumn="Title" dbcolumnread="Title" required="1" width="90" height="1" cssclass="FieldMain" search="1" searchlist="1" searchadv="1" searchquick="1" />
+      <field type="text" label="Title" maxlength="100"  dbcolumn="Title" dbcolumnread="Title" required="1" width="90" height="1" search="1" searchlist="1" searchadv="1" searchquick="1" />
       <field type="lov" label="Director" dbcolumn="directorID" dbcolumnread="director" width="50" height="1" dbtablelov="MovieDirector" dbcolumnreadlov="fullname" search="1" searchlist="1" searchadv="1" searchquick="1" 
       link="Movie_Director.aspx?ID=@itemid"/>
   	  <field type="lov" label="Language" maxlength="25" dbcolumn="LanguageID" dbcolumnread="Languagen" width="25" height="1" 

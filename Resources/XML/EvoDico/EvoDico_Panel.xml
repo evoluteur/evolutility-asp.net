@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- (c) 2011 Olivier Giulieri - www.Evolutility.org -->
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
 <form label="Panel" description="field group" xmlns="http://www.evolutility.com"  >
 <data dbtable="EvoDico_Panel" entity="panel" entities="panels" dborder="t.formid,t.ppos,t.id" 
 	  icon="edi_pnl.png" 
@@ -7,7 +7,7 @@
     splogin="EvoDicoSP_Login @login, @password" 
 	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
 <panel label="Panel (field group)" width="100">
-	<field type="text" label="Panel label" cssclass="FieldMain" cssclassview="FieldMain" 
+	<field type="text" label="Panel label"  
 		   help="Panel title" dbcolumn="Label" dbcolumnread="Label" maxlength="100" 
 		   required="0" search="1" searchlist="1" searchadv="1" width="62" />
 	<field label="Form" type="lov" readonly="2"
@@ -30,7 +30,7 @@ link="EvoDicoForm.aspx?ID=@itemid" />
 </panel> 
 <panel-details panelid="1" label="Fields" width="38" 
 dbtabledetails="EvoDico_Field" dbcolumndetails="PanelID"> 
-	<field panelid="1" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" cssclass="fieldmain" 
+	<field panelid="1" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
 		link="EvoDicoField.aspx?ID=@itemid&amp;formID=Search" />
 </panel-details>   
 

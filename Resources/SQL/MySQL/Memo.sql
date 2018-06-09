@@ -1,5 +1,5 @@
 /* Memo pad  */
-/* www.evolutility.org - (c) 2010 Olivier Giulieri  */
+/* www.evolutility.org - (c) 2012 Olivier Giulieri  */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>

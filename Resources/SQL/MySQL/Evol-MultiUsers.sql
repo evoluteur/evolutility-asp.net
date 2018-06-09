@@ -1,4 +1,4 @@
-﻿/* ** www.evolutility.org - (c) 2010 Olivier Giulieri  ** */
+﻿/* ** www.evolutility.org - (c) 2012 Olivier Giulieri  ** */
 /*    SQL script using Evolutility in a multi-user environment  - using MySQL database   */
 
 /* Users */

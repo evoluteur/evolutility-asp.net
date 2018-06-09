@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility metadata for Address Book - (c) 2011 Olivier Giulieri - www.evolutility.org  -->
+<!-- Evolutility metadata for Address Book - (c) 2013 Olivier Giulieri - www.evolutility.org  -->
 <applicationcomponent>
 	<xml>
 		 <![CDATA[ 
@@ -9,9 +9,9 @@
 			splogin="EvoSP_Login @login, @password" 
 			sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
 			<panel label="Identity" width="62">
-				<field type="text" label="Lastname" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" cssclass="fieldmain" 
+				<field type="text" label="Lastname" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
 					   width="62" search="1" searchlist="1" searchadv="1"/>
-				<field type="text" label="Firstname" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" cssclass="fieldmain" 
+				<field type="text" label="Firstname" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
 					   width="38" search="2" searchlist="2" searchadv="2"/>
 				<field type="text" label="Title" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
 					   width="62" search="0" searchlist="0" searchadv="1"/>

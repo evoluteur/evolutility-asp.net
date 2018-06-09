@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -24,6 +24,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;  
 using System.Xml;
@@ -162,7 +163,7 @@ namespace Evolutility
 		private bool _DBAllowMassUpdate = false;
 		private bool _DBAllowSelections = false;
 		private bool _DBAllowHelp = false;
-		private bool _DBAllowPrint = true;
+		private bool _DBAllowPrint = false;
 		private bool _DBAllowLogout = true;
 		//private bool _DBRecordAuditing = false; 
 		private string _DBApplicationKey = string.Empty;
@@ -199,8 +200,6 @@ namespace Evolutility
 		private const string TdTrTableEnd = "</td></tr></table>";
 		private const string HTMLSpace3 = "&nbsp;&nbsp;&nbsp;";
 		private const string inNewBrowser = "_blank";
-		private const string SMALL_tag = "<small>";
-		private const string SMALL_tagClose = "</small>";
 		private const string vbCrLf = "\n";
 
 #endregion
@@ -637,6 +636,7 @@ namespace Evolutility
 				sb.Append(EvoUI.CRE).AppendFormat("<div id=\"{0}\" class=\"Evo {1}\">\n", this.ID, EvoLang.R2L?" R2L":string.Empty);
 				if (_DisplayMode != 50)
 					sb.Append(HTMLmenu(false));
+				// message or alert
 				sb.Append(EvoUI.HTMLInputHidden(vNameItemID, _ItemID.ToString()));
 				output.Write(sb.ToString());
 				if (string.IsNullOrEmpty(ErrorMsg))
@@ -654,9 +654,12 @@ namespace Evolutility
 					output.Write(EvoUI.HTMLMessage(ErrorMsg, EvoUI.MsgType.Error));
 					ErrorMsg = string.Empty;
 				}
+				//--- title
+				if (_ShowTitle)
+					output.Write(HTMLTitle());
 				if (XMLloaded)
 				{
-					output.Write(String.Format("<span id=\"{0}_Content\">", this.ID));
+					output.Write(String.Format("<span id=\"{0}_Content\" class=\"evo-content\">", this.ID));
 					switch (_DisplayMode)
 					{
 						case 0: // view
@@ -730,12 +733,12 @@ namespace Evolutility
 			response.ContentType = "application/octet-stream";
 			switch (mModeName)
 			{
-				case "search": // search
-					response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(3), FormSearch(3))));
-					break;
-				case "searchp": // advanced search
-					response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(4), FormSearch(4))));
-					break;
+				//case "search": // search
+				//    response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(3), FormSearch(3))));
+				//    break;
+				//case "searchp": // advanced search
+				//    response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(4), FormSearch(4))));
+				//    break;
 				case "sel": // selections
 					response.BinaryWrite(Encoding.GetBytes(string.Format(sep, ModeName(60), FormQueries())));
 					break;
@@ -771,7 +774,14 @@ namespace Evolutility
 				fileName = def_Data.dbtable;
 			else
 				fileName = def_Data.entities.Replace(" ", "_");
-			response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}.{1}", fileName, fileExt));
+			if (IEbrowser)
+			{
+				response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}.{1}", HttpUtility.UrlEncode(fileName), fileExt));
+			}
+			else
+			{
+				response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}.{1}", fileName, fileExt));
+			}			
 			if (formatName.Equals(xptCSV))
 				response.ContentType = "application/ms-excel";
 			else
@@ -1039,6 +1049,12 @@ namespace Evolutility
 														sql2.AppendFormat(EvoDB.SQL_NAME_0c, cn.Attributes[xAttribute.dbColumn].Value);
 														sql.Append(EvoDB.dbFormat(fieldValue, fieldType, fieldMaxLength, _Language)).Append(coma);
 													}
+													else if (fieldType==EvoDB.t_bool)
+													{
+														fieldValue = "0";
+														sql2.AppendFormat(EvoDB.SQL_NAME_0c, fieldValue);
+														sql.Append(EvoDB.dbFormat(fieldValue, fieldType, fieldMaxLength, _Language)).Append(coma);
+													}
 												}
 											}
 											if (string.IsNullOrEmpty(ValidationMsg))
@@ -1123,6 +1139,11 @@ namespace Evolutility
 													}
 													else if (!buffer.Equals(Tilda) && buffer != Page.Server.UrlDecode(GetPageRequest(UID + dbcolumn + "_ov")))
 														sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, EvoDB.dbFormat(buffer, fieldType, 0, _Language));
+													else if (fieldType == EvoDB.t_bool)
+													{ 
+														sql.AppendFormat(EvoDB.SQL_NAME_0e1c, dbcolumn, "0");
+														sql.Append(EvoDB.dbFormat("0", fieldType, fieldMaxLength, _Language)).Append(coma);
+													}
 												}
 											}
 											if (string.IsNullOrEmpty(ValidationMsg))
@@ -1514,12 +1535,10 @@ namespace Evolutility
 		private string UploadDoc(Int32 PixID, string fieldName, bool Pix, bool thumbnail) 
 		{ 
 			// save doc in server directory
-			System.Web.HttpPostedFile objFile; 
 			bool DocValid = true; 
 			string strFileName = null; 
 			string fullname = String.Empty; 
-			string strFileExtension = null; 
-		    
+
 			if (Page.Request[fieldName + "_dp"] == s1)
 				strFileName = string.Empty; 
 			//bug? should delete physical file on server 
@@ -1528,11 +1547,11 @@ namespace Evolutility
 				try 
 				{ 
 					//Saving picture file to server 
-					objFile = System.Web.HttpContext.Current.Request.Files[PixID]; 
+					System.Web.HttpPostedFile objFile = System.Web.HttpContext.Current.Request.Files[PixID]; 
 					strFileName = System.IO.Path.GetFileName(objFile.FileName); 
 					if (strFileName != string.Empty) 
-					{ 
-						strFileExtension = System.IO.Path.GetExtension(strFileName).ToLower(); 
+					{
+						string strFileExtension = System.IO.Path.GetExtension(strFileName).ToLower(); 
 						if (Pix) 
 							DocValid = strFileExtension.Equals(".gif") || strFileExtension.Equals(".jpg") || strFileExtension.Equals(".png"); 
 						if (DocValid) 
@@ -1608,7 +1627,7 @@ namespace Evolutility
 			if (_DisplayMode == 72) 
 			{ 
 				//If outputType = xptCSV Or outputType = xptXML Then 
-				sql += BuildSQLDetails(false); 
+				sql += BuildSQLDetailsAndComments(false); 
 				//End If 
 			}
 			ds = EvoDB.GetData(sql, SqlConnection, ref ErrorMsg); 
@@ -1694,8 +1713,8 @@ namespace Evolutility
 							} 
 							sb.Append(cTDcrlf); 
 							yesNo = !yesNo; 
-						} 
-						sb.Append("</table>\n").Append(SMALL_tag).Append(Signature).Append(SMALL_tagClose); 
+						}
+						sb.Append("</table>\n<span class=\"smallTxt\">").Append(Signature).Append("</span>"); 
 						sb.Append("</html>");
 						break; 
 					case xptSQL:
@@ -1759,29 +1778,30 @@ namespace Evolutility
 						if (yesNo)
 							sb.Append(EvoDB.SQL_COMMIT_TRANS);
 						break;
-					case xptJSON: 
-						sb.Append(def_Data.dbtable).Append("=["); 
+					case xptJSON:
+						sb.Append("{\"").Append(def_Data.entities).Append("\":{"); 
 						t2 = ds.Tables[0]; 
+						string rowTitle = "\n\"" + def_Data.entity + "\":{";
 						for (int i = 0; i <= maxRow; i++) 
 						{ 
 							DataRow r = t2.Rows[i];
-							sb.Append("\n{");  
+							sb.Append(rowTitle);  
 							for (int j = minCol; j <= maxCol; j++)
-							{ 
-								sb.Append(t2.Columns[j].ColumnName).Append(":'"); 
+							{
+								sb.Append("\"").Append(t2.Columns[j].ColumnName).Append("\":\""); 
 								try 
 								{
-									sb.Append(EvoJSON.JSONEncode(r[j].ToString())); 
+									sb.Append(EvoJSON.JSONEncodeDoubleQuote(r[j].ToString())); 
 								} 
 								catch 
 								{ } 
-								sb.Append("', ");
+								sb.Append("\", ");
 							}
 							sb.Remove(sb.Length - 2, 2);
 							sb.Append("},\n");  
 						} 
 						sb.Remove(sb.Length - 2, 2);
-						sb.Append("\n]\n");
+						sb.Append("\n}\n}\n");
 						break; 
 					default: //"CSV", "TAB", "TXT", "XLS" 
 						if (outputType.Equals(xptTAB))
@@ -2106,27 +2126,6 @@ namespace Evolutility
 			}
 			return sqlw;
 		}
-
-		//private bool showLicInfo() 
-		//{
-		//    string ln = EvoUI.GetAppSetting("EvolutilityLicense").Trim();
-		//    if (ln.Length==6)
-		//    {
-		//        try
-		//        {
-		//            int i = EvoTC.String2Int(ln);
-		//            Random r = new Random();
-		//            string ln2 = (i * r.Next(1, 7)).ToString();
-		//            ln2 = ln2 + ln2;
-		//            return ln2.IndexOf(ln)<0;
-		//        }
-		//        catch 
-		//        {
-		//            return true;
-		//        }
-		//    }
-		//    return true;
-		//}
 
 #endregion 
 

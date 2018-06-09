@@ -1,4 +1,4 @@
-'  Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
+'  Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 '  This file is part of Evolutility CRUD Framework.
 

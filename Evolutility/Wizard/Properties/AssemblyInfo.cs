@@ -1,4 +1,4 @@
-﻿//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+﻿//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Evolutility.org")]
 [assembly: AssemblyProduct("Evolutility.Wizard")]
-[assembly: AssemblyCopyright("Copyright © 2011 Olivier Giulieri")]
+[assembly: AssemblyCopyright("Copyright © 2003-2013 Olivier Giulieri")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -49,5 +49,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("4.0.0")]
-[assembly: AssemblyFileVersion("4.0.0")]
+[assembly: AssemblyVersion("4.1.0")]
+[assembly: AssemblyFileVersion("4.1.0")]

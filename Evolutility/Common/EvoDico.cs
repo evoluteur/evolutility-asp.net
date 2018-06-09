@@ -1,4 +1,4 @@
-//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -22,7 +22,6 @@
 //#define DB_MySQL
 #undef DB_MySQL
 
-using System.Web;
 using System.Xml;
 using System.Data;
 
@@ -55,11 +54,10 @@ namespace Evolutility
 		{
 			/// <summary>Generate XML from DB dico query.</summary>
 
-			string sql = null;
 			string errorMsg = null;
 			DataSet ds = new DataSet();
 
-			sql = string.Format("EXEC EvoDico_Form_Get @FormID, {0}", EvoDB.p_userid);
+			string sql = string.Format("EXEC EvoDico_Form_Get @FormID, {0}", EvoDB.p_userid);
 #if DB_MySQL
 			ds = EvoDB.GetDataParameters(sql, sqlConnectionDico, new MySqlParameter[] { new MySqlParameter("@FormID", FormID), new MySqlParameter(EvoDB.p_userid, UserID) }, ref errorMsg);
 #else
@@ -73,9 +71,6 @@ namespace Evolutility
 			/// <summary>Generate XML from DB dico query.</summary>
  
 			string errorMsg = null;
-			int MaxLoop;
-			//bool UseTabs = false;
-			//bool UseDetails = false;
 			DataSet ds = new DataSet();
 
 			ds = GetForm(FormID, UserID, sqlConnectionDico);
@@ -84,7 +79,9 @@ namespace Evolutility
 			{
 				//built hierarchical relationships between recordsets 
 				ds.DataSetName = "EvoL";
-				MaxLoop = ds.Tables.Count;
+				//bool UseTabs = false;
+				//bool UseDetails = false;
+				int MaxLoop = ds.Tables.Count;
 				if (MaxLoop > 0)
 				{
 					//'UseTabs = false 

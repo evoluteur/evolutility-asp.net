@@ -1,6 +1,6 @@
-/* ######### CSS for Evolutility web site & web control ######### */
-/*  www.evolutility.org - (c) Olivier Giulieri 2011  */
-/* ######### Evolutility 4.0 ######### */ 
+/*  CSS for Evolutility web site & web control  */
+/*  (c) Olivier Giulieri 2013 - www.evolutility.org */
+/*  Evolutility 4.1  */ 
 
 BODY {
 	margin: 0;
@@ -32,9 +32,9 @@ position: absolute;
 border:0;
 top:37px;left:36px;
 height:72px;width:283px;
-z-index:2000
 }
 table.B{
+min-width: 520px;
 width:100%;
 border:0; 
 background-color: #fff; 
@@ -84,8 +84,12 @@ border: solid 1px #fff;
 color: white;
 font-weight: bold;  
 text-decoration: none; 
-	border-top-left-radius: 4px 4px;
-	border-top-right-radius: 4px 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	-moz-border-top-left-radius: 4px;
+	-moz-border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;	
 }
 #menu a.active, #menu a.active:hover{
 background: #FFFFFF;
@@ -99,11 +103,11 @@ text-decoration: underline;
 } 
 .titleH
 {color: White;
-    font-size: 20px;
-    font-weight: bold;
-    left: 20px;
-    position: absolute;
-    top: 14px;
+	font-size: 20px;
+	font-weight: bold;
+	left: 20px;
+	position: absolute;
+	top: 14px;
 }
 td.LeftPane{
 	background:#f6f6f6;
@@ -130,6 +134,9 @@ div.links div a.sele:active, div.links div a.sele:visited{
 div.links div.sele{ 
 	background-color: #FFFFFF;
 	border: solid 1px #cccccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 .GreyText{
 color:#808080; font-style:italic;
@@ -197,6 +204,7 @@ padding-top: 1.0em;
  position:absolute;
  top:20px;
  left:500px;
+ min-width:300px;
 }
 .version{
 	color:#ffffff;
@@ -215,7 +223,6 @@ font-size:20;
 	border:solid 1px #C9D6E9;
 	vertical-align:top;
 }
-
 .blue_gr1{background-color:#F5F8FB;}
 .blue_gr2{background-color:#CBE2F2;}
 .blue_gr3{background-color:#BBDBF2;}
@@ -233,7 +240,32 @@ font-size:20;
 	border: 2px solid #A7C8E2;
 	margin: 6px 3px 12px 3px;
 	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
 	padding: 10px; 
+}
+
+div.evoFlags div{
+	width:110px;
+	padding:5px 5px 5px 10px;
+	float:left;
+}
+div.demoApp div{
+	width:140px; 
+	padding:5px 5px 5px 10px;
+	float:left;
+}
+p.FAQquestion{
+	font-weight:bold;
+}
+p.FAQanswer{
+	margin-left:20px;
+}
+.shadow {
+	border: 0;
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
 }
 /* ######### Evolutility documentation ######### */
 img.pixEvoMode{
@@ -264,14 +296,14 @@ img.pixEvoMode:hover, img.pixEvoMode:hover2{
 	text-decoration: none;
 	font-family:Courier;
 	border: solid 1px #A2A2A2;
-    padding: 20px 5px 20px 5px;
+	padding: 20px 5px 20px 5px;
 }
 .xmlElem,.ctrProp{font-weight: bold;color:#990000;}
 .xmlAttr{color: #990000;}
 .xmlVal{font-weight: bold;}
 .xmlAttrField{color: #990000;
 	background-color:#FFFFFF; 
-    width:100%; 
+	width:100%; 
 }
 .sql {
 	font-family: Courier;
@@ -285,32 +317,31 @@ img.pixEvoMode:hover, img.pixEvoMode:hover2{
 	background-color:#DFF2FD; 
 	display: inline-block
 }
-.shadow {
-border: 0;
--moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
--webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-}
 /* ######### Evolutility.org ######### */
 /* ######### CSS for Evolutility web control ######### */
-/* (c) 2011 Olivier Giulieri */
+/* (c) 2013 Olivier Giulieri */
 
 .R2L{
-    direction:rtl;
-    font-family:Ezra SIL;
+	direction:rtl;
+	font-family:Ezra SIL;
 } 
 .clear{
-	clear:both;
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
 }
 div.Evo{
 	width:100%;
 	margin:0;
 	padding:0;
 	border-collapse:collapse;
-    border:solid 2px #dedede;
-border-radius: 5px;   
--moz-border-radius: 5px;
--webkit-border-radius: 5px;   
+	border:solid 2px #dedede;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	}
 div.Evo TR{vertical-align:top}
 .EvoContent {
@@ -341,11 +372,24 @@ img.Tool{
 	padding-bottom:7px;
 	margin: 5px;
 }
-.PanelLabel,.PanelButtons{
-	background: #DEE7F7;
-	border: 2px solid #DEDEDE; 
-}
 .PanelLabel {
+	background: #DEE7F7;
+	border:0;
+	border-bottom: 2px solid #DEDEDE;
+	margin: 0 0 5px 0;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-right-radius: 4px;
+	padding: 3px;
+}
+.PanelLabel a { 
+	font-size: x-small; 
+}
+.PanelButtons{
+	background: #DEE7F7;
 	border: 2px solid #DEDEDE;
 	margin: 6px 5px;
 	border-radius: 4px;
@@ -353,24 +397,13 @@ img.Tool{
 	-webkit-border-radius: 4px;
 	padding: 3px;
 }
-.PanelLabel a { 
-	font-size: x-small; 
-}
-.PanelButtons{
-	margin:10px 0 1px 5px;
-	padding:5px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-.PanelIn
-{ 
+.PanelIn{ 
+
 }	
 .noMargin{
-    margin: 2px 0 2px;
+	margin: 2px 0 2px;
 }
-.hSpace
-{
+.hSpace{
 	height:12px;
 }
 .SearchLabel{
@@ -379,8 +412,9 @@ img.Tool{
 .SearchLabel .FieldLabel{
 	margin-left:12;
 }
-.hSpace{height:12px;}
-
+.evo-ml{
+	margin-left:5px;
+}
 .Header{ 
 	padding:4px 4px 4px 10px;  
 	font-weight:bold;
@@ -393,48 +427,48 @@ img.Tool{
 .Center{
 	text-align:center
 }
-.Toolbar{ 
+.evo-Toolbar{ 
 	background: #DEE7F7;
 	border: 2px solid #DEDEDE;
-    margin: 6px 5px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    padding: 3px;
-	height:22px;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px;
+	line-height:22px;
 	overflow:hidden;
 } 
-.Toolbar a{
+.evo-Toolbar a{
 	text-decoration:none;
 	font-family: "trebuchet ms", helvetica, sans-serif; 
 	font-size:10pt;
 	border:solid 1px transparent;
-	margin: 0 4px 0 0;
 	padding: 0 5px 0 0;
 } 
-.Toolbar div{
+.evo-Toolbar div{
 	text-decoration:none;
 	font-family: "trebuchet ms", helvetica, sans-serif; 
 	font-size:10pt;
+	height:18px;
 	border:solid 1px transparent;
 	margin: 0 ;
 	padding: 0 ;
 } 
-.Toolbar b{
+.evo-Toolbar b{
 	float:left;
 } 
-.Toolbar div, .Toolbar a div, .Ico{
+.evo-Toolbar div, .evo-Toolbar a div, .Ico{
 	background-image:url(pixevo/evolui.gif);
 	background-repeat:no-repeat;
-	text-decoration:none;    
+	text-decoration:none;	
 	padding: 1px 2px 1px 2px;
 }
-.Toolbar a, .Toolbar a:visited, .Toolbar a:active, .Toolbar a:hover{
+.evo-Toolbar a, .evo-Toolbar a:visited, .evo-Toolbar a:active, .evo-Toolbar a:hover{
 	color:#808080;
 	text-decoration:none;
 }
-.Toolbar a.act, .Toolbar a.act:active, .Toolbar a.act:visited{color:#202020;}
-.Toolbar a.act:hover {text-decoration:none;
+.evo-Toolbar a.act, .evo-Toolbar a.act:active, .evo-Toolbar a.act:visited{color:#202020;}
+.evo-Toolbar a.act:hover {text-decoration:none;
 	color:#202020;
 	background-color:#f5f5dc;
 	border:solid 1px #888888;
@@ -498,13 +532,16 @@ div.nav4{width:20px;height:20px;background-position:0 -421px;float:left;}
 div.nav0{background-image:none;width:0;padding:0}
 div.navp{ 
 	background-image:none;
-	float: right;
+	width:20px;
+	height:10px;
 } 
 .nav1:hover div,.nav2:hover div,.nav3:hover div, .nav4:hover div{ 
 	color:#202020;
 	background-color:#f5f5dc;
 	border:solid 1px #888888;
-	-moz-border-radius: 4px 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
 }
 
 .moveUp,.moveDown,.moveLeft,.moveRight{ 
@@ -528,7 +565,7 @@ div.Key{
 }
 
 a.Calendar{height:20px;width:20px;margin-bottom:6px;background-position:0 -738px;}
-a.Calendar:hover{background-position:-32px -738px;}
+a.Calendar:hover{background-position:-32px -738px;text-decoration:none;}
 
 a.PanelOpen{height:20px;width:20px;background-position:0 -441px;}
 a.PanelClose{height:20px;width:20px;background-position:0 -462px;}
@@ -543,31 +580,31 @@ a.MLsmaller:hover{background-position:-21px -718px;}
  
 span.Comment{background-position:0 -628px;}
 span.Comments{background-position:-55px -628px;}
-span.CommentAdd{background-position:-25px -624px;}
+span.CommentAdd{background-position:-30px -624px;}
 span.CommentUser{background-position:-85px -628px;float:left;width:22px;}
 
 .PanelComments{ 
-    border: 2px solid #DEDEDE;
-    margin: 6px 5px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    padding: 10px;  
+	border: 2px solid #DEDEDE;
+	margin: 6px 5px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 10px;  
 	border: 2px solid #DEDEDE; 
 }
 .PanelCalendar{ 
-    width:230px;
-    border:solid 1px #bbbbbb; 
+	width:230px;
+	border:solid 1px #bbbbbb;
 	border-radius:7px;
 	-moz-border-radius:7px;
 	-webkit-border-radius:7px;
-    background-color:#F9F9F9;
-    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-    -webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);     
+	background-color:#F9F9F9;
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);	 
 }
 .PanelCalendar tr td{ 
-     width:30px; 
+	 width:30px; 
 }
 .AddRow, .DelRow{
 	margin:2px;
@@ -589,32 +626,37 @@ div.close{
 	background-repeat:no-repeat; 
 	height:20px;width:28px;background-position:-42px -775px;
 	cursor: pointer;
-position:relative;	
-top: -4px;
-right: -4px;
+	position:relative;	
+	top: -4px;
+	right: -4px;
+} 
+div.Msg{ 
+	border:solid 1px #bbbbbb;
+	vertical-align:top;
+	margin-bottom:4px;
+	padding:5px;
+	margin:5px;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
 }
 
-div.Msg{ 
-    border:solid 1px #bbbbbb;  
-    background-color:#F3F3F3;
-    vertical-align:top;
-	width:98%; 
-	margin-bottom:4px;
-    padding:5px;
+.MsgInfo,.MsgError,.MsgWarn,.MsgDel,.MsgHelp{
+	min-height:24px;
+	width:24px;
+	float:left;
 }
-.MsgInfo{height:24px;width:24px;background-position:0 -651px;float:left;} 
-.MsgError{height:24px;width:24px;background-position:-29px -651px;float:left;}
-.MsgWarn{height:24px;width:24px;background-position:-63px -651px;float:left;} 
-.MsgDel{height:24px;width:24px;background-position:-97px -651px;float:left;}
-.MsgHelp{height:24px;width:24px;background-position:-131px -651px;float:left;}
-/* to change
-table.MsgInfo,table.MsgWarn,table.MsgDel{
-	background-color:#DDEBF5;border-color:#C4DDEE} 
-table.MsgHelp{
-	background-color:#FFFFCC;border-color:#FFCC35;} 
-table.MsgError{
-	background-color:#fdd;border-color:#fbb;} 
-*/
+.MsgInfo{background-position:0 -651px;} 
+.MsgError{background-position:-29px -651px;}
+.MsgWarn{background-position:-63px -651px;} 
+.MsgDel{background-position:-97px -651px;}
+.MsgHelp{background-position:-131px -651px;}
+
+.bgMsgInfo,.bgMsgWarn,.bgMsgDel,.bgMsgHelp{
+	background-color:#FFFFCC;} 
+.bgMsgError{
+	background-color:#fdd;} 
+
 span.CheckGreen,span.CheckBlue,span.CheckRed,span.CheckBlack{
 	height:16px;width:18px;
 	border-style:none;
@@ -654,11 +696,10 @@ a.arrDown:hover{background-position:-18px -601px;}
 	border-color: Gray;
 	border-style:solid;
 }
-.FormLogin
-{ 
-    padding:10px;  
-    background-color:#F9F9F9; 
-    border:solid 2px #e0e0e0; 
+.FormLogin{ 
+	padding:10px;  
+	background-color:#F9F9F9; 
+	border:solid 2px #e0e0e0; 
 	border-radius: 5px; 
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -666,10 +707,10 @@ a.arrDown:hover{background-position:-18px -601px;}
 	width:280px;
 }
 .evoLoginFields {
-    margin: 10px 26px;
-    padding: 10px;
-    width: 220px;
-    display:block; 
+	margin: 10px 26px;
+	padding: 10px;
+	width: 220px;
+	display:block; 
 }
 .FormSearch ,.FormExport, .FormSelections {
 	border-collapse:collapse;
@@ -681,7 +722,11 @@ a.arrDown:hover{background-position:-18px -601px;}
 } 
 .FormSearch tr td {
 	padding: 4px 16px 4px 10px;
+	height:38px;
 	vertical-align:top;
+} 
+.FormSearch .Field{
+	min-width:114px;
 } 
 .FormExport tr td {
 	padding:15px; 
@@ -697,8 +742,11 @@ div.ExportOptions {
 	white-space: nowrap;
 	font-size: smaller;
 }
-.RowHeader TD{
+.RowHeader td{
 	white-space: nowrap;
+}
+.RowHeader img{
+	cursor:pointer;
 }
 .RowEven{
 	background-color:#ECF0F6;
@@ -720,7 +768,7 @@ div.ExportOptions {
 	width:100%;
 }
 .Holder tr td{
-	padding: 2px 10px 6px 6px; 
+	padding: 2px; 
 	vertical-align:top;
 }
 .Holder2 tr td, div.Holder2{ 
@@ -736,11 +784,11 @@ tr.RowInfo td{
 .FieldLabel, .FieldLabelR2L{
 	color:#404040;
 	font-size: smaller ;
-    width:100%;
+	width:100%;
 }
 .FieldLabelR2L{
-    font-family:Ezra SIL;
-    direction:rtl;
+	font-family:Ezra SIL;
+	direction:rtl;
 }
 .LabelBlue{
 	color: Blue;
@@ -750,8 +798,9 @@ tr.RowInfo td{
 .Field, .FieldView, .FieldMain{
 	color:#000000;
 	background-color:#FFFFFF; 
-    width:100%;
-	border: 1px solid #C0C0C0; 
+	width:100%;
+	border: 1px solid #C0C0C0;
+	min-width:50px;
 }
 .FieldComments{
 	margin-left:27px;
@@ -763,19 +812,17 @@ tr.RowInfo td{
 .FieldReadOnly{
 	color:#000000;
 	background-color:#FFFFFF; 
-    width:100%;
-	border: 1px solid #e0e0e0; 
+	width:100%;
 }
 
 .FieldRJ{ 
 	color:#000000;
 	background-color:#FFFFFF; 
-    width:100%;
+	width:100%;
 	text-align:right;
 }
  
-/* .fieldImg 
-{
+/* .fieldImg {
 	border:solid 6px white
 }  */
 .FramedImg{
@@ -797,22 +844,25 @@ tr.RowInfo td{
 	text-align:left;
 } 
 .FieldViewR2L{
-    font-family:Ezra SIL;
-    direction:rtl;
+	font-family:Ezra SIL;
+	direction:rtl;
 	color:#000000;
 	background-color:#FFFFFF; 
-    width:100%;
+	width:100%;
 	padding-right:3px;
 	border-style:  none;	 
 }
 .FieldInvalid{
-    background-color:#FFCCCC; 
+	background-color:#FFCCCC; 
 }
 .FieldMain{ 
   font-weight:bolder
 }
 .FieldResize{
 	height:100px;width:100px; 
+}
+.smallTxt{
+	font-size:smaller;
 }
 .Button,.Button2{
 	background: #EDEDED url(PixEvo/bg_bttn.gif);
@@ -829,11 +879,8 @@ tr.RowInfo td{
 .Button{
 	font-weight:bolder;
 } 
-.bSpace{
-	width:20px
-}
-.vSpace{
-	height:20px
+.IndentBtn{
+	margin-left:20px;
 }
 .Required{
 	margin-left:3px;
@@ -845,10 +892,14 @@ tr.RowInfo td{
 	padding: 10px 5px 5px 5px;	
 	margin:10px;
 	float:left;
-    border:solid 2px #e0e0e0; 
+	border:solid 2px #e0e0e0; 
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px; 
+}
+.chartTitle{
+	text-align:center;
+	padding-bottom:20px;
 }
 .Calendar{
 	border:0;
@@ -938,37 +989,38 @@ tr.RowInfo td{
 	border-collapse:collapse;
 	border:solid 1px #C9D6E9;
 	vertical-align:top;
-	border-radius: 2px 2px;
-	-moz-border-radius: 2px 2px;
-	-webkit-border-radius: 2px 2px;
 }
 
-div.ColorBox{height:20px;width:20px;border:solid 1px #808080;}  
+div.ColorBox{
+	height:24px;
+	width:24px;
+	border:solid 1px #808080;
+}  
 #fadeEvol{
-    display: none;
-    position: absolute;
-    top:0;left:0;width:4000px;height:4000px;
-    background-color: gray;
-    -moz-opacity: 0.62;
-    opacity:.62;  
-    filter: alpha(opacity=62);
+	display: none;
+	position: absolute;
+	top:0;left:0;width:4000px;height:4000px;
+	background-color: gray;
+	-moz-opacity: 0.62;
+	opacity:.62;  
+	filter: alpha(opacity=62);
 	z-index:12000;
 } 
 #lightEvol{
-    display: none;
-    position: absolute;
-    top:25%;left:25%;width:400px;
-    padding: 16px;
-    border: 4px solid #C1D9EB;
-    background-color: white;
-    overflow: auto;
+	display: none;
+	position: absolute;
+	top:25%;left:25%;width:400px;
+	padding: 16px;
+	border: 4px solid #C1D9EB;
+	background-color: white;
+	overflow: auto;
 	z-index:12010;
 	border-radius:7px;
 	-moz-border-radius:7px;
 	-webkit-border-radius:7px;
-    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-    -webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
 }
 .LB_Sep{
 	width:100%;	
@@ -979,12 +1031,9 @@ div.ColorBox{height:20px;width:20px;border:solid 1px #808080;}
 } 
 .Paging a, span.PagingSel{ 
 	border: none;
-	padding:0 7px 0 7px;
-	margin:2px 8px 2px 0; 
+	padding:0 2px;
+	margin: 2px 3px; 
 } 
-span.PagingSel{
-	background: #EDEDED url(PixEvo/bg_pnl_lbl.gif);
-}
 span.ExtWeb
 {
 	background: url(PixEvo/EvolUI.gif);

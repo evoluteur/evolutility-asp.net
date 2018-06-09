@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library HINDI
-//   (c) 2011 Olivier Giulieri - www.evolutility.org
+//   (c) 2013 Olivier Giulieri - www.evolutility.org
 //   Translation from P.K.Agarwal -  http://www.nrldc.org/
 
 var EvolLang={

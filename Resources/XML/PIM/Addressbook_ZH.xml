@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--  	Evolutility metadata for Address Book CHINESE SIMPLIFIED 
--  	(c) 2011 Olivier Giulieri - www.evolutility.org 
+-  	(c) 2013 Olivier Giulieri - www.evolutility.org 
 -  	Translated by Sam Zhou  -->
 <form label="地址薄"  xmlns="http://www.evolutility.com" >
 	<data icon="contact.gif" entity="contact" entities="contacts" 
@@ -8,9 +8,9 @@
 	splogin="EvoSP_Login @login, @password" 
 	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
 	<panel label="身份信息" width="62">
-		<field type="text" label="名字" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" cssclass="FieldMain" 
+		<field type="text" label="名字" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
 			   width="62" search="1" searchlist="1" searchadv="1"/>
-		<field type="text" label="姓氏" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" cssclass="FieldMain" 
+		<field type="text" label="姓氏" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
 			   width="38" search="2" searchlist="2" searchadv="2"/>
 		<field type="text" label="职务" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
 			   width="62" search="0" searchlist="0" searchadv="1"/>
@@ -27,7 +27,7 @@
 		<field type="url" label="网站" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
 	</panel>
 	<panel label="地址" width="62">
-		<field type="text" label="地址" labeledit="地址" labellist="地址" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="地址" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
 		<field type="text" label="" labellist="第二地址" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
 		<field type="text" label="城市" maxlength="100" dbcolumn="City" dbcolumnread="City" 
 			   width="62" search="13" searchlist="0" searchadv="1"/>

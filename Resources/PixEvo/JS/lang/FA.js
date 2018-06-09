@@ -1,10 +1,10 @@
 ﻿//   Evolutility Localization Library ENGLISH
-//   www.evolutility.org - (c) 2010 Olivier Giulieri
-
+//   www.evolutility.org - (c) 2013 Olivier Giulieri
+//   PERSIAN (Farsi) - Translated by Sohail Abbasi - http://sohail.khoshfekri.com/
 
 var EvolLang={
 
-	LOCALE:"FA",   // PERSIAN (Farsi) - Translated by Sohail Abbasi - http://sohail.khoshfekri.com/
+	LOCALE:"FA",   // PERSIAN (Farsi) 
 	
 // validation
 	intro:'هنوز کار شما نمام نشده است:',

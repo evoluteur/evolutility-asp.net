@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- (c) 2011 Olivier Giulieri - www.evolutility.org  -->
+<!-- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
 <form label="Database Objects" xmlns="http://www.evolutility.com">
     <data dbdetails="1"  dbtable="evoVW_DBObjectList" dborder="t.name" dbcolumnlead="Name"
      entity="object" entities="objects"  dbcolumnicon="pix"  

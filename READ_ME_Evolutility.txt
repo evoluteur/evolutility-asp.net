@@ -1,4 +1,4 @@
-Evolutility - version 4.0 - 12/12/2011
+Evolutility - version 4.1 - 2/12/2013
 
 Lightweight CRUD Framework for heavy lifting (for ASP.net and SQL Server)
 
@@ -39,7 +39,7 @@ Product documentation is available on-line at http://www.evolutility.org/doc/Evo
 
 For more information please contact info@evolutility.com or go to http://www.evolutility.org.
 
-	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>

@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -24,8 +24,7 @@ using System.Text;
 using System.Data;
 using System.Xml;
 using System.Web;
-using System.Drawing; 
-//using System.Data.SqlClient;
+using System.Drawing;
 
 
 namespace Evolutility
@@ -144,7 +143,7 @@ namespace Evolutility
 				if (MaxLoopSQL > -1 || (ListMode == 2 && _DBAllowInsertDetails))
 				{
 					myHTML.AppendFormat("<span id=\"{0}{1}p\"><table id=\"EvoEditGrid{1}\"", UID, PanelDetailsID);
-					myHTML.Append(" class=\"EvoEditGrid\" border=\"1\" bordercolor=\"#C9D6E9\" rules=\"all"); // attributes border, bordercolor and rules for Firefox
+					myHTML.Append(" class=\"EvoEditGrid\" rules=\"all");
 					if (ListMode == 0 && ColorTranslator.ToHtml(BackColorRowMouseOver) != string.Empty)
 						myHTML.Append("\" style=\"behavior:url(").Append(_PathPixToolbar).Append("tablehl.htc);\" slcolor=\"#FFFFCC\" hlcolor=\"").Append(ColorTranslator.ToHtml(BackColorRowMouseOver));
 					myHTML.Append("\">");
@@ -330,10 +329,7 @@ namespace Evolutility
 						myHTML.Append(EvoUI.HTMLemptyRowEdit(MaxLoopXML + 2));
 					else
 						UseComments = EvoDB.ColumnExists(t, SQLColNbComments);
-					if (string.IsNullOrEmpty(icon))
-						iconEntityDetails = string.Empty;
-					else
-						iconEntityDetails = EvoUI.HTMLIcon(_PathPixToolbar, icon);
+					iconEntityDetails = string.IsNullOrEmpty(icon) ? string.Empty : EvoUI.HTMLIcon(_PathPixToolbar, icon);
 					for (int i = 0; i <= MaxLoopSQL; i++)
 					{
 						myHTML.Append(EvoUI.TRcssEvenOrOdd(YesNo));
@@ -585,12 +581,12 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 			if (_DBAllowInsertDetails)
 			{
-				myHTML.Append("<div class=\"Paging\"><nobr>&nbsp;<a href=\"Javascript:EvoGrid.addRow");
-				myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.AddRow, EvoUI.HTMLPixAddRow);
+				myHTML.Append("<div class=\"Paging\"><nobr><a href=\"Javascript:EvoGrid.addRow")
+					.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.AddRow, EvoUI.HTMLPixAddRow);
 				if (_DBAllowDelete) // inside => no delete if no insert!
 				{
-					myHTML.Append("</a>&nbsp;<a href=\"Javascript:EvoGrid.delRow");
-					myHTML.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.DelRow, EvoUI.HTMLPixDelRow);
+					myHTML.Append("</a>&nbsp;<a href=\"Javascript:EvoGrid.delRow")
+						.AppendFormat("({0})\">{2}{1}", gridID, EvoLang.DelRow, EvoUI.HTMLPixDelRow);
 				}
 				myHTML.Append("</a></nobr></div>");
 			}

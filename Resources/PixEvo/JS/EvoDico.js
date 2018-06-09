@@ -1,6 +1,6 @@
 //   EvoDico Library by Evolutility - www.evolutility.org
 
-//	Copyright (c) 2003-2011 Olivier Giulieri
+//	Copyright (c) 2003-2012 Olivier Giulieri
 //  email: evoluteur at evolutility dot org 
 
 //	This file is part of Evolutility CRUD Framework.

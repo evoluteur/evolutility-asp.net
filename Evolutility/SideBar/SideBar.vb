@@ -1,4 +1,4 @@
-'//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+'//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 '//	This file is part of Evolutility CRUD Framework.
 '//	Source link <http://www.evolutility.org/download/download.aspx>
@@ -100,8 +100,6 @@ Namespace Evolutility.SideBar
 							.Write(MenuRowHTML("Overview", "product.aspx", _MID = 1))
 							.Write(MenuRowHTML("Features", "features.aspx", _MID = 2, , 1))
 							.Write(MenuRowHTML("Metamodel", "metamodel.aspx", _MID = 5, , 1))
-							.Write(MenuRowHTML("News", "news.aspx", _MID = 100))
-							.Write(MenuRowHTML("Release Log", "Release_Log.aspx", _MID = 50, , 1))
 							.Write(MenuRowHTML("License", "License.aspx", _MID = 10))
 							.Write(MenuRowHTML("Purchase", "Purchase.aspx", _MID = 20))
 							If M2 = "@home" Then
@@ -111,14 +109,14 @@ Namespace Evolutility.SideBar
 							.Write(MenuFullChinook(_MID))
 						Case "corp"
 							'.Write(MenuRowHTML("Product", "product.aspx", _MID = 10))
-                            .Write(MenuRowHTML("About Me", "company.aspx", _MID = 0))
-                            '.Write(MenuRowHTML("Services", "services.aspx", _MID = 1))
+							.Write(MenuRowHTML("About Me", "company.aspx", _MID = 0))
+							'.Write(MenuRowHTML("Services", "services.aspx", _MID = 1))
 							.Write(MenuRowHTML("Contact", "contact.aspx", _MID = 2))
-                        Case "down"             ' ## Download ###############
-                            .Write(MenuRowHTML("Download", "download.aspx", _MID = 1))
-                            .Write(MenuRowHTML("Source Code", "evolutility_source_code.aspx", _MID = 100))
-                            .Write(MenuRowHTML("License", "License.aspx", _MID = 10))
-                            .Write(MenuRowHTML("Purchase", "Purchase.aspx", _MID = 20))
+						Case "down"             ' ## Download ###############
+							.Write(MenuRowHTML("Download", "download.aspx", _MID = 1))
+							.Write(MenuRowHTML("Source Code", "evolutility_source_code.aspx", _MID = 100))
+							.Write(MenuRowHTML("License", "License.aspx", _MID = 10))
+							.Write(MenuRowHTML("Purchase", "Purchase.aspx", _MID = 20))
 						Case "evodico"			' ## Admin ###############
 							.Write(MenuFullEvoDico(_MID))
 						Case "doc", "doc1", "more"
@@ -127,9 +125,11 @@ Namespace Evolutility.SideBar
 							Else
 								.Write(MenuRowHTML("Documentation", "doc.aspx", False))
 							End If
-							.Write(MenuRowHTML("Get involved", "Get_Involved.aspx", _MID = 500))
+							'.Write(MenuRowHTML("News", "news.aspx", _MID = 100))
 							.Write(MenuRowHTML("License", "License.aspx", _MID = 3010))
 							.Write(MenuRowHTML("Purchase", "Purchase.aspx", _MID = 3020))
+							.Write(MenuRowHTML("Release Log", "Release_Log.aspx", _MID = 400))
+							.Write(MenuRowHTML("Get involved", "Get_Involved.aspx", _MID = 500))
 							'Case "myusers"
 							'	.Write(MenuRowHTML("Users", "Users.aspx", _MID = 104, "../pixEvo/mec2.gif"))
 							'	.Write(MenuRowHTML("My Profile", "My_user_profiles.aspx", _MID = 105, "../pixEvo/mec.gif"))
@@ -167,10 +167,10 @@ Namespace Evolutility.SideBar
 					sb.Append(MenuRowHTML("Wine cellar", "demo_WineCellar.aspx", False, "wine.gif", 1))
 				End If
 				sb.Append(MenuRowHTML("Restaurants", "demo_Restaurant.aspx", _MID = 110, "resto.gif", 1))
-                'sb.Append(MenuRowHTML("Braille", "demo_Braille.aspx", _MID = 106, "brl.gif", 1))
-                'If _MID = 106 Then
-                '	sb.Append(BRLLinks())
-                'End If
+				'sb.Append(MenuRowHTML("Braille", "demo_Braille.aspx", _MID = 106, "brl.gif", 1))
+				'If _MID = 106 Then
+				'	sb.Append(BRLLinks())
+				'End If
 				sb.Append(MenuRowHTML("Database", "Demo_db.aspx", _MID = 180, "db.gif", 1))
 				If _MID = 180 Then
 					sb.Append(MenuRowHTML("Tables", "Demo_db.aspx?QUERY=U", False, , 2))
@@ -198,7 +198,7 @@ Namespace Evolutility.SideBar
 				sb.Append(MenuRowHTML("<nobr>Custom Validation</nobr>", "dev_Validation.aspx", _MID = 3340, , 1))
 				sb.Append(MenuRowHTML("Permissions", "dev_Permissions.aspx", _MID = 3200, , 1))
 				sb.Append(MenuRowHTML("Navigation", "dev_Navigation.aspx", _MID = 3320, , 1))
-				sb.Append(MenuRowHTML("Events", "dev_Events.aspx", _MID = 3300, , 1))
+				sb.Append(MenuRowHTML("Server Events", "dev_Events.aspx", _MID = 3300, , 1))
 				'	'sb.Append(MenuRowHTML("Formula", "dev_Formula.aspx", _MID = 3310))
 				'	'sb.Append(MenuRowHTML("Test Object", "dev_TestObject.aspx", _MID = 3400)) 
 			End If
@@ -224,43 +224,43 @@ Namespace Evolutility.SideBar
 		Private Function MenuFullEvoDico(ByVal MenuID As Integer) As String
 			Dim sb As New StringBuilder()
 
-            'If LoggedUser Then
-            sb.Append(MenuRowHTML3noLink("Designer", False, "edi_frm_edit.png"))
-            sb.Append(MenuRowHTML("Forms", "EvoDicoForm.aspx", _MID = 1, "edi_frm.png", 1))
-            sb.Append(MenuRowHTML("Panels", "EvoDicoPanel.aspx", _MID = 3, "edi_pnl.png", 1))
-            sb.Append(MenuRowHTML("Fields", "EvoDicoField.aspx", _MID = 2, "edi_fld.png", 1))
-            'sb.Append(MenuRowHTML3("Menus", "EvoDicoMenus.aspx", _MID = 0, "edi_mnu.png"))
-            'sb.Append(MenuRowHTML3("Tabs", "EvoDicoTab.aspx", _MID = 5, "edi_tab.png"))
-            'If _MID = 3 Then .Append(MenuRowHTML("Field Groups", "EvoDicopanels.aspx", _MID = 3)) 
-            'sb.Append(MenuRowHTML3("Panels-details", "EvoDicoPanelDetails.aspx", _MID = 4, "edi_pnd.png"))
-            'sb.Append(MenuRowHTML3("Searches", "EvoDicosearches.aspx", _MID = 5))
-            sb.Append("<br/>")
-            Dim buffer As String = ""
-            If _MID = 120 And Not String.IsNullOrEmpty(Page.Request("WIZ")) Then
-                buffer = Page.Request("WIZ").ToString()
-            End If
-            sb.Append(MenuRowHTML3noLink("App Wizards", False, "wand.png"))
-            sb.Append(MenuRowHTML("New App", "EvoDicoWiz.aspx?WIZ=build", buffer = "build", "app_get.png", 1))
-            sb.Append(MenuRowHTML("Installer", "EvoDicoWiz.aspx?WIZ=install", buffer = "install", "app_cascade.png", 1))
-            ''sb.Append(MenuRowHTML("Import CSV", "EvoDicoWiz.aspx?WIZ=csv2db", buffer = "csv2db", , 1))
-            sb.Append("<br/>")
-            sb.Append(MenuRowHTML3noLink("Manage Users", False, "user.gif"))
-            sb.Append(MenuRowHTML("Users", "EvoUser.aspx", _MID = 150, "user.gif", 1))
-            sb.Append("<br/>")
-            'sb.Append(MenuRowHTML("Test", "EvoDicoTest.aspx", _MID = 1200))
-            sb.Append(MenuRowHTML3noLink("Docs & Data", False, "cog.png"))
-            sb.Append(MenuRowHTML("Forms", "EvoDoc.aspx", _MID = 102, "form_magnify.png", 1))
-            'If _MID > 101 AndAlso _MID < 106 Then
-            sb.Append(MenuRowHTML("Database", "EvoDoc_db.aspx", _MID = 105, "db.gif", 1))
-            sb.Append(MenuRowHTML("Export Data", "EvoDoc_Export.aspx", _MID = 103, "db_go.png", 1))
-            'sb.Append(MenuRowHTML("Map DB tables", "EvoDicoWiz.aspx?WIZ=dbscan", buffer = "dbscan", , 1))
-            'sb.Append(MenuRowHTML("Import XML", "EvoDicoWiz.aspx?WIZ=xml2db", buffer = "xml2db", , 1))
-            'End If
-            'Else
-            '    sb.Append(MenuRowHTML3noLink("Login", False, "key.png"))
-            'End If
-            Return sb.ToString()
-        End Function
+			'If LoggedUser Then
+			sb.Append(MenuRowHTML3noLink("Designer", False, "edi_frm_edit.png"))
+			sb.Append(MenuRowHTML("Forms", "EvoDicoForm.aspx", _MID = 1, "edi_frm.png", 1))
+			sb.Append(MenuRowHTML("Panels", "EvoDicoPanel.aspx", _MID = 3, "edi_pnl.png", 1))
+			sb.Append(MenuRowHTML("Fields", "EvoDicoField.aspx", _MID = 2, "edi_fld.png", 1))
+			'sb.Append(MenuRowHTML3("Menus", "EvoDicoMenus.aspx", _MID = 0, "edi_mnu.png"))
+			'sb.Append(MenuRowHTML3("Tabs", "EvoDicoTab.aspx", _MID = 5, "edi_tab.png"))
+			'If _MID = 3 Then .Append(MenuRowHTML("Field Groups", "EvoDicopanels.aspx", _MID = 3)) 
+			'sb.Append(MenuRowHTML3("Panels-details", "EvoDicoPanelDetails.aspx", _MID = 4, "edi_pnd.png"))
+			'sb.Append(MenuRowHTML3("Searches", "EvoDicosearches.aspx", _MID = 5))
+			sb.Append("<br/>")
+			Dim buffer As String = ""
+			If _MID = 120 And Not String.IsNullOrEmpty(Page.Request("WIZ")) Then
+				buffer = Page.Request("WIZ").ToString()
+			End If
+			sb.Append(MenuRowHTML3noLink("App Wizards", False, "wand.png"))
+			sb.Append(MenuRowHTML("New App", "EvoDicoWiz.aspx?WIZ=build", buffer = "build", "app_get.png", 1))
+			sb.Append(MenuRowHTML("Installer", "EvoDicoWiz.aspx?WIZ=install", buffer = "install", "app_cascade.png", 1))
+			''sb.Append(MenuRowHTML("Import CSV", "EvoDicoWiz.aspx?WIZ=csv2db", buffer = "csv2db", , 1))
+			sb.Append("<br/>")
+			sb.Append(MenuRowHTML3noLink("Manage Users", False, "user.gif"))
+			sb.Append(MenuRowHTML("Users", "EvoUser.aspx", _MID = 150, "user.gif", 1))
+			sb.Append("<br/>")
+			'sb.Append(MenuRowHTML("Test", "EvoDicoTest.aspx", _MID = 1200))
+			sb.Append(MenuRowHTML3noLink("Docs & Data", False, "cog.png"))
+			sb.Append(MenuRowHTML("Forms", "EvoDoc.aspx", _MID = 102, "form_magnify.png", 1))
+			'If _MID > 101 AndAlso _MID < 106 Then
+			sb.Append(MenuRowHTML("Database", "EvoDoc_db.aspx", _MID = 105, "db.gif", 1))
+			sb.Append(MenuRowHTML("Export Data", "EvoDoc_Export.aspx", _MID = 103, "db_go.png", 1))
+			'sb.Append(MenuRowHTML("Map DB tables", "EvoDicoWiz.aspx?WIZ=dbscan", buffer = "dbscan", , 1))
+			'sb.Append(MenuRowHTML("Import XML", "EvoDicoWiz.aspx?WIZ=xml2db", buffer = "xml2db", , 1))
+			'End If
+			'Else
+			'	sb.Append(MenuRowHTML3noLink("Login", False, "key.png"))
+			'End If
+			Return sb.ToString()
+		End Function
 
 		Private Function MenuFullDoc(ByVal MenuID As Integer) As String
 			Dim sb As New StringBuilder()
@@ -344,26 +344,26 @@ Namespace Evolutility.SideBar
 		End Function
 
 		Private Function MenuFullChinook(ByVal MenuID As Integer) As String
-            Dim sb As New StringBuilder()
+			Dim sb As New StringBuilder()
 
-            sb.Append(MenuRowHTML("Chinook Demo", "Chinook_by_Evolutility.aspx", MenuID = 12))
-            sb.Append("<br/>")
-            sb.Append(MenuRowHTML("Albums", "Album.aspx", MenuID = 10, "cd.png", 1))
-            sb.Append(MenuRowHTML("Artists", "Artist.aspx", MenuID = 20, "user_orange.png", 1))
-            sb.Append(MenuRowHTML("Tracks", "Track.aspx", MenuID = 30, "music.png", 1))
-            sb.Append("<br/>")
-            sb.Append(MenuRowHTML("PlayLists", "PlayList.aspx", MenuID = 50, "page_lightning.png", 1))
-            sb.Append(MenuRowHTML("Music Genres", "LOV_Genre.aspx", MenuID = 60, , 1))
-            sb.Append(MenuRowHTML("Media Types", "LOV_MediaType.aspx", MenuID = 70, , 1))
-            sb.Append("<br/>")
-            sb.Append(MenuRowHTML("Employees", "Employee.aspx", MenuID = 100, "User.png", 1))
-            sb.Append(MenuRowHTML("Customers", "Customer.aspx", MenuID = 110, "user_gray.png", 1))
-            sb.Append(MenuRowHTML("Invoices", "Invoice.aspx", MenuID = 120, "calculator_edit.png", 1))
-            sb.Append("<br/>")
-            sb.Append(MenuRowHTML("Database", "Chinook_DB.aspx", MenuID = 200, "db.gif", 1))
-            sb.Append("<br/><br/>")
-            sb.Append(MenuRowHTML("More demos", "../demo/demo.aspx", False))
-            Return sb.ToString()
+			sb.Append(MenuRowHTML("Chinook Demo", "Chinook_by_Evolutility.aspx", MenuID = 12))
+			sb.Append("<br/>")
+			sb.Append(MenuRowHTML("Albums", "Album.aspx", MenuID = 10, "cd.png", 1))
+			sb.Append(MenuRowHTML("Artists", "Artist.aspx", MenuID = 20, "user_orange.png", 1))
+			sb.Append(MenuRowHTML("Tracks", "Track.aspx", MenuID = 30, "music.png", 1))
+			sb.Append("<br/>")
+			sb.Append(MenuRowHTML("PlayLists", "PlayList.aspx", MenuID = 50, "page_lightning.png", 1))
+			sb.Append(MenuRowHTML("Music Genres", "LOV_Genre.aspx", MenuID = 60, , 1))
+			sb.Append(MenuRowHTML("Media Types", "LOV_MediaType.aspx", MenuID = 70, , 1))
+			sb.Append("<br/>")
+			sb.Append(MenuRowHTML("Employees", "Employee.aspx", MenuID = 100, "User.png", 1))
+			sb.Append(MenuRowHTML("Customers", "Customer.aspx", MenuID = 110, "user_gray.png", 1))
+			sb.Append(MenuRowHTML("Invoices", "Invoice.aspx", MenuID = 120, "calculator_edit.png", 1))
+			sb.Append("<br/>")
+			sb.Append(MenuRowHTML("Database", "Chinook_DB.aspx", MenuID = 200, "db.gif", 1))
+			sb.Append("<br/><br/>")
+			sb.Append(MenuRowHTML("More demos", "../demo/demo.aspx", False))
+			Return sb.ToString()
 		End Function
 
 #End Region
@@ -380,7 +380,7 @@ Namespace Evolutility.SideBar
 			Dim buffer As New System.Text.StringBuilder
 
 			If selected Then
-                buffer.Append("<div class=""sele""><a href=""")
+				buffer.Append("<div class=""sele""><a href=""")
 			Else
 				buffer.Append("<div><a href=""")
 			End If
@@ -400,23 +400,23 @@ Namespace Evolutility.SideBar
 			End If
 			buffer.Append("</div>")
 			Return buffer.ToString
-        End Function
-        Private Function MenuRowHTML3noLink(ByVal menuTitle As String, Optional ByVal selected As Boolean = False, Optional ByVal Icon As String = "") As String
-            Dim buffer As New System.Text.StringBuilder
+		End Function
+		Private Function MenuRowHTML3noLink(ByVal menuTitle As String, Optional ByVal selected As Boolean = False, Optional ByVal Icon As String = "") As String
+			Dim buffer As New System.Text.StringBuilder
 
-            buffer.Append("<div class=""")
-            If selected Then
-                buffer.Append("sele mt")
-            Else
-                buffer.Append("mt")
-            End If
-            buffer.Append("""><b>")
-            If Not String.IsNullOrEmpty(Icon) Then
-                buffer.Append("<img src=""../pixevo/").Append(Icon).Append(""" border=0>&nbsp;")
-            End If
-            buffer.Append(menuTitle).Append("</b></div>")
-            Return buffer.ToString
-        End Function
+			buffer.Append("<div class=""")
+			If selected Then
+				buffer.Append("sele mt")
+			Else
+				buffer.Append("mt")
+			End If
+			buffer.Append("""><b>")
+			If Not String.IsNullOrEmpty(Icon) Then
+				buffer.Append("<img src=""../pixevo/").Append(Icon).Append(""" border=0>&nbsp;")
+			End If
+			buffer.Append(menuTitle).Append("</b></div>")
+			Return buffer.ToString
+		End Function
 
 		Private Function MenuRowHTML(ByVal menuTitle As String, ByVal menuLink As String, Optional ByVal selected As Boolean = False, Optional ByVal icon As String = "", Optional ByVal indent As Short = 0, Optional ByVal iconPath As String = "") As String
 			Dim buffer As New System.Text.StringBuilder
@@ -426,7 +426,7 @@ Namespace Evolutility.SideBar
 				buffer.AppendFormat("indent{0} ", indent)
 			End If
 			If selected Then
-                buffer.Append("sele""><a href=""")
+				buffer.Append("sele""><a href=""")
 			Else
 				buffer.Append("""><a href=""")
 			End If
@@ -479,7 +479,7 @@ Namespace Evolutility.SideBar
 			sql += " ORDER BY title"
 			ds = GetData(sql, _SqlConnection)
 			If ds Is Nothing Then
-                't.Dispose()
+				't.Dispose()
 				ds.Dispose()
 				Return String.Empty
 			Else
@@ -498,7 +498,7 @@ Namespace Evolutility.SideBar
 					menuLink = String.Format("{0}?formID={1}", pageURL, t.Rows(i).Item("id"))
 
 					If Val(t.Rows(i).Item("id")) = formID Then
-                        sb.AppendFormat("<div class=""sele""><a href=""{0}"">{2}&nbsp;{1}</a>", menuLink, CStr(t.Rows(i).Item("title")), icon)
+						sb.AppendFormat("<div class=""sele""><a href=""{0}"">{2}&nbsp;{1}</a>", menuLink, CStr(t.Rows(i).Item("title")), icon)
 						sb.Append("<br/><a href=""").Append(menuLink).Append("&MODE=new"" class=""Indent1"">new</a>")
 						sb.Append("<br/><a href=""").Append(menuLink).Append("&MODE=search"" class=""Indent1"">search</a>")
 						sb.Append("</div>")

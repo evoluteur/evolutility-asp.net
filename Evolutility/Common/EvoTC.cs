@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -71,10 +71,10 @@ namespace Evolutility
 				//    DateFormatSD = "{0:dd/MM-yyyy}";
 				//    DateFormatSDT = "{0:dd/MM-yyyy} {0:t}";
 					break;
-                case "FA":
-                    DateFormatSD = "{0:yy/MM/dd}";
-                    DateFormatSDT = "{0:yy/MM/dd} {0:t}";
-                    break;
+				case "FA":
+					DateFormatSD = "{0:yy/MM/dd}";
+					DateFormatSDT = "{0:yy/MM/dd} {0:t}";
+					break;
 				default: // All other languages
 					DateFormatSD = "{0:dd/MM/yyyy}";
 					DateFormatSDT = "{0:dd/MM/yyyy} {0:t}";
@@ -87,8 +87,8 @@ namespace Evolutility
 			/// <summary>Returns DefaultDateFormat for fieldtype (date, time, datetime).</summary> 
 			switch (fType)
 			{
-				case "date":
-					return DateFormatSD;
+				//case "date":
+				//    return DateFormatSD;
 				case "datetime":
 					return DateFormatSDT;
 				case "time":
@@ -134,16 +134,13 @@ namespace Evolutility
 				case 1:
 					return myString.ToUpper();
 				default:
-					return myString.Substring(0, 1).ToUpper() + myString.Substring(1).ToLower();
+					return myString.Substring(0, 1).ToUpper() + myString.Substring(1);
 			}
 		}
 
 		static internal string Text2HTML(string myText)
 		{
-			if (string.IsNullOrEmpty(myText))
-				return string.Empty;
-			else 
-				return HttpUtility.HtmlEncode(myText);
+			return string.IsNullOrEmpty(myText) ? string.Empty : HttpUtility.HtmlEncode(myText);
 		}
 
 		static internal string Text2HTMLwBR(string myText)
@@ -156,10 +153,7 @@ namespace Evolutility
 
 		static internal string HTML2SQL(string myHTML)
 		{
-			if (myHTML.IndexOf("&") > -1)
-				return System.Web.HttpUtility.HtmlDecode(myHTML);
-			else
-				return myHTML;
+			return (myHTML.IndexOf("&") > -1) ? System.Web.HttpUtility.HtmlDecode(myHTML) : myHTML;
 		}
 
 		static internal int String2Int(string myString)
@@ -191,10 +185,7 @@ namespace Evolutility
 		
 		static internal int Bool2Int(bool myBool)
 		{
-			if (myBool)
-				return 1;
-			else
-				return 0;
+			return myBool ? 1 : 0;
 		}	
 		
 		static internal bool isInteger(string myString)
@@ -235,10 +226,7 @@ namespace Evolutility
 
 		static internal string StrVal(string s)
 		{
-			if (string.IsNullOrEmpty(s))
-				return "0";
-			else
-				return String2Int(s).ToString();
+			return string.IsNullOrEmpty(s) ? "0" : String2Int(s).ToString();
 		}
 
 #endregion

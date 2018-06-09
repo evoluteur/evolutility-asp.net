@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -58,7 +58,6 @@ namespace Evolutility
 		{
 			/// <summary>EDIT and VIEW forms.</summary>
 			int i, iTab, nbTabs = 0, MinLoopXML = 0, MaxLoopXML = 0;
-			int activeTab = 0;
 			bool editOK = false, YesNo = false;
 			string extraJS = String.Empty;
 			int PanelWidth = 0, lineWidth = 0;
@@ -106,7 +105,7 @@ namespace Evolutility
 				int Holder = 0;
 				//back to last search result 
 				if (Page.Cache[String.Format("{0}_W", GetCacheKey(def_Data.dbtable))] != null)
-					myHTML.AppendFormat("&nbsp;<a href=\"javascript:EvPost('105')\">{0}</a>", EvoLang.Back2SearchResults);
+					myHTML.AppendFormat("&nbsp;<a href=\"javascript:EvPost('105')\" class=\"evo-ml\">{0}</a>", EvoLang.Back2SearchResults);
 				//for (var i=0;i<mes.Count;i++)
 				foreach (XmlNode me in mes)
 				{
@@ -126,6 +125,7 @@ namespace Evolutility
 					}
 				}
 				//--- Tabs 
+				int activeTab = 0;
 				XmlNodeList aNodeListTabs = null;
 				if (Holder > 0)
 					aNodeListTabs = myDOM.DocumentElement.SelectNodes(xQuery.tab, nsManager);
@@ -224,7 +224,7 @@ namespace Evolutility
 							else
 							{      //##--- panel details 
 								if (!detailsLoaded)
-									BuildSQLDetails(true);
+									BuildSQLDetailsAndComments(true);
 								PanelDetailsIndex += 1;
 								{
 									if (cn.Attributes["panelid"] == null)
@@ -241,12 +241,12 @@ namespace Evolutility
 										icon = EvoUI.HTMLIcon(_PathPixToolbar, cn.Attributes[xAttribute.icon].Value);
 									buffer = cn.Attributes[xAttribute.label].Value;
 									if (cn.Attributes[xAttribute.cssClass] == null)
-										PanelCSSclass = EvoUI.cssPanel;
+										PanelCSSclass = ""; //EvoUI.cssPanel;
 									else
 									{
 										PanelCSSclass = cn.Attributes[xAttribute.cssClass].Value;
-										if (string.IsNullOrEmpty(PanelCSSclass))
-											PanelCSSclass = EvoUI.cssPanel;
+										//if (string.IsNullOrEmpty(PanelCSSclass))
+										//	PanelCSSclass = EvoUI.cssPanel;
 									}
 									myHTML.Append(EvoUI.HTMLDiv(buffer2, true));
 									if (ds2 != null)
@@ -257,8 +257,8 @@ namespace Evolutility
 										string panelId = buffer2 + "dtl";
 										if (!string.IsNullOrEmpty(buffer))
 										{
-											myHTML.Append(EvoUI.HTMLPanelLabel(buffer, panelId, EvoUI.cssPanelLabel, _CollapsiblePanels));
-											myHTML.Append(EvoUI.tag_cTDcTRoTRoTD);
+											myHTML.Append(EvoUI.HTMLPanelLabel(buffer, panelId, EvoUI.cssPanelLabel, _CollapsiblePanels, IEbrowser))
+												.Append(EvoUI.tag_cTDcTRoTRoTD);
 										}
 										if (cn.Attributes[xAttribute.icon] == null)
 											icon = string.Empty;
@@ -268,9 +268,9 @@ namespace Evolutility
 											dbcolumnicon = string.Empty;
 										else
 											dbcolumnicon = cn.Attributes[xAttribute.dbColumnIcon].Value;
-										myHTML.Append("<span id=\"").Append(panelId).Append("\">");
-										myHTML.Append(HTMLDataset(cn.ChildNodes, String.Empty, buffer, eDisplayMode + 1, LinkDetailNew, false, PanelDetailsIndex, PanelDetailsId));
-										myHTML.Append("</span>");
+										myHTML.AppendFormat("<span id=\"{0}\">", panelId)
+											.Append(HTMLDataset(cn.ChildNodes, String.Empty, buffer, eDisplayMode + 1, LinkDetailNew, false, PanelDetailsIndex, PanelDetailsId))
+											.Append("</span>");
 										myHTML.Append(TdTrTableEnd);
 									}
 								}
@@ -310,7 +310,7 @@ namespace Evolutility
 							noCommentsHere = true;
 						}
 						if (!detailsLoaded)
-							BuildSQLDetails(true);
+							BuildSQLDetailsAndComments(true);
 						myHTML.Append(FormComments(nbComments));
 						//'##### RATING ##### 
 						//If _DBAllowRating Then 
@@ -348,10 +348,10 @@ namespace Evolutility
 		{
 			/// <summary>SEARCH and ADVANCED SEARCH forms.</summary>
 			string SelectOptionsNull = string.Format(EvoTC.f_0_1, EvoUI.HTMLOption(EvoDB.soIsNull, EvoLang.sIsNull), EvoUI.HTMLOption(EvoDB.soIsNotNull, EvoLang.sIsNotNull));
-			string myCondition, fType, fLabel, fID, buffer;
+			string fType, fLabel, fID, buffer;
 			int fDisplayMode = 0;
 			StringBuilder myHTML = new StringBuilder();
-            string R2Lcss = EvoLang.R2L?" Right":String.Empty; //css is not "R2L" this time
+			string R2Lcss = EvoLang.R2L?" Right":String.Empty; //css is not "R2L" this time
 
 			_ItemID = 0;
 			if (sDisplayMode == 3)
@@ -359,11 +359,11 @@ namespace Evolutility
 			else
 				buffer = xQuery.qPanelFields(xAttribute.searchAdv);
 			XmlNodeList aNodeList = myDOM.DocumentElement.SelectNodes(buffer, nsManager);
-			myCondition = EvoUI.HTMLSearchOperators(EvoLang.sEquals, EvoLang.sStart, EvoLang.sContain, EvoLang.sFinish);
+			string myCondition = EvoUI.HTMLSearchOperators(EvoLang.sEquals, EvoLang.sStart, EvoLang.sContain, EvoLang.sFinish);
 			myHTML.Append("<br/><table class=\"FormSearch\" id=\"GridSearch\">");
 			foreach (XmlNode aNode in aNodeList)
 			{
-                myHTML.Append("<tr><td width=\"20%\" class=\"SearchLabel").Append(R2Lcss).Append("\">");
+				 myHTML.Append("<tr><td width=\"20%\" class=\"SearchLabel").Append(R2Lcss).Append("\">");
 				fType = aNode.Attributes[xAttribute.type].Value;
 				fLabel = xAttribute.GetFieldLabel(aNode);
 				if (_ShowDesigner)
@@ -377,9 +377,9 @@ namespace Evolutility
 					switch (fType)
 					{
 						case EvoDB.t_lov:
-							myHTML.Append("<td width=\"25%\"><div class=\"FieldReadOnly\">");
-							myHTML.Append(EvoLang.anyof);
-							myHTML.Append("</div></td><td width=\"55%\">");
+							myHTML.Append("<td width=\"25%\"><div class=\"FieldReadOnly\">")
+								.Append(EvoLang.anyof)
+								.Append("</div></td><td width=\"55%\">");
 							break;
 						case EvoDB.t_bool:
 						case EvoDB.t_pix:
@@ -387,8 +387,8 @@ namespace Evolutility
 							myHTML.Append("<td width=\"80%\" colspan=\"2\">");
 							break;
 						default:
-							myHTML.Append("<td width=\"25%\">");
-							myHTML.Append(SelectTagBegin).Append(fID);
+							myHTML.Append("<td width=\"25%\">")
+								.Append(SelectTagBegin).Append(fID);
 							switch (fType)
 							{
 								case EvoDB.t_date:
@@ -411,7 +411,7 @@ namespace Evolutility
 							}
 							if (aNode.Attributes[xAttribute.required] == null || (aNode.Attributes[xAttribute.required] != null && aNode.Attributes[xAttribute.required].Value != s1))
 								myHTML.Append(SelectOptionsNull);
-							myHTML.Append("</option></select></td><td width=\"55%\">");
+							myHTML.Append("</select></td><td width=\"55%\">");
 							break;
 					}
 				}
@@ -443,9 +443,9 @@ namespace Evolutility
 							myHTML.Append(HTMLlov(aNode, fID, s0, LOVFormat.HTML, 0));
 						break;
 					case EvoDB.t_bool:
-						myHTML.Append(EvoUI.HTMLInputRadio(fID, String.Empty, EvoLang.any, true, fID + "-"));
-						myHTML.Append(EvoUI.HTMLInputRadio(fID, s1, EvoLang.yes, false, fID + s1));
-						myHTML.Append(EvoUI.HTMLInputRadio(fID, s0, EvoLang.no, false, fID + s0));
+						myHTML.Append(EvoUI.HTMLInputRadio(fID, String.Empty, EvoLang.any, true, fID + "-"))
+							.Append(EvoUI.HTMLInputRadio(fID, s1, EvoLang.yes, false, fID + s1))
+							.Append(EvoUI.HTMLInputRadio(fID, s0, EvoLang.no, false, fID + s0));
 						break;
 					case EvoDB.t_date:
 					case EvoDB.t_datetime:
@@ -456,10 +456,11 @@ namespace Evolutility
 						//regular search 
 						else
 						{
-							myHTML.Append("<nobr>").Append(SelectTagBegin).Append(fID).Append("dir\" style=\"width:50%\"><option value=\"\">");
-							myHTML.Append(EvoLang.sDateRangeWithin).Append("<option value=\"P\">").Append(EvoLang.sDateRangeLast).Append("<option value=\"F\">").Append(EvoLang.sDateRangeNext).Append("</select>");
-							myHTML.Append(SelectTagBegin).Append(fID).Append("\" style=\"width:50%\"><option value=\"\">").Append(EvoLang.sDateRangeAny);
-							myHTML.Append(EvoUI.HTMLlovEnum(EvoLang.sDateRange, String.Empty, 0, false)).Append("</select></nobr>");
+							myHTML.Append("<nobr>").Append(SelectTagBegin).Append(fID).Append("dir\" style=\"width:50%\"><option value=\"\">")
+								.Append(EvoLang.sDateRangeWithin).Append("</option><option value=\"P\">").Append(EvoLang.sDateRangeLast)
+								.Append("</option><option value=\"F\">").Append(EvoLang.sDateRangeNext).Append("</option></select>")
+								.Append(SelectTagBegin).Append(fID).Append("\" style=\"width:50%\"><option value=\"\">").Append(EvoLang.sDateRangeAny).Append("</option>")
+								.Append(EvoUI.HTMLlovEnum(EvoLang.sDateRange, String.Empty, 0, false)).Append("</select></nobr>");
 						}
 						break;
 					//Case EvoDB.t_int 
@@ -471,8 +472,8 @@ namespace Evolutility
 						break;
 					case EvoDB.t_int:
 					case EvoDB.t_dec:
-						myHTML.Append("<input class=\"Field\" type=\"text\" name=\"").AppendFormat("{0}\" id=\"{0}", fID);
-						myHTML.Append("\" OnKeyUp=\"EvoVal.checkNum(this,'").Append(fType.Substring(0, 1)).Append("')\">");
+						myHTML.Append("<input class=\"Field\" type=\"text\" name=\"").AppendFormat("{0}\" id=\"{0}", fID)
+							.Append("\" OnKeyUp=\"EvoVal.checkNum(this,'").Append(fType.Substring(0, 1)).Append("')\">");
 						break;
 					default:
 						myHTML.Append(EvoUI.HTMLInputTextEmpty(buffer));
@@ -505,14 +506,16 @@ namespace Evolutility
 				myHTML.Append(EvoUI.HTMLInputCheckBox("EvoxUCM", s1, EvoLang.wComments, false, "EVOxucm"));
 				myHTML.Append("</td></tr>");
 			}
-			myHTML.Append("<tr class=\"hSpace\"><td colspan=\"").Append(sDisplayMode.Equals(4)?"3":"2").Append("\"></td></tr>");
-			myHTML.Append("<tr class=\"PanelLabel\"><td>&nbsp;</td><td>&nbsp;<input type=\"submit\" name=\"Search\" value=\" ");
-			myHTML.Append(EvoLang.Search).Append(" \" class=\"Button\">&nbsp;&nbsp;");
-			if (sDisplayMode.Equals(EvolDisplayMode.Search))
-				myHTML.Append(SMALL_tag).Append(EvoUI.HTMLLinkEventRef(s4, EvoLang.AdvSearch)).Append(SMALL_tagClose);
-			if (sDisplayMode.Equals(4))
-				myHTML.Append("</td><td>&nbsp;");
-			myHTML.Append(TdTrTableEnd);
+			myHTML.Append("</table><br/>");
+			// button
+			myHTML.Append("<div class=\"PanelButtons\"><input type=\"submit\" name=\"Search\" value=\" ");
+			myHTML.Append(EvoLang.Search).Append(" \" class=\"IndentBtn Button\">");
+			if (sDisplayMode == 3)
+			{
+				myHTML.Append(HTMLSpace3).Append(EvoUI.HTMLLinkEventRef(s4, EvoLang.AdvSearch));
+			}
+			myHTML.Append("</div>");
+
 			return myHTML.ToString();
 		}
 
@@ -521,14 +524,14 @@ namespace Evolutility
 			/// <summary>MASS UPDATE form for field of types lov, boolean that are not readonly.</summary>
 			string fType, fLabel, fID; 
 			StringBuilder myHTML = new StringBuilder();
-            string R2Lcss = EvoLang.R2L ? " Right" : String.Empty; //css is not "R2L" this time
+			string R2Lcss = EvoLang.R2L ? " Right" : String.Empty; //css is not "R2L" this time
 
 			_ItemID = 0;
 			XmlNodeList aNodeList = myDOM.DocumentElement.SelectNodes(xQuery.aggregableFields, nsManager);
-			myHTML.Append("<table class=\"FormSearch\"><tr><td colspan=\"2\">"); // re-use CSS class name "FormSearch"
-			myHTML.Append(EvoUI.HTMLFieldLabel(selFieldID, EvoLang.Selection));
-			myHTML.Append(LastSearchCondition( false));
-			myHTML.Append("</td></tr>");
+			myHTML.Append("<table class=\"FormSearch\"><tr><td colspan=\"2\">") // re-use CSS class name "FormSearch"
+				.Append(EvoUI.HTMLFieldLabelSpan(selFieldID, EvoLang.Selection))
+				.Append(LastSearchCondition(false))
+				.Append("</td></tr>");
 			foreach (XmlNode aNode in aNodeList)
 			{
 				bool showField = true;
@@ -536,20 +539,21 @@ namespace Evolutility
 					showField = aNode.Attributes[xAttribute.dbReadOnly].Value == "0";
 				if (showField)
 				{
-                    myHTML.Append("<tr><td width=\"20%\" class=\"SearchLabel").Append(R2Lcss).Append("\">");
+					myHTML.Append("<tr><td width=\"20%\" class=\"SearchLabel").Append(R2Lcss).Append("\">");
 					fType = aNode.Attributes[xAttribute.type].Value;
 					fLabel = xAttribute.GetFieldLabel(aNode);
 					//if (_ShowDesigner)
 					//    fLabel += EvoUI.LinkDesigner(EvoUI.DesType.fld, Convert.ToInt32(aNode.Attributes[xAttribute.id].Value), fLabel, _PathDesign);
 					fID = UID + aNode.Attributes[xAttribute.dbColumn].Value;
-					myHTML.Append(EvoUI.HTMLFieldLabelSpan(fID, fLabel)).Append("</td>");
-					myHTML.Append("<td width=\"80%\">");
-					myHTML.Append(SelectTagBegin).Append(fID);
-					myHTML.Append("\" onclick=\"javascript:Evol.addFldLabel(this,0)\"><option value=\"\" selected>- ").Append(EvoLang.NoChange).Append(" -</option>");
+					myHTML.Append(EvoUI.HTMLFieldLabelSpan(fID, fLabel)).Append("</td>")
+						.Append("<td width=\"80%\">")
+						.Append(SelectTagBegin).Append(fID)
+						.Append("\" onclick=\"javascript:Evol.addFldLabel(this,0)\"><option value=\"\" selected>- ")
+						.Append(EvoLang.NoChange).Append(" -</option>");
 					if (fType == EvoDB.t_bool)
 					{
-						myHTML.Append(EvoUI.HTMLOption("Y", EvoLang.yes));
-						myHTML.Append(EvoUI.HTMLOption("N", EvoLang.no));
+						myHTML.Append(EvoUI.HTMLOption("Y", EvoLang.yes))
+							.Append(EvoUI.HTMLOption("N", EvoLang.no));
 					}
 					else //if (fType == EvoDB.t_lov)
 					{
@@ -560,13 +564,13 @@ namespace Evolutility
 							myHTML.AppendFormat("<option value=\"null\">{0}</option>", string.Format(EvoLang.NoX, fLabel));
 						myHTML.Append(HTMLlov(aNode, String.Empty, s0, LOVFormat.HTML, 0));
 					}
-					myHTML.Append("</select>").Append("</td></tr>");
+					myHTML.Append("</select></td></tr>");
 				}
 			}
-			myHTML.Append("<tr class=\"PanelLabel\"><td>&nbsp;</td><td>&nbsp;<input type=\"submit\" name=\"MU\" value=\" ");
-			myHTML.Append(EvoLang.MassUpdate).Append(" \" class=\"Button\">&nbsp;&nbsp;");
-			myHTML.Append("</td><td>&nbsp;");
-			myHTML.Append(TdTrTableEnd);
+			myHTML.Append("</table><br/>")
+				.Append("<div class=\"PanelButtons\"><input type=\"submit\" name=\"MU\" value=\" ")
+				.Append(EvoLang.MassUpdate).Append(" \" class=\"IndentBtn Button\">")
+				.Append("</div>");
 			return myHTML.ToString();
 		}
 
@@ -587,31 +591,32 @@ namespace Evolutility
 			expOut = xptCSV;
 			XmlNodeList aNodeList = myDOM.DocumentElement.SelectNodes(xQuery.panelField, nsManager);
 			myHTML.Append("<table class=\"FormExport\"><tr><td width=\"62%\">"); // table = 2 columns
+			myHTML.Append(EvoUI.HTMLFieldLabel(selFieldID, EvoLang.Selection))
+				.Append(LastSearchCondition(true));
 			//##### export format ######################################## 
-			myHTML.Append(EvoUI.HTMLFieldLabel(selFieldID, EvoLang.Selection));
-			myHTML.Append(LastSearchCondition( true));
-			myHTML.Append(EvoUI.HTMLFieldLabel("evoZOut", EvoLang.ExportFormat));
-			myHTML.Append("<select class=\"FieldReadOnly\" name=\"evoZOut\" onChange=\"EvoExport.showFormatOpts(this.value)\">");
 			string[] myLabels = EvoLang.ExportFormats.Split(sepChars);
-			myHTML.Append(EvoUI.HTMLOption(xptCSV, myLabels[0], true));
-			myHTML.Append(EvoUI.HTMLOption(xptHTML, myLabels[1]));
-			myHTML.Append(EvoUI.HTMLOption(xptSQL, myLabels[2]));
-			myHTML.Append(EvoUI.HTMLOption(xptTAB, myLabels[3]));
-			myHTML.Append(EvoUI.HTMLOption(xptXML, myLabels[4]));
-			myHTML.Append(EvoUI.HTMLOption(xptJSON, myLabels[5]));
-			myHTML.Append("</select>\n<div class=\"ExportOptions\">\n");
+			myHTML.Append(EvoUI.HTMLFieldLabel("evoZOut", EvoLang.ExportFormat))
+				.Append("<select class=\"FieldReadOnly\" name=\"evoZOut\" onChange=\"EvoExport.showFormatOpts(this.value)\">")
+				.Append(EvoUI.HTMLOption(xptCSV, myLabels[0], true))
+				.Append(EvoUI.HTMLOption(xptHTML, myLabels[1]))
+				.Append(EvoUI.HTMLOption(xptSQL, myLabels[2]))
+				.Append(EvoUI.HTMLOption(xptTAB, myLabels[3]))
+				.Append(EvoUI.HTMLOption(xptXML, myLabels[4]))
+				.Append(EvoUI.HTMLOption(xptJSON, myLabels[5]))
+				.Append("</select>\n");
+			myHTML.Append("<div class=\"ExportOptions\">\n");
 			//##### CSV, TAB - First line for field names ####### 
 			myHTML.Append(EvoUI.HTMLDiv(UID + xptCSV, (expOut == xptCSV || expOut == xptTAB)));
 			//# field - header ####### 
 			buffer = UID + "FLH";
-			myHTML.Append(EvoUI.HTMLFieldLabel(buffer, EvoLang.ExportHeader));
-			myHTML.Append(EvoUI.HTMLInputCheckBox(buffer, s1, EvoLang.ExportFirstLine, true, buffer));
+			myHTML.Append(EvoUI.HTMLFieldLabel(buffer, EvoLang.ExportHeader))
+				.Append(EvoUI.HTMLInputCheckBox(buffer, s1, EvoLang.ExportFirstLine, true, buffer));
 			//# field - separator 
 			//# - csv - any separator ####### 
 			myHTML.Append("<br/><br/><div id=\"").Append(UID).Append("csv2\"").Append(EvoUI.StyleVisibleToggle(expOut == xptCSV)).Append(">");
 			fieldName = "FLS_evol";
-			myHTML.Append(EvoUI.HTMLFieldLabel(fieldName, EvoLang.ExportSeparator));
-			myHTML.Append(EvoUI.HTMLInputText(fieldName, GetPageRequest(fieldName, coma), 5));
+			myHTML.Append(EvoUI.HTMLFieldLabel(fieldName, EvoLang.ExportSeparator))
+				.Append(EvoUI.HTMLInputText(fieldName, GetPageRequest(fieldName, coma), 5));
 			myHTML.Append("</div><div id=\"").Append(UID).Append("tab2\"").Append(EvoUI.StyleVisibleToggle(expOut == xptTAB)).Append(">");
 			//# - tab - hardcoded tab #######
 			myHTML.Append(EvoUI.HTMLFieldLabel("", EvoLang.ExportSeparator)).Append("TAB</div></div>");
@@ -624,9 +629,9 @@ namespace Evolutility
 			myHTML.Append("\n</div>");
 			myHTML.Append("</td><td width=\"38%\">");
 			//### list of columns to export ######################################### 
-			myHTML.Append(EvoUI.HTMLFieldLabel(string.Empty, EvoLang.ExportFields));
-			myHTML.Append(EvoUI.HTMLInputCheckBox("showID", s1, EvoLang.IDkey, false, "showID"));
-			myHTML.Append(EvoUI.tag_BR);
+			myHTML.Append(EvoUI.HTMLFieldLabel(string.Empty, EvoLang.ExportFields))
+				.Append(EvoUI.HTMLInputCheckBox("showID", s1, EvoLang.IDkey, false, "showID"))
+				.Append(EvoUI.tag_BR);
 			int maxLoopXML = aNodeList.Count;
 			bool inDiv = false;
 			for (int i = 0; i < maxLoopXML; i++)
@@ -636,12 +641,11 @@ namespace Evolutility
 				buffer = cn.Attributes[xAttribute.dbColumn].Value;
 				if (string.IsNullOrEmpty(fieldlabel))
 					fieldlabel = buffer;
-				myHTML.Append(EvoUI.HTMLInputCheckBox(UID + buffer, s1, fieldlabel, true, buffer + i.ToString()));
-				myHTML.Append(EvoUI.tag_BR);
+				myHTML.Append(EvoUI.HTMLInputCheckBox(UID + buffer, s1, fieldlabel, true, buffer + i.ToString())).Append(EvoUI.tag_BR);
 				if (i == 12 && maxLoopXML > 16)
 				{
-					myHTML.Append(EvoUI.HTMLLinkShowVanish("EVOmfld", EvoLang.AllFields));
-					myHTML.Append(EvoUI.HTMLDiv("EVOmfld", false));
+					myHTML.Append(EvoUI.HTMLLinkShowVanish("EVOmfld", EvoLang.AllFields))
+						.Append("<div id=\"EVOmfld\" style=\"display:none\">");
 					inDiv = true;
 				}
 			}
@@ -649,9 +653,10 @@ namespace Evolutility
 				myHTML.Append("</div>");
 			myHTML.Append(TdTrTableEnd);
 			// Download button
-			myHTML.Append("<div class=\"PanelLabel\"><span class=\"indent3\">");
-			myHTML.Append(EvoUI.HTMLInputButton("XP", string.Format(EvoLang.DownloadEntity, def_Data.entities), false, "Javascript:EvPost('71')"));
-			myHTML.Append("</span></div>");
+			myHTML.Append("<div class=\"PanelButtons\">")
+				.Append("<input type=\"button\" class=\"IndentBtn Button\" onclick=\"Javascript:EvPost('71')\" name=\"XP\" value=\" ")
+				.AppendFormat(EvoLang.DownloadEntity, def_Data.entities).Append(" \">")
+				.Append("</div>");
 			myLabels = null;
 			return myHTML.ToString();
 		}
@@ -661,7 +666,7 @@ namespace Evolutility
 			/// <summary>SELECTIONS (canned queries) form.</summary>
 			StringBuilder myHTML = new StringBuilder();
 
-			myHTML.Append("<div class=\"Holder\"><br/>");
+			myHTML.Append("<div class=\"Holder\">");
 			if (!_DBAllowSelections)
 				myHTML.Append(EvoUI.HTMLMessage(EvoLang.warn_NoAccessSelections, EvoUI.MsgType.Warn));
 			else
@@ -686,13 +691,13 @@ namespace Evolutility
 						foreach (XmlNode aNode in aNodeList)
 						{
 							if (aNode.NodeType == XmlNodeType.Element && aNode.Attributes[xAttribute.url] != null && aNode.Attributes[xAttribute.label] != null)
-								myHTML.Append("<li>").Append(EvoUI.HTMLLinkEventRef("q:" + aNode.Attributes[xAttribute.url].Value, aNode.Attributes[xAttribute.label].Value));
+								myHTML.Append("<li>").Append(EvoUI.HTMLLinkEventRef("q:" + aNode.Attributes[xAttribute.url].Value, aNode.Attributes[xAttribute.label].Value)).Append("</li>");
 						}
 						myHTML.Append("</ul>");
 					}
 				}
 			}
-			myHTML.Append("<p>&nbsp;</p></div>");
+			myHTML.Append("</div>");
 			return myHTML.ToString();
 		}
 
@@ -704,9 +709,8 @@ namespace Evolutility
 			string fType, fLabel, fID;
 			StringBuilder myHTML = new StringBuilder();
 			string R2Lcss = EvoLang.R2L ? " Right" : String.Empty; //css is not "R2L" this time
-			string beginImgLink = "<img src=\"http://chart.apis.google.com/chart?";
-			string hb = "<div class=\"ChartHolder\">";
-			string he = "</div>";
+			const string beginImgLink = "<img src=\"http://chart.apis.google.com/chart?";
+			const string hb = "<div class=\"ChartHolder\">", he = "</div>";
 			//int lovNum = 0;
 
 			string ErrorMsg = "";
@@ -719,7 +723,6 @@ namespace Evolutility
 			{
 				// generate SQL
 				string dbTable = def_Data.dbtable;
-
 				string sqlWhere = "";
 				if (_SecurityModel.Equals(EvolSecurityModel.Multiple_Users_RLS) || _SecurityModel.Equals(EvolSecurityModel.Multiple_Users_Sharing))
 					sqlWhere += string.Format(" AND {0}={1} ", def_Data.dbcolumnuserid, _UserID);
@@ -760,7 +763,6 @@ namespace Evolutility
 						}
 					}
 				}
-				//myHTML.Append("<div id=\"EVOL_Title\">").Append(EvoLang.allEntities).Append("</div>");
 				ds = EvoDB.GetData(sql.ToString(), SqlConnection, ref ErrorMsg);
 				if (ds != null && ds.Tables != null)
 				{
@@ -778,9 +780,6 @@ namespace Evolutility
 							if (aNode != null && ds != null && ds.Tables.Count > i)
 							{		
 								fLabel = xAttribute.GetFieldLabel(aNode);
-							//if (_ShowDesigner)
-							//    fLabel += EvoUI.LinkDesigner(EvoUI.DesType.fld, Convert.ToInt32(aNode.Attributes[xAttribute.id].Value), fLabel, _PathDesign);
-
 								DataTable dt = ds.Tables[i];
 								switch (fType)
 								{
@@ -797,8 +796,11 @@ namespace Evolutility
 										}
 										int noCount = EvoTC.String2Int(dt.Rows[0][1].ToString());
 										int maxCount = (yesCount >= noCount) ? yesCount : noCount;
-										myHTML.Append(hb).Append("<p align=center>").Append(fLabel).Append("</p>");
-										myHTML.Append(beginImgLink).Append("chbh=a&amp;chs=300x225&cht=bvg&chco=A2C180,FF9900&chds=0," + maxCount + "&chd=t:" + yesCount + "|" + noCount + "&chp=0.05&chts=676767,10.5&chdl=Yes (" + yesCount + ")|No (" + noCount + ")" + "\"><br/>");
+										myHTML.Append(hb).Append(chartTitle(fLabel))
+											.Append(beginImgLink).Append("chbh=a&amp;chs=300x225&cht=bvg&chco=A2C180,FF9900&chds=0,")
+											.Append(maxCount).Append("&chd=t:").Append(yesCount).Append("|").Append(noCount)
+											.Append("&chp=0.05&chts=676767,10.5&chdl=Yes (").Append(yesCount).Append(")|No (")
+											.Append(noCount).Append(")").Append("\"><br/>");
 										// + "&chl=Yes (" + yesCount + ")|No (" + noCount + ")
 										//&chtt=title+chart
 										myHTML.Append(he);
@@ -820,7 +822,7 @@ namespace Evolutility
 										{
 											chl = HttpUtility.HtmlEncode(chl.Substring(0, chl.Length - 1));
 										}
-										myHTML.Append(hb).Append("<p align=center>").AppendFormat(EvoLang.chart_A_per_B, EvoTC.ToUpperLowers(def_Data.entities), fLabel).Append("</p>");
+										myHTML.Append(hb).Append(chartTitle(String.Format(EvoLang.chart_A_per_B, EvoTC.ToUpperLowers(def_Data.entities), fLabel)));
 										//if(lovNum==0){
 										//    lovNum++;
 										myHTML.Append(beginImgLink).AppendFormat("chd=t:{0}&chl={1}", chd, chl).Append("&cht=p&chds=0,20&chs=400x200\"><br/>").Append(he);
@@ -833,7 +835,7 @@ namespace Evolutility
 							}
 							else
 							{
-								myHTML.Append("<div class=\"ChartHolder\">").Append(EvoLang.NoGraph).Append("</div>");
+								myHTML.Append(hb).Append(EvoLang.NoGraph).Append(he);
 							} 
 						}
 					}
@@ -841,9 +843,9 @@ namespace Evolutility
 			}
 			else
 			{
-				myHTML.Append("<div class=\"ChartHolder\">").Append(EvoLang.NoGraph).Append("</div>");
+				myHTML.Append(hb).Append(EvoLang.NoGraph).Append(he);
 			}
-			myHTML.Append("<div style=\"clear:both\"></div>");
+			myHTML.Append(EvoUI.clearer);
 			return myHTML.ToString();
 		}
 
@@ -851,6 +853,11 @@ namespace Evolutility
 
 //### Forms Support HTML ############################################################################## 
 #region "Forms Support HTML"
+
+		private string chartTitle(string title)
+		{
+			return String.Format("<div class=\"chartTitle\">{0}</div>", title);
+		}
 
 		private string LastSearchCondition(bool canChooseAll)
 		{
@@ -868,8 +875,8 @@ namespace Evolutility
 			else if (canChooseAll)
 			{
 				String fieldName = selFieldID;
-				myHTML.Append(EvoUI.HTMLInputRadio(fieldName, s1, EvoLang.allEntities, false, "evol_q1"));
-				myHTML.Append(EvoUI.HTMLInputRadio(fieldName, s0, buffer, true, "evol_q0"));
+				myHTML.Append(EvoUI.HTMLInputRadio(fieldName, s1, EvoLang.allEntities, false, "evol_q1"))
+					.Append(EvoUI.HTMLInputRadio(fieldName, s0, buffer, true, "evol_q0"));
 			}
 			else
 			{ 
@@ -884,26 +891,24 @@ namespace Evolutility
 			/// <summary>Buttons Save, Save and Add, Cancel / Edit (used on bottom of forms).</summary>
 			StringBuilder myHTML = new StringBuilder();
 
-			//1=edit, 2=new 
-			if (eDisplayMode > 0)
+			myHTML.Append("<div class=\"PanelButtons\">");
+			if (eDisplayMode > 0) //1=edit, 2=new 
 			{
-				myHTML.Append("<div width=\"100%\" class=\"PanelLabel\">&nbsp;&nbsp;&nbsp;&nbsp;");
-				myHTML.Append("<input type=\"button\" name=\"save\" value=\" ").Append(EvoLang.Save).Append(" \" class=\"Button\" onclick=\"EvoVal.validForm(1)\">");
+				myHTML.Append("<input class=\"IndentBtn Button\" type=\"button\" name=\"save\" value=\" ").Append(EvoLang.Save).Append(" \" onclick=\"EvoVal.validForm(1)\">");
 				if (_DBAllowInsert && _ItemID == 0)
+				{
 					myHTML.Append("&nbsp;<input type=\"button\" name=\"saveadd\" value=\" ").Append(EvoLang.SaveAdd).Append(" \" class=\"Button2\" onclick=\"EvoVal.validForm(9)\">");
-				myHTML.Append("&nbsp;<input type=\"button\" name=\"Cancel\" value=\" ");
-				if (_ItemID == 0)
-					myHTML.Append(EvoLang.Cancel);
-				else
-					myHTML.Append(EvoLang.View);
-				myHTML.Append(" \" class=\"Button2\" onclick=\"EvPost('0')\"></div>");
+				}
+				myHTML.Append("&nbsp;<input type=\"button\" name=\"Cancel\" value=\" ")
+					.Append((_ItemID == 0)?EvoLang.Cancel:EvoLang.View)
+					.Append(" \" class=\"Button2\" onclick=\"EvPost('0')\">");
 			}
 			//view 
 			else if (!_DBReadOnly && _DBAllowUpdate && editOK)
 			{
-				myHTML.Append("<div width=\"100%\" class=\"PanelLabel\"><span class=\"bSpace\"></span>");
-				myHTML.Append("&nbsp;<input type=\"button\" name=\"Edit\" value=\" ").Append(EvoLang.Edit).Append(" \" class=\"Button\" onclick=\"EvPost('1')\"></div>");
+				myHTML.Append("<input class=\"IndentBtn Button\" type=\"button\" name=\"Edit\" value=\" ").Append(EvoLang.Edit).Append(" \" onclick=\"EvPost('1')\">");
 			}
+			myHTML.Append("</div>");
 			return myHTML.ToString();
 		}
 
@@ -919,7 +924,7 @@ namespace Evolutility
 			{
 				//first, prev., next, last navigation for records  
 				bool nav_first, nav_last;
-				string buffer = (_DisplayMode.Equals(1))?"30":"20";
+				string buffer = (_DisplayMode.Equals(1)) ? "30" : "20";
 				myHTML.Append(EvoUI.HTMLSpace).Append(EvoUI.HTMLLinkEventRef("110", EvoLang.allEntities)).Append(": ");
 				myHTML.Append("<span class=\"Paging\">");
 				if (string.IsNullOrEmpty(navBar))
@@ -941,9 +946,15 @@ namespace Evolutility
 					nav_last = EvoTC.Right(navBar, 1).Equals(s1);
 				}
 				if (nav_first)
-					myHTML.Append(EvoUI.HTMLLinkEventRef(buffer + s1, EvoLang.pFirst)).Append(EvoUI.HTMLLinkEventRef(buffer + s2, EvoLang.pPrev));
+				{
+					myHTML.Append(EvoUI.HTMLLinkEventRef(buffer + s1, EvoLang.pFirst))
+						.Append(EvoUI.HTMLLinkEventRef(buffer + s2, EvoLang.pPrev));
+				}
 				if (nav_last)
-					myHTML.Append(EvoUI.HTMLLinkEventRef(buffer + s3, EvoLang.pNext)).Append(EvoUI.HTMLLinkEventRef(buffer + s4, EvoLang.pLast));
+				{
+					myHTML.Append(EvoUI.HTMLLinkEventRef(buffer + s3, EvoLang.pNext))
+						.Append(EvoUI.HTMLLinkEventRef(buffer + s4, EvoLang.pLast));
+				}
 				myHTML.Append("</span>");
 			}
 			if (YesNo)
@@ -965,7 +976,7 @@ namespace Evolutility
 			if (notIE)
 				myHTML.Append("<div style=\"height:10px\"></div>");
 			if (TabLeft)
-				myHTML.Append("<table width='100%'><tr valign=top><td width=\"120px\">");
+				myHTML.Append("<table width=\"100%\"><tr valign=top><td style=\"width:120px\">");
 			myHTML.Append("<div class=\"TabBar\"><div class=\"TabHolder");
 			if (TabLeft)
 				myHTML.Append(" TabLeft");
@@ -993,12 +1004,10 @@ namespace Evolutility
 			string dbcolumnAttribute = xAttribute.dbColumn;
 			int fWidth = 0, fHeight = 0, fMaxLength;
 			string fieldValue = null;
-			string fType, fieldFormat = null;
-			bool fieldMustShow;
+			string fieldFormat = null;
 			int fieldReadOnly;
 			string fieldLabel = null, fieldLabel2 = null;
 			int nbFileUploads = 0;
-			string fieldCSS;
 			int fid;
 			int i, maxLoopXML;
 			StringBuilder myResult = new StringBuilder();
@@ -1025,7 +1034,7 @@ namespace Evolutility
 				if (string.IsNullOrEmpty(stylePanel))
 					stylePanel = EvoUI.cssPanelLabel;
 			}
-			myResult.Append(EvoUI.HTMLPanelLabel(fieldName, "evoPnl" + panelID, stylePanel, _CollapsiblePanels));
+			myResult.Append(EvoUI.HTMLPanelLabel(fieldName, "evoPnl" + panelID, stylePanel, _CollapsiblePanels, IEbrowser));
 			bool inTable = false;
 			int linewidth = 0;
 			myResult.AppendFormat("<span ID=\"evoPnl{0}\">", panelID);
@@ -1048,7 +1057,7 @@ namespace Evolutility
 				if (cn.NodeType == XmlNodeType.Element)
 				{
 					htmlField = new StringBuilder();
-					fType = cn.Attributes[xAttribute.type].Value;
+					string fType = cn.Attributes[xAttribute.type].Value;
 					sql = cn.Attributes[dbcolumnAttribute].Value;
 					fieldName = UID + sql;
 					if (fType != "hidden")
@@ -1135,7 +1144,7 @@ namespace Evolutility
 						}
 						else
 							fieldValue = string.Empty;
-						fieldMustShow = true;
+						bool fieldMustShow = true;
 						if (cn.Attributes[xAttribute.optional] != null && string.IsNullOrEmpty(fieldValue) && gDisplayMode == 0 && fType != EvoDB.t_lov)
 						{
 							fieldMustShow = !cn.Attributes[xAttribute.optional].Value.Equals(s1);
@@ -1158,7 +1167,7 @@ namespace Evolutility
 							htmlField.Append(fieldLabel);
 							htmlField.Append("</span><br/>");
 						}
-						fieldCSS = (fieldReadOnly > 0) ? xAttribute.cssClassView : xAttribute.cssClass;
+						string fieldCSS = (fieldReadOnly > 0) ? xAttribute.cssClassView : xAttribute.cssClass;
 						if (cn.Attributes[fieldCSS] == null)
 							fieldCSS = null;
 						else
@@ -1323,6 +1332,10 @@ namespace Evolutility
 													fieldFormat = cn.Attributes[xAttribute.format].Value;
 												if (string.IsNullOrEmpty(fieldFormat))
 													fieldFormat = EvoTC.DefaultDateFormat(fType);
+												else
+												{
+													fieldFormat = "{0:" + fieldFormat + "}";
+												}
 												htmlField.Append(EvoTC.HTMLDateFormated(fType, fieldValue, fieldFormat));
 											}
 											break;
@@ -1458,7 +1471,7 @@ namespace Evolutility
 								case EvoDB.t_int:
 								case EvoDB.t_dec:
 									fieldValue = HttpUtility.HtmlEncode(fieldValue);
-									htmlField.Append("<input type=\"text\"").AppendFormat(EvoUI.HTMLNameIdClass, fieldName, fieldName,fieldCSS);
+									htmlField.Append("<input type=\"text\"").AppendFormat(EvoUI.HTMLNameIdClass, fieldName, fieldName, fieldCSS);
 									if (fMaxLength > 0)
 										htmlField.AppendFormat(" maxlength=\"{0}\"", fMaxLength);
 									if (fType.Equals(EvoDB.t_int) || fType.Equals(EvoDB.t_dec))
@@ -1476,11 +1489,13 @@ namespace Evolutility
 										if (fHeight < 1)
 											fHeight = 1;
 									}
-									htmlField.AppendFormat("<textarea class=\"{0} mce\" style=\"height:{1};width:100%\" rows=\"{2}", fieldCSS, fHeight * 20, fHeight); 
-									if (fType==EvoDB.t_txtm && fMaxLength > 0) 
-										htmlField.Append("\" cols=\"52\" onKeyUp=\"EvoVal.checkMaxLen(this,").Append(fMaxLength).Append(")"); 
-									htmlField.AppendFormat("\" name=\"{0}\" id=\"{0}\">", fieldName);
-									htmlField.Append(fieldValue).Append("</textarea>");
+									htmlField.AppendFormat("<textarea class=\"{0}\" style=\"height:{1};width:100%\" rows=\"{2}", fieldCSS, fHeight * 20, fHeight);
+									if (fType == EvoDB.t_txtm && fMaxLength > 0)
+									{
+										htmlField.Append("\" cols=\"52\" onKeyUp=\"EvoVal.checkMaxLen(this,").Append(fMaxLength).Append(")");
+									} 
+									htmlField.AppendFormat("\" name=\"{0}\" id=\"{0}\">", fieldName)
+										.Append(fieldValue).Append("</textarea>");
 									break;
 								case EvoDB.t_lov:
 									// edit lookup for lov 
@@ -1522,21 +1537,21 @@ namespace Evolutility
 												buffer1 = cn.Attributes[xAttribute.lovMany].Value;
 											if (string.IsNullOrEmpty(buffer1))
 											{
-												htmlField.Append(EvoUI.HTMLoptionZero);
-												htmlField.Append(HTMLlov(cn, String.Empty, fieldValue, LOVFormat.HTML, 0));
+												htmlField.Append(EvoUI.HTMLOptionZero)
+													.Append(HTMLlov(cn, String.Empty, fieldValue, LOVFormat.HTML, 0));
 											}
 											else
 												htmlField.Append(HTMLlovMany(cn, Convert.ToInt32(r0[cn.Attributes[xAttribute.dbColumn].Value]), fieldFormat));
 										}
 										else
 										{
-											htmlField.Append(EvoUI.HTMLoptionZero);
+											htmlField.Append(EvoUI.HTMLOptionZero);
 											buffer = s0;
 											if (_ItemID < 1 && (cn.Attributes["defaultvalue"] != null))
 												buffer = EvoTC.String2Int(cn.Attributes["defaultvalue"].Value).ToString();
 											htmlField.Append(HTMLlov(cn, String.Empty, buffer, LOVFormat.HTML, 0));
 										}
-										htmlField.Append("</option></select>");
+										htmlField.Append("</select>");
 									}
 									break;
 								//edit LOV 
@@ -1550,11 +1565,11 @@ namespace Evolutility
 								case EvoDB.t_time:
 									if (EvoTC.isDate(fieldValue))
 									{
-										if (cn.Attributes[xAttribute.format] == null)
-											fieldFormat = string.Empty;
-										else
-											fieldFormat = cn.Attributes[xAttribute.format].Value;
-										if (string.IsNullOrEmpty(fieldFormat))
+										//if (cn.Attributes[xAttribute.format] == null)
+										//    fieldFormat = string.Empty;
+										//else
+										//    fieldFormat = cn.Attributes[xAttribute.format].Value;
+										//if (string.IsNullOrEmpty(fieldFormat))
 											fieldFormat = EvoTC.DefaultDateFormat(fType);
 										fieldValue = EvoTC.HTMLDateFormated(fType, fieldValue, fieldFormat);
 									}
@@ -1562,7 +1577,7 @@ namespace Evolutility
 									break;
 								case EvoDB.t_pix:
 								case EvoDB.t_doc:
-									htmlField.Append(SMALL_tag);
+									htmlField.Append("<div class=\"smallTxt\">");
 									if (fieldValue != string.Empty)
 										htmlField.Append("<span class=\"FieldReadOnly\">").Append(fieldValue).Append("</span><br/>");
 									if (fType.Equals(EvoDB.t_pix))
@@ -1584,9 +1599,9 @@ namespace Evolutility
 										string pJS = (fType.Equals(EvoDB.t_pix)) ? "pixM" : "docM"; 
 										htmlField.AppendFormat("{0}('{1}')\">{2}</a>", pJS, fieldName, EvoLang.Delete);
 									}
-									htmlField.Append("</small><br/>").Append(EvoUI.HTMLDiv(buffer, !IEbrowser));
-									htmlField.Append("<input type=\"file\" class=\"Field\" name=\"").AppendFormat("{0}\" id=\"{0}", fieldName);
-									htmlField.Append("\" value=\"").Append(HttpUtility.HtmlEncode(fieldValue)).Append("\" width=\"120\" onchange=\"e$('").Append(fieldName);
+									htmlField.Append("</div><br/>").Append(EvoUI.HTMLDiv(buffer, !IEbrowser));
+									htmlField.Append("<input type=\"file\" class=\"Field\" name=\"").AppendFormat("{0}\" id=\"{0}", fieldName)
+										.Append("\" value=\"").Append(HttpUtility.HtmlEncode(fieldValue)).Append("\" onchange=\"e$('").Append(fieldName);
 									if (fType.Equals(EvoDB.t_pix))
 										htmlField.Append("img').src='").Append(_PathPixToolbar).Append("imgupdate.gif';e$('").Append(fieldName);
 									htmlField.Append("_dp').value=''\"><br/></div>");

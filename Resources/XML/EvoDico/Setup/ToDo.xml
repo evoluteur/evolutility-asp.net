@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility metadata for to do - www.evolutility.org - (c) 2011 Olivier Giulieri   -->
+<!-- Evolutility metadata for to do - www.evolutility.org - (c) 2013 Olivier Giulieri   -->
 <applicationcomponent>
 	<xml>
 		<![CDATA[ 
@@ -10,7 +10,7 @@ dbcolumnlead="title"
   splogin="EvoSP_Login @login, @password" 
   sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize" />
 	<panel label="Task" width="62" >
-		<field type="text" required="1" label="Title" cssclass="fieldmain" maxlength="255" dbcolumn="title" dbcolumnread="title" width="100" search="1" searchlist="1" searchadv="1" />
+		<field type="text" required="1" label="Title" maxlength="255" dbcolumn="title" dbcolumnread="title" width="100" search="1" searchlist="1" searchadv="1" />
 		<field type="date" label="Due Date" maxlength="10" dbcolumn="duedate" dbcolumnread="duedate"
 			   width="40"  search="1" searchlist="1" searchadv="1"  />
 		<field type="lov" required="1" label="Priority" dbcolumn="PriorityID" dbcolumnread="Priority" width="60"  dbtablelov="EVOL_ToDoPriority" dborderlov="id" search="2" searchlist="2" searchadv="2"/>

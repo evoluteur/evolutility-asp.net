@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Evolutility metadata for Movie Actor - www.evolutility.org - (c) 2011 Olivier Giulieri  -->
+<!-- Evolutility metadata for Movie Actor - www.evolutility.org - (c) 2013 Olivier Giulieri  -->
   <form label="Movies" xmlns="http://www.evolutility.com" >
     <data entity="actor" entities="actors"  dbcolumnicon="photo"  
 		dbdetails="1" dbtable="MovieActor" dborder="t.name" 
@@ -9,7 +9,7 @@
       <field type="image" label="" labeledit="Photo" maxlength="200" dbcolumnreadlov="" optional="1" dbcolumn="Photo" dbcolumnread="Photo" width="100" height="1" search="0" searchlist="0" searchadv="0" />
     </panel>
     <panel label="" width="95">
-      <field type="text" label="Name" maxlength="100"  dbcolumn="name" dbcolumnread="name" required="1" width="75" height="1" cssclass="FieldMain" search="1" searchlist="1" searchadv="1" quicksearch="1" />
+      <field type="text" label="Name" maxlength="100"  dbcolumn="name" dbcolumnread="name" required="1" width="75" height="1" search="1" searchlist="1" searchadv="1" quicksearch="1" />
       <field type="date" optional="1" label="BirthDate" dbcolumn="bdate" dbcolumnread="bdate" width="25" height="1" search="1" searchlist="1" searchadv="1" quicksearch="0" />
       <field type="textmultiline" label="Bio" maxlength="500"  dbcolumn="Bio" dbcolumnread="Bio" width="100" height="4" search="0" searchlist="0" searchadv="7" />
     </panel> 

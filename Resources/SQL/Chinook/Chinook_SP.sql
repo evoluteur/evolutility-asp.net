@@ -1,4 +1,4 @@
-﻿/* **  www.evolutility.org - (c) 2010 Olivier Giulieri  ** */
+﻿/* **  www.evolutility.org - (c) 2012 Olivier Giulieri  ** */
 /*    SQL script for generic pagin with Evolutility     */
 
 CREATE PROCEDURE CH_SP_PagedItem

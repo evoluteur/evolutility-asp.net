@@ -1,4 +1,4 @@
-'  Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+'  Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 '  This file is part of Evolutility CRUD Framework.
 
@@ -28,12 +28,12 @@ Imports System.Web.UI
 <Assembly: AssemblyDescription("Database Export Wizard: ASP.net Web control to export SQL Server tables, views, or queries to XML, CSV, TXT, and, SQL insert statements on the web.")> 
 <Assembly: AssemblyCompany("Olivier Giulieri")> 
 <Assembly: AssemblyProduct("ExportWizard")> 
-<Assembly: AssemblyCopyright("(c) 2011 Olivier Giulieri - www.evolutility.org")> 
+<Assembly: AssemblyCopyright("(c) 2013 Olivier Giulieri - www.evolutility.org")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)> 
 <Assembly: AssemblyCulture("")> 
 <Assembly: TagPrefix("Evolutility.ExportWizard", "EVOL")> 
 
-<Assembly: AssemblyVersion("4.0.0")> 
+<Assembly: AssemblyVersion("4.1.0")> 
 <Assembly: Guid("F6367465-51C2-44DF-8D00-45B9C2DD2D85")>  
  

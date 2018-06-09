@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -31,15 +31,14 @@ namespace Evolutility
 	{
 
 		public override string GetDesignTimeHtml()
-		{
-			StringBuilder myHTML = new StringBuilder(); 
+		{ 
 			UIServer ctl = (UIServer)this.Component;
 
-			myHTML.Append("<div class=\"evo\" style=\"padding:5px;font:normal 12 Verdana\"><b>Evolutility.UIServer</b> \"");
-			myHTML.Append(ctl.ID);
-			myHTML.Append("\" (No rendering at design-time)</div>"); 
-
-			return myHTML.ToString();
+			return new StringBuilder()
+				.Append("<div class=\"evo\" style=\"padding:5px;font:normal 12 Verdana\"><b>Evolutility.UIServer</b> \"")
+				.Append(ctl.ID)
+				.Append("\" (No rendering at design-time)</div>")
+				.ToString();
 		}
 
 	}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- (c) 2011 Olivier Giulieri - www.Evolutility.org -->
+<!-- (c) 2013 Olivier Giulieri - www.Evolutility.org -->
 <form xmlns="http://www.evolutility.com"  >
 	<data entity="component" entities="components" dbdetails="1" dbtable="EvoDico_Form"   
 	icon="" dbcolumnicon="icon" dbcolumnlead="Title"    
@@ -8,10 +8,10 @@
 	 
 	<tab label="Definition" >
 		<panel label="Form" width="80">
-			<field label="Title" cssclass="FieldMain" cssclassview="FieldMain"
+			<field label="Title" 
 				help="example: 'Address book'" type="text" dbcolumn="Title" dbcolumnread="Title" maxlength="100" search="1" searchlist="1" searchadv="1" 
 				width="62" height="1" required="1" />
-			<field label="ID"  type="text" dbcolumn="ID" dbcolumnread="ID" maxlength="100" search="1" searchlist="0" searchadv="1" width="19" height="1" cssclass="fieldmain" readonly="1" />
+			<field label="ID"  type="text" dbcolumn="ID" dbcolumnread="ID" maxlength="100" search="1" searchlist="0" searchadv="1" width="19" height="1" readonly="1" />
 			<field label="Active"  type="boolean" dbcolumn="PUBLISH" dbcolumnread="PUBLISH" maxlength="1" search="1" searchlist="1" searchadv="1"  width="19" height="1"  />
 			<field label="Item name" help="example: 'contact'" type="text" dbcolumn="entity" dbcolumnread="entity" maxlength="50" search="1" searchlist="0" searchadv="1"  width="62" />
 			<field label="name (plural)" help="example: 'contacts'" type="text" dbcolumn="entities" dbcolumnread="entities" maxlength="50" search="0" searchlist="0" searchadv="1"  width="38" />
@@ -25,7 +25,7 @@
 	</tab> 
 	<tab label="Fields" > 
 		<panel-details panelid="14" label="Fields" width="80" dbtabledetails="EvoDico_Field" dbcolumndetails="FormID" dborder="t.fpos,t.id" > 
-			<field panelid="14" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" cssclass="fieldmain" 
+			<field panelid="14" label="Label" type="text"  dbcolumn="Label" dbcolumnread="Label" maxlength="100" required="0" search="1" searchlist="1" searchadv="1" width="200" 
 				link="EvoDicoField.aspx?ID=@itemid" />
  			<field panelid="14" 
 				 dbwherelov2="EvoDico_vpanel.formID=@itemid and EvoDico_vpanel.userid=@userid" 

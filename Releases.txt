@@ -1,22 +1,27 @@
 
-   Evolutility Release History 
 
+   Evolutility Release History 
+   
+   
 #################################################################
 
-Evolutility - version 4.0 - 12/12/2011
+Evolutility - version 4.1 - 02/12/2013
 
-Evolutility 4.0 brings charting capabilities and a brand new look.
-
-Enhancements:
-New look with rounded corners.
-Charting capabilities.
-Updated TinyMCE (for rich text) to version 3.4.7 and include more features.
+Evolutility 4.1 is a maintenance release focused on bug fixes and UI improvements. 
+Evolutility now uses NicEdit (instead of TinyMCE) for rich text editing.
+It also provides better internationalisation (especially for Japanese language) and improved cross-browser compatibility.
 
 Bug fixes:
-3444826 - Navigation icons disappears with right-to-left languages.
-3441315 - Required fields of type "Rich Text" don't validate properly
-3177949 - Toolbar labels appear on top of icons.
-2882288 - International Date Format. Thanks to Gurmit Singh for contributing the fix.
+3603916 - Modes confusion after export.
+3603671 - Validation message not showing correctly in old IE versions.
+3603666 - Problem with integer fields validation in Japanese (contributed by Tomokazu Ohno).
+3603662 - Problems w/ DB objects names in Japanese (contributed by Tomokazu Ohno).
+3603655 - Export filename not handled properly in Japanese w/ IE (contributed by Tomokazu Ohno).
+3598335 - Support for multiple LOV's on the same child table (contributed by Ramy Omar).
+3603516 - Datepicker icon not always fully shown in details list edit.
+3599626 - Invalid format validation for decimal values in Italian (and some other languages).
+3599891 - Boolean fields should use value 0 instead of null.
+3544302 - Panel Labels not displaying correctly w/ IE.
 
 More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
 
@@ -45,6 +50,39 @@ and also for their code or contribution to:
 - All the people who gave me feedback and encouragements
 
 http://www.evolutility.org
+
+#################################################################
+
+Evolutility Patch - version 4.0.1 - 07/14/2012
+
+Evolutility Patch 4.0.1 provides small UI improvements (mostly for IE).
+
+To install the patch, replace on your web site the files "Evol.css", "Evolutility.js" and "Evolutility.dll" by the new version provided with this download.
+Also, replace the stored procedure "EvoSP_PagedItem" by the one provided in the new SQL script (thanks to Arun Tech for his contribution).
+
+Bug fix: 
+3544302 - Panel Labels not displaying correctly w/ IE.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
+
+#################################################################
+
+Evolutility - version 4.0 - 12/12/2011
+
+Evolutility 4.0 brings charting capabilities and a brand new look.
+
+Enhancements:
+New look with rounded corners.
+Charting capabilities.
+Updated TinyMCE (for rich text) to version 3.4.7 and include more features.
+
+Bug fixes:
+3444826 - Navigation icons disappears with right-to-left languages.
+3441315 - Required fields of type "Rich Text" don't validate properly
+3177949 - Toolbar labels appear on top of icons.
+2882288 - International Date Format. Thanks to Gurmit Singh for contributing the fix.
+
+More about Evolutility lightweight framework for heavy lifting at http://www.evolutility.org/
 
 #################################################################
 
@@ -496,5 +534,5 @@ http://www.evolutility.org
 
 Download Evolutility at http://www.evolutility.org
 
-(c) 2011 Olivier Giulieri - http://www.evolutility.org
+(c) 2013 Olivier Giulieri - http://www.evolutility.org
 

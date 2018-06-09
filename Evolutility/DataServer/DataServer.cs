@@ -1,4 +1,4 @@
-//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -134,7 +134,7 @@ namespace Evolutility.DataServer
 			{
 				frmID = TrimEvolu(context.Request["formid"].ToString());
 				if (EvoTC.isInteger(frmID))
-					return ""; //for now
+					return HelpDB2JSON(EvoTC.String2Int(frmID));
 				else
 					return HelpXML2JSON(context.Server.MapPath(frmID));
 					//return "[{id:'Title',help:'example:\"Address book\"'},{id:'entity', help:'example: \"contact\"'},{id:'entities', help:'example: \"contacts\"'},{id:'Help', help:'Help on the field (for edition)'},{id:'icon', help:'example=\"contact.gif\"'},{id:'dbtable', help:'Driving table'},{id:'dbwhere', help:'Example \"CategoryID=3\"'},{id:'dborder', help:'Use \"T\" for driving table alias. Example \"T.lastname,T.firstname\"'},{id:'dbcolumnlead', help:'Title column'},{id:'dbcolumnpk', help:'Usually ID'},{id:'dbColumnicon', help:'Column used to store the name of a thumbnail or icon specific to each record'},{id:'dbtableusers', help:'Table storing users'},{id:'dbtablecomments', help:'Table storing user comments'},{id:'spPaging', help:'Stored Procedure used for displaying selection lists'},{id:'spLogin', help:'Stored Procedure used for user login'},{id:'spGet', help:'Stored Procedure used to get a single record'},{id:'spDelete', help:'Stored Procedure used to delete or disable a record'}]";
@@ -174,7 +174,7 @@ namespace Evolutility.DataServer
 			StringBuilder sb = new StringBuilder();
 			if (FormID>0)
 			{
-				DataSet ds = EvoDB.GetData("EXEC EvoDico_Form_GetHelp 147,1", _SqlConnection, ref ErrorMsg);
+				DataSet ds = EvoDB.GetData("EXEC EvoDico_Form_GetHelp " + FormID.ToString() + ",1", _SqlConnection, ref ErrorMsg);
 				sb.Append("[ ");
 				if (ds != null)
 				{
@@ -186,7 +186,7 @@ namespace Evolutility.DataServer
 						{							
 							if (t.Rows[i][1] != null){
 								sb.Append("{").AppendFormat("id:'{0}',", EscapedJSON1(t.Rows[i][0].ToString()));
-								sb.AppendFormat("help:'{1}'", EscapedJSON2(t.Rows[i][1].ToString())).Append("},");
+								sb.AppendFormat("help:'{0}'", EscapedJSON2(t.Rows[i][1].ToString())).Append("},");
 							}
 						}
 						sb.Remove(sb.Length - 1, 1);

@@ -1,6 +1,6 @@
 //	GERMAN translation from Joachim Seidel
 
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -56,7 +56,7 @@ namespace Evolutility
 				ExportFirstLine = "Erste Zeile enthält Spaltennamen";
 				ExportFormat = "Export Format";
 				ExportFields = "Spalten für den Export";
-				IDkey = "ID (Primary Key)";
+				IDkey = "ID (Primärschlüssel)";
 				AllFields = "Alle Spalten anzeigen";
 				ExportFormats = "Comma separated (CSV, TXT, XLS...)-HTML-SQL Insert Statements (SQL)-Tab separated values (TXT)-XML-JSON";
 

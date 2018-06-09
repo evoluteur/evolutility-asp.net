@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -143,13 +143,12 @@ namespace Evolutility
 			/// <summary>Generates JS for grid details editing.</summary>
 			/// <remarks>Can be used several times for several detail grids on the same form.</remarks>
 			StringBuilder js2 = new StringBuilder();
-			int nbFields;
 			bool fieldReadOnly = false;
 
 			//already checked _DBAllowUpdateDetails and _DBAllowInsertDetails before calling function ! 
 			js2.AppendFormat("\n{0}:", gridID).Append("{flds:[ ");
 			nbFieldEditable = 0; 	//nbFieldEditable is a global variable 
-			nbFields = aNodeList.Count;
+			int nbFields = aNodeList.Count;
 			for (int i = 0; i < nbFields; i++)
 			{
 				XmlNode cn = aNodeList[i];
@@ -214,7 +213,7 @@ namespace Evolutility
 		{
 			/// <summary>Registers necessary Scripts depending on current mode.</summary>
 			if (_DisplayMode == 1)
-				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "tinyMCE", string.Format("<script src=\"{0}tiny_mce/tiny_mce.js\" type=\"text/javascript\"></script>", _PathPixToolbar));
+				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "nicEdit", string.Format("<script src=\"{0}nicEdit/nicEdit.js\" type=\"text/javascript\"></script>", _PathPixToolbar));
 			if (_ShowDesigner)
 				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "EvoDico", string.Format("<script src=\"{0}JS/EvoDico.js\" defer=\"defer\" type=\"text/javascript\"></script>", _PathPixToolbar));
 			if (!(def_Data == null || string.IsNullOrEmpty(def_Data.js_script)))

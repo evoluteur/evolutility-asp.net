@@ -1,4 +1,4 @@
-//	Copyright (c) 2011 Olivier Giulieri - olivier@evolutility.org
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -74,8 +74,6 @@ namespace Evolutility
 
 		// SQL
 		internal const string SQL_WHERE = " WHERE ";
-		internal const string SQL_GROUPBY = " GROUP BY ";
-		internal const string SQL_HAVING = " HAVING ";
 		internal const string SQL_EXEC = "EXEC ";
 		internal const string SQL_NULL = "NULL";
 		internal const string SQL_INSERT = "INSERT INTO ";
@@ -151,10 +149,7 @@ namespace Evolutility
 				case "System.String":
 					return string.Format("N'{0}'", SQLescape(myVal));
 				case "System.Boolean":
-					if (myVal == "True")
-						return "1";
-					else
-						return EvoTC.StrVal(myVal);
+					return (myVal == "True") ? "1" : EvoTC.StrVal(myVal);
 				case "System.DateTime":
 					switch (language)
 					{
@@ -196,18 +191,10 @@ namespace Evolutility
 					else
 						return string.Format("N'{0}'", fieldValue.Replace("'", "''"));
 				case t_lov:
-					if (string.IsNullOrEmpty(fieldValue))
-						return string.Empty;
-					else
-						return EvoTC.StrVal(fieldValue);
+					return string.IsNullOrEmpty(fieldValue) ? string.Empty : EvoTC.StrVal(fieldValue);
 				case t_bool:
 				case t_int:
-					if (!string.IsNullOrEmpty(fieldValue))
-					{
-						return EvoTC.StrVal(fieldValue);
-					}
-					else
-						return SQL_NULL;
+					return string.IsNullOrEmpty(fieldValue)? SQL_NULL : EvoTC.StrVal(fieldValue);
 				case t_dec:
 					string tDecStr;
 					if (EvoTC.isInteger(fieldValue))
@@ -328,10 +315,7 @@ namespace Evolutility
 		static internal string SQLescape(string aString)
 		{
 			//simple SQL escaping to avoid SQL injection attack 
-			if (string.IsNullOrEmpty(aString))
-				return string.Empty;
-			else
-				return aString.Replace("'", "''");
+			return string.IsNullOrEmpty(aString) ? string.Empty : aString.Replace("'", "''");
 		}
 
 		static internal string SQLescape2(string aString)
@@ -350,22 +334,20 @@ namespace Evolutility
 
 		static internal string SPcall_Paging(string SPname, string spSelect, string spFrom, string spWhere, string spOrderBy, string sqlPK, int spPageID, int spPageSize, int spUserID, string myDBtable)
 		{
-			string sql;
-			sql = SPname.Replace("@SQLselect", quotedVar(spSelect));
-			sql = sql.Replace("@SQLtable", quotedVar(myDBtable));
-			sql = sql.Replace("@SQLfrom", quotedVar(spFrom));
-			sql = sql.Replace("@SQLwhere", quotedVar(spWhere));
-			sql = sql.Replace("@SQLorderby", quotedVar(spOrderBy));
-			sql = sql.Replace("@SQLpk", quotedVar(sqlPK));
-			sql = sql.Replace("@pageid", string.Format("'{0}'", spPageID));
-			sql = sql.Replace("@pagesize", string.Format("'{0}'", spPageSize));
-			sql = sql.Replace("@userid", string.Format("'{0}'", spUserID));
-			return sql;
+			return SPname.Replace("@SQLselect", quotedVar(spSelect))
+				.Replace("@SQLtable", quotedVar(myDBtable))
+				.Replace("@SQLfrom", quotedVar(spFrom))
+				.Replace("@SQLwhere", quotedVar(spWhere))
+				.Replace("@SQLorderby", quotedVar(spOrderBy))
+				.Replace("@SQLpk", quotedVar(sqlPK))
+				.Replace("@pageid", string.Format("'{0}'", spPageID))
+				.Replace("@pagesize", string.Format("'{0}'", spPageSize))
+				.Replace("@userid", string.Format("'{0}'", spUserID));
 		}
 
 		static internal string quotedVar(string myVar)
 		{
-			return string.Format("'{0}'", myVar.Replace("'", "''"));
+			return string.Format("N'{0}'", myVar.Replace("'", "''"));
 		}
 
 		static internal string SPcall_Get(string SPname, int itemID, int userID)
@@ -416,7 +398,6 @@ namespace Evolutility
 
 		static internal string wBoolIsFalse(string DBcolumn)
 		{
-
 			return String.Format(SQL_ISNULL_0, DBcolumn);
 		}
 
@@ -463,9 +444,11 @@ namespace Evolutility
 			if (! string.IsNullOrEmpty(SQLwhere))
 				sql.Append(SQL_WHERE).Append(SQLwhere);
 			if (!string.IsNullOrEmpty(SQLgroupby))
-				sql.Append(SQL_GROUPBY).Append(SQLgroupby);
-			if (!string.IsNullOrEmpty(SQLhaving))
-				sql.Append(SQL_HAVING).Append(SQLhaving);
+			{
+				sql.Append(" GROUP BY ").Append(SQLgroupby);
+				if (!string.IsNullOrEmpty(SQLhaving))
+					sql.Append(" HAVING ").Append(SQLhaving);
+			}
 			if (! string.IsNullOrEmpty(SQLorderby)) 
 				sql.Append(" ORDER BY ").Append(SQLorderby);
 #if DB_MySQL
@@ -480,7 +463,7 @@ namespace Evolutility
 
 		static internal string sqlINSERT(string SQLTable, string SQLColumns, string SQLvalues)
 		{
-			return (new StringBuilder()).Append(SQL_INSERT).Append(SQLTable).Append("(").Append(SQLColumns).Append(") VALUES (").Append(SQLvalues).Append(");").ToString();
+			return new StringBuilder().Append(SQL_INSERT).Append(SQLTable).Append("(").Append(SQLColumns).Append(") VALUES (").Append(SQLvalues).Append(");").ToString();
 		}
 
 		static internal string sqlUPDATE(string SQLTable, string SQLColumnsValuesTuples, string SQLWhere)
@@ -490,12 +473,12 @@ namespace Evolutility
 
 		static internal string sqlDELETE(string SQLTable, string SQLWhere)
 		{
-			return (new StringBuilder()).AppendFormat("DELETE FROM {0}{1}{2};", SQLTable, SQL_WHERE, SQLWhere).ToString();
+			return new StringBuilder().AppendFormat("DELETE FROM {0}{1}{2};", SQLTable, SQL_WHERE, SQLWhere).ToString();
 		}
 
 		static internal string sqlTRANSACTION(string mySQL)
 		{
-			return (new StringBuilder()).Append(SQL_BEGIN_TRANS).Append(mySQL).Append(SQL_COMMIT_TRANS).ToString();
+			return new StringBuilder().Append(SQL_BEGIN_TRANS).Append(mySQL).Append(SQL_COMMIT_TRANS).ToString();
 		}
 
 		static internal  string IDequals(int ID)
@@ -682,11 +665,11 @@ namespace Evolutility
 #region "Misc"
 
 	// Having this function here saves the dependency on EvoLibUI which makes it easier to include.
-		static private String HTMLtextMore(string myText, string myOptions)
+	static private String HTMLtextMore(string myText, string myOptions)
 	{
-		StringBuilder zHTML = new StringBuilder();
-		zHTML.Append(myText).Append("<div class=\"Foot\">").Append(myOptions).Append("</div>");
-		return zHTML.ToString();
+		return new StringBuilder()
+			.Append(myText).Append("<div class=\"Foot\">").Append(myOptions).Append("</div>")
+			.ToString();
 	}
 
 #endregion

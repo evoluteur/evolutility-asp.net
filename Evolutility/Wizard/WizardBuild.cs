@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -121,6 +121,7 @@ namespace Evolutility
 								myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 3));
 								break;
 							case 6: //txt multiline 
+							case 8: //html
 								myHTML.Append("Max.Length ");
 								myHTML.Append(EvoUI.HTMLInputText("F_len" + buffer2, "100", 5));
 								myHTML.Append("Height ");

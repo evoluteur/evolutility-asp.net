@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -53,12 +53,11 @@ namespace Evolutility
 		{ 
 			//display comments list and new comment form 
 
-			bool YesNo = false; 
 			int PanelID = -1; 
 			StringBuilder myHTML = new StringBuilder(); 
-		    
+
 			myHTML.Append("<div class=\"PanelComments\">"); 
-			YesNo = _DBAllowComments.Equals(EvolCommentsMode.Logged_Users) && _UserID > 0; 
+			bool YesNo = _DBAllowComments.Equals(EvolCommentsMode.Logged_Users) && _UserID > 0; 
 			if (YesNo) 
 			{ 
 				string linkLabel;
@@ -84,7 +83,7 @@ namespace Evolutility
 							nbComments = t.Rows.Count;
 						for (int i = 0; i < nbComments; i++)
 						{
-                            myHTML.Append("<div class=\"evoSep\"></div>");
+							myHTML.Append("<div class=\"evoSep\"></div>");
 							DataRow r = t.Rows[i];
 							myHTML.Append(EvoUI.HTMLPixCommentUser);
 							try
@@ -94,15 +93,15 @@ namespace Evolutility
 									myHTML.Append(r["login"]);
 								else
 									myHTML.Append("<a href=\"").Append(def_Data.userpage).Append("?ID=").Append(r["userid"]).Append("\">").Append(r["login"]).Append("</a>");
-								myHTML.Append(EvoLang.ucOn).Append(EvoTC.formatedDateTime((System.DateTime)r["creationdate"]));
-								myHTML.Append(".<div class=\"FieldComments\">");
-								myHTML.Append(EvoTC.Text2HTMLwBR(Convert.ToString(r["message"])));
-								myHTML.Append("</div>");
+								myHTML.Append(EvoLang.ucOn).Append(EvoTC.formatedDateTime((System.DateTime)r["creationdate"]))
+									.Append(".<div class=\"FieldComments\">")
+									.Append(EvoTC.Text2HTMLwBR(Convert.ToString(r["message"])))
+									.Append("</div>");
 							}
 							catch
 							{
-								myHTML.Append("<div class=\"evoSep\"></div><div class=\"FieldReadOnly\">");
-								myHTML.Append(EvoLang.ucMissing).Append("</div>");
+								myHTML.Append("<div class=\"evoSep\"></div><div class=\"FieldReadOnly\">")
+									.Append(EvoLang.ucMissing).Append("</div>");
 								break;
 							}
 						}
@@ -117,11 +116,11 @@ namespace Evolutility
 		{
 			// HTML for link to show the "post comments" 
 
-			StringBuilder myHTML = new StringBuilder();
-			myHTML.Append("<a id=\"evoCOMcfzlink\" href=\"Javascript:Evol.commentsForm()\">");
-			myHTML.AppendFormat("{0}</a>", EvoUI.HTMLPixCommentAdd + linkLabel);
-			myHTML.Append(EvoUI.HTMLDiv("evoCOMcfz", false)).Append("</div>");
-			return myHTML.ToString(); 
+			return new StringBuilder()
+				.Append("<a id=\"evoCOMcfzlink\" href=\"Javascript:Evol.commentsForm()\">")
+				.AppendFormat("{0}</a>", EvoUI.HTMLPixCommentAdd + linkLabel)
+				.Append(EvoUI.HTMLDiv("evoCOMcfz", false)).Append("</div>")
+				.ToString();
 		}
 
 		private void PostUserComments() 

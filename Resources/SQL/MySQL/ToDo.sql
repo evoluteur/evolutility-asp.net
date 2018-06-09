@@ -1,5 +1,5 @@
 /* To Do List  */
-/* www.evolutility.org - (c) 2010 Olivier Giulieri */
+/* www.evolutility.org - (c) 2012 Olivier Giulieri */
 /*
 	This file is part of Evolutility CRUD Framework.
 	Source link <http://www.evolutility.org/download/download.aspx>
@@ -68,7 +68,7 @@ INSERT INTO EVOL_ToDoPriority (Name, Description) VALUES ('5-Whenever', 'Wheneve
 
 /*** Populates EVOL_ToDo ***/
 INSERT INTO EVOL_ToDo (UserID, Publish, Title, PriorityID, CategoryID, Complete, duedate, Notes)
- VALUES (1, 1, 'Call John Doe', 4, 6, 0, '2010-08-08', 'Remind him of our deal');
+ VALUES (1, 1, 'Call John Doe', 4, 6, 0, '2012-08-08', 'Remind him of our deal');
 INSERT INTO EVOL_ToDo (UserID, Publish, Title, PriorityID, CategoryID, Complete, duedate, Notes)
  VALUES (1, 1, 'Dentist', 5, 8, 0, CURTIME()+4, '');
 INSERT INTO EVOL_ToDo (UserID, Publish, Title, PriorityID, CategoryID, Complete, duedate, Notes)

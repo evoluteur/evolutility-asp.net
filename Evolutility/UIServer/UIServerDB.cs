@@ -1,4 +1,4 @@
-//	Copyright (c) 2003-2011 Olivier Giulieri - olivier@evolutility.org 
+//	Copyright (c) 2003-2013 Olivier Giulieri - olivier@evolutility.org 
 
 //	This file is part of Evolutility CRUD Framework.
 //	Source link <http://www.evolutility.org/download/download.aspx>
@@ -70,27 +70,10 @@ namespace Evolutility
 
 		private string BuildSQLselect(bool Master, int MyMode, int formid, string Tsql, string SPsql, string Wsql, string OBsql, string XPathMask, int TOPsql, string dbcolumniconDetails)
 		{
-			string buffer, fieldX, dbtablelov;
-			int PanelID = 0;
-			string fieldType, fieldColumn, fieldColumnRead;
-			bool fieldShows = true;
-			StringBuilder mySQL = new StringBuilder();
-			StringBuilder Fsql = new StringBuilder();
-			XmlNodeList aNodeList;
-			int cTOPsql = TOPsql;
-			if (cTOPsql < 1)
-				cTOPsql = _RowsPerPage;
-
-			if (string.IsNullOrEmpty(XPathMask))
-			{
-				if (Master)
-					buffer = xQuery.panelField;
-				else
-					buffer = xQuery.panelDetailsField;
-			}
-			else
-				buffer = XPathMask;
-			aNodeList = myDOM.DocumentElement.SelectNodes(buffer, nsManager);
+			StringBuilder mySQL = new StringBuilder(), Fsql = new StringBuilder();
+			int cTOPsql = TOPsql < 1 ? _RowsPerPage : TOPsql;
+			string buffer = string.IsNullOrEmpty(XPathMask) ? (Master ? xQuery.panelField : xQuery.panelDetailsField) : XPathMask;
+			XmlNodeList aNodeList = myDOM.DocumentElement.SelectNodes(buffer, nsManager);
 			int maxLoopXML = aNodeList.Count;
 			if (maxLoopXML > 0)
 			{
@@ -106,9 +89,6 @@ namespace Evolutility
 						}
 						break;
 					default:
-						if (cTOPsql < 1)
-							cTOPsql = _RowsPerPage;
-						mySQL.Append("");
 						if (Master)
 						{
 							mySQL.AppendFormat("T.{0} as ID", def_Data.dbcolumnpk);
@@ -135,8 +115,12 @@ namespace Evolutility
 						}
 						break;
 				}
+
 				Fsql.Append(buffer);
-				fieldShows = true;
+				bool fieldShows = true;
+				string fieldType, fieldColumn, fieldColumnRead;
+				int PanelID;
+
 				for (int i = 0; i < maxLoopXML; i++)
 				{
 					XmlNode cn = aNodeList[i];
@@ -170,7 +154,7 @@ namespace Evolutility
 										fieldShows = false;
 									else
 									{
-										fieldX = cn.Attributes[xAttribute.searchList].Value;
+										string fieldX = cn.Attributes[xAttribute.searchList].Value;
 										fieldShows = !(fieldX == string.Empty | fieldX == s0);
 									}
 									break;
@@ -182,6 +166,7 @@ namespace Evolutility
 						switch (fieldType)
 						{
 							case EvoDB.t_lov:
+								string dbtablelov;
 								fieldColumnRead = cn.Attributes[xAttribute.dbColumnRead].Value;
 								if (fieldColumn.Length == 2)
 								{
@@ -195,7 +180,23 @@ namespace Evolutility
 									dbtablelov = cn.Attributes[xAttribute.dbTableLOV].Value;
 									if (dbtablelov.Length > 0)
 									{
-										Fsql.AppendFormat(" left join {0} on T.{1}={0}.ID", dbtablelov, fieldColumn);
+										// romar - Fix a bug - Support more than one lov's on the same child table
+										// Fsql.AppendFormat(" left join {0} on T.{1}={0}.ID", dbtablelov, fieldColumn);
+										string dbtablelov_alias = null;
+										int lovCounter = 0;
+										while (true)
+										{
+											dbtablelov_alias = string.Format("{0}{1}", dbtablelov, lovCounter == 0 ? string.Empty : lovCounter.ToString());
+											string searchToken = string.Format(" left join {0} {1}", dbtablelov, dbtablelov_alias);
+											if (!Fsql.ToString().Contains(searchToken))
+											{
+												Fsql.AppendFormat("{0} on T.{1}={2}.ID", searchToken, fieldColumn, dbtablelov_alias);
+												break;
+											}
+											else
+												++lovCounter;
+										}
+
 										if (cn.Attributes[xAttribute.dbWhereLOV] != null)
 										{
 											buffer = cn.Attributes[xAttribute.dbWhereLOV].Value;
@@ -216,7 +217,7 @@ namespace Evolutility
 											if (string.IsNullOrEmpty(buffer))
 												buffer = xAttribute.dbName;
 										}
-										mySQL.AppendFormat(",{0}.{1} AS {2}", dbtablelov, buffer, fieldColumnRead);
+										mySQL.AppendFormat(",{0}.{1} AS {2}", dbtablelov_alias, buffer, fieldColumnRead);
 									}
 								}
 								break;
@@ -261,8 +262,8 @@ namespace Evolutility
 				// sqlw = " " & dbwherelock 
 				// End If 
 				//End If 
-				if (_DBAllowComments != EvolCommentsMode.None)
-					mySQL.Append(",T.").Append(SQLColNbComments);
+				//if (_DBAllowComments != EvolCommentsMode.None)
+				//    mySQL.Append(",T.").Append(SQLColNbComments);
 				if (!string.IsNullOrEmpty(SPsql))
 				{
 					// 'Query or stored procedure call 
@@ -298,9 +299,7 @@ namespace Evolutility
 		private string[] BuildSQLlist(int lDisplayMode)
 		{
 			string dbcolumn, dbcolumnf, cacheKey;
-			string fieldType, fieldlabel, fieldValue;
 			String wSQL = String.Empty, wTXT = String.Empty, oSQL = String.Empty;
-			string ClauseOperator;
 			string buffer, buffer1, buffer3;
 			string txtOperator = EvoLang.opAnd;
 			XmlNodeList aNodeList;
@@ -437,14 +436,14 @@ namespace Evolutility
 					XmlNode cn = aNodeList[i];
 					dbcolumn = cn.Attributes[xAttribute.dbColumn].Value;
 					buffer = UID + dbcolumn;
-					fieldValue = GetPageRequest(buffer);
-					ClauseOperator = GetPageRequest(buffer + "_c");
+					string fieldValue = GetPageRequest(buffer);
+					string ClauseOperator = GetPageRequest(buffer + "_c");
 					if (!(string.IsNullOrEmpty(fieldValue) && string.IsNullOrEmpty(ClauseOperator)))
 					{
 						fieldValue = fieldValue.Replace("'", "''");
 						dbcolumnf = string.Format(EvoDB.SQL_NAME_T0, dbcolumn);
-						fieldType = cn.Attributes[xAttribute.type].Value;
-						fieldlabel = xAttribute.GetFieldLabel(cn);
+						string fieldType = cn.Attributes[xAttribute.type].Value;
+						string fieldlabel = xAttribute.GetFieldLabel(cn);
 						if (ClauseOperator == EvoDB.soIsNull || ClauseOperator == EvoDB.soIsNotNull)
 						{
 							sbSQL.Append(EvoDB.SQLec(dbcolumnf, EvoDB.t_text, fieldValue, ClauseOperator));
@@ -643,10 +642,10 @@ namespace Evolutility
 		private string BuildSQLnav(int NavID, bool FirstTry)
 		{
 			//SQL WHERE clause for navigation w/ Parameter @itemID 
-			string Wsql = string.Empty, OBsql = string.Empty, Buffer;
 
 			if (string.IsNullOrEmpty(def_Data.spget))
 			{
+				string Wsql = string.Empty, OBsql = string.Empty;
 				switch (NavID)
 				{
 					case 1: //first 
@@ -675,7 +674,7 @@ namespace Evolutility
 						break;
 				}
 				// add SQL WHERE clause from last search result 
-				Buffer = GetCacheKey(def_Data.dbtable);
+				string Buffer = GetCacheKey(def_Data.dbtable);
 				if (Page.Cache[Buffer + "_W"] != null)
 				{
 					Buffer = Page.Cache[Buffer + "_W"].ToString();
@@ -783,7 +782,7 @@ namespace Evolutility
 		//### Details ######################################################################################## 
 		#region "Details"
 
-		private string BuildSQLDetails(bool LoadIt)
+		private string BuildSQLDetailsAndComments(bool LoadIt)
 		{
 			int i, maxRow, foID, MaxRows, MaxLoopXML = 0, XMLPanelID = 0;
 			string dbcolumniconDet = null;
@@ -908,14 +907,11 @@ namespace Evolutility
 
 		private string BuildSQLDetailsUpsert()
 		{
-			int fid, maxCol, id;
 			bool hasValue = false;
 			string[] CellValues, CellValuesOriginal;
 			StringBuilder SQL = new StringBuilder();
 			StringBuilder sbSQL1;
 			string fieldType, fieldColumn;
-			string r0e1c = "{0}={1},";
-			int fieldMaxLength = 0;
 			bool fieldIn = false;
 
 			XmlNodeList panelNodeList = myDOM.DocumentElement.SelectNodes(xQuery.panelDetails, nsManager);
@@ -928,7 +924,7 @@ namespace Evolutility
 				string gridID = cn0.Attributes["panelid"].Value;
 				string[] sep = new string[] { "~!" };
 				XmlNodeList aNodeList = cn0.ChildNodes;
-				maxCol = aNodeList.Count - 1;
+				int maxCol = aNodeList.Count - 1, maxCheck = maxCol + 3;
 				//for each row 
 				for (int i = 1; i < 101; i++)
 				{
@@ -936,7 +932,7 @@ namespace Evolutility
 					if (!string.IsNullOrEmpty(newVals))
 					{
 						CellValues = newVals.Split(sep, StringSplitOptions.None);
-						id = EvoTC.String2Int(CellValues[0]);
+						int id = EvoTC.String2Int(CellValues[0]);
 						if (id > 0)
 						{
 							if (_DBAllowUpdateDetails)
@@ -948,7 +944,7 @@ namespace Evolutility
 									sbSQL1 = new StringBuilder();
 									if (CellValues.Length == CellValuesOriginal.Length)
 									{
-										fid = 0;
+										int fid = 0;
 										for (int j = 0; j <= maxCol; j++)
 										{
 											XmlNode cn = aNodeList[j];
@@ -966,6 +962,7 @@ namespace Evolutility
 													fid += 1;
 													fieldType = cn.Attributes[xAttribute.type].Value;
 													fieldColumn = cn.Attributes[xAttribute.dbColumn].Value;
+													string r0e1c = "{0}={1},";
 													if (fieldType == EvoDB.t_lov)
 													{
 														if (EvoTC.String2Int(CellValues[fid]) > 0 && CellValues[fid] != CellValuesOriginal[fid])
@@ -979,7 +976,7 @@ namespace Evolutility
 																sbSQL1.AppendFormat(r0e1c, fieldColumn, CellValues[fid]);
 															else
 															{
-																fieldMaxLength = xAttribute.GetFieldMaxLength(cn);
+																int fieldMaxLength = xAttribute.GetFieldMaxLength(cn);
 																sbSQL1.AppendFormat(r0e1c, fieldColumn, EvoDB.dbFormat(CellValues[fid], fieldType, fieldMaxLength, _Language));
 															}
 														}
@@ -996,7 +993,7 @@ namespace Evolutility
 									else
 									{
 										if (CellValues.Length == 2 && CellValues[1] == "DEL")
-											SQL.Append(EvoDB.sqlDELETE(dbTableDetails,EvoDB.IDequals(id)));
+											SQL.Append(EvoDB.sqlDELETE(dbTableDetails, EvoDB.IDequals(id)));
 										else
 											AddError(string.Format("Invalid format for details ID #{0}", id));
 									}
@@ -1009,25 +1006,26 @@ namespace Evolutility
 							StringBuilder sbSQL2 = new StringBuilder();
 							for (int j = 0; j <= maxCol; j++)
 							{
-								XmlNode cn = aNodeList[j];
-								if (cn.NodeType == XmlNodeType.Element)
+								if (maxCheck == CellValues.Length)
 								{
-									if (cn.Attributes[xAttribute.dbReadOnly] == null)
-										fieldIn = true;
-									else
-										fieldIn = !(cn.Attributes[xAttribute.dbReadOnly].Value == s1);
-									if (fieldIn)
+									XmlNode cn = aNodeList[j];
+									if (cn.NodeType == XmlNodeType.Element)
 									{
-										fieldType = cn.Attributes[xAttribute.type].Value;
-										fieldColumn = cn.Attributes[xAttribute.dbColumn].Value;
-										int c = j + 1;
-										fieldMaxLength = 0;
-										// CInt(.Attributes(Attr.MaxLength).Value) 
-										hasValue = (fieldType == EvoDB.t_lov && EvoTC.String2Int(CellValues[c]) > 0) || (CellValues[c] != string.Empty);
-										if (hasValue)
+										if (cn.Attributes[xAttribute.dbReadOnly] == null)
+											fieldIn = true;
+										else
+											fieldIn = !(cn.Attributes[xAttribute.dbReadOnly].Value == s1);
+										if (fieldIn)
 										{
-											sbSQL1.AppendFormat("{0},", fieldColumn);
-											sbSQL2.AppendFormat("{0},", EvoDB.dbFormat(CellValues[c], fieldType, fieldMaxLength, _Language));
+											fieldType = cn.Attributes[xAttribute.type].Value;
+											fieldColumn = cn.Attributes[xAttribute.dbColumn].Value;
+											int c = j + 1;
+											hasValue = (fieldType == EvoDB.t_lov && EvoTC.String2Int(CellValues[c]) > 0) || (CellValues[c] != string.Empty);
+											if (hasValue)
+											{
+												sbSQL1.AppendFormat("{0},", fieldColumn);
+												sbSQL2.AppendFormat("{0},", EvoDB.dbFormat(CellValues[c], fieldType, 0, _Language));
+											}
 										}
 									}
 								}
@@ -1052,22 +1050,15 @@ namespace Evolutility
 
 		private string HTMLlov(XmlNode aNode, string FieldName, string ItemID, LOVFormat format, int Lookup)
 		{
-			// returns HTML or JSON for a lov (+ query DB)
-			int i2, i3, myID;
-			string sql, pixname;
+			// returns HTML or JSON for a lov (+ query DB)			
 			StringBuilder myHTML = new StringBuilder();
 			DataSet Source = null;
-			int curID = 0, MaxLoop;
 			string cacheKey = string.Empty;
-			bool wBR = false;
 			bool DynamicItemID = false;
 			string SQLTable = string.Empty, SQLColumn, SQLColumnImg, SQLwhere = string.Empty, SQLOrderBy = null;
-
 			bool SingleSelection = String.IsNullOrEmpty(FieldName);
-			if (SingleSelection)
-				MaxLoop = maxItem;
-			else
-				MaxLoop = maxItem2;
+			int MaxLoop = SingleSelection ? maxItem : maxItem2;
+
 			//cache key = LCase(EvoDB.t_lov & dbtable & A(Attr.dbtablelov) & (Attr.dbcolumnreadlov) & (Attr.dbColumnImg)) 
 			if (aNode.Attributes[xAttribute.dbTableLOV] != null)
 				SQLTable = aNode.Attributes[xAttribute.dbTableLOV].Value;
@@ -1124,9 +1115,9 @@ namespace Evolutility
 				{
 					if (string.IsNullOrEmpty(ErrorMsg))
 					{
-						sql = string.Format(EvoDB.SQL_SELECT_LOV, SQLColumn);
+						string sql = string.Format(EvoDB.SQL_SELECT_LOV, SQLColumn);
 						if (!String.IsNullOrEmpty(SQLColumnImg))
-							sql += string.Format(EvoDB.SQL_NAME_c0, SQLColumnImg);  // ",[pix]";    
+							sql += string.Format(EvoDB.SQL_NAME_c0, SQLColumnImg);  // ",[pix]";
 						if (Lookup > 0)
 							SQLwhere = EvoDB.IDequals(Lookup);
 						if (aNode.Attributes[xAttribute.dbOrderLOV] == null)
@@ -1166,28 +1157,27 @@ namespace Evolutility
 						if (SingleSelection)
 						{
 							//DROPDOWN w/out "select" tag around
-							myID = EvoTC.String2Int(ItemID);
+							int myID = EvoTC.String2Int(ItemID);
 							if (myID == 0)
 								for (int i = 0; i < MaxLoop; i++)
 								{
-									myHTML.AppendFormat("<option value=\"{0}\">{1}", t.Rows[i][0].ToString(), HttpUtility.HtmlEncode(Convert.ToString(t.Rows[i][1])));
-									//& "</option>" 
+									myHTML.AppendFormat("<option value=\"{0}\">{1}</option>", t.Rows[i][0].ToString(), HttpUtility.HtmlEncode(Convert.ToString(t.Rows[i][1])));
 								}
 							else
 							{
 								for (int i = 0; i < MaxLoop; i++)
 								{
-									curID = Convert.ToInt32(t.Rows[i][0]);
+									int curID = Convert.ToInt32(t.Rows[i][0]);
 									myHTML.Append(EvoUI.HTMLOption(curID.ToString(), HttpUtility.HtmlEncode(Convert.ToString(t.Rows[i][1])), myID == curID));
-									//& "</option>" 
 								}
 							}
 							if (MaxLoop > maxItem)
-								myHTML.AppendFormat("<option>- {0} items maximum -", maxItem);
+								myHTML.AppendFormat("<option>- {0} items maximum -</option>", maxItem);
 						}
 						// returns HTML for list or list of checkboxes (for multiple values)
 						else
 						{
+							bool wBR = false;
 							if (MaxLoop > 9) // MultiSelect list
 							{
 								myHTML.Append("<select multiple size=\"6\" class=\"Field\" onblur=\"javascript:Evol.addFldLabel(this,1)\" name=\"").AppendFormat("{0}\" id=\"{0}\">", FieldName);
@@ -1200,6 +1190,7 @@ namespace Evolutility
 							else
 							{
 								myHTML.Append("<table border=\"0\"><tr valign=\"top\"><td>");
+								int i2, i3;
 								if (MaxLoop > 4) // 3 columns of checkboxes
 								{
 									i2 = (MaxLoop + 2) / 3;
@@ -1223,7 +1214,7 @@ namespace Evolutility
 											myHTML.Append(EvoUI.HTMLInputCheckBox(FieldName, r[0].ToString(), Convert.ToString(r[1]), false, FieldName + i.ToString()));
 										else
 										{
-											pixname = Convert.ToString(r[2]);
+											string pixname = Convert.ToString(r[2]);
 											if (!String.IsNullOrEmpty(pixname))
 												pixname = EvoUI.HTMLImg(_PathPix + pixname) + EvoUI.HTMLSpace;
 											myHTML.Append(EvoUI.HTMLInputCheckBox(FieldName, r[0].ToString(), pixname + Convert.ToString(r[1]), false, FieldName + i.ToString()));
@@ -1277,11 +1268,9 @@ namespace Evolutility
 			StringBuilder myHTML = new StringBuilder();
 			DataSet Source;
 			string sql, lovcolumnid = "ID";
-			string SQLTable, SQLTables, SQLColumnMaster = String.Empty, SQLColumnDetails, SQLColumnRead = String.Empty;
+			string SQLTable, SQLTables, SQLColumnMaster = String.Empty, SQLColumnRead = String.Empty;//, SQLColumnDetails;
 			string SP_LOV = null;
-			string SQLwhere = String.Empty;
 			string SQLOrderBy = sValue;
-			string buffer = String.Empty;
 			bool r1 = false;
 
 			if (aNode.Attributes[xAttribute.dbTableLOV] == null)
@@ -1307,8 +1296,8 @@ namespace Evolutility
 						SQLColumnRead = aNode.Attributes[xAttribute.dbColumnReadLOV].Value;
 					if (string.IsNullOrEmpty(SQLColumnRead))
 						SQLColumnRead = "name";
-					if (aNode.Attributes[xAttribute.dbColumnDetails] != null)
-						SQLColumnDetails = aNode.Attributes[xAttribute.dbColumnDetails].Value;
+					//if (aNode.Attributes[xAttribute.dbColumnDetails] != null)
+					//    SQLColumnDetails = aNode.Attributes[xAttribute.dbColumnDetails].Value;
 					if (aNode.Attributes["lovcolumnid"] == null)
 						lovcolumnid = "ID";
 					else
@@ -1321,11 +1310,13 @@ namespace Evolutility
 						SQLOrderBy = aNode.Attributes[xAttribute.dbOrderLOV].Value;
 					if (string.IsNullOrEmpty(SQLOrderBy))
 						SQLOrderBy = sValue;
+					string SQLwhere = String.Empty;
 					if (string.IsNullOrEmpty(SQLColumnMaster))
 						SQLTables = SQLTable;
 					else
 					{
 						SQLwhere = string.Format("T.{0}=T1.{0} AND T1.ID<>T.ID AND T1.ID={1}", lovcolumnid, _ItemID);
+						string buffer = String.Empty;
 						if (aNode.Attributes[xAttribute.dbWhereLOV] != null)
 							buffer = aNode.Attributes[xAttribute.dbWhereLOV].Value;
 						if (buffer != string.Empty)
@@ -1390,11 +1381,9 @@ namespace Evolutility
 		private string LOVfromCache(string CacheKey, string ItemIDs)
 		{
 			DataSet ds = null;
-			int p, iItemID = 0;
 			string buffer = String.Empty;
-			string[] LOVtuples;
-
 			string key = CacheKey.ToLower();
+
 			if (Page.Cache[key] != null)
 				ds = (DataSet)Page.Cache[key];
 			//SHOULD DO BINARY SEARCH WHEN ORDERED LISTS ??) 
@@ -1404,10 +1393,10 @@ namespace Evolutility
 			else
 			{
 				int MaxLoop1 = ds.Tables[0].Rows.Count;
-				p = ItemIDs.IndexOf(coma);
+				int p = ItemIDs.IndexOf(coma);
 				if (p > -1)
 				{
-					LOVtuples = ItemIDs.Split(new char[] { ',' });
+					string[] LOVtuples = ItemIDs.Split(new char[] { ',' });
 					int MaxLoop2 = LOVtuples.Length;
 					if (MaxLoop2 > 5)
 						MaxLoop2 = 5;
@@ -1415,7 +1404,7 @@ namespace Evolutility
 						p = -1;
 					for (int j = 0; j < MaxLoop2; j++)
 					{
-						iItemID = Convert.ToInt32(LOVtuples[j]);
+						int iItemID = Convert.ToInt32(LOVtuples[j]);
 						if (iItemID > 0)
 						{
 							DataTable t = ds.Tables[0];
@@ -1432,7 +1421,7 @@ namespace Evolutility
 				}
 				else
 				{
-					iItemID = Convert.ToInt32(ItemIDs);
+					int iItemID = Convert.ToInt32(ItemIDs);
 					if (iItemID > 0)
 					{
 						DataTable t = ds.Tables[0];
@@ -1461,9 +1450,8 @@ namespace Evolutility
 		private string TXTec(string fLabel, string fType, string fValue, string Operator)
 		{
 			//returns a "condition" in SQL or plain English 
-
-			//textmultiline is passed as text ! 
-			if (fType == EvoDB.t_text)
+			
+			if (fType == EvoDB.t_text) //textmultiline is passed as text ! 
 				switch (Operator)
 				{
 					case EvoDB.soEqual:

@@ -1,4 +1,4 @@
-/*    (c) 2011 Olivier Giulieri - www.evolutility.org      */
+/*    (c) 2012 Olivier Giulieri - www.evolutility.org      */
 /*    EvoDico 3.6 - Evolutility database dictionary    */ 
 /*
 	This file is part of Evolutility CRUD Framework.

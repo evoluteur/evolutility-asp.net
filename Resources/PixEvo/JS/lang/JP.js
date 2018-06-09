@@ -1,5 +1,5 @@
 ﻿//   Evolutility Localization Library JAPANESE
-//   (c) 2011 Olivier Giulieri - www.evolutility.org
+//   (c) 2013 Olivier Giulieri - www.evolutility.org
 //   Translation by Kazue Watanabe
 
 var EvolLang={

@@ -20,7 +20,7 @@ To run the Evolutility sample applications:
 
 - Copy the directory "Evolutility__Web" (which contains the web site) to your web server.
 - Attach the database (located in the "Evolutility__Web/App_Data" directory of the web site). 
-   You may also create a new database and run the SQL scripts (located in "Resources/SQL/".
+   You may also create a new database and run the SQL scripts (located in "Resources/SQL/").
 - If necessary, change the database connection string in the "appSettings" section 
     of the Web.config file (or in specific ASPX page). 
 
@@ -29,6 +29,7 @@ Default login/password:
  - For the multi-users demos, use John/John or Mary/Mary as your login/password.
  - For EvoDico, use EVOL/LOVE as your login/password.
 
+More about [installing Evolutility](http://evolutility.org/doc/EvoDoc_Install.aspx).
 
 ## Other implementations of Evolutility
 

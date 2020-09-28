@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--  	Evolutility metadata for Address Book CHINESE SIMPLIFIED 
+-  	(c) 2013 Olivier Giulieri - www.evolutility.org 
+-  	Translated by Sam Zhou  -->
+<form label="地址薄"  xmlns="http://www.evolutility.com" >
+	<data icon="contact.gif" entity="contact" entities="contacts" 
+	dbcolumnlead="lastname" dbtable="EVOL_Contact" dborder="t.lastname,t.firstname" 
+	splogin="EvoSP_Login @login, @password" 
+	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+	<panel label="身份信息" width="62">
+		<field type="text" label="名字" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
+			   width="62" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="姓氏" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
+			   width="38" search="2" searchlist="2" searchadv="2"/>
+		<field type="text" label="职务" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
+			   width="62" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="公司" maxlength="50" dbcolumn="Company" dbcolumnread="Company" 
+			   width="38" search="4" searchlist="4" searchadv="1"/>
+		<field type="email" label="邮箱" maxlength="255" dbcolumn="emailaddress" dbcolumnread="emailaddress" 
+			   width="100" search="1" searchlist="1" searchadv="1"/>
+	</panel>
+	<panel label="联系方式" width="38">
+		<field type="text" label="工作电话" maxlength="20" dbcolumn="phone" dbcolumnread="phone" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="家庭电话" maxlength="20" dbcolumn="phoneh" dbcolumnread="phoneh" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="手机" maxlength="20" dbcolumn="phonem" dbcolumnread="phonem" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="传真" maxlength="20" dbcolumn="Fax" dbcolumnread="Fax" width="50" search="0" searchlist="0" searchadv="0"/>
+		<field type="url" label="网站" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
+	</panel>
+	<panel label="地址" width="62">
+		<field type="text" label="地址" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="" labellist="第二地址" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="城市" maxlength="100" dbcolumn="City" dbcolumnread="City" 
+			   width="62" search="13" searchlist="0" searchadv="1"/>
+		<field type="text" label="省" maxlength="3" dbcolumn="State" dbcolumnread="State" 
+			   width="15" search="0" searchlist="0" searchadv="14"/>
+		<field type="text" label="邮政编码" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" 
+			   width="23" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="国家" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	<panel label="其他." width="38">
+		<field type="lov" label="类别" dbcolumn="CategoryID" dbcolumnread="Category" width="70" dbtablelov="EVOL_ContactCategory" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="备注 1" maxlength="250" dbcolumn="Custom1" dbcolumnread="Custom1" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="备注 2" maxlength="250" dbcolumn="Custom2" dbcolumnread="Custom2" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="备注 3" maxlength="250" dbcolumn="Custom3" dbcolumnread="Custom3" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	
+	<queries label="联系列表">
+		<query label="San Francisco的联系人" dbwhere="t.City ='san francisco' " url="sfo"  name="sfo"/> 
+		<query label="拥有邮件的联系人" dbwhere="t.emailaddress&lt;&gt;'' " url="email"  name="email"/> 
+		<query label="拥有网站的联系人" dbwhere="t.url&lt;&gt;'' " url="web"  name="web"/> 		
+	</queries> 
+</form>

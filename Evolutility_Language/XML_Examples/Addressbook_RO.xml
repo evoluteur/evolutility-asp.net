@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Evolutility metadata for Address Book ENGLISH
+- (c) 2013 Olivier Giulieri - www.evolutility.org  -->
+<form label="Carte de adrese"  xmlns="http://www.evolutility.com" >
+	<data icon="contact.gif" entity="contact" entities="contacts" 
+	dbcolumnlead="lastname" dbtable="EVOL_Contact" dborder="t.lastname,t.firstname" 
+	splogin="EvoSP_Login @login, @password" 
+	sppaging="EvoSP_PagedItem @SQLselect, @SQLtable, @SQLfrom, @SQLwhere, @SQLorderby, @SQLpk, @pageid, @pagesize"/>
+	<panel label="Identitate" width="62">
+		<field type="text" label="Nume" maxlength="50" dbcolumn="Lastname" dbcolumnread="Lastname" required="1" 
+			   width="62" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="Prenume" maxlength="50" dbcolumn="Firstname" dbcolumnread="Firstname" required="0" 
+			   width="38" search="2" searchlist="2" searchadv="2"/>
+		<field type="text" label="Title" maxlength="50" dbcolumn="JobTitle" dbcolumnread="JobTitle" required="0" 
+			   width="62" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Companie" maxlength="50" dbcolumn="Company" dbcolumnread="Company" 
+			   width="38" search="4" searchlist="4" searchadv="1"/>
+		<field type="email" label="email" maxlength="255" dbcolumn="emailaddress" dbcolumnread="emailaddress" 
+			   width="100" search="1" searchlist="1" searchadv="1"/>
+	</panel>
+	<panel label="Informatii de contact" width="38">
+		<field type="text" label="Tel. birou" maxlength="20" dbcolumn="phone" dbcolumnread="phone" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Tel. acasa" maxlength="20" dbcolumn="phoneh" dbcolumnread="phoneh" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Tel. mobil" maxlength="20" dbcolumn="phonem" dbcolumnread="phonem" width="50" search="0" searchlist="0" searchadv="1"/>
+		<field type="text" label="Fax" maxlength="20" dbcolumn="Fax" dbcolumnread="Fax" width="50" search="0" searchlist="0" searchadv="0"/>
+		<field type="url" label="Adresa Web" maxlength="255" dbcolumn="url" dbcolumnread="url" width="100" search="0" searchlist="0" searchadv="1"/>
+	</panel>
+	<panel label="Adresa" width="62">
+		<field type="text" label="Adresa" maxlength="150" dbcolumn="Addressline1" dbcolumnread="Addressline1" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="" labellist="Adresa 2" maxlength="150" dbcolumn="Addressline2" dbcolumnread="Addressline2" width="100" height="3" search="0" searchlist="0" searchadv="11"/>
+		<field type="text" label="Oras" maxlength="100" dbcolumn="City" dbcolumnread="City" 
+			   width="62" search="13" searchlist="0" searchadv="1"/>
+		<field type="text" label="Judet" maxlength="3" dbcolumn="State" dbcolumnread="State" 
+			   width="15" search="0" searchlist="0" searchadv="14"/>
+		<field type="text" label="Cod postal" maxlength="12" dbcolumn="Zip" dbcolumnread="Zip" 
+			   width="23" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Tara" maxlength="60" dbcolumn="Country" dbcolumnread="Country" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	<panel label="Diverse" width="38">
+		<field type="lov" label="Categorie" dbcolumn="CategoryID" dbcolumnread="Category" width="70" dbtablelov="EVOL_ContactCategory" dborderlov="id" search="1" searchlist="1" searchadv="1"/>
+		<field type="text" label="Divers 1" maxlength="250" dbcolumn="Custom1" dbcolumnread="Custom1" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Divers 2" maxlength="250" dbcolumn="Custom2" dbcolumnread="Custom2" width="100" search="0" searchlist="0" searchadv="15"/>
+		<field type="text" label="Divers 3" maxlength="250" dbcolumn="Custom3" dbcolumnread="Custom3" width="100" search="0" searchlist="0" searchadv="15"/>
+	</panel>
+	
+	<queries label="Lista de contacte">
+		<query label="Contacte in San Francisco" dbwhere="t.City ='san francisco' " url="sfo"  name="sfo"/> 
+		<query label="Contacte cu email" dbwhere="t.emailaddress&lt;&gt;'' " url="email"  name="email"/> 
+		<query label="Contacte cu un web site" dbwhere="t.url&lt;&gt;'' " url="web"  name="web"/> 		
+	</queries> 
+</form>

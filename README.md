@@ -1,8 +1,11 @@
+
+###This repository is not maintained anymore.
+
 # Evolutility-ASP.net
 
-Evolutility is a generic CRUD (Create, Read, Update, Delete) web application running on Microsoft ASP.net, and SQL Server or MySQL databases.
+Evolutility is a generic web user interface for CRUD (Create, Read, Update, Delete) applications running on ASP.net, and SQL Server or MySQL. 
 
-You may think of it as a "dynamic scaffolding" or "metadata-driven MVC" that generates all web pages at run-time, and can be modified by editing metadata (screen definitions and database mapping) instead of code.
+It is entirely metadata driven, and can adapt to different database structures. It may behave like an address book, a task list, a photo album, or anything you may want to build. It is ideal to quickly build functional components for database web applications or web site administration pages.
 
 With Evolutility the user interface (e.g. fields titles, positions, visual groups, CSS classes) and its database mapping (e.g. tables, columns, stored procedures) are not defined in the code but in external metadata (stored as XML files or in the database). Evolutility web control can be nested into any ASP.net page. It will generate at run-time all necessary web forms, manage user interaction, and database CRUD (create, read, update, delete) operations automatically.
 
@@ -12,9 +15,57 @@ Demos:
 [Wine Cellar](http://evolutility.org/demo/demo_WineCellar.aspx),
 [Restaurants list](http://evolutility.org/demo/demo_Restaurant.aspx).
 
-Some [documentation](http://evolutility.org/doc/doc.aspx).
+[Documentation](http://evolutility.org/doc/doc.aspx)
 
 Hosted at [SourceForge](https://sourceforge.net/projects/evolutility/) since 2008.
+
+
+## Pages generated at run-time
+
+###View 
+Displays all fields for viewing, 1 record at a time. 
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-view.gif)
+
+###Edit 
+Displays all fields for editing, 1 record at a time. 
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-edit.gif)
+
+###List 
+Displays the most important fields for multiple rows of records.
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-list.gif)
+
+###Charts 
+Draws a few charts of the data.
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-charts.gif)
+
+###Search 
+Query by example form for searching records.
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-search.gif)
+
+###Advanced Search 
+Form for advanced queries such as "phone number start by 415" or "for categories Finances and Business"... 
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-searchadv.gif)
+
+###Export
+Export of selections in standard formats (Excel, HTML, CSV, XML, or SQL), one or several records at the same time.   
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-export.gif)
+
+###Mass Update 
+Update for multiple records at once.
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-view.gif)
+
+###Selections 
+List of canned queries.
+
+![view](Evolutility_Web/doc/pix/evomodes/evomode-selections.gif)
 
 
 ## Installation
@@ -41,3 +92,11 @@ More about [installing Evolutility](http://evolutility.org/doc/EvoDoc_Install.as
 [Evolutility-UI-jQuery](https://github.com/evoluteur/evolutility-ui-jquery) - Model-driven Web UI for CRUD using jQuery and Backbone (for REST or localStorage).
 
 [Evolutility-Server-Node](https://github.com/evoluteur/evolutility-server-node) - RESTful Micro-ORM for CRUD and more, written in Javascript, using Node.js, Express, and Postgres.
+
+
+
+## License
+
+Evolutility-ASP.net is released under the [AGPLv3 license](http://github.com/evoluteur/evolutility-asp.net/blob/master/License_AGPL-3_0.txt).
+
+Copyright (c) 2020 [Olivier Giulieri](https://evoluteur.github.io/).

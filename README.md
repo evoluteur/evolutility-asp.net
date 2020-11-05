@@ -22,50 +22,50 @@ Hosted at [SourceForge](https://sourceforge.net/projects/evolutility/) since 200
 
 ## Pages generated at run-time
 
-###View 
+### View 
 Displays all fields for viewing, 1 record at a time. 
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-view.gif)
+![view](./Evolutility_Web/Doc/pix/EvoModes/evomode-view.gif)
 
-###Edit 
+### Edit 
 Displays all fields for editing, 1 record at a time. 
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-edit.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-edit.gif)
 
-###List 
+### List 
 Displays the most important fields for multiple rows of records.
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-list.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-list.gif)
 
-###Charts 
+### Charts 
 Draws a few charts of the data.
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-charts.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-charts.gif)
 
-###Search 
+### Search 
 Query by example form for searching records.
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-search.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-search.gif)
 
-###Advanced Search 
+### Advanced Search 
 Form for advanced queries such as "phone number start by 415" or "for categories Finances and Business"... 
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-searchadv.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-searchadv.gif)
 
-###Export
+### Export
 Export of selections in standard formats (Excel, HTML, CSV, XML, or SQL), one or several records at the same time.   
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-export.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-export.gif)
 
-###Mass Update 
+### Mass Update 
 Update for multiple records at once.
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-view.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-view.gif)
 
-###Selections 
+### Selections 
 List of canned queries.
 
-![view](Evolutility_Web/doc/pix/evomodes/evomode-selections.gif)
+![view](Evolutility_Web/Doc/pix/EvoModes/evomode-selections.gif)
 
 
 ## Installation

@@ -10,12 +10,12 @@ It is entirely metadata driven, and can adapt to different database structures. 
 With Evolutility the user interface (e.g. fields titles, positions, visual groups, CSS classes) and its database mapping (e.g. tables, columns, stored procedures) are not defined in the code but in external metadata (stored as XML files or in the database). Evolutility web control can be nested into any ASP.net page. It will generate at run-time all necessary web forms, manage user interaction, and database CRUD (create, read, update, delete) operations automatically.
 
 Demos: 
-[To Do list](http://evolutility.org/demo/demo_ToDo.aspx),
-[AddressBook](http://evolutility.org/demo/demo_addressbook.aspx),
-[Wine Cellar](http://evolutility.org/demo/demo_WineCellar.aspx),
-[Restaurants list](http://evolutility.org/demo/demo_Restaurant.aspx).
+[To Do list](http://evolutility.com/demo/demo_ToDo.aspx),
+[AddressBook](http://evolutility.com/demo/demo_addressbook.aspx),
+[Wine Cellar](http://evolutility.com/demo/demo_WineCellar.aspx),
+[Restaurants list](http://evolutility.com/demo/demo_Restaurant.aspx).
 
-[Documentation](http://evolutility.org/doc/doc.aspx)
+[Documentation](http://evolutility.com/doc/doc.aspx)
 
 Hosted at [SourceForge](https://sourceforge.net/projects/evolutility/) since 2008.
 
@@ -83,7 +83,7 @@ Default login/password:
  - For the multi-users demos, use John/John or Mary/Mary as your login/password.
  - For EvoDico, use EVOL/LOVE as your login/password.
 
-More about [installing Evolutility](http://evolutility.org/doc/EvoDoc_Install.aspx).
+More about [installing Evolutility](http://evolutility.com/doc/EvoDoc_Install.aspx).
 
 ## Other implementations of Evolutility
 
